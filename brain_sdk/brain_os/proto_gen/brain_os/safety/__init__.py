@@ -1,0 +1,1 @@
+"""Safety service proto stubs."""

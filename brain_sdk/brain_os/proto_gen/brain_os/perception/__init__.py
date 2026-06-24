@@ -1,0 +1,1 @@
+"""Perception service proto stubs."""

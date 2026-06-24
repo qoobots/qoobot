@@ -1,0 +1,1 @@
+"""Cognition service proto stubs."""
