@@ -1,0 +1,23 @@
+Package: brain-os-ai
+Version: 1.0.0
+Section: robotics
+Priority: optional
+Architecture: arm64
+Depends: python3 (>= 3.11), libgrpc++-dev, libprotobuf-dev, protobuf-compiler-grpc, python3-grpcio, python3-protobuf, python3-websockets, python3-pydantic, python3-structlog
+Recommends: nvidia-cuda-toolkit, tensorrt
+Maintainer: Brain OS Team <dev@brain-os.local>
+Homepage: https://github.com/brain-os/brain-os
+Description: Brain OS AI — Cognitive engine for embodied robotics
+ Brain OS is an embodied AI robot operating system that translates
+ natural language instructions into robot execution.
+ .
+ This package provides the Python AI cognitive engine including:
+  - LLM-based intent parsing and task decomposition (Qwen2.5-7B)
+  - Multi-strategy trajectory generation (5 strategies)
+  - Perception pipeline (YOLOv11 + ORB-SLAM3 + SAM2 + 3DGS)
+  - Human-in-the-loop (HITL) management
+  - Knowledge system (SQLite experience store + FAISS vector retrieval)
+  - WebSocket event streaming
+  - gRPC server for core engine integration
+ .
+ Target hardware: Jetson Orin with NVIDIA GPU

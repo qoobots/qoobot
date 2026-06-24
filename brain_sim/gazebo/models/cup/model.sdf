@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Cup model — a cylindrical cup for grasping tasks.
+  Red with a hollow interior (simplified as solid for collision).
+-->
+<sdf version="1.9">
+  <model name="cup">
+    <pose>0 0 0.05 0 0 0</pose>
+
+    <!-- Cup body -->
+    <link name="cup_body">
+      <pose>0 0 0.05 0 0 0</pose>
+      <inertial>
+        <mass>0.05</mass>
+        <inertia>
+          <ixx>0.00005</ixx> <ixy>0.0</ixy> <ixz>0.0</ixz>
+          <iyy>0.00005</iyy> <iyz>0.0</iyz>
+          <izz>0.00003</izz>
+        </inertia>
+      </inertial>
+      <visual name="cup_visual">
+        <geometry>
+          <cylinder>
+            <radius>0.04</radius>
+            <length>0.10</length>
+          </cylinder>
+        </geometry>
+        <material>
+          <ambient>0.85 0.1 0.1 1</ambient>
+          <diffuse>0.85 0.1 0.1 1</diffuse>
+          <specular>0.2 0.2 0.2 1</specular>
+        </material>
+      </visual>
+      <collision name="cup_collision">
+        <geometry>
+          <cylinder>
+            <radius>0.04</radius>
+            <length>0.10</length>
+          </cylinder>
+        </geometry>
+      </collision>
+    </link>
+
+    <!-- Cup handle (small box on the side) -->
+    <link name="cup_handle">
+      <pose>0.05 0 0.03 0 0 0</pose>
+      <inertial>
+        <mass>0.005</mass>
+        <inertia>
+          <ixx>0.000001</ixx> <ixy>0.0</ixy> <ixz>0.0</ixz>
+          <iyy>0.000001</iyy> <iyz>0.0</iyz>
+          <izz>0.000001</izz>
+        </inertia>
+      </inertial>
+      <visual name="handle_visual">
+        <geometry>
+          <box>
+            <size>0.015 0.025 0.04</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.85 0.1 0.1 1</ambient>
+          <diffuse>0.85 0.1 0.1 1</diffuse>
+        </material>
+      </visual>
+      <collision name="handle_collision">
+        <geometry>
+          <box>
+            <size>0.015 0.025 0.04</size>
+          </box>
+        </geometry>
+      </collision>
+    </link>
+
+    <joint name="handle_joint" type="fixed">
+      <parent>cup_body</parent>
+      <child>cup_handle</child>
+    </joint>
+
+  </model>
+</sdf>

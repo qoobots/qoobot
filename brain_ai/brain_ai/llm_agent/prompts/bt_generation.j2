@@ -1,0 +1,32 @@
+{# bt_generation.j2 — Generate BehaviorTree XML from subtask list #}
+你是机器人行为树生成器。将子任务列表转换为 BehaviorTree.CPP 4.x 格式的行为树 XML。
+
+## 当前场景
+{{ scene_summary }}
+
+## 子任务列表
+{{ subtasks_json }}
+
+## BehaviorTree.CPP XML 规则
+- 根节点：`<BehaviorTree ID="MainTree">`
+- 顺序节点：`<Sequence>` — 所有子节点依次执行，任意失败则整体失败
+- 选择节点：`<Fallback>` — 依次尝试子节点，第一个成功则停止
+- 条件节点：`<Condition ID="..."/>` — 无子节点
+- 动作节点：`<Action ID="...">` — 对应 skill_name，参数作为属性
+
+## 任务
+生成完整行为树 XML，直接输出 XML，不要添加额外说明：
+
+```xml
+<BehaviorTree ID="MainTree">
+  <Sequence name="main_sequence">
+    <!-- 将子任务映射为对应的 Action/Condition 节点 -->
+  </Sequence>
+</BehaviorTree>
+```
+
+注意：
+- 所有 skill_name 对应 Action 节点的 ID
+- parameters 中的键值对作为 Action 的属性
+- preconditions 转换为 Condition 节点，置于对应 Action 之前
+- 失败重试的动作用 `<RetryUntilSuccessful num_attempts="3">` 包裹

@@ -1,0 +1,78 @@
+syntax = "proto3";
+
+package brain_os.perception;
+
+option go_package = "github.com/brain-os/brain_proto/brain_os/perception";
+
+import "brain_os/perception/types.proto";
+import "brain_os/common/types.proto";
+
+// ─────────────────────────────────────────────
+// PerceptionService — 感知服务 gRPC 接口
+// ─────────────────────────────────────────────
+
+service PerceptionService {
+  // 获取当前场景图
+  rpc GetSceneGraph(GetSceneGraphRequest) returns (GetSceneGraphResponse);
+
+  // 获取机器人当前位姿
+  rpc GetLocalization(GetLocalizationRequest) returns (GetLocalizationResponse);
+
+  // 按类别查询目标
+  rpc QueryObjects(QueryObjectsRequest) returns (QueryObjectsResponse);
+
+  // 订阅场景图更新流（Server-Side Streaming）
+  rpc StreamSceneGraph(StreamSceneGraphRequest) returns (stream SceneGraph);
+}
+
+// ─────────────────────────────────────────────
+// GetSceneGraph
+// ─────────────────────────────────────────────
+
+message GetSceneGraphRequest {
+  string robot_id       = 1;
+  bool   include_summary = 2;  // 是否请求 VLM 语义摘要
+}
+
+message GetSceneGraphResponse {
+  brain_os.common.Status status     = 1;
+  SceneGraph             scene_graph = 2;
+}
+
+// ─────────────────────────────────────────────
+// GetLocalization
+// ─────────────────────────────────────────────
+
+message GetLocalizationRequest {
+  string robot_id = 1;
+}
+
+message GetLocalizationResponse {
+  brain_os.common.Status status       = 1;
+  RobotLocalization      localization = 2;
+}
+
+// ─────────────────────────────────────────────
+// QueryObjects
+// ─────────────────────────────────────────────
+
+message QueryObjectsRequest {
+  string robot_id       = 1;
+  string class_label    = 2;  // 空表示全部
+  float  min_confidence = 3;  // 默认 0.5
+  uint32 max_results    = 4;  // 默认 10
+}
+
+message QueryObjectsResponse {
+  brain_os.common.Status   status  = 1;
+  repeated DetectedObject  objects = 2;
+}
+
+// ─────────────────────────────────────────────
+// StreamSceneGraph
+// ─────────────────────────────────────────────
+
+message StreamSceneGraphRequest {
+  string robot_id        = 1;
+  uint32 update_interval_ms = 2;  // 0 = 每帧推送
+}

@@ -1,0 +1,27 @@
+# collision_zones.yaml — Safety collision zone definitions
+# Defines exclusion zones around the robot workspace
+
+collision_zones:
+  enabled: true
+  default_margin_m: 0.05
+
+  zones:
+    - name: "table_surface"
+      type: "plane"
+      min: [-0.4, -0.3, -0.05]
+      max: [ 0.4,  0.3,  0.0]
+
+    - name: "wall_left"
+      type: "plane"
+      min: [-0.55, -0.5, 0.0]
+      max: [-0.50,  0.5, 0.8]
+
+    - name: "wall_right"
+      type: "plane"
+      min: [ 0.50, -0.5, 0.0]
+      max: [ 0.55,  0.5, 0.8]
+
+    - name: "floor"
+      type: "plane"
+      min: [-0.5, -0.5, -0.01]
+      max: [ 0.5,  0.5,  0.0]

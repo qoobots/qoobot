@@ -1,0 +1,84 @@
+# brain_core.yaml — Main configuration for brain_core engine
+#
+# This file configures the core runtime parameters for all lifecycle nodes.
+
+brain_core:
+  # ── General ──────────────────────────────────────────────
+  version: "0.1.0"
+  robot_model: "kinova_gen3"     # kinova_gen3 | turtlebot4
+  use_sim_time: true
+  log_level: "info"               # debug | info | warn | error
+
+  # ── Node Manager ─────────────────────────────────────────
+  node_manager:
+    auto_activate: true
+    max_nodes: 32
+    spin_rate_hz: 100
+
+  # ── ROS 2 Communication ──────────────────────────────────
+  ros2:
+    domain_id: 42
+    qos:
+      reliability: "reliable"     # reliable | best_effort
+      durability: "volatile"      # volatile | transient_local
+      depth: 10
+    topics:
+      joint_states: "/brain/joint_states"
+      robot_state:  "/brain/robot_state"
+      safety_status: "/brain/safety_status"
+      cmd_vel:      "/brain/cmd_vel"
+      gripper_cmd:  "/brain/gripper_cmd"
+      llm_intent:   "/brain/llm_intent"
+      trajectory:   "/brain/trajectory_cmd"
+      emergency:    "/brain/emergency_stop"
+
+  # ── Safety Monitor ───────────────────────────────────────
+  safety:
+    enabled: true
+    check_rate_hz: 200
+    collision:
+      enabled: true
+      distance_threshold_m: 0.05
+    joint_limits:
+      enabled: true
+      margin_deg: 2.0
+    force:
+      enabled: true
+      max_force_N: 100.0
+    workspace:
+      enabled: true
+      x_min: -0.5
+      x_max:  0.5
+      y_min: -0.5
+      y_max:  0.5
+      z_min:  0.0
+      z_max:  0.8
+
+  # ── Motion Planner ───────────────────────────────────────
+  motion:
+    planner: "moveit2"             # moveit2 | trac_ik | rrt
+    ik_solver: "trac_ik"           # trac_ik | kdl
+    max_planning_time_sec: 5.0
+    velocity_scaling: 0.5
+    acceleration_scaling: 0.3
+    collision_checker: "fcl"       # fcl | bullet
+
+  # ── Behavior Engine ──────────────────────────────────────
+  behavior:
+    tick_rate_hz: 50
+    max_tree_depth: 64
+    bt_format: "xml"               # xml | json
+    default_bt_path: "config/behavior/default_tree.xml"
+
+  # ── gRPC Bridge ──────────────────────────────────────────
+  grpc:
+    enabled: true
+    listen_address: "0.0.0.0:50051"
+    max_message_size_mb: 16
+    keepalive_time_sec: 30
+
+  # ── Monitoring ───────────────────────────────────────────
+  monitoring:
+    heartbeat_interval_sec: 1.0
+    watchdog_timeout_sec: 3.0
+    metrics_export: false          # prometheus export (Phase 2+)

@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Shelf model — a 3-level industrial shelf unit for warehouse scenarios.
+  Dimensions: 1.0m (W) × 0.4m (D) × 1.8m (H)
+  Each shelf spaced 0.6m apart vertically.
+-->
+<sdf version="1.9">
+  <model name="shelf">
+
+    <!-- Left upright pillar -->
+    <link name="pillar_left">
+      <pose>-0.5 0 0.9 0 0 0</pose>
+      <inertial>
+        <mass>5.0</mass>
+        <inertia>
+          <ixx>1.5</ixx> <ixy>0.0</ixy> <ixz>0.0</ixz>
+          <iyy>1.5</iyy> <iyz>0.0</iyz>
+          <izz>0.01</izz>
+        </inertia>
+      </inertial>
+      <visual name="pillar_left_visual">
+        <geometry>
+          <box>
+            <size>0.04 0.40 1.80</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.5 0.5 0.55 1</ambient>
+          <diffuse>0.5 0.5 0.55 1</diffuse>
+        </material>
+      </visual>
+      <collision name="pillar_left_collision">
+        <geometry>
+          <box>
+            <size>0.04 0.40 1.80</size>
+          </box>
+        </geometry>
+      </collision>
+    </link>
+
+    <!-- Right upright pillar -->
+    <link name="pillar_right">
+      <pose>0.5 0 0.9 0 0 0</pose>
+      <inertial>
+        <mass>5.0</mass>
+        <inertia>
+          <ixx>1.5</ixx> <ixy>0.0</ixy> <ixz>0.0</ixz>
+          <iyy>1.5</iyy> <iyz>0.0</iyz>
+          <izz>0.01</izz>
+        </inertia>
+      </inertial>
+      <visual name="pillar_right_visual">
+        <geometry>
+          <box>
+            <size>0.04 0.40 1.80</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.5 0.5 0.55 1</ambient>
+          <diffuse>0.5 0.5 0.55 1</diffuse>
+        </material>
+      </visual>
+      <collision name="pillar_right_collision">
+        <geometry>
+          <box>
+            <size>0.04 0.40 1.80</size>
+          </box>
+        </geometry>
+      </collision>
+    </link>
+
+    <!-- Level 1 shelf (bottom) -->
+    <link name="shelf_1">
+      <pose>0 0 0.3 0 0 0</pose>
+      <inertial>
+        <mass>3.0</mass>
+        <inertia>
+          <ixx>0.5</ixx> <ixy>0.0</ixy> <ixz>0.0</ixz>
+          <iyy>0.04</iyy> <iyz>0.0</iyz>
+          <izz>0.5</izz>
+        </inertia>
+      </inertial>
+      <visual name="shelf_1_visual">
+        <geometry>
+          <box>
+            <size>1.00 0.40 0.03</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.55 0.45 0.35 1</ambient>
+          <diffuse>0.55 0.45 0.35 1</diffuse>
+        </material>
+      </visual>
+      <collision name="shelf_1_collision">
+        <geometry>
+          <box>
+            <size>1.00 0.40 0.03</size>
+          </box>
+        </geometry>
+      </collision>
+    </link>
+
+    <!-- Level 2 shelf (middle) -->
+    <link name="shelf_2">
+      <pose>0 0 0.9 0 0 0</pose>
+      <inertial>
+        <mass>3.0</mass>
+        <inertia>
+          <ixx>0.5</ixx> <ixy>0.0</ixy> <ixz>0.0</ixz>
+          <iyy>0.04</iyy> <iyz>0.0</iyz>
+          <izz>0.5</izz>
+        </inertia>
+      </inertial>
+      <visual name="shelf_2_visual">
+        <geometry>
+          <box>
+            <size>1.00 0.40 0.03</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.55 0.45 0.35 1</ambient>
+          <diffuse>0.55 0.45 0.35 1</diffuse>
+        </material>
+      </visual>
+      <collision name="shelf_2_collision">
+        <geometry>
+          <box>
+            <size>1.00 0.40 0.03</size>
+          </box>
+        </geometry>
+      </collision>
+    </link>
+
+    <!-- Level 3 shelf (top) -->
+    <link name="shelf_3">
+      <pose>0 0 1.5 0 0 0</pose>
+      <inertial>
+        <mass>3.0</mass>
+        <inertia>
+          <ixx>0.5</ixx> <ixy>0.0</ixy> <ixz>0.0</ixz>
+          <iyy>0.04</iyy> <iyz>0.0</iyz>
+          <izz>0.5</izz>
+        </inertia>
+      </inertial>
+      <visual name="shelf_3_visual">
+        <geometry>
+          <box>
+            <size>1.00 0.40 0.03</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.55 0.45 0.35 1</ambient>
+          <diffuse>0.55 0.45 0.35 1</diffuse>
+        </material>
+      </visual>
+      <collision name="shelf_3_collision">
+        <geometry>
+          <box>
+            <size>1.00 0.40 0.03</size>
+          </box>
+        </geometry>
+      </collision>
+    </link>
+
+    <!-- Back panel -->
+    <link name="back_panel">
+      <pose>0 -0.19 0.9 0 0 0</pose>
+      <inertial>
+        <mass>2.0</mass>
+        <inertia>
+          <ixx>0.5</ixx> <ixy>0.0</ixy> <ixz>0.0</ixz>
+          <iyy>0.01</iyy> <iyz>0.0</iyz>
+          <izz>0.5</izz>
+        </inertia>
+      </inertial>
+      <visual name="back_panel_visual">
+        <geometry>
+          <box>
+            <size>1.00 0.01 1.80</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.45 0.38 0.3 1</ambient>
+          <diffuse>0.45 0.38 0.3 1</diffuse>
+        </material>
+      </visual>
+      <collision name="back_panel_collision">
+        <geometry>
+          <box>
+            <size>1.00 0.01 1.80</size>
+          </box>
+        </geometry>
+      </collision>
+    </link>
+
+  </model>
+</sdf>

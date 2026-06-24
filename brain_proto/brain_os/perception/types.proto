@@ -1,0 +1,71 @@
+syntax = "proto3";
+
+package brain_os.perception;
+
+option go_package = "github.com/brain-os/brain_proto/brain_os/perception";
+
+import "brain_os/common/types.proto";
+import "google/protobuf/timestamp.proto";
+
+// ─────────────────────────────────────────────
+// 目标检测结果
+// ─────────────────────────────────────────────
+
+message DetectedObject {
+  string                    object_id     = 1;
+  string                    class_label   = 2;
+  float                     confidence    = 3;  // [0, 1]
+  brain_os.common.BoundingBox3D bbox      = 4;
+  brain_os.common.Pose      pose_in_world = 5;
+  repeated string           attributes    = 6;  // e.g. "graspable", "fragile"
+  google.protobuf.Timestamp detected_at   = 7;
+}
+
+// ─────────────────────────────────────────────
+// 场景图（SceneGraph）
+// ─────────────────────────────────────────────
+
+enum RelationType {
+  REL_UNKNOWN   = 0;
+  REL_ON        = 1;  // A on B
+  REL_IN        = 2;  // A in B
+  REL_NEXT_TO   = 3;
+  REL_BEHIND    = 4;
+  REL_IN_FRONT  = 5;
+}
+
+message SceneRelation {
+  string       subject_id = 1;
+  string       object_id  = 2;
+  RelationType relation   = 3;
+}
+
+message SceneGraph {
+  brain_os.common.Header    header    = 1;
+  repeated DetectedObject   objects   = 2;
+  repeated SceneRelation    relations = 3;
+  // 语义摘要，由 VLM 生成
+  string                    summary   = 4;
+}
+
+// ─────────────────────────────────────────────
+// SLAM 地图 / 位姿
+// ─────────────────────────────────────────────
+
+message RobotLocalization {
+  brain_os.common.Header header     = 1;
+  brain_os.common.Pose   pose       = 2;
+  // 协方差矩阵（6x6 row-major）
+  repeated double        covariance = 3;
+}
+
+// ─────────────────────────────────────────────
+// 点云摘要（不传原始点云，只传统计信息）
+// ─────────────────────────────────────────────
+
+message PointCloudSummary {
+  brain_os.common.Header header     = 1;
+  uint32                 num_points = 2;
+  brain_os.common.Vector3 centroid  = 3;
+  float                  density    = 4;  // pts/m³
+}

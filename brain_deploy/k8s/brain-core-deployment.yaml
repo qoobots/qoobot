@@ -1,0 +1,121 @@
+# ============================================================
+# Brain OS — Kubernetes Deployment: brain_core
+# ============================================================
+# 特性：
+#   - hostNetwork: true（ROS 2 DDS 跨节点通信）
+#   - 资源限制（2CPU/1GB）
+#   - liveness + readiness 探针
+#   - 适用于 Jetson Orin ARM64 + x86_64 集群
+#
+# 部署：
+#   kubectl apply -f brain_deploy/k8s/brain-core-deployment.yaml
+# ============================================================
+
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: brain-os
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: brain-core
+  namespace: brain-os
+  labels:
+    app: brain-os
+    component: brain-core
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: brain-os
+      component: brain-core
+  template:
+    metadata:
+      labels:
+        app: brain-os
+        component: brain-core
+    spec:
+      hostNetwork: true          # ROS 2 DDS 需要 host 网络
+      dnsPolicy: ClusterFirstWithHostNet
+      restartPolicy: Always
+      nodeSelector:
+        kubernetes.io/arch: arm64     # Jetson Orin
+      tolerations:
+        - key: nvidia.com/gpu
+          operator: Exists
+          effect: NoSchedule
+      containers:
+        - name: brain-core
+          image: brain-os/brain_core:latest
+          imagePullPolicy: IfNotPresent
+          command:
+            - /bin/bash
+            - -c
+            - |
+              source /opt/ros/humble/setup.bash
+              source /workspace/install/setup.bash
+              exec ros2 launch brain_core brain_os.launch.py
+          env:
+            - name: ROS_DOMAIN_ID
+              value: "42"
+            - name: BRAIN_ROBOT_ID
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.nodeName
+            - name: BRAIN_GRPC_BACKEND
+              value: "brain-ai.brain-os.svc.cluster.local:50051"
+          resources:
+            requests:
+              cpu: "1.0"
+              memory: "512Mi"
+            limits:
+              cpu: "2.0"
+              memory: "1Gi"
+          volumeMounts:
+            - name: ros2-log
+              mountPath: /root/.ros/log
+          livenessProbe:
+            exec:
+              command:
+                - /bin/bash
+                - -c
+                - "source /opt/ros/humble/setup.bash && ros2 node list 2>/dev/null | head -1"
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3
+          readinessProbe:
+            exec:
+              command:
+                - /bin/bash
+                - -c
+                - "source /opt/ros/humble/setup.bash && ros2 node list 2>/dev/null | grep -q brain_core"
+            initialDelaySeconds: 15
+            periodSeconds: 5
+            timeoutSeconds: 3
+            failureThreshold: 3
+      volumes:
+        - name: ros2-log
+          emptyDir: {}
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: brain-core
+  namespace: brain-os
+  labels:
+    app: brain-os
+    component: brain-core
+spec:
+  type: ClusterIP
+  clusterIP: None               # Headless service（Stateful ROS 2 节点）
+  selector:
+    app: brain-os
+    component: brain-core
+  ports:
+    - name: grpc
+      port: 50052
+      targetPort: 50052

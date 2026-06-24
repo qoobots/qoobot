@@ -1,0 +1,77 @@
+#!/bin/bash
+# ============================================================
+# brain-os-core post-install script
+# ============================================================
+
+set -e
+
+PACKAGE_NAME="brain-os-core"
+INSTALL_DIR="/opt/brain-os/core"
+SYSTEMD_DIR="/etc/systemd/system"
+
+echo ">>> Configuring ${PACKAGE_NAME} ..."
+
+# 1. Source ROS 2 Humble 环境
+if [ -f /opt/ros/humble/setup.bash ]; then
+    source /opt/ros/humble/setup.bash
+    echo "  [OK] ROS 2 Humble environment sourced"
+else
+    echo "  [WARN] ROS 2 Humble not found at /opt/ros/humble"
+fi
+
+# 2. 创建安装目录
+mkdir -p "${INSTALL_DIR}"
+mkdir -p /var/log/brain-os
+mkdir -p /var/lib/brain-os
+
+# 3. 安装 systemd 服务
+cat > "${SYSTEMD_DIR}/brain-os-core.service" << 'EOF'
+[Unit]
+Description=Brain OS Core — Real-time Robotics Control Engine
+After=network.target ros2-daemon.service
+Requires=ros2-daemon.service
+
+[Service]
+Type=simple
+User=root
+Environment="ROS_DOMAIN_ID=42"
+Environment="BRAIN_ROBOT_ID=%H"
+Environment="BRAIN_GRPC_BACKEND=localhost:50051"
+EnvironmentFile=-/etc/brain-os/core.env
+ExecStartPre=/bin/bash -c "source /opt/ros/humble/setup.bash && source /opt/brain-os/core/install/setup.bash || true"
+ExecStart=/opt/brain-os/core/bin/brain_core_node
+WorkingDirectory=/opt/brain-os/core
+Restart=on-failure
+RestartSec=5s
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=brain-os-core
+LimitNOFILE=65536
+LimitMEMLOCK=infinity
+Nice=-10
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+# 4. 创建默认环境变量文件
+cat > /etc/brain-os/core.env << 'EOF'
+# Brain OS Core 环境变量
+ROS_DOMAIN_ID=42
+BRAIN_ROBOT_ID=robot_01
+BRAIN_GRPC_BACKEND=localhost:50051
+BRAIN_LOG_LEVEL=INFO
+EOF
+
+# 5. 设置权限
+chown -R root:root /opt/brain-os
+chown -R root:root /var/log/brain-os
+chown -R root:root /var/lib/brain-os
+
+# 6. 启用服务（不立即启动，由用户决定）
+systemctl daemon-reload
+systemctl enable brain-os-core.service
+
+echo ">>> ${PACKAGE_NAME} installation complete."
+echo "    Start service: sudo systemctl start brain-os-core"
+echo "    View logs:     sudo journalctl -u brain-os-core -f"

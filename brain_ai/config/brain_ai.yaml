@@ -1,0 +1,50 @@
+"""
+brain_ai/config/brain_ai.yaml — Main configuration for brain_ai engine.
+"""
+
+brain_ai:
+  version: "0.1.0"
+  log_level: "info"
+
+  # ── gRPC Server ─────────────────────────────────────────
+  grpc:
+    enabled: true
+    listen_address: "0.0.0.0:50052"
+    max_workers: 10
+    max_message_size_mb: 16
+
+  # ── WebSocket Server ────────────────────────────────────
+  websocket:
+    enabled: true
+    listen_address: "0.0.0.0:8765"
+    heartbeat_interval_sec: 5
+
+  # ── LLM Agent ───────────────────────────────────────────
+  llm:
+    provider: "tensorrt_llm"       # tensorrt_llm | llama_cpp | vllm | deepseek_api
+    model_name: "qwen2.5-7b"
+    max_tokens: 1024
+    temperature: 0.1
+    top_p: 0.9
+    timeout_sec: 30
+
+  # ── Perception ──────────────────────────────────────────
+  perception:
+    detector_model: "yolov11n"
+    detector_backend: "onnx"       # onnx | tensorrt
+    confidence_threshold: 0.5
+    slam_enabled: false            # Phase 2+
+
+  # ── Planner ─────────────────────────────────────────────
+  planner:
+    num_trajectory_options: 2
+    default_strategies: ["OPTIMAL", "CONSERVATIVE"]
+    hitl_timeout_sec: 5.0
+    auto_select_on_timeout: true
+    default_timeout_strategy: "CONSERVATIVE"
+
+  # ── Knowledge ───────────────────────────────────────────
+  knowledge:
+    working_memory_size: 100
+    vector_store: "chroma"         # chroma | pgvector | faiss
+    experience_path: "data/experience.lance"

@@ -1,0 +1,13 @@
+version: v1
+name: buf.build/brain-os/brain_proto
+deps:
+  - buf.build/googleapis/googleapis
+breaking:
+  use:
+    - FILE
+lint:
+  use:
+    - DEFAULT
+  except:
+    - PACKAGE_VERSION_SUFFIX  # 我们不使用版本化包名
+  allow_comment_ignores: true

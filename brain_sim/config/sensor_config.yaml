@@ -1,0 +1,180 @@
+# ============================================================================
+# Brain OS Simulation — Sensor Configuration
+# ============================================================================
+# Defines sensor parameters for simulation cameras, LiDARs, and IMUs.
+# Used by SimBridge to configure virtual sensors in Gazebo/Isaac Sim.
+# ============================================================================
+
+# ---------------------------------------------------------------------------
+# RGB CAMERA (OAK-D Color)
+# ---------------------------------------------------------------------------
+camera_rgb:
+  name: "oakd_rgb"
+  type: "camera"
+  topic: "/camera/color/image_raw"
+  info_topic: "/camera/color/camera_info"
+  
+  resolution:
+    width: 1280
+    height: 720
+  framerate: 30  # Hz
+  format: "R8G8B8"
+  
+  intrinsic:
+    fx: 642.0
+    fy: 642.0
+    cx: 640.0
+    cy: 360.0
+    distortion_model: "plumb_bob"
+    distortion_coefficients: [0.0, 0.0, 0.0, 0.0, 0.0]
+  
+  fov:
+    horizontal: 69.4   # degrees
+    vertical: 42.5     # degrees
+  
+  clip:
+    near: 0.1  # meters
+    far: 100.0  # meters
+  
+  noise:
+    mean: 0.0
+    stddev: 0.007  # ~0.7% sensor noise
+
+# ---------------------------------------------------------------------------
+# DEPTH CAMERA (OAK-D Stereo Depth)
+# ---------------------------------------------------------------------------
+camera_depth:
+  name: "oakd_depth"
+  type: "depth"
+  topic: "/camera/depth/image_rect_raw"
+  points_topic: "/camera/depth/points"
+  info_topic: "/camera/depth/camera_info"
+  
+  resolution:
+    width: 848
+    height: 480
+  framerate: 30  # Hz
+  format: "R_FLOAT32"  # 32-bit float meters
+  
+  intrinsic:
+    fx: 428.0
+    fy: 428.0
+    cx: 424.0
+    cy: 240.0
+  
+  fov:
+    horizontal: 69.4
+    vertical: 42.5
+  
+  clip:
+    near: 0.3   # meters
+    far: 3.0    # meters (stereo depth effective range)
+  
+  noise:
+    mean: 0.0
+    stddev: 0.005  # 5mm depth noise at 1m
+
+# ---------------------------------------------------------------------------
+# 2D LiDAR (RPLIDAR A1M8)
+# ---------------------------------------------------------------------------
+lidar:
+  name: "rplidar_a1m8"
+  type: "lidar_2d"
+  topic: "/scan"
+  
+  scan:
+    samples: 360       # points per revolution
+    resolution: 1.0    # degrees
+    min_angle: -3.1416 # radians (-180°)
+    max_angle: 3.1416  # radians (+180°)
+    angle_increment: 0.01745  # radians (1°)
+    time_increment: 0.0002778 # seconds per sample
+  
+  range:
+    min: 0.15  # meters
+    max: 12.0  # meters
+    resolution: 0.001  # meters
+  
+  framerate: 10  # Hz
+  
+  noise:
+    range_noise_mm: 3.0  # ±3mm at <1.5m
+    angle_noise_deg: 0.5  # ±0.5°
+
+# ---------------------------------------------------------------------------
+# IMU (BMI160)
+# ---------------------------------------------------------------------------
+imu:
+  name: "bmi160"
+  type: "imu"
+  topic: "/imu/data"
+  
+  framerate: 200  # Hz
+  
+  accelerometer:
+    range: 4.0   # ±4g
+    bandwidth: 100  # Hz
+    noise:
+      mean: 0.0
+      stddev: 0.002  # m/s²/√Hz
+  
+  gyroscope:
+    range: 500.0  # ±500°/s
+    bandwidth: 100  # Hz
+    noise:
+      mean: 0.0
+      stddev: 0.00017  # rad/s/√Hz
+
+# ---------------------------------------------------------------------------
+# FORCE-TORQUE SENSOR (Wrist)
+# ---------------------------------------------------------------------------
+force_torque:
+  name: "wrist_ft"
+  type: "force_torque"
+  topic: "/wrist_ft"
+  
+  framerate: 100  # Hz
+  
+  range:
+    force_xy: 50.0   # N
+    force_z: 100.0   # N
+    torque: 30.0     # Nm
+  
+  noise:
+    force_xy: 0.01  # N
+    force_z: 0.02   # N
+    torque: 0.005   # Nm
+
+# ---------------------------------------------------------------------------
+# ENCODER (Joint Position/Velocity)
+# ---------------------------------------------------------------------------
+joint_encoders:
+  name: "joint_encoders"
+  type: "encoder"
+  topic: "/joint_states"
+  
+  framerate: 100  # Hz
+  
+  resolution:
+    position: 0.0001   # radians
+    velocity: 0.001    # rad/s
+    effort: 0.01       # Nm
+
+# ============================================================================
+# SENSOR FUSION PIPELINE
+# ============================================================================
+sensor_fusion:
+  # Camera-LiDAR extrinsic calibration (LiDAR frame → camera optical frame)
+  tf_camera_lidar:
+    translation: [0.06, 0.0, 0.02]  # x, y, z (meters)
+    rotation: [0.0, 0.0, 0.0, 1.0]  # x, y, z, w quaternion
+  
+  # IMU → base_link extrinsic
+  tf_imu_base:
+    translation: [0.0, 0.0, 0.09]
+    rotation: [0.0, 0.0, 0.0, 1.0]
+  
+  # arm_base → robot_base extrinsic
+  tf_arm_mobile:
+    translation: [0.0, 0.0, 0.18]
+    rotation: [0.0, 0.0, 0.0, 1.0]

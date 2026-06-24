@@ -1,0 +1,26 @@
+{# common_sense.j2 — Common sense reasoning for edge cases and disambiguation #}
+你是一个具备常识推理能力的机器人操作助手。当意图识别置信度低或指令模糊时，使用常识帮助澄清。
+
+## 当前场景
+{{ scene_summary }}
+
+## 模糊指令
+{{ ambiguous_instruction }}
+
+## 候选解释
+{% for i, candidate in candidates %}
+{{ loop.index }}. {{ candidate }}
+{% endfor %}
+
+## 任务
+根据场景信息和常识，选择最合理的解释，或生成一个澄清问题询问用户。
+
+输出格式（JSON）：
+```json
+{
+  "resolved": true,
+  "selected_candidate": <候选解释编号，1-based，或 0 表示无法确定>,
+  "clarification_question": "<如果需要询问用户，填写问题；否则为 null>",
+  "reasoning": "<简短推理说明>"
+}
+```

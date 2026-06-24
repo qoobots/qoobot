@@ -1,0 +1,82 @@
+# ============================================================
+# brain_deploy/.dockerignore — Docker 构建上下文排除规则
+# ============================================================
+
+# Python 编译产物
+__pycache__/
+*.py[cod]
+*.egg-info/
+*.eggs/
+.eggs/
+dist/
+build/
+*.whl
+
+# C++ 编译产物
+build/
+install/
+log/
+
+# Node.js
+node_modules/
+.next/
+out/
+.npm/
+
+# 模型权重（不打包进 Docker 镜像，运行时挂载或单独下载）
+*.onnx
+*.fbow
+*.bin
+*.gguf
+*.engine
+*.plan
+*.safetensors
+*.pt
+*.pth
+*.ckpt
+brain_models/
+
+# 测试和开发文件
+tests/
+__test__/
+.coverage
+htmlcov/
+.pytest_cache/
+.tox/
+.mypy_cache/
+
+# IDE 和编辑器
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Git
+.git/
+.gitattributes
+.gitignore
+.gitmodules
+
+# CI/CD
+.github/
+.github/
+
+# 文档和资产（Docker 构建不需要）
+docs/
+00_docs/
+*.md
+!brain_viz/README.md
+!brain_ai/README.md
+
+# 临时文件
+/tmp/
+/var/tmp/
+*.log
+*.pid
+
+# 数据目录（运行时挂载）
+data/
+logs/
+recordings/

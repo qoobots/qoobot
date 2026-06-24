@@ -1,0 +1,60 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "brain-os-sdk"
+version = "0.1.0"
+description = "Brain OS Python SDK — 机器人操作系统客户端库"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "Apache-2.0" }
+keywords = ["robotics", "brain-os", "grpc", "embodied-ai"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "License :: OSI Approved :: Apache Software License",
+]
+dependencies = [
+    "grpcio>=1.59.0",
+    "grpcio-tools>=1.59.0",
+    "protobuf>=4.24.0",
+    "websockets>=12.0",
+    "httpx>=0.25.0",
+    "pydantic>=2.5.0",
+    "asyncio-mqtt>=0.16.1",
+    "structlog>=23.2.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4",
+    "pytest-asyncio>=0.21",
+    "pytest-mock>=3.12",
+    "ruff>=0.1.6",
+    "mypy>=1.7",
+]
+
+[project.urls]
+Homepage = "https://github.com/brain-os/brain_os"
+Documentation = "https://brain-os.github.io/brain_docs"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["brain_os", "brain_os.*"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]

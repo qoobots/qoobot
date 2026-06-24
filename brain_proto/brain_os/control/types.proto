@@ -1,0 +1,71 @@
+syntax = "proto3";
+
+package brain_os.control;
+
+option go_package = "github.com/brain-os/brain_proto/brain_os/control";
+
+import "brain_os/common/types.proto";
+import "brain_os/decision/types.proto";
+
+// ─────────────────────────────────────────────
+// 关节状态
+// ─────────────────────────────────────────────
+
+message JointState {
+  brain_os.common.Header header     = 1;
+  repeated string        name       = 2;
+  repeated double        position   = 3;  // rad
+  repeated double        velocity   = 4;  // rad/s
+  repeated double        effort     = 5;  // Nm
+}
+
+// ─────────────────────────────────────────────
+// 控制指令
+// ─────────────────────────────────────────────
+
+enum ControlMode {
+  CTRL_POSITION = 0;
+  CTRL_VELOCITY = 1;
+  CTRL_TORQUE   = 2;
+  CTRL_HYBRID   = 3;
+}
+
+message ControlCommand {
+  string                        robot_id     = 1;
+  string                        trajectory_id = 2;
+  brain_os.decision.Trajectory  trajectory   = 3;
+  ControlMode                   mode         = 4;
+  bool                          enable_safety = 5;  // 是否开启实时安全检查
+}
+
+// ─────────────────────────────────────────────
+// 执行反馈
+// ─────────────────────────────────────────────
+
+message ExecutionFeedback {
+  brain_os.common.Header header           = 1;
+  string                 robot_id         = 2;
+  string                 trajectory_id    = 3;
+  float                  progress         = 4;  // [0, 1]
+  JointState             current_state    = 5;
+  brain_os.common.Pose   current_pose     = 6;
+  float                  tracking_error   = 7;  // m, 末端位置误差
+  bool                   is_complete      = 8;
+  string                 error_message    = 9;
+}
+
+// ─────────────────────────────────────────────
+// 夹爪控制
+// ─────────────────────────────────────────────
+
+message GripperCommand {
+  string robot_id   = 1;
+  float  position   = 2;  // [0=open, 1=closed]
+  float  max_effort = 3;  // N
+}
+
+message GripperStatus {
+  float position         = 1;
+  float applied_effort   = 2;
+  bool  object_detected  = 3;
+}

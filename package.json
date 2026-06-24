@@ -1,0 +1,26 @@
+{
+  "name": "brain-os-viz",
+  "version": "0.1.0",
+  "description": "Brain OS Dashboard — Next.js + Three.js visualization",
+  "private": true,
+  "scripts": {
+    "dev": "cd brain_viz && next dev",
+    "build": "cd brain_viz && next build",
+    "start": "cd brain_viz && next start",
+    "lint": "cd brain_viz && next lint",
+    "type-check": "cd brain_viz && tsc --noEmit",
+    "test": "cd brain_viz && jest",
+    "proto:gen": "bash brain_proto/scripts/buf_generate.sh",
+    "docs:dev": "cd brain_docs && mkdocs serve",
+    "docs:build": "cd brain_docs && mkdocs build"
+  },
+  "workspaces": [
+    "brain_viz"
+  ],
+  "devDependencies": {
+    "typescript": "^5.3.0"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}

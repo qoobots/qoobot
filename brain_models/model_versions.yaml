@@ -1,0 +1,145 @@
+# Brain OS 模型版本跟踪配置
+# ================================
+# 每次模型权重更新后修改对应版本号
+# 用于 CI/CD 管线中的模型一致性检查和自动回滚
+
+registry_version: "1.0.0"
+last_audit: "2026-06-24T11:30:00+08:00"
+
+models:
+  llm:
+    qwen2.5-7b-instruct-int4:
+      version: "0.0.0"               # 待首次部署后填入
+      hf_revision: "main"
+      hf_commit: null                 # 部署后填入
+      engine_format: tensorrt_engine
+      expected_files:
+        - config.json
+        - tokenizer.json
+        - tokenizer_config.json
+        - qwen2.5-7b-int4.engine
+      deployed: false
+      deployed_date: null
+      deployed_by: null
+
+    qwen2.5-3b-instruct-int4:
+      version: "0.0.0"
+      hf_revision: "main"
+      hf_commit: null
+      engine_format: tensorrt_engine
+      expected_files:
+        - config.json
+        - tokenizer.json
+        - tokenizer_config.json
+        - qwen2.5-3b-int4.engine
+      deployed: false
+      deployed_date: null
+      deployed_by: null
+
+    qwen2.5-1.5b-instruct-gguf:
+      version: "0.0.0"
+      hf_revision: "main"
+      hf_commit: null
+      engine_format: gguf
+      expected_files:
+        - qwen2.5-1.5b-instruct-q4_k_m.gguf
+      deployed: false
+      deployed_date: null
+      deployed_by: null
+
+  cv:
+    yolov11n:
+      version: "0.0.0"
+      hf_revision: "main"
+      hf_commit: null
+      engine_format: onnx
+      expected_files:
+        - yolo11n.onnx
+      deployed: false
+      deployed_date: null
+      deployed_by: null
+
+    yolov11s:
+      version: "0.0.0"
+      hf_revision: "main"
+      hf_commit: null
+      engine_format: onnx
+      expected_files:
+        - yolo11s.onnx
+      deployed: false
+      deployed_date: null
+      deployed_by: null
+
+    sam2_hiera_tiny:
+      version: "0.0.0"
+      hf_revision: "main"
+      hf_commit: null
+      engine_format: onnx
+      expected_files:
+        - sam2_hiera_tiny.encoder.onnx
+        - sam2_hiera_tiny.decoder.onnx
+      deployed: false
+      deployed_date: null
+      deployed_by: null
+
+  asr:
+    whisper-large-v3-ct2:
+      version: "0.0.0"
+      hf_revision: "main"
+      hf_commit: null
+      engine_format: ctranslate2
+      expected_files:
+        - model.bin
+        - config.json
+        - vocabulary.txt
+        - tokenizer.json
+      deployed: false
+      deployed_date: null
+      deployed_by: null
+
+  slam:
+    orb_vocab:
+      version: "0.0.0"
+      hf_revision: "main"
+      hf_commit: null
+      engine_format: fbow
+      expected_files:
+        - orb_vocab.fbow
+      deployed: false
+      deployed_date: null
+      deployed_by: null
+
+  vla:
+    brain-vla-chinese-lora:
+      version: "0.0.0"
+      hf_revision: "main"
+      hf_commit: null
+      engine_format: pytorch_lora
+      expected_files:
+        - adapter_model.safetensors
+        - adapter_config.json
+        - special_tokens_map.json
+      deployed: false
+      deployed_date: null
+      deployed_by: null
+
+  simulation:
+    kinova_gen3_usd:
+      version: "2023.1.1"
+      source: isaac_sim_assets
+      engine_format: usd
+      expected_files:
+        - gen3.usd
+      deployed: false
+      deployed_date: null
+
+    pick_red_cup_policy:
+      version: "0.0.0"
+      source: training_output
+      engine_format: pytorch
+      expected_files:
+        - policy.pt
+      deployed: false
+      deployed_date: null
+
+deployment_history: []

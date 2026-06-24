@@ -1,0 +1,69 @@
+# topics.yaml — ROS 2 topic name mapping
+# Maps logical names to actual ROS 2 topic names for easy reconfiguration
+
+topics:
+  # ── Joint & Robot State ─────────────────────────────────
+  joint_states:
+    topic: "/brain/joint_states"
+    type: "sensor_msgs/msg/JointState"
+    qos: "sensor_data"
+
+  robot_state:
+    topic: "/brain/robot_state"
+    type: "std_msgs/msg/String"
+    qos: "default"
+
+  # ── Safety ──────────────────────────────────────────────
+  safety_status:
+    topic: "/brain/safety_status"
+    type: "std_msgs/msg/String"
+    qos: "default"
+
+  emergency_stop:
+    topic: "/brain/emergency_stop"
+    type: "std_msgs/msg/Bool"
+    qos: "default"
+
+  # ── Control ─────────────────────────────────────────────
+  cmd_vel:
+    topic: "/brain/cmd_vel"
+    type: "geometry_msgs/msg/Twist"
+    qos: "default"
+
+  gripper_cmd:
+    topic: "/brain/gripper_cmd"
+    type: "std_msgs/msg/Float64"
+    qos: "default"
+
+  trajectory_cmd:
+    topic: "/brain/trajectory_cmd"
+    type: "trajectory_msgs/msg/JointTrajectory"
+    qos: "default"
+
+  # ── AI / LLM ────────────────────────────────────────────
+  llm_intent:
+    topic: "/brain/llm_intent"
+    type: "std_msgs/msg/String"
+    qos: "default"
+
+  llm_behavior_tree:
+    topic: "/brain/llm_behavior_tree"
+    type: "std_msgs/msg/String"
+    qos: "default"
+
+  # ── Perception ──────────────────────────────────────────
+  detection_result:
+    topic: "/brain/detection_result"
+    type: "std_msgs/msg/String"
+    qos: "default"
+
+  slam_pose:
+    topic: "/brain/slam_pose"
+    type: "geometry_msgs/msg/PoseStamped"
+    qos: "sensor_data"
+
+  # ── Visualization ───────────────────────────────────────
+  ghost_trail:
+    topic: "/brain/ghost_trail"
+    type: "visualization_msgs/msg/MarkerArray"
+    qos: "default"

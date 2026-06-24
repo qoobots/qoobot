@@ -1,0 +1,10 @@
+# Envoy 反向代理镜像
+# 提供 gRPC-Web 转 gRPC 代理，让浏览器访问 brain_ai gRPC 服务
+
+FROM envoyproxy/envoy:v1.28-latest
+
+COPY brain_deploy/envoy/envoy.yaml /etc/envoy/envoy.yaml
+
+EXPOSE 8080 9901
+
+CMD ["/usr/local/bin/envoy", "-c", "/etc/envoy/envoy.yaml", "--log-level", "info"]

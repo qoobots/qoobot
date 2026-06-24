@@ -1,0 +1,77 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.backends.legacy:build"
+
+[project]
+name = "brain-os"
+version = "0.1.0"
+description = "Brain OS — Embodied Intelligence Robot Operating System (Python Components)"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "Apache-2.0" }
+keywords = ["robotics", "embodied-ai", "brain-os", "grpc", "ros2"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+
+# 根级聚合包，实际代码在 brain_ai/ 和 brain_sdk/
+dependencies = [
+    "grpcio>=1.59.0",
+    "grpcio-tools>=1.59.0",
+    "protobuf>=4.24.0",
+    "websockets>=12.0",
+    "httpx>=0.25.0",
+    "pydantic>=2.5.0",
+    "torch>=2.1.0",
+    "transformers>=4.35.0",
+    "structlog>=23.2.0",
+    "asyncio-mqtt>=0.16.1",
+]
+
+[project.optional-dependencies]
+ai = [
+    "torch>=2.1.0",
+    "transformers>=4.35.0",
+    "optimum[onnxruntime-gpu]>=1.14.0",
+    "tritonclient[grpc]>=2.38.0",
+]
+sim = [
+    "gymnasium>=0.29.0",
+    "mujoco>=3.0.0",
+]
+dev = [
+    "pytest>=7.4",
+    "pytest-asyncio>=0.21",
+    "pytest-mock>=3.12",
+    "ruff>=0.1.6",
+    "mypy>=1.7",
+    "pre-commit>=3.5.0",
+]
+docs = [
+    "mkdocs-material>=9.4",
+    "mkdocstrings[python]>=0.24",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+select = ["E", "F", "I", "N", "W", "UP"]
+ignore = ["E501"]
+
+[tool.ruff.isort]
+known-first-party = ["brain_ai", "brain_os"]
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["brain_ai/tests", "brain_sdk/tests"]
+
+[tool.coverage.run]
+source = ["brain_ai", "brain_sdk"]
+omit = ["*/proto_gen/*", "*/tests/*"]

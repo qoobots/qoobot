@@ -1,0 +1,117 @@
+version: "3.9"
+
+# ============================================================
+# Brain OS — 开发环境 Docker Compose（brain_deploy 目录版）
+# ============================================================
+# 用法：
+#   从根目录:  docker compose -f brain_deploy/docker-compose.yml up -d
+#   从本目录:  docker compose up -d
+#
+# 与根目录 docker-compose.yml 的区别：
+#   根目录版   = 开发模式（挂载源码，热重载，volumes:ro）
+#   本目录版   = 生产构建模式（COPY 源码进镜像，独立部署）
+# ============================================================
+
+networks:
+  brain-net:
+    driver: bridge
+
+volumes:
+  ros2-log:
+  model-cache:
+
+services:
+  # ────────────────────────────────────────
+  # brain_core — C++17 ROS 2 实时控制引擎
+  # ────────────────────────────────────────
+  brain_core:
+    build:
+      context: ..
+      dockerfile: brain_deploy/docker/Dockerfile.brain_core
+    image: brain-os/brain_core:latest
+    container_name: brain_core
+    restart: unless-stopped
+    network_mode: host
+    environment:
+      - ROS_DOMAIN_ID=42
+      - BRAIN_ROBOT_ID=${BRAIN_ROBOT_ID:-sim_robot_01}
+      - BRAIN_GRPC_BACKEND=brain_ai:50051
+    volumes:
+      - ros2-log:/root/.ros/log
+    command: ["ros2", "launch", "brain_core", "brain_os.launch.py"]
+    healthcheck:
+      test: ["CMD", "ros2", "node", "list"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  # ────────────────────────────────────────
+  # brain_ai — Python gRPC AI 认知引擎
+  # ────────────────────────────────────────
+  brain_ai:
+    build:
+      context: ..
+      dockerfile: brain_deploy/docker/Dockerfile.brain_ai
+    image: brain-os/brain_ai:latest
+    container_name: brain_ai
+    restart: unless-stopped
+    networks:
+      - brain-net
+    ports:
+      - "${BRAIN_AI_GRPC_PORT:-50051}:50051"
+      - "${BRAIN_AI_WS_PORT:-8765}:8765"
+    environment:
+      - BRAIN_OS_ROBOT_ID=${BRAIN_ROBOT_ID:-sim_robot_01}
+      - BRAIN_OS_LOG_LEVEL=${BRAIN_LOG_LEVEL:-INFO}
+      - BRAIN_LLM_BACKEND=${BRAIN_LLM_BACKEND:-stub}
+      - BRAIN_LLM_API_KEY=${BRAIN_LLM_API_KEY:-}
+      - BRAIN_LLM_API_URL=${BRAIN_LLM_API_URL:-}
+    volumes:
+      - model-cache:/workspace/brain_models
+    command: ["python", "-m", "brain_ai.server", "--host", "0.0.0.0", "--port", "50051"]
+    healthcheck:
+      test: ["CMD", "python", "-c", "import grpc; ch=grpc.insecure_channel('localhost:50051'); grpc.channel_ready_future(ch).result(timeout=3); print('ok')"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+
+  # ────────────────────────────────────────
+  # brain_viz — Next.js 可视化 Dashboard
+  # ────────────────────────────────────────
+  brain_viz:
+    build:
+      context: ..
+      dockerfile: brain_deploy/docker/Dockerfile.brain_viz
+    image: brain-os/brain_viz:latest
+    container_name: brain_viz
+    restart: unless-stopped
+    networks:
+      - brain-net
+    ports:
+      - "${BRAIN_VIZ_PORT:-3000}:3000"
+    environment:
+      - NEXT_PUBLIC_WS_URL=${BRAIN_WS_URL:-ws://localhost:8765}
+      - NEXT_PUBLIC_GRPC_WEB_URL=${BRAIN_GRPC_WEB_URL:-http://localhost:8080}
+      - NEXT_PUBLIC_ROBOT_ID=${BRAIN_ROBOT_ID:-sim_robot_01}
+    depends_on:
+      brain_ai:
+        condition: service_healthy
+    command: ["node", "server.js"]
+
+  # ────────────────────────────────────────
+  # envoy — gRPC-Web 反向代理
+  # ────────────────────────────────────────
+  envoy:
+    build:
+      context: ..
+      dockerfile: brain_deploy/docker/Dockerfile.envoy
+    image: brain-os/envoy:latest
+    container_name: brain_envoy
+    restart: unless-stopped
+    networks:
+      - brain-net
+    ports:
+      - "${BRAIN_ENVOY_PORT:-8080}:8080"
+      - "${BRAIN_ENVOY_ADMIN_PORT:-9901}:9901"
+    depends_on:
+      - brain_ai

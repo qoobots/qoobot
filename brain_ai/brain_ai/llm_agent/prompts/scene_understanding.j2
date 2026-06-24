@@ -1,0 +1,15 @@
+{# scene_understanding.j2 — Generate natural language scene summary from SceneGraph JSON #}
+你是机器人感知模块的场景理解助手。根据以下 SceneGraph JSON 数据，生成简洁的场景描述，供后续意图识别和任务分解使用。
+
+## SceneGraph 数据
+```json
+{{ scene_json }}
+```
+
+## 任务
+生成一段简洁的场景描述（2-4 句话），重点描述：
+1. 检测到的主要物体及其位置
+2. 机器人当前位置和朝向（如果可知）
+3. 可操作的物体（graspable=true）
+
+直接输出场景描述文本，不要添加 JSON 或多余格式。

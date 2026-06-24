@@ -1,0 +1,2852 @@
+[
+  {
+    "module": "brain_core",
+    "exists": true,
+    "files": [
+      {
+        "file": "brain_core\\CMakeLists.txt",
+        "size": 6650,
+        "status": "done",
+        "lines": 162
+      },
+      {
+        "file": "brain_core\\package.xml",
+        "size": 1216,
+        "status": "done",
+        "lines": 39
+      },
+      {
+        "file": "brain_core\\cmake\\CompilerSettings.cmake",
+        "size": 1011,
+        "status": "done",
+        "lines": 32
+      },
+      {
+        "file": "brain_core\\cmake\\FindFCL.cmake",
+        "size": 751,
+        "status": "done",
+        "lines": 29
+      },
+      {
+        "file": "brain_core\\cmake\\FindTRAC_IK.cmake",
+        "size": 851,
+        "status": "done",
+        "lines": 29
+      },
+      {
+        "file": "brain_core\\config\\brain_core.yaml",
+        "size": 3151,
+        "status": "done",
+        "lines": 84
+      },
+      {
+        "file": "brain_core\\config\\topics.yaml",
+        "size": 2286,
+        "status": "done",
+        "lines": 69
+      },
+      {
+        "file": "brain_core\\config\\robots\\kinova_gen3\\kinova_gen3.srdf",
+        "size": 958,
+        "status": "done",
+        "lines": 23
+      },
+      {
+        "file": "brain_core\\config\\robots\\kinova_gen3\\kinova_gen3.urdf",
+        "size": 3429,
+        "status": "done",
+        "lines": 113
+      },
+      {
+        "file": "brain_core\\config\\robots\\turtlebot4\\turtlebot4.urdf",
+        "size": 539,
+        "status": "done",
+        "lines": 17
+      },
+      {
+        "file": "brain_core\\config\\safety\\collision_zones.yaml",
+        "size": 605,
+        "status": "done",
+        "lines": 27
+      },
+      {
+        "file": "brain_core\\config\\safety\\force_limits.yaml",
+        "size": 592,
+        "status": "done",
+        "lines": 26
+      },
+      {
+        "file": "brain_core\\include\\brain_core\\core_types.h",
+        "size": 3349,
+        "status": "done",
+        "lines": 101
+      },
+      {
+        "file": "brain_core\\include\\brain_core\\behavior_engine\\bt_loader.h",
+        "size": 1258,
+        "status": "done",
+        "lines": 40
+      },
+      {
+        "file": "brain_core\\include\\brain_core\\behavior_engine\\node_factory.h",
+        "size": 1224,
+        "status": "done",
+        "lines": 42
+      },
+      {
+        "file": "brain_core\\include\\brain_core\\behavior_engine\\tick_scheduler.h",
+        "size": 1144,
+        "status": "done",
+        "lines": 43
+      },
+      {
+        "file": "brain_core\\include\\brain_core\\behavior_engine\\tree_executor.h",
+        "size": 1379,
+        "status": "done",
+        "lines": 51
+      },
+      {
+        "file": "brain_core\\include\\brain_core\\behavior_engine\\action_nodes\\avoid_obstacle_node.h",
+        "size": 1081,
+        "status": "done",
+        "lines": 43
+      },
+      {
+        "file": "brain_core\\include\\brain_core\\behavior_engine\\action_nodes\\detect_object_node.h",
+        "size": 1443,
+        "status": "done",
+        "lines": 52
+      },
+      {
+        "file": "brain_core\\include\\brain_core\\behavior_engine\\action_nodes\\hitl_confirm_node.h",
+        "size": 1732,
+        "status": "done",
+        "lines": 66
+      },
+      {
+        "file": "brain_core\\include\\brain_core\\behavior_engine\\action_nodes\\navigate_to_node.h",
+        "size": 1096,
+        "status": "done",
+        "lines": 42
+      },
+      {
+        "file": "brain_core\\include\\brain_core\\behavior_engine\\action_nodes\\observe_node.h",
+        "size": 1079,
+        "status": "done",
+        "lines": 44
+      },
+      {
+        "file": "brain_core\\include\\brain_core\\behavior_engine\\action_nodes\\pick_object_node.h",
+        "size": 1030,
+        "status": "done",
+        "lines": 40
+      },
+      {
+        "file": "brain_core\\include\\brain_core\\behavior_engine\\action_nodes\\place_object_node.h",
+        "size": 1000,
+        "status": "done",
+        "lines": 37
+      },
+      {
+        "file": "brain_core\\include\\brain_core\\behavior_engine\\action_nodes\\speak_node.h",
+        "size": 932,
+        "status": "done",
+        "lines": 42
+      },
+      {
+        "file": "brain_core\\include\\brain_core\\behavior_engine\\action_nodes\\wait_node.h",
+        "size": 824,
+        "status": "done",
+        "lines": 36
+      },
+      {
+        "file": "brain_core\\include\\brain_core\\event_bus\\domain_event.h",
+        "size": 694,
+        "status": "done",
+        "lines": 28
+      },
+      {
+        "file": "brain_core\\include\\brain_core\\event_bus\\event_publisher.h",
+        "size": 1441,
+        "status": "done",
+        "lines": 53
+      },
+      {
+        "file": "brain_core\\include\\brain_core\\event_bus\\event_subscriber.h",
+        "size": 1313,
+        "status": "done",
+        "lines": 49
+      },
+      {
+        "file": "brain_core\\include\\brain_core\\grpc_server\\control_service_impl.h",
+        "size": 902,
+        "status": "done",
+        "lines": 34
+      },
+      {
+        "file": "brain_core\\include\\brain_core\\grpc_server\\perception_service_impl.h",
+        "size": 956,
+        "status": "done",
+        "lines": 31
+      },
+      {
+        "file": "brain_core\\include\\brain_core\\grpc_server\\safety_service_impl.h",
+        "size": 1236,
+        "status": "done",
+        "lines": 39
+      },
+      {
+        "file": "brain_core\\include\\brain_core\\grpc_server\\server.h",
+        "size": 1076,
+        "status": "done",
+        "lines": 40
+      },
+      {
+        "file": "brain_core\\include\\brain_core\\hal_interface\\actuator_writer.h",
+        "size": 1620,
+        "status": "done",
+        "lines": 60
+      },
+      {
+        "file": "brain_core\\include\\brain_core\\hal_interface\\config_loader.h",
+        "size": 1553,
+        "status": "done",
+        "lines": 55
+      },
+      {
+        "file": "brain_core\\include\\brain_core\\hal_interface\\robot_model.h",
+        "size": 1570,
+        "status": "done",
+        "lines": 56
+      },
+      {
+        "file": "brain_core\\include\\brain_core\\hal_interface\\sensor_reader.h",
+        "size": 1530,
+        "status": "done",
+        "lines": 65
+      },
+      {
+        "file": "brain_core\\include\\brain_core\\hal_interface\\urdf_parser.h",
+        "size": 1591,
+        "status": "done",
+        "lines": 66
+      },
+      {
+        "file": "brain_core\\include\\brain_core\\motion_planner\\collision_checker_fcl.h",
+        "size": 2220,
+        "status": "done",
+        "lines": 71
+      },
+      {
+        "file": "brain_core\\include\\brain_core\\motion_planner\\ik_solver.h",
+        "size": 2005,
+        "status": "done",
+        "lines": 66
+      },
+      {
+        "file": "brain_core\\include\\brain_core\\motion_planner\\moveit2_client.h",
+        "size": 2155,
+        "status": "done",
+        "lines": 73
+      },
+      {
+        "file": "brain_core\\include\\brain_core\\motion_planner\\trajectory_follower.h",
+        "size": 1896,
+        "status": "done",
+        "lines": 74
+      },
+      {
+        "file": "brain_core\\include\\brain_core\\motion_planner\\trajectory_generator.h",
+        "size": 3071,
+        "status": "done",
+        "lines": 80
+      },
+      {
+        "file": "brain_core\\include\\brain_core\\motion_planner\\trajectory_optimizer.h",
+        "size": 1827,
+        "status": "done",
+        "lines": 62
+      },
+      {
+        "file": "brain_core\\include\\brain_core\\ros2_bridge\\action_adapter.h",
+        "size": 2236,
+        "status": "done",
+        "lines": 61
+      },
+      {
+        "file": "brain_core\\include\\brain_core\\ros2_bridge\\lifecycle_manager.h",
+        "size": 2483,
+        "status": "done",
+        "lines": 72
+      },
+      {
+        "file": "brain_core\\include\\brain_core\\ros2_bridge\\node_manager.h",
+        "size": 1759,
+        "status": "done",
+        "lines": 56
+      },
+      {
+        "file": "brain_core\\include\\brain_core\\ros2_bridge\\service_adapter.h",
+        "size": 2115,
+        "status": "done",
+        "lines": 61
+      },
+      {
+        "file": "brain_core\\include\\brain_core\\ros2_bridge\\topic_adapter.h",
+        "size": 2497,
+        "status": "done",
+        "lines": 68
+      },
+      {
+        "file": "brain_core\\include\\brain_core\\safety_monitor\\collision_checker.h",
+        "size": 1548,
+        "status": "done",
+        "lines": 54
+      },
+      {
+        "file": "brain_core\\include\\brain_core\\safety_monitor\\emergency_stop.h",
+        "size": 1101,
+        "status": "done",
+        "lines": 43
+      },
+      {
+        "file": "brain_core\\include\\brain_core\\safety_monitor\\force_monitor.h",
+        "size": 1170,
+        "status": "done",
+        "lines": 48
+      },
+      {
+        "file": "brain_core\\include\\brain_core\\safety_monitor\\joint_limiter.h",
+        "size": 1548,
+        "status": "done",
+        "lines": 52
+      },
+      {
+        "file": "brain_core\\include\\brain_core\\safety_monitor\\watchdog.h",
+        "size": 1460,
+        "status": "done",
+        "lines": 56
+      },
+      {
+        "file": "brain_core\\include\\brain_core\\safety_monitor\\workspace_validator.h",
+        "size": 1151,
+        "status": "done",
+        "lines": 44
+      },
+      {
+        "file": "brain_core\\include\\brain_core\\utils\\coordinate_transform.h",
+        "size": 2004,
+        "status": "done",
+        "lines": 54
+      },
+      {
+        "file": "brain_core\\include\\brain_core\\utils\\logger.h",
+        "size": 1350,
+        "status": "done",
+        "lines": 55
+      },
+      {
+        "file": "brain_core\\include\\brain_core\\utils\\pose_utils.h",
+        "size": 1688,
+        "status": "done",
+        "lines": 52
+      },
+      {
+        "file": "brain_core\\include\\brain_core\\utils\\thread_pool.h",
+        "size": 1796,
+        "status": "done",
+        "lines": 67
+      },
+      {
+        "file": "brain_core\\include\\brain_core\\utils\\time_utils.h",
+        "size": 1476,
+        "status": "done",
+        "lines": 67
+      },
+      {
+        "file": "brain_core\\launch\\brain_core.launch.py",
+        "size": 3500,
+        "status": "done",
+        "lines": 99
+      },
+      {
+        "file": "brain_core\\src\\main.cpp",
+        "size": 4261,
+        "status": "done",
+        "lines": 95
+      },
+      {
+        "file": "brain_core\\src\\behavior_engine\\bt_loader.cpp",
+        "size": 3482,
+        "status": "partial",
+        "lines": 113
+      },
+      {
+        "file": "brain_core\\src\\behavior_engine\\node_factory.cpp",
+        "size": 4363,
+        "status": "done",
+        "lines": 107
+      },
+      {
+        "file": "brain_core\\src\\behavior_engine\\tick_scheduler.cpp",
+        "size": 1261,
+        "status": "done",
+        "lines": 49
+      },
+      {
+        "file": "brain_core\\src\\behavior_engine\\tree_executor.cpp",
+        "size": 2140,
+        "status": "done",
+        "lines": 85
+      },
+      {
+        "file": "brain_core\\src\\behavior_engine\\action_nodes\\action_nodes_skeleton.cpp",
+        "size": 1708,
+        "status": "done",
+        "lines": 37
+      },
+      {
+        "file": "brain_core\\src\\behavior_engine\\action_nodes\\avoid_obstacle_node.cpp",
+        "size": 1899,
+        "status": "done",
+        "lines": 74
+      },
+      {
+        "file": "brain_core\\src\\behavior_engine\\action_nodes\\detect_object_node.cpp",
+        "size": 1668,
+        "status": "done",
+        "lines": 71
+      },
+      {
+        "file": "brain_core\\src\\behavior_engine\\action_nodes\\hitl_confirm_node.cpp",
+        "size": 3146,
+        "status": "done",
+        "lines": 110
+      },
+      {
+        "file": "brain_core\\src\\behavior_engine\\action_nodes\\navigate_to_node.cpp",
+        "size": 1885,
+        "status": "done",
+        "lines": 71
+      },
+      {
+        "file": "brain_core\\src\\behavior_engine\\action_nodes\\observe_node.cpp",
+        "size": 1357,
+        "status": "done",
+        "lines": 59
+      },
+      {
+        "file": "brain_core\\src\\behavior_engine\\action_nodes\\pick_object_node.cpp",
+        "size": 1839,
+        "status": "done",
+        "lines": 66
+      },
+      {
+        "file": "brain_core\\src\\behavior_engine\\action_nodes\\place_object_node.cpp",
+        "size": 1582,
+        "status": "done",
+        "lines": 63
+      },
+      {
+        "file": "brain_core\\src\\behavior_engine\\action_nodes\\speak_node.cpp",
+        "size": 1695,
+        "status": "done",
+        "lines": 66
+      },
+      {
+        "file": "brain_core\\src\\behavior_engine\\action_nodes\\wait_node.cpp",
+        "size": 1691,
+        "status": "done",
+        "lines": 68
+      },
+      {
+        "file": "brain_core\\src\\event_bus\\domain_event.cpp",
+        "size": 274,
+        "status": "done",
+        "lines": 8
+      },
+      {
+        "file": "brain_core\\src\\event_bus\\event_publisher.cpp",
+        "size": 2108,
+        "status": "done",
+        "lines": 90
+      },
+      {
+        "file": "brain_core\\src\\event_bus\\event_subscriber.cpp",
+        "size": 1803,
+        "status": "done",
+        "lines": 74
+      },
+      {
+        "file": "brain_core\\src\\grpc_client\\brain_ai_client.cpp",
+        "size": 10375,
+        "status": "partial",
+        "lines": 313
+      },
+      {
+        "file": "brain_core\\src\\grpc_client\\brain_ai_client.h",
+        "size": 5741,
+        "status": "done",
+        "lines": 171
+      },
+      {
+        "file": "brain_core\\src\\grpc_server\\control_service_impl.cpp",
+        "size": 1870,
+        "status": "done",
+        "lines": 62
+      },
+      {
+        "file": "brain_core\\src\\grpc_server\\perception_service_impl.cpp",
+        "size": 1403,
+        "status": "done",
+        "lines": 46
+      },
+      {
+        "file": "brain_core\\src\\grpc_server\\safety_service_impl.cpp",
+        "size": 1520,
+        "status": "done",
+        "lines": 42
+      },
+      {
+        "file": "brain_core\\src\\grpc_server\\server.cpp",
+        "size": 1150,
+        "status": "done",
+        "lines": 43
+      },
+      {
+        "file": "brain_core\\src\\hal_interface\\actuator_writer.cpp",
+        "size": 1816,
+        "status": "done",
+        "lines": 65
+      },
+      {
+        "file": "brain_core\\src\\hal_interface\\config_loader.cpp",
+        "size": 3806,
+        "status": "done",
+        "lines": 137
+      },
+      {
+        "file": "brain_core\\src\\hal_interface\\robot_model.cpp",
+        "size": 1891,
+        "status": "done",
+        "lines": 60
+      },
+      {
+        "file": "brain_core\\src\\hal_interface\\sensor_reader.cpp",
+        "size": 2275,
+        "status": "done",
+        "lines": 83
+      },
+      {
+        "file": "brain_core\\src\\hal_interface\\urdf_parser.cpp",
+        "size": 2421,
+        "status": "done",
+        "lines": 71
+      },
+      {
+        "file": "brain_core\\src\\motion_planner\\collision_checker_fcl.cpp",
+        "size": 3143,
+        "status": "done",
+        "lines": 105
+      },
+      {
+        "file": "brain_core\\src\\motion_planner\\ik_solver.cpp",
+        "size": 3054,
+        "status": "done",
+        "lines": 107
+      },
+      {
+        "file": "brain_core\\src\\motion_planner\\moveit2_client.cpp",
+        "size": 3576,
+        "status": "done",
+        "lines": 123
+      },
+      {
+        "file": "brain_core\\src\\motion_planner\\trajectory_follower.cpp",
+        "size": 2468,
+        "status": "done",
+        "lines": 91
+      },
+      {
+        "file": "brain_core\\src\\motion_planner\\trajectory_generator.cpp",
+        "size": 8344,
+        "status": "done",
+        "lines": 238
+      },
+      {
+        "file": "brain_core\\src\\motion_planner\\trajectory_optimizer.cpp",
+        "size": 5682,
+        "status": "done",
+        "lines": 177
+      },
+      {
+        "file": "brain_core\\src\\ros2_bridge\\action_adapter.cpp",
+        "size": 2873,
+        "status": "done",
+        "lines": 83
+      },
+      {
+        "file": "brain_core\\src\\ros2_bridge\\lifecycle_manager.cpp",
+        "size": 4396,
+        "status": "done",
+        "lines": 138
+      },
+      {
+        "file": "brain_core\\src\\ros2_bridge\\node_manager.cpp",
+        "size": 3403,
+        "status": "done",
+        "lines": 102
+      },
+      {
+        "file": "brain_core\\src\\ros2_bridge\\service_adapter.cpp",
+        "size": 3123,
+        "status": "done",
+        "lines": 92
+      },
+      {
+        "file": "brain_core\\src\\ros2_bridge\\topic_adapter.cpp",
+        "size": 3047,
+        "status": "done",
+        "lines": 95
+      },
+      {
+        "file": "brain_core\\src\\safety_monitor\\collision_checker.cpp",
+        "size": 1548,
+        "status": "done",
+        "lines": 53
+      },
+      {
+        "file": "brain_core\\src\\safety_monitor\\emergency_stop.cpp",
+        "size": 839,
+        "status": "done",
+        "lines": 38
+      },
+      {
+        "file": "brain_core\\src\\safety_monitor\\force_monitor.cpp",
+        "size": 1318,
+        "status": "done",
+        "lines": 46
+      },
+      {
+        "file": "brain_core\\src\\safety_monitor\\joint_limiter.cpp",
+        "size": 2393,
+        "status": "done",
+        "lines": 69
+      },
+      {
+        "file": "brain_core\\src\\safety_monitor\\watchdog.cpp",
+        "size": 2598,
+        "status": "done",
+        "lines": 97
+      },
+      {
+        "file": "brain_core\\src\\safety_monitor\\workspace_validator.cpp",
+        "size": 2066,
+        "status": "done",
+        "lines": 59
+      },
+      {
+        "file": "brain_core\\src\\utils\\coordinate_transform.cpp",
+        "size": 3095,
+        "status": "done",
+        "lines": 96
+      },
+      {
+        "file": "brain_core\\src\\utils\\logger.cpp",
+        "size": 2559,
+        "status": "done",
+        "lines": 94
+      },
+      {
+        "file": "brain_core\\src\\utils\\pose_utils.cpp",
+        "size": 4666,
+        "status": "done",
+        "lines": 161
+      },
+      {
+        "file": "brain_core\\src\\utils\\thread_pool.cpp",
+        "size": 1177,
+        "status": "done",
+        "lines": 57
+      },
+      {
+        "file": "brain_core\\src\\utils\\time_utils.cpp",
+        "size": 2959,
+        "status": "done",
+        "lines": 118
+      },
+      {
+        "file": "brain_core\\test\\CMakeLists.txt",
+        "size": 3369,
+        "status": "done",
+        "lines": 85
+      },
+      {
+        "file": "brain_core\\test\\behavior_engine\\test_bt_loader.cpp",
+        "size": 4885,
+        "status": "done",
+        "lines": 144
+      },
+      {
+        "file": "brain_core\\test\\behavior_engine\\test_tree_executor.cpp",
+        "size": 5116,
+        "status": "done",
+        "lines": 145
+      },
+      {
+        "file": "brain_core\\test\\motion_planner\\test_ik_solver.cpp",
+        "size": 4170,
+        "status": "done",
+        "lines": 106
+      },
+      {
+        "file": "brain_core\\test\\motion_planner\\test_trajectory_generator.cpp",
+        "size": 7557,
+        "status": "done",
+        "lines": 191
+      },
+      {
+        "file": "brain_core\\test\\ros2_bridge\\test_node_manager.cpp",
+        "size": 4942,
+        "status": "done",
+        "lines": 140
+      },
+      {
+        "file": "brain_core\\test\\ros2_bridge\\test_topic_adapter.cpp",
+        "size": 4748,
+        "status": "done",
+        "lines": 120
+      },
+      {
+        "file": "brain_core\\test\\safety_monitor\\test_collision_checker.cpp",
+        "size": 5214,
+        "status": "done",
+        "lines": 146
+      },
+      {
+        "file": "brain_core\\test\\safety_monitor\\test_emergency_stop.cpp",
+        "size": 5020,
+        "status": "done",
+        "lines": 151
+      }
+    ],
+    "summary": {
+      "total": 121,
+      "empty": 0,
+      "stub_only": 0,
+      "partial": 2,
+      "done": 119,
+      "marker": 0
+    },
+    "code_files": 121,
+    "completion_pct": 99
+  },
+  {
+    "module": "brain_ai",
+    "exists": true,
+    "files": [
+      {
+        "file": "brain_ai\\pyproject.toml",
+        "size": 1409,
+        "status": "done",
+        "lines": 64
+      },
+      {
+        "file": "brain_ai\\requirements-dev.txt",
+        "size": 137,
+        "status": "done",
+        "lines": 8
+      },
+      {
+        "file": "brain_ai\\requirements.txt",
+        "size": 211,
+        "status": "done",
+        "lines": 10
+      },
+      {
+        "file": "brain_ai\\setup.cfg",
+        "size": 143,
+        "status": "done",
+        "lines": 9
+      },
+      {
+        "file": "brain_ai\\brain_ai\\cli.py",
+        "size": 2405,
+        "status": "done",
+        "lines": 82
+      },
+      {
+        "file": "brain_ai\\brain_ai\\__init__.py",
+        "size": 1403,
+        "status": "done",
+        "lines": 42
+      },
+      {
+        "file": "brain_ai\\brain_ai\\domain\\entities.py",
+        "size": 5294,
+        "status": "done",
+        "lines": 137
+      },
+      {
+        "file": "brain_ai\\brain_ai\\domain\\episode.py",
+        "size": 2979,
+        "status": "partial",
+        "lines": 95
+      },
+      {
+        "file": "brain_ai\\brain_ai\\domain\\motion.py",
+        "size": 3415,
+        "status": "done",
+        "lines": 99
+      },
+      {
+        "file": "brain_ai\\brain_ai\\domain\\plan.py",
+        "size": 3322,
+        "status": "done",
+        "lines": 91
+      },
+      {
+        "file": "brain_ai\\brain_ai\\domain\\safety.py",
+        "size": 3171,
+        "status": "done",
+        "lines": 93
+      },
+      {
+        "file": "brain_ai\\brain_ai\\domain\\scene.py",
+        "size": 3320,
+        "status": "done",
+        "lines": 112
+      },
+      {
+        "file": "brain_ai\\brain_ai\\domain\\task.py",
+        "size": 3952,
+        "status": "done",
+        "lines": 124
+      },
+      {
+        "file": "brain_ai\\brain_ai\\domain\\__init__.py",
+        "size": 106,
+        "status": "partial",
+        "lines": 5
+      },
+      {
+        "file": "brain_ai\\brain_ai\\grpc_server\\cognition_service.py",
+        "size": 6973,
+        "status": "partial",
+        "lines": 186
+      },
+      {
+        "file": "brain_ai\\brain_ai\\grpc_server\\decision_service.py",
+        "size": 7653,
+        "status": "partial",
+        "lines": 197
+      },
+      {
+        "file": "brain_ai\\brain_ai\\grpc_server\\knowledge_service.py",
+        "size": 5422,
+        "status": "partial",
+        "lines": 142
+      },
+      {
+        "file": "brain_ai\\brain_ai\\grpc_server\\perception_service.py",
+        "size": 15952,
+        "status": "done",
+        "lines": 403
+      },
+      {
+        "file": "brain_ai\\brain_ai\\grpc_server\\server.py",
+        "size": 4993,
+        "status": "done",
+        "lines": 141
+      },
+      {
+        "file": "brain_ai\\brain_ai\\grpc_server\\__init__.py",
+        "size": 78,
+        "status": "done",
+        "lines": 3
+      },
+      {
+        "file": "brain_ai\\brain_ai\\knowledge\\event_recorder.py",
+        "size": 4449,
+        "status": "done",
+        "lines": 121
+      },
+      {
+        "file": "brain_ai\\brain_ai\\knowledge\\experience_store.py",
+        "size": 5250,
+        "status": "done",
+        "lines": 140
+      },
+      {
+        "file": "brain_ai\\brain_ai\\knowledge\\knowledge_base.py",
+        "size": 3566,
+        "status": "done",
+        "lines": 94
+      },
+      {
+        "file": "brain_ai\\brain_ai\\knowledge\\ring_buffer.py",
+        "size": 1558,
+        "status": "done",
+        "lines": 62
+      },
+      {
+        "file": "brain_ai\\brain_ai\\knowledge\\timeline_logger.py",
+        "size": 2759,
+        "status": "done",
+        "lines": 90
+      },
+      {
+        "file": "brain_ai\\brain_ai\\knowledge\\vector_retriever.py",
+        "size": 3181,
+        "status": "done",
+        "lines": 100
+      },
+      {
+        "file": "brain_ai\\brain_ai\\knowledge\\working_memory.py",
+        "size": 6254,
+        "status": "done",
+        "lines": 152
+      },
+      {
+        "file": "brain_ai\\brain_ai\\knowledge\\__init__.py",
+        "size": 576,
+        "status": "done",
+        "lines": 19
+      },
+      {
+        "file": "brain_ai\\brain_ai\\llm_agent\\brain_agent.py",
+        "size": 8296,
+        "status": "done",
+        "lines": 225
+      },
+      {
+        "file": "brain_ai\\brain_ai\\llm_agent\\bt_generator.py",
+        "size": 1846,
+        "status": "done",
+        "lines": 63
+      },
+      {
+        "file": "brain_ai\\brain_ai\\llm_agent\\ds3_cloud_client.py",
+        "size": 3909,
+        "status": "done",
+        "lines": 125
+      },
+      {
+        "file": "brain_ai\\brain_ai\\llm_agent\\function_calling.py",
+        "size": 5786,
+        "status": "partial",
+        "lines": 165
+      },
+      {
+        "file": "brain_ai\\brain_ai\\llm_agent\\intent_parser.py",
+        "size": 2961,
+        "status": "done",
+        "lines": 80
+      },
+      {
+        "file": "brain_ai\\brain_ai\\llm_agent\\prompt_builder.py",
+        "size": 4103,
+        "status": "done",
+        "lines": 125
+      },
+      {
+        "file": "brain_ai\\brain_ai\\llm_agent\\task_decomposer.py",
+        "size": 2306,
+        "status": "done",
+        "lines": 78
+      },
+      {
+        "file": "brain_ai\\brain_ai\\llm_agent\\__init__.py",
+        "size": 622,
+        "status": "done",
+        "lines": 20
+      },
+      {
+        "file": "brain_ai\\brain_ai\\llm_agent\\prompts\\bt_generation.j2",
+        "size": 1166,
+        "status": "done",
+        "lines": 32
+      },
+      {
+        "file": "brain_ai\\brain_ai\\llm_agent\\prompts\\common_sense.j2",
+        "size": 790,
+        "status": "done",
+        "lines": 26
+      },
+      {
+        "file": "brain_ai\\brain_ai\\llm_agent\\prompts\\intent_recognition.j2",
+        "size": 1162,
+        "status": "done",
+        "lines": 34
+      },
+      {
+        "file": "brain_ai\\brain_ai\\llm_agent\\prompts\\scene_understanding.j2",
+        "size": 594,
+        "status": "done",
+        "lines": 15
+      },
+      {
+        "file": "brain_ai\\brain_ai\\llm_agent\\prompts\\task_decomposition.j2",
+        "size": 1400,
+        "status": "done",
+        "lines": 45
+      },
+      {
+        "file": "brain_ai\\brain_ai\\model_runtime\\llama_cpp_adapter.py",
+        "size": 3132,
+        "status": "done",
+        "lines": 98
+      },
+      {
+        "file": "brain_ai\\brain_ai\\model_runtime\\onnx_adapter.py",
+        "size": 4022,
+        "status": "done",
+        "lines": 113
+      },
+      {
+        "file": "brain_ai\\brain_ai\\model_runtime\\runtime_factory.py",
+        "size": 4349,
+        "status": "done",
+        "lines": 131
+      },
+      {
+        "file": "brain_ai\\brain_ai\\model_runtime\\trt_llm_adapter.py",
+        "size": 4540,
+        "status": "done",
+        "lines": 127
+      },
+      {
+        "file": "brain_ai\\brain_ai\\model_runtime\\vllm_client.py",
+        "size": 3624,
+        "status": "done",
+        "lines": 108
+      },
+      {
+        "file": "brain_ai\\brain_ai\\model_runtime\\__init__.py",
+        "size": 218,
+        "status": "done",
+        "lines": 10
+      },
+      {
+        "file": "brain_ai\\brain_ai\\perception\\collision_checker.py",
+        "size": 11395,
+        "status": "done",
+        "lines": 300
+      },
+      {
+        "file": "brain_ai\\brain_ai\\perception\\detector.py",
+        "size": 7870,
+        "status": "done",
+        "lines": 207
+      },
+      {
+        "file": "brain_ai\\brain_ai\\perception\\gs_reconstructor.py",
+        "size": 8382,
+        "status": "done",
+        "lines": 229
+      },
+      {
+        "file": "brain_ai\\brain_ai\\perception\\occupancy_net.py",
+        "size": 9939,
+        "status": "done",
+        "lines": 282
+      },
+      {
+        "file": "brain_ai\\brain_ai\\perception\\pose_estimator.py",
+        "size": 6618,
+        "status": "done",
+        "lines": 192
+      },
+      {
+        "file": "brain_ai\\brain_ai\\perception\\scene_aggregator.py",
+        "size": 8897,
+        "status": "done",
+        "lines": 249
+      },
+      {
+        "file": "brain_ai\\brain_ai\\perception\\segmentor.py",
+        "size": 5729,
+        "status": "done",
+        "lines": 172
+      },
+      {
+        "file": "brain_ai\\brain_ai\\perception\\slam_wrapper.py",
+        "size": 9147,
+        "status": "done",
+        "lines": 274
+      },
+      {
+        "file": "brain_ai\\brain_ai\\perception\\track_manager.py",
+        "size": 9903,
+        "status": "done",
+        "lines": 302
+      },
+      {
+        "file": "brain_ai\\brain_ai\\perception\\__init__.py",
+        "size": 1872,
+        "status": "done",
+        "lines": 90
+      },
+      {
+        "file": "brain_ai\\brain_ai\\planner\\bt_composer.py",
+        "size": 8192,
+        "status": "done",
+        "lines": 222
+      },
+      {
+        "file": "brain_ai\\brain_ai\\planner\\hitl_manager.py",
+        "size": 10551,
+        "status": "done",
+        "lines": 318
+      },
+      {
+        "file": "brain_ai\\brain_ai\\planner\\moveit_client.py",
+        "size": 8926,
+        "status": "done",
+        "lines": 236
+      },
+      {
+        "file": "brain_ai\\brain_ai\\planner\\plan_builder.py",
+        "size": 9364,
+        "status": "done",
+        "lines": 248
+      },
+      {
+        "file": "brain_ai\\brain_ai\\planner\\scorer.py",
+        "size": 7486,
+        "status": "done",
+        "lines": 200
+      },
+      {
+        "file": "brain_ai\\brain_ai\\planner\\strategy_enum.py",
+        "size": 4655,
+        "status": "partial",
+        "lines": 131
+      },
+      {
+        "file": "brain_ai\\brain_ai\\planner\\trajectory_gen.py",
+        "size": 9456,
+        "status": "done",
+        "lines": 257
+      },
+      {
+        "file": "brain_ai\\brain_ai\\planner\\__init__.py",
+        "size": 1537,
+        "status": "done",
+        "lines": 42
+      },
+      {
+        "file": "brain_ai\\brain_ai\\planner\\strategies\\adversarial_strategy.py",
+        "size": 2107,
+        "status": "done",
+        "lines": 62
+      },
+      {
+        "file": "brain_ai\\brain_ai\\planner\\strategies\\aggressive_strategy.py",
+        "size": 1551,
+        "status": "done",
+        "lines": 46
+      },
+      {
+        "file": "brain_ai\\brain_ai\\planner\\strategies\\base.py",
+        "size": 1326,
+        "status": "done",
+        "lines": 49
+      },
+      {
+        "file": "brain_ai\\brain_ai\\planner\\strategies\\conservative_strategy.py",
+        "size": 1569,
+        "status": "done",
+        "lines": 46
+      },
+      {
+        "file": "brain_ai\\brain_ai\\planner\\strategies\\exploratory_strategy.py",
+        "size": 2148,
+        "status": "done",
+        "lines": 61
+      },
+      {
+        "file": "brain_ai\\brain_ai\\planner\\strategies\\optimal_strategy.py",
+        "size": 1636,
+        "status": "done",
+        "lines": 48
+      },
+      {
+        "file": "brain_ai\\brain_ai\\planner\\strategies\\__init__.py",
+        "size": 1564,
+        "status": "partial",
+        "lines": 45
+      },
+      {
+        "file": "brain_ai\\brain_ai\\ros2_bridge\\node.py",
+        "size": 2145,
+        "status": "done",
+        "lines": 77
+      },
+      {
+        "file": "brain_ai\\brain_ai\\ros2_bridge\\service_client.py",
+        "size": 9931,
+        "status": "done",
+        "lines": 262
+      },
+      {
+        "file": "brain_ai\\brain_ai\\ros2_bridge\\topic_publisher.py",
+        "size": 7638,
+        "status": "done",
+        "lines": 199
+      },
+      {
+        "file": "brain_ai\\brain_ai\\ros2_bridge\\topic_subscriber.py",
+        "size": 7682,
+        "status": "done",
+        "lines": 210
+      },
+      {
+        "file": "brain_ai\\brain_ai\\ros2_bridge\\__init__.py",
+        "size": 584,
+        "status": "done",
+        "lines": 20
+      },
+      {
+        "file": "brain_ai\\brain_ai\\utils\\config.py",
+        "size": 3201,
+        "status": "partial",
+        "lines": 107
+      },
+      {
+        "file": "brain_ai\\brain_ai\\utils\\logging.py",
+        "size": 2430,
+        "status": "done",
+        "lines": 79
+      },
+      {
+        "file": "brain_ai\\brain_ai\\utils\\ros2three.py",
+        "size": 1911,
+        "status": "done",
+        "lines": 61
+      },
+      {
+        "file": "brain_ai\\brain_ai\\utils\\timer.py",
+        "size": 3202,
+        "status": "done",
+        "lines": 115
+      },
+      {
+        "file": "brain_ai\\brain_ai\\utils\\transforms.py",
+        "size": 2973,
+        "status": "done",
+        "lines": 88
+      },
+      {
+        "file": "brain_ai\\brain_ai\\utils\\__init__.py",
+        "size": 470,
+        "status": "done",
+        "lines": 16
+      },
+      {
+        "file": "brain_ai\\brain_ai\\vla_agent\\action_decoder.py",
+        "size": 0,
+        "status": "empty",
+        "lines": 0
+      },
+      {
+        "file": "brain_ai\\brain_ai\\vla_agent\\chunk_predictor.py",
+        "size": 0,
+        "status": "empty",
+        "lines": 0
+      },
+      {
+        "file": "brain_ai\\brain_ai\\vla_agent\\lora_adapter.py",
+        "size": 0,
+        "status": "empty",
+        "lines": 0
+      },
+      {
+        "file": "brain_ai\\brain_ai\\vla_agent\\model_loader.py",
+        "size": 0,
+        "status": "empty",
+        "lines": 0
+      },
+      {
+        "file": "brain_ai\\brain_ai\\vla_agent\\vla_inferencer.py",
+        "size": 0,
+        "status": "empty",
+        "lines": 0
+      },
+      {
+        "file": "brain_ai\\brain_ai\\vla_agent\\__init__.py",
+        "size": 0,
+        "status": "empty",
+        "lines": 0
+      },
+      {
+        "file": "brain_ai\\brain_ai\\voice_io\\asr_engine.py",
+        "size": 4203,
+        "status": "partial",
+        "lines": 122
+      },
+      {
+        "file": "brain_ai\\brain_ai\\voice_io\\audio_stream.py",
+        "size": 3718,
+        "status": "partial",
+        "lines": 107
+      },
+      {
+        "file": "brain_ai\\brain_ai\\voice_io\\tts_engine.py",
+        "size": 2931,
+        "status": "partial",
+        "lines": 89
+      },
+      {
+        "file": "brain_ai\\brain_ai\\voice_io\\voice_session.py",
+        "size": 3658,
+        "status": "done",
+        "lines": 110
+      },
+      {
+        "file": "brain_ai\\brain_ai\\voice_io\\__init__.py",
+        "size": 275,
+        "status": "done",
+        "lines": 8
+      },
+      {
+        "file": "brain_ai\\brain_ai\\ws_server\\event_dispatcher.py",
+        "size": 13297,
+        "status": "done",
+        "lines": 378
+      },
+      {
+        "file": "brain_ai\\brain_ai\\ws_server\\ws_handler.py",
+        "size": 9902,
+        "status": "done",
+        "lines": 277
+      },
+      {
+        "file": "brain_ai\\brain_ai\\ws_server\\__init__.py",
+        "size": 537,
+        "status": "done",
+        "lines": 19
+      },
+      {
+        "file": "brain_ai\\config\\brain_ai.yaml",
+        "size": 1952,
+        "status": "done",
+        "lines": 50
+      },
+      {
+        "file": "brain_ai\\config\\logging.yaml",
+        "size": 0,
+        "status": "empty",
+        "lines": 0
+      },
+      {
+        "file": "brain_ai\\config\\models.yaml",
+        "size": 0,
+        "status": "empty",
+        "lines": 0
+      },
+      {
+        "file": "brain_ai\\config\\prompts.yaml",
+        "size": 0,
+        "status": "empty",
+        "lines": 0
+      },
+      {
+        "file": "brain_ai\\notebooks\\llm_agent_demo.ipynb",
+        "size": 0,
+        "status": "empty",
+        "lines": 0
+      },
+      {
+        "file": "brain_ai\\notebooks\\perception_demo.ipynb",
+        "size": 0,
+        "status": "empty",
+        "lines": 0
+      },
+      {
+        "file": "brain_ai\\scripts\\benchmark_inference.py",
+        "size": 0,
+        "status": "empty",
+        "lines": 0
+      },
+      {
+        "file": "brain_ai\\scripts\\download_models.sh",
+        "size": 0,
+        "status": "empty",
+        "lines": 0
+      },
+      {
+        "file": "brain_ai\\scripts\\export_onnx.py",
+        "size": 0,
+        "status": "empty",
+        "lines": 0
+      },
+      {
+        "file": "brain_ai\\tests\\conftest.py",
+        "size": 0,
+        "status": "empty",
+        "lines": 0
+      },
+      {
+        "file": "brain_ai\\tests\\__init__.py",
+        "size": 0,
+        "status": "empty",
+        "lines": 0
+      },
+      {
+        "file": "brain_ai\\tests\\domain\\test_entities.py",
+        "size": 0,
+        "status": "empty",
+        "lines": 0
+      },
+      {
+        "file": "brain_ai\\tests\\knowledge\\test_working_memory.py",
+        "size": 0,
+        "status": "empty",
+        "lines": 0
+      },
+      {
+        "file": "brain_ai\\tests\\llm_agent\\test_bt_generator.py",
+        "size": 0,
+        "status": "empty",
+        "lines": 0
+      },
+      {
+        "file": "brain_ai\\tests\\llm_agent\\test_intent_parser.py",
+        "size": 0,
+        "status": "empty",
+        "lines": 0
+      },
+      {
+        "file": "brain_ai\\tests\\llm_agent\\test_task_decomposer.py",
+        "size": 0,
+        "status": "empty",
+        "lines": 0
+      },
+      {
+        "file": "brain_ai\\tests\\model_runtime\\test_runtime_factory.py",
+        "size": 0,
+        "status": "empty",
+        "lines": 0
+      },
+      {
+        "file": "brain_ai\\tests\\perception\\test_detector.py",
+        "size": 0,
+        "status": "empty",
+        "lines": 0
+      },
+      {
+        "file": "brain_ai\\tests\\perception\\test_scene_aggregator.py",
+        "size": 0,
+        "status": "empty",
+        "lines": 0
+      },
+      {
+        "file": "brain_ai\\tests\\planner\\test_hitl_manager.py",
+        "size": 0,
+        "status": "empty",
+        "lines": 0
+      },
+      {
+        "file": "brain_ai\\tests\\planner\\test_scorer.py",
+        "size": 0,
+        "status": "empty",
+        "lines": 0
+      },
+      {
+        "file": "brain_ai\\tests\\planner\\test_trajectory_gen.py",
+        "size": 0,
+        "status": "empty",
+        "lines": 0
+      },
+      {
+        "file": "brain_ai\\tests\\vla_agent\\test_action_decoder.py",
+        "size": 0,
+        "status": "empty",
+        "lines": 0
+      },
+      {
+        "file": "brain_ai\\tests\\voice_io\\test_asr_engine.py",
+        "size": 0,
+        "status": "empty",
+        "lines": 0
+      }
+    ],
+    "summary": {
+      "total": 121,
+      "empty": 29,
+      "stub_only": 0,
+      "partial": 12,
+      "done": 80,
+      "marker": 0
+    },
+    "code_files": 121,
+    "completion_pct": 71
+  },
+  {
+    "module": "brain_viz",
+    "exists": true,
+    "files": [
+      {
+        "file": "brain_viz\\next.config.js",
+        "size": 583,
+        "status": "done",
+        "lines": 25
+      },
+      {
+        "file": "brain_viz\\package.json",
+        "size": 1038,
+        "status": "partial",
+        "lines": 41
+      },
+      {
+        "file": "brain_viz\\tailwind.config.ts",
+        "size": 1340,
+        "status": "done",
+        "lines": 52
+      },
+      {
+        "file": "brain_viz\\tsconfig.json",
+        "size": 882,
+        "status": "done",
+        "lines": 31
+      },
+      {
+        "file": "brain_viz\\src\\app\\layout.tsx",
+        "size": 586,
+        "status": "done",
+        "lines": 25
+      },
+      {
+        "file": "brain_viz\\src\\app\\page.tsx",
+        "size": 3928,
+        "status": "done",
+        "lines": 126
+      },
+      {
+        "file": "brain_viz\\src\\components\\camera-view\\CameraView.tsx",
+        "size": 2345,
+        "status": "done",
+        "lines": 71
+      },
+      {
+        "file": "brain_viz\\src\\components\\chat-panel\\ChatPanel.tsx",
+        "size": 5864,
+        "status": "done",
+        "lines": 179
+      },
+      {
+        "file": "brain_viz\\src\\components\\chat-panel\\IntentView.tsx",
+        "size": 2121,
+        "status": "done",
+        "lines": 70
+      },
+      {
+        "file": "brain_viz\\src\\components\\chat-panel\\SubtaskTimeline.tsx",
+        "size": 3723,
+        "status": "done",
+        "lines": 125
+      },
+      {
+        "file": "brain_viz\\src\\components\\chat-panel\\TextChat.tsx",
+        "size": 3031,
+        "status": "done",
+        "lines": 94
+      },
+      {
+        "file": "brain_viz\\src\\components\\chat-panel\\VoiceIO.tsx",
+        "size": 2786,
+        "status": "done",
+        "lines": 76
+      },
+      {
+        "file": "brain_viz\\src\\components\\common\\Badge.tsx",
+        "size": 2725,
+        "status": "done",
+        "lines": 107
+      },
+      {
+        "file": "brain_viz\\src\\components\\common\\Button.tsx",
+        "size": 2043,
+        "status": "done",
+        "lines": 69
+      },
+      {
+        "file": "brain_viz\\src\\components\\common\\LoadingSpinner.tsx",
+        "size": 1312,
+        "status": "done",
+        "lines": 60
+      },
+      {
+        "file": "brain_viz\\src\\components\\common\\Modal.tsx",
+        "size": 2428,
+        "status": "done",
+        "lines": 90
+      },
+      {
+        "file": "brain_viz\\src\\components\\common\\ProgressBar.tsx",
+        "size": 1725,
+        "status": "done",
+        "lines": 64
+      },
+      {
+        "file": "brain_viz\\src\\components\\common\\Slider.tsx",
+        "size": 2226,
+        "status": "done",
+        "lines": 82
+      },
+      {
+        "file": "brain_viz\\src\\components\\common\\Toast.tsx",
+        "size": 3716,
+        "status": "done",
+        "lines": 123
+      },
+      {
+        "file": "brain_viz\\src\\components\\common\\Tooltip.tsx",
+        "size": 1746,
+        "status": "done",
+        "lines": 75
+      },
+      {
+        "file": "brain_viz\\src\\components\\dashboard\\AuthProvider.tsx",
+        "size": 1400,
+        "status": "partial",
+        "lines": 57
+      },
+      {
+        "file": "brain_viz\\src\\components\\dashboard\\DashboardShell.tsx",
+        "size": 814,
+        "status": "done",
+        "lines": 33
+      },
+      {
+        "file": "brain_viz\\src\\components\\dashboard\\LayoutManager.tsx",
+        "size": 1644,
+        "status": "done",
+        "lines": 55
+      },
+      {
+        "file": "brain_viz\\src\\components\\dashboard\\Sidebar.tsx",
+        "size": 1525,
+        "status": "done",
+        "lines": 42
+      },
+      {
+        "file": "brain_viz\\src\\components\\dashboard\\ThemeProvider.tsx",
+        "size": 1969,
+        "status": "done",
+        "lines": 74
+      },
+      {
+        "file": "brain_viz\\src\\components\\dashboard\\TopBar.tsx",
+        "size": 2326,
+        "status": "done",
+        "lines": 66
+      },
+      {
+        "file": "brain_viz\\src\\components\\dev-panel\\APITester.tsx",
+        "size": 4009,
+        "status": "done",
+        "lines": 111
+      },
+      {
+        "file": "brain_viz\\src\\components\\dev-panel\\CodeEditor.tsx",
+        "size": 2089,
+        "status": "done",
+        "lines": 83
+      },
+      {
+        "file": "brain_viz\\src\\components\\dev-panel\\DevPanel.tsx",
+        "size": 3289,
+        "status": "done",
+        "lines": 100
+      },
+      {
+        "file": "brain_viz\\src\\components\\dev-panel\\NodeInspector.tsx",
+        "size": 4081,
+        "status": "done",
+        "lines": 142
+      },
+      {
+        "file": "brain_viz\\src\\components\\dev-panel\\ProtoViewer.tsx",
+        "size": 1786,
+        "status": "done",
+        "lines": 61
+      },
+      {
+        "file": "brain_viz\\src\\components\\dev-panel\\SkillRegistry.tsx",
+        "size": 2909,
+        "status": "done",
+        "lines": 83
+      },
+      {
+        "file": "brain_viz\\src\\components\\hitl-panel\\Countdown.tsx",
+        "size": 1459,
+        "status": "done",
+        "lines": 56
+      },
+      {
+        "file": "brain_viz\\src\\components\\hitl-panel\\HITLPanel.tsx",
+        "size": 2866,
+        "status": "done",
+        "lines": 91
+      },
+      {
+        "file": "brain_viz\\src\\components\\hitl-panel\\ModeControl.tsx",
+        "size": 902,
+        "status": "done",
+        "lines": 35
+      },
+      {
+        "file": "brain_viz\\src\\components\\hitl-panel\\OverridePanel.tsx",
+        "size": 2444,
+        "status": "done",
+        "lines": 85
+      },
+      {
+        "file": "brain_viz\\src\\components\\hitl-panel\\ScoreChart.tsx",
+        "size": 4355,
+        "status": "done",
+        "lines": 127
+      },
+      {
+        "file": "brain_viz\\src\\components\\hitl-panel\\StrategyBadge.tsx",
+        "size": 2196,
+        "status": "done",
+        "lines": 77
+      },
+      {
+        "file": "brain_viz\\src\\components\\hitl-panel\\TrajectoryCard.tsx",
+        "size": 2109,
+        "status": "done",
+        "lines": 65
+      },
+      {
+        "file": "brain_viz\\src\\components\\hitl-panel\\TrajectoryList.tsx",
+        "size": 4390,
+        "status": "done",
+        "lines": 129
+      },
+      {
+        "file": "brain_viz\\src\\components\\scene-view\\CameraControls.tsx",
+        "size": 1569,
+        "status": "done",
+        "lines": 50
+      },
+      {
+        "file": "brain_viz\\src\\components\\scene-view\\CoordinateGrid.tsx",
+        "size": 1492,
+        "status": "done",
+        "lines": 61
+      },
+      {
+        "file": "brain_viz\\src\\components\\scene-view\\DangerZone.tsx",
+        "size": 1205,
+        "status": "done",
+        "lines": 43
+      },
+      {
+        "file": "brain_viz\\src\\components\\scene-view\\GhostTrail.tsx",
+        "size": 1444,
+        "status": "done",
+        "lines": 51
+      },
+      {
+        "file": "brain_viz\\src\\components\\scene-view\\GSRenderer.tsx",
+        "size": 2559,
+        "status": "done",
+        "lines": 89
+      },
+      {
+        "file": "brain_viz\\src\\components\\scene-view\\KeyframeAnnotation.tsx",
+        "size": 2089,
+        "status": "done",
+        "lines": 70
+      },
+      {
+        "file": "brain_viz\\src\\components\\scene-view\\SceneLighting.tsx",
+        "size": 455,
+        "status": "done",
+        "lines": 20
+      },
+      {
+        "file": "brain_viz\\src\\components\\scene-view\\SceneView.tsx",
+        "size": 2290,
+        "status": "done",
+        "lines": 75
+      },
+      {
+        "file": "brain_viz\\src\\components\\scene-view\\TrajectoryHighlight.tsx",
+        "size": 2675,
+        "status": "done",
+        "lines": 92
+      },
+      {
+        "file": "brain_viz\\src\\components\\status-monitor\\AlertList.tsx",
+        "size": 3302,
+        "status": "done",
+        "lines": 88
+      },
+      {
+        "file": "brain_viz\\src\\components\\status-monitor\\HealthCard.tsx",
+        "size": 2383,
+        "status": "done",
+        "lines": 65
+      },
+      {
+        "file": "brain_viz\\src\\components\\status-monitor\\JointStateDisplay.tsx",
+        "size": 2318,
+        "status": "done",
+        "lines": 70
+      },
+      {
+        "file": "brain_viz\\src\\components\\status-monitor\\LogViewer.tsx",
+        "size": 3542,
+        "status": "done",
+        "lines": 104
+      },
+      {
+        "file": "brain_viz\\src\\components\\status-monitor\\MetricsPanel.tsx",
+        "size": 4252,
+        "status": "done",
+        "lines": 140
+      },
+      {
+        "file": "brain_viz\\src\\components\\status-monitor\\ProcessMonitor.tsx",
+        "size": 2862,
+        "status": "done",
+        "lines": 83
+      },
+      {
+        "file": "brain_viz\\src\\components\\status-monitor\\StatusMonitor.tsx",
+        "size": 2550,
+        "status": "done",
+        "lines": 72
+      },
+      {
+        "file": "brain_viz\\src\\hooks\\useCountdown.ts",
+        "size": 3716,
+        "status": "done",
+        "lines": 153
+      },
+      {
+        "file": "brain_viz\\src\\hooks\\useGrpcStream.ts",
+        "size": 3194,
+        "status": "done",
+        "lines": 105
+      },
+      {
+        "file": "brain_viz\\src\\hooks\\useKeyboardControls.ts",
+        "size": 3259,
+        "status": "done",
+        "lines": 111
+      },
+      {
+        "file": "brain_viz\\src\\hooks\\useRobotState.ts",
+        "size": 2663,
+        "status": "done",
+        "lines": 88
+      },
+      {
+        "file": "brain_viz\\src\\hooks\\useSafetyAlerts.ts",
+        "size": 2713,
+        "status": "done",
+        "lines": 88
+      },
+      {
+        "file": "brain_viz\\src\\hooks\\useSceneData.ts",
+        "size": 2449,
+        "status": "done",
+        "lines": 87
+      },
+      {
+        "file": "brain_viz\\src\\hooks\\useTrajectoryData.ts",
+        "size": 3271,
+        "status": "done",
+        "lines": 109
+      },
+      {
+        "file": "brain_viz\\src\\hooks\\useWebSocket.ts",
+        "size": 2696,
+        "status": "done",
+        "lines": 94
+      },
+      {
+        "file": "brain_viz\\src\\services\\cognitionClient.ts",
+        "size": 1764,
+        "status": "done",
+        "lines": 54
+      },
+      {
+        "file": "brain_viz\\src\\services\\controlClient.ts",
+        "size": 4376,
+        "status": "done",
+        "lines": 139
+      },
+      {
+        "file": "brain_viz\\src\\services\\decisionClient.ts",
+        "size": 2248,
+        "status": "done",
+        "lines": 73
+      },
+      {
+        "file": "brain_viz\\src\\services\\grpcClient.ts",
+        "size": 11173,
+        "status": "done",
+        "lines": 326
+      },
+      {
+        "file": "brain_viz\\src\\services\\knowledgeClient.ts",
+        "size": 1699,
+        "status": "done",
+        "lines": 68
+      },
+      {
+        "file": "brain_viz\\src\\services\\perceptionClient.ts",
+        "size": 3175,
+        "status": "done",
+        "lines": 109
+      },
+      {
+        "file": "brain_viz\\src\\services\\ros2Bridge.ts",
+        "size": 5753,
+        "status": "done",
+        "lines": 205
+      },
+      {
+        "file": "brain_viz\\src\\services\\safetyClient.ts",
+        "size": 2542,
+        "status": "done",
+        "lines": 97
+      },
+      {
+        "file": "brain_viz\\src\\services\\wsClient.ts",
+        "size": 2602,
+        "status": "done",
+        "lines": 98
+      },
+      {
+        "file": "brain_viz\\src\\stores\\chatStore.ts",
+        "size": 3351,
+        "status": "done",
+        "lines": 128
+      },
+      {
+        "file": "brain_viz\\src\\stores\\hitlStore.ts",
+        "size": 1036,
+        "status": "done",
+        "lines": 30
+      },
+      {
+        "file": "brain_viz\\src\\stores\\monitorStore.ts",
+        "size": 3941,
+        "status": "done",
+        "lines": 151
+      },
+      {
+        "file": "brain_viz\\src\\stores\\robotStore.ts",
+        "size": 873,
+        "status": "done",
+        "lines": 30
+      },
+      {
+        "file": "brain_viz\\src\\stores\\sceneStore.ts",
+        "size": 552,
+        "status": "done",
+        "lines": 20
+      },
+      {
+        "file": "brain_viz\\src\\stores\\trajectoryStore.ts",
+        "size": 743,
+        "status": "done",
+        "lines": 24
+      },
+      {
+        "file": "brain_viz\\src\\stores\\uiStore.ts",
+        "size": 681,
+        "status": "done",
+        "lines": 25
+      },
+      {
+        "file": "brain_viz\\src\\styles\\globals.css",
+        "size": 1275,
+        "status": "done",
+        "lines": 60
+      },
+      {
+        "file": "brain_viz\\src\\styles\\theme.ts",
+        "size": 5128,
+        "status": "done",
+        "lines": 175
+      },
+      {
+        "file": "brain_viz\\src\\types\\domain.ts",
+        "size": 3354,
+        "status": "done",
+        "lines": 103
+      },
+      {
+        "file": "brain_viz\\src\\types\\enums.ts",
+        "size": 866,
+        "status": "done",
+        "lines": 34
+      },
+      {
+        "file": "brain_viz\\src\\types\\events.ts",
+        "size": 3692,
+        "status": "done",
+        "lines": 96
+      },
+      {
+        "file": "brain_viz\\src\\types\\proto.ts",
+        "size": 5028,
+        "status": "done",
+        "lines": 212
+      },
+      {
+        "file": "brain_viz\\src\\utils\\colorMap.ts",
+        "size": 4958,
+        "status": "done",
+        "lines": 124
+      },
+      {
+        "file": "brain_viz\\src\\utils\\formatTime.ts",
+        "size": 4048,
+        "status": "done",
+        "lines": 118
+      },
+      {
+        "file": "brain_viz\\src\\utils\\physics.ts",
+        "size": 6490,
+        "status": "done",
+        "lines": 180
+      },
+      {
+        "file": "brain_viz\\src\\utils\\ros2three.ts",
+        "size": 5191,
+        "status": "done",
+        "lines": 139
+      },
+      {
+        "file": "brain_viz\\src\\utils\\three2ros.ts",
+        "size": 3973,
+        "status": "done",
+        "lines": 115
+      },
+      {
+        "file": "brain_viz\\tests\\components\\HITLPanel.test.tsx",
+        "size": 4079,
+        "status": "done",
+        "lines": 143
+      },
+      {
+        "file": "brain_viz\\tests\\components\\SceneView.test.tsx",
+        "size": 3064,
+        "status": "done",
+        "lines": 96
+      },
+      {
+        "file": "brain_viz\\tests\\e2e\\hitl_flow.spec.ts",
+        "size": 3268,
+        "status": "done",
+        "lines": 99
+      },
+      {
+        "file": "brain_viz\\tests\\stores\\trajectoryStore.test.ts",
+        "size": 3844,
+        "status": "done",
+        "lines": 115
+      }
+    ],
+    "summary": {
+      "total": 95,
+      "empty": 0,
+      "stub_only": 0,
+      "partial": 2,
+      "done": 93,
+      "marker": 0
+    },
+    "code_files": 95,
+    "completion_pct": 98
+  },
+  {
+    "module": "brain_sdk",
+    "exists": true,
+    "files": [
+      {
+        "file": "brain_sdk\\pyproject.toml",
+        "size": 1244,
+        "status": "done",
+        "lines": 53
+      },
+      {
+        "file": "brain_sdk\\README.md",
+        "size": 0,
+        "status": "empty",
+        "lines": 0
+      },
+      {
+        "file": "brain_sdk\\setup.cfg",
+        "size": 0,
+        "status": "empty",
+        "lines": 0
+      },
+      {
+        "file": "brain_sdk\\brain_os\\client.py",
+        "size": 6383,
+        "status": "done",
+        "lines": 167
+      },
+      {
+        "file": "brain_sdk\\brain_os\\config.py",
+        "size": 2475,
+        "status": "done",
+        "lines": 57
+      },
+      {
+        "file": "brain_sdk\\brain_os\\connection.py",
+        "size": 2264,
+        "status": "done",
+        "lines": 69
+      },
+      {
+        "file": "brain_sdk\\brain_os\\__init__.py",
+        "size": 0,
+        "status": "empty",
+        "lines": 0
+      },
+      {
+        "file": "brain_sdk\\brain_os\\cognition\\intent_api.py",
+        "size": 1976,
+        "status": "partial",
+        "lines": 60
+      },
+      {
+        "file": "brain_sdk\\brain_os\\cognition\\task_api.py",
+        "size": 1940,
+        "status": "partial",
+        "lines": 57
+      },
+      {
+        "file": "brain_sdk\\brain_os\\cognition\\__init__.py",
+        "size": 0,
+        "status": "empty",
+        "lines": 0
+      },
+      {
+        "file": "brain_sdk\\brain_os\\control\\direct_control.py",
+        "size": 0,
+        "status": "empty",
+        "lines": 0
+      },
+      {
+        "file": "brain_sdk\\brain_os\\control\\gripper_api.py",
+        "size": 1424,
+        "status": "partial",
+        "lines": 43
+      },
+      {
+        "file": "brain_sdk\\brain_os\\control\\motion_api.py",
+        "size": 1820,
+        "status": "partial",
+        "lines": 55
+      },
+      {
+        "file": "brain_sdk\\brain_os\\control\\__init__.py",
+        "size": 0,
+        "status": "empty",
+        "lines": 0
+      },
+      {
+        "file": "brain_sdk\\brain_os\\decision\\plan_api.py",
+        "size": 2495,
+        "status": "partial",
+        "lines": 63
+      },
+      {
+        "file": "brain_sdk\\brain_os\\decision\\trajectory_api.py",
+        "size": 1703,
+        "status": "partial",
+        "lines": 53
+      },
+      {
+        "file": "brain_sdk\\brain_os\\decision\\__init__.py",
+        "size": 0,
+        "status": "empty",
+        "lines": 0
+      },
+      {
+        "file": "brain_sdk\\brain_os\\knowledge\\episode_api.py",
+        "size": 1400,
+        "status": "partial",
+        "lines": 50
+      },
+      {
+        "file": "brain_sdk\\brain_os\\knowledge\\search_api.py",
+        "size": 1606,
+        "status": "partial",
+        "lines": 44
+      },
+      {
+        "file": "brain_sdk\\brain_os\\knowledge\\__init__.py",
+        "size": 0,
+        "status": "empty",
+        "lines": 0
+      },
+      {
+        "file": "brain_sdk\\brain_os\\perception\\object_api.py",
+        "size": 1497,
+        "status": "partial",
+        "lines": 46
+      },
+      {
+        "file": "brain_sdk\\brain_os\\perception\\scene_api.py",
+        "size": 1475,
+        "status": "partial",
+        "lines": 41
+      },
+      {
+        "file": "brain_sdk\\brain_os\\perception\\__init__.py",
+        "size": 0,
+        "status": "empty",
+        "lines": 0
+      },
+      {
+        "file": "brain_sdk\\brain_os\\safety\\emergency_api.py",
+        "size": 1231,
+        "status": "partial",
+        "lines": 34
+      },
+      {
+        "file": "brain_sdk\\brain_os\\safety\\safety_api.py",
+        "size": 1608,
+        "status": "partial",
+        "lines": 43
+      },
+      {
+        "file": "brain_sdk\\brain_os\\safety\\__init__.py",
+        "size": 0,
+        "status": "empty",
+        "lines": 0
+      },
+      {
+        "file": "brain_sdk\\brain_os\\speech\\speech_api.py",
+        "size": 0,
+        "status": "empty",
+        "lines": 0
+      },
+      {
+        "file": "brain_sdk\\brain_os\\speech\\__init__.py",
+        "size": 0,
+        "status": "empty",
+        "lines": 0
+      },
+      {
+        "file": "brain_sdk\\brain_os\\types\\common.py",
+        "size": 911,
+        "status": "done",
+        "lines": 50
+      },
+      {
+        "file": "brain_sdk\\brain_os\\types\\enums.py",
+        "size": 1043,
+        "status": "done",
+        "lines": 60
+      },
+      {
+        "file": "brain_sdk\\brain_os\\types\\motion.py",
+        "size": 0,
+        "status": "empty",
+        "lines": 0
+      },
+      {
+        "file": "brain_sdk\\brain_os\\types\\plan.py",
+        "size": 0,
+        "status": "empty",
+        "lines": 0
+      },
+      {
+        "file": "brain_sdk\\brain_os\\types\\scene.py",
+        "size": 0,
+        "status": "empty",
+        "lines": 0
+      },
+      {
+        "file": "brain_sdk\\brain_os\\types\\task.py",
+        "size": 0,
+        "status": "empty",
+        "lines": 0
+      },
+      {
+        "file": "brain_sdk\\brain_os\\types\\__init__.py",
+        "size": 0,
+        "status": "empty",
+        "lines": 0
+      },
+      {
+        "file": "brain_sdk\\brain_os\\utils\\async_helpers.py",
+        "size": 1282,
+        "status": "done",
+        "lines": 45
+      },
+      {
+        "file": "brain_sdk\\brain_os\\utils\\errors.py",
+        "size": 676,
+        "status": "partial",
+        "lines": 38
+      },
+      {
+        "file": "brain_sdk\\brain_os\\utils\\__init__.py",
+        "size": 0,
+        "status": "empty",
+        "lines": 0
+      },
+      {
+        "file": "brain_sdk\\examples\\basic_connect.py",
+        "size": 0,
+        "status": "empty",
+        "lines": 0
+      },
+      {
+        "file": "brain_sdk\\examples\\hitl_mode.py",
+        "size": 2225,
+        "status": "done",
+        "lines": 68
+      },
+      {
+        "file": "brain_sdk\\examples\\task_execution.py",
+        "size": 0,
+        "status": "empty",
+        "lines": 0
+      },
+      {
+        "file": "brain_sdk\\examples\\voice_interaction.py",
+        "size": 1409,
+        "status": "done",
+        "lines": 52
+      },
+      {
+        "file": "brain_sdk\\tests\\test_client.py",
+        "size": 0,
+        "status": "empty",
+        "lines": 0
+      },
+      {
+        "file": "brain_sdk\\tests\\test_cognition_api.py",
+        "size": 0,
+        "status": "empty",
+        "lines": 0
+      },
+      {
+        "file": "brain_sdk\\tests\\test_scene_api.py",
+        "size": 0,
+        "status": "empty",
+        "lines": 0
+      }
+    ],
+    "summary": {
+      "total": 45,
+      "empty": 23,
+      "stub_only": 0,
+      "partial": 13,
+      "done": 9,
+      "marker": 0
+    },
+    "code_files": 45,
+    "completion_pct": 34
+  },
+  {
+    "module": "brain_proto",
+    "exists": true,
+    "files": [
+      {
+        "file": "brain_proto\\buf.gen.yaml",
+        "size": 876,
+        "status": "done",
+        "lines": 31
+      },
+      {
+        "file": "brain_proto\\buf.yaml",
+        "size": 249,
+        "status": "done",
+        "lines": 13
+      },
+      {
+        "file": "brain_proto\\brain_os\\cognition\\service.proto",
+        "size": 3645,
+        "status": "done",
+        "lines": 99
+      },
+      {
+        "file": "brain_proto\\brain_os\\cognition\\types.proto",
+        "size": 2539,
+        "status": "done",
+        "lines": 64
+      },
+      {
+        "file": "brain_proto\\brain_os\\common\\types.proto",
+        "size": 2470,
+        "status": "done",
+        "lines": 80
+      },
+      {
+        "file": "brain_proto\\brain_os\\control\\service.proto",
+        "size": 3374,
+        "status": "done",
+        "lines": 87
+      },
+      {
+        "file": "brain_proto\\brain_os\\control\\types.proto",
+        "size": 2793,
+        "status": "done",
+        "lines": 71
+      },
+      {
+        "file": "brain_proto\\brain_os\\decision\\service.proto",
+        "size": 4042,
+        "status": "done",
+        "lines": 102
+      },
+      {
+        "file": "brain_proto\\brain_os\\decision\\types.proto",
+        "size": 2499,
+        "status": "done",
+        "lines": 66
+      },
+      {
+        "file": "brain_proto\\brain_os\\knowledge\\service.proto",
+        "size": 3800,
+        "status": "done",
+        "lines": 102
+      },
+      {
+        "file": "brain_proto\\brain_os\\knowledge\\types.proto",
+        "size": 2546,
+        "status": "done",
+        "lines": 59
+      },
+      {
+        "file": "brain_proto\\brain_os\\perception\\service.proto",
+        "size": 3066,
+        "status": "done",
+        "lines": 78
+      },
+      {
+        "file": "brain_proto\\brain_os\\perception\\types.proto",
+        "size": 2781,
+        "status": "done",
+        "lines": 71
+      },
+      {
+        "file": "brain_proto\\brain_os\\safety\\service.proto",
+        "size": 2940,
+        "status": "done",
+        "lines": 77
+      },
+      {
+        "file": "brain_proto\\brain_os\\safety\\types.proto",
+        "size": 2365,
+        "status": "done",
+        "lines": 57
+      },
+      {
+        "file": "brain_proto\\scripts\\buf_generate.sh",
+        "size": 871,
+        "status": "done",
+        "lines": 30
+      },
+      {
+        "file": "brain_proto\\scripts\\generate_proto.py",
+        "size": 3969,
+        "status": "done",
+        "lines": 134
+      }
+    ],
+    "summary": {
+      "total": 17,
+      "empty": 0,
+      "stub_only": 0,
+      "partial": 0,
+      "done": 17,
+      "marker": 0
+    },
+    "code_files": 17,
+    "completion_pct": 100
+  },
+  {
+    "module": "brain_sim",
+    "exists": true,
+    "files": [
+      {
+        "file": "brain_sim\\config\\sim_config.yaml",
+        "size": 1353,
+        "status": "done",
+        "lines": 54
+      },
+      {
+        "file": "brain_sim\\demo\\e2e_demo.py",
+        "size": 24617,
+        "status": "done",
+        "lines": 643
+      },
+      {
+        "file": "brain_sim\\gazebo\\launch\\tabletop.launch.py",
+        "size": 2926,
+        "status": "done",
+        "lines": 88
+      },
+      {
+        "file": "brain_sim\\gazebo\\robots\\kinova_gen3.sdf",
+        "size": 0,
+        "status": "empty",
+        "lines": 0
+      },
+      {
+        "file": "brain_sim\\gazebo\\robots\\turtlebot4.sdf",
+        "size": 0,
+        "status": "empty",
+        "lines": 0
+      },
+      {
+        "file": "brain_sim\\gazebo\\worlds\\living_room.world",
+        "size": 0,
+        "status": "empty",
+        "lines": 0
+      },
+      {
+        "file": "brain_sim\\gazebo\\worlds\\tabletop.world",
+        "size": 3546,
+        "status": "done",
+        "lines": 112
+      },
+      {
+        "file": "brain_sim\\gazebo\\worlds\\warehouse.world",
+        "size": 0,
+        "status": "empty",
+        "lines": 0
+      },
+      {
+        "file": "brain_sim\\isaac_sim\\environments\\pick_and_place.py",
+        "size": 0,
+        "status": "empty",
+        "lines": 0
+      },
+      {
+        "file": "brain_sim\\isaac_sim\\launch\\isaac_lab_train.sh",
+        "size": 0,
+        "status": "empty",
+        "lines": 0
+      },
+      {
+        "file": "brain_sim\\isaac_sim\\tasks\\pick_red_cup.py",
+        "size": 0,
+        "status": "empty",
+        "lines": 0
+      }
+    ],
+    "summary": {
+      "total": 11,
+      "empty": 7,
+      "stub_only": 0,
+      "partial": 0,
+      "done": 4,
+      "marker": 0
+    },
+    "code_files": 11,
+    "completion_pct": 36
+  },
+  {
+    "module": "brain_models",
+    "exists": true,
+    "files": [
+      {
+        "file": "brain_models\\.gitattributes",
+        "size": 770,
+        "status": "marker",
+        "lines": 26
+      },
+      {
+        "file": "brain_models\\README.md",
+        "size": 1476,
+        "status": "done",
+        "lines": 46
+      },
+      {
+        "file": "brain_models\\cv\\sam2_hiera_tiny.decoder.onnx",
+        "size": 0,
+        "status": "empty",
+        "lines": 0
+      },
+      {
+        "file": "brain_models\\cv\\sam2_hiera_tiny.encoder.onnx",
+        "size": 0,
+        "status": "empty",
+        "lines": 0
+      },
+      {
+        "file": "brain_models\\cv\\yolov11n.onnx",
+        "size": 0,
+        "status": "empty",
+        "lines": 0
+      },
+      {
+        "file": "brain_models\\cv\\yolov11s.onnx",
+        "size": 0,
+        "status": "empty",
+        "lines": 0
+      },
+      {
+        "file": "brain_models\\slam\\orb_vocab.fbow",
+        "size": 0,
+        "status": "empty",
+        "lines": 0
+      }
+    ],
+    "summary": {
+      "total": 7,
+      "empty": 5,
+      "stub_only": 0,
+      "partial": 0,
+      "done": 1,
+      "marker": 1
+    },
+    "code_files": 6,
+    "completion_pct": 16
+  },
+  {
+    "module": "brain_deploy",
+    "exists": true,
+    "files": [
+      {
+        "file": "brain_deploy\\docker-compose.prod.yml",
+        "size": 0,
+        "status": "empty",
+        "lines": 0
+      },
+      {
+        "file": "brain_deploy\\docker-compose.yml",
+        "size": 0,
+        "status": "empty",
+        "lines": 0
+      },
+      {
+        "file": "brain_deploy\\deb\\brain-os-ai\\DEBIAN\\control",
+        "size": 0,
+        "status": "empty",
+        "lines": 0
+      },
+      {
+        "file": "brain_deploy\\deb\\brain-os-core\\DEBIAN\\control",
+        "size": 0,
+        "status": "empty",
+        "lines": 0
+      },
+      {
+        "file": "brain_deploy\\deb\\brain-os-core\\DEBIAN\\postinst",
+        "size": 0,
+        "status": "empty",
+        "lines": 0
+      },
+      {
+        "file": "brain_deploy\\docker\\.dockerignore",
+        "size": 0,
+        "status": "empty",
+        "lines": 0
+      },
+      {
+        "file": "brain_deploy\\docker\\Dockerfile.brain_ai",
+        "size": 1264,
+        "status": "done",
+        "lines": 43
+      },
+      {
+        "file": "brain_deploy\\docker\\Dockerfile.brain_core",
+        "size": 1197,
+        "status": "done",
+        "lines": 46
+      },
+      {
+        "file": "brain_deploy\\docker\\Dockerfile.brain_viz",
+        "size": 1014,
+        "status": "done",
+        "lines": 43
+      },
+      {
+        "file": "brain_deploy\\docker\\Dockerfile.envoy",
+        "size": 299,
+        "status": "done",
+        "lines": 10
+      },
+      {
+        "file": "brain_deploy\\envoy\\envoy.yaml",
+        "size": 2920,
+        "status": "done",
+        "lines": 70
+      },
+      {
+        "file": "brain_deploy\\k8s\\brain-ai-deployment.yaml",
+        "size": 0,
+        "status": "empty",
+        "lines": 0
+      },
+      {
+        "file": "brain_deploy\\k8s\\brain-core-deployment.yaml",
+        "size": 0,
+        "status": "empty",
+        "lines": 0
+      },
+      {
+        "file": "brain_deploy\\k8s\\envoy-configmap.yaml",
+        "size": 0,
+        "status": "empty",
+        "lines": 0
+      },
+      {
+        "file": "brain_deploy\\scripts\\setup_dev.sh",
+        "size": 1635,
+        "status": "done",
+        "lines": 51
+      },
+      {
+        "file": "brain_deploy\\scripts\\start_all.sh",
+        "size": 913,
+        "status": "done",
+        "lines": 30
+      },
+      {
+        "file": "brain_deploy\\scripts\\stop_all.sh",
+        "size": 657,
+        "status": "done",
+        "lines": 26
+      }
+    ],
+    "summary": {
+      "total": 17,
+      "empty": 9,
+      "stub_only": 0,
+      "partial": 0,
+      "done": 8,
+      "marker": 0
+    },
+    "code_files": 17,
+    "completion_pct": 47
+  },
+  {
+    "module": "brain_docs",
+    "exists": true,
+    "files": [
+      {
+        "file": "brain_docs\\mkdocs.yml",
+        "size": 2438,
+        "status": "done",
+        "lines": 98
+      },
+      {
+        "file": "brain_docs\\requirements.txt",
+        "size": 89,
+        "status": "done",
+        "lines": 4
+      },
+      {
+        "file": "brain_docs\\.github\\workflows\\docs.yml",
+        "size": 712,
+        "status": "done",
+        "lines": 34
+      },
+      {
+        "file": "brain_docs\\docs\\index.md",
+        "size": 2157,
+        "status": "done",
+        "lines": 88
+      },
+      {
+        "file": "brain_docs\\docs\\api\\proto-reference.md",
+        "size": 8088,
+        "status": "done",
+        "lines": 325
+      },
+      {
+        "file": "brain_docs\\docs\\development\\architecture.md",
+        "size": 7784,
+        "status": "done",
+        "lines": 176
+      },
+      {
+        "file": "brain_docs\\docs\\development\\contributing.md",
+        "size": 4629,
+        "status": "done",
+        "lines": 220
+      },
+      {
+        "file": "brain_docs\\docs\\development\\modules.md",
+        "size": 5955,
+        "status": "done",
+        "lines": 148
+      },
+      {
+        "file": "brain_docs\\docs\\getting-started\\installation.md",
+        "size": 3350,
+        "status": "done",
+        "lines": 167
+      },
+      {
+        "file": "brain_docs\\docs\\getting-started\\quickstart.md",
+        "size": 4526,
+        "status": "done",
+        "lines": 143
+      },
+      {
+        "file": "brain_docs\\docs\\sdk\\api-reference.md",
+        "size": 5688,
+        "status": "done",
+        "lines": 272
+      },
+      {
+        "file": "brain_docs\\docs\\sdk\\examples.md",
+        "size": 4907,
+        "status": "done",
+        "lines": 212
+      },
+      {
+        "file": "brain_docs\\docs\\sdk\\python-sdk.md",
+        "size": 4009,
+        "status": "done",
+        "lines": 200
+      },
+      {
+        "file": "brain_docs\\docs\\user-guide\\dashboard.md",
+        "size": 4214,
+        "status": "done",
+        "lines": 146
+      },
+      {
+        "file": "brain_docs\\docs\\user-guide\\hitl.md",
+        "size": 4649,
+        "status": "done",
+        "lines": 135
+      },
+      {
+        "file": "brain_docs\\docs\\user-guide\\voice-control.md",
+        "size": 3517,
+        "status": "done",
+        "lines": 155
+      },
+      {
+        "file": "brain_docs\\overrides\\main.html",
+        "size": 161,
+        "status": "done",
+        "lines": 6
+      }
+    ],
+    "summary": {
+      "total": 17,
+      "empty": 0,
+      "stub_only": 0,
+      "partial": 0,
+      "done": 17,
+      "marker": 0
+    },
+    "code_files": 17,
+    "completion_pct": 100
+  }
+]

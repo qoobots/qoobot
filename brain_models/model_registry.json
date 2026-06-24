@@ -1,0 +1,349 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$comment": "Brain OS 模型注册表 — 所有模型元数据单一真实来源",
+  "registry_version": "1.0.0",
+  "last_updated": "2026-06-24T11:30:00+08:00",
+  "models": {
+    "qwen2.5-7b-instruct-int4": {
+      "category": "llm",
+      "name": "Qwen2.5-7B-Instruct INT4",
+      "description": "主推理引擎 — 7B 参数中文指令大模型，INT4 量化后运行于 Jetson Orin TensorRT-LLM",
+      "huggingface": {
+        "repo": "Qwen/Qwen2.5-7B-Instruct",
+        "files": ["config.json", "tokenizer.json", "tokenizer_config.json", "model*.safetensors"],
+        "revision": "main"
+      },
+      "format": "tensorrt_engine",
+      "quantization": "INT4_weight_only",
+      "estimated_size_gb": 4.2,
+      "min_vram_gb": 6.0,
+      "max_context_length": 32768,
+      "target_device": "nvidia-jetson-orin",
+      "local_path": "brain_models/llm/qwen2.5-7b-instruct-int4/",
+      "engine_file": "qwen2.5-7b-int4.engine",
+      "runtime": "brain_ai.model_runtime.trt_llm_adapter.TRTLLMAdapter",
+      "checksums": {
+        "algorithm": "sha256",
+        "config.json": "TBD",
+        "tokenizer.json": "TBD"
+      },
+      "dependencies": ["tensorrt_llm>=0.12.0"],
+      "priority": "P0_critical",
+      "phase": "Phase2"
+    },
+    "qwen2.5-3b-instruct-int4": {
+      "category": "llm",
+      "name": "Qwen2.5-3B-Instruct INT4",
+      "description": "降级备选引擎 — 3B 参数，当 7B 模型不可用时自动切换",
+      "huggingface": {
+        "repo": "Qwen/Qwen2.5-3B-Instruct",
+        "files": ["config.json", "tokenizer.json", "tokenizer_config.json", "model*.safetensors"],
+        "revision": "main"
+      },
+      "format": "tensorrt_engine",
+      "quantization": "INT4_weight_only",
+      "estimated_size_gb": 1.8,
+      "min_vram_gb": 3.0,
+      "max_context_length": 32768,
+      "target_device": "nvidia-jetson-orin",
+      "local_path": "brain_models/llm/qwen2.5-3b-instruct-int4/",
+      "engine_file": "qwen2.5-3b-int4.engine",
+      "runtime": "brain_ai.model_runtime.trt_llm_adapter.TRTLLMAdapter",
+      "checksums": {
+        "algorithm": "sha256",
+        "config.json": "TBD"
+      },
+      "dependencies": ["tensorrt_llm>=0.12.0"],
+      "priority": "P0_critical",
+      "phase": "Phase2",
+      "fallback_for": "qwen2.5-7b-instruct-int4"
+    },
+    "qwen2.5-1.5b-instruct-gguf": {
+      "category": "llm",
+      "name": "Qwen2.5-1.5B-Instruct GGUF Q4_K_M",
+      "description": "CPU 兜底引擎 — 1.5B 参数，llama.cpp 运行时，RAM 即可推理",
+      "huggingface": {
+        "repo": "Qwen/Qwen2.5-1.5B-Instruct-GGUF",
+        "files": ["qwen2.5-1.5b-instruct-q4_k_m.gguf"],
+        "revision": "main"
+      },
+      "format": "gguf",
+      "quantization": "Q4_K_M",
+      "estimated_size_gb": 0.99,
+      "min_ram_gb": 2.0,
+      "max_context_length": 32768,
+      "target_device": "cpu-x86_64-arm64",
+      "local_path": "brain_models/llm/qwen2.5-1.5b-instruct-gguf/",
+      "engine_file": "qwen2.5-1.5b-instruct-q4_k_m.gguf",
+      "runtime": "brain_ai.model_runtime.llama_cpp_adapter.LlamaCppAdapter",
+      "checksums": {
+        "algorithm": "sha256",
+        "qwen2.5-1.5b-instruct-q4_k_m.gguf": "TBD"
+      },
+      "dependencies": ["llama-cpp-python>=0.2.0"],
+      "priority": "P1_fallback",
+      "phase": "Phase2",
+      "fallback_for": "qwen2.5-3b-instruct-int4"
+    },
+    "yolov11n": {
+      "category": "cv",
+      "subcategory": "detection",
+      "name": "YOLOv11 Nano ONNX",
+      "description": "轻量目标检测 — 速度优先，适用于实时视频流（30 FPS 目标）",
+      "huggingface": {
+        "repo": "Ultralytics/YOLO11",
+        "files": ["yolo11n.onnx"],
+        "revision": "main"
+      },
+      "format": "onnx",
+      "opset": 17,
+      "estimated_size_mb": 10.5,
+      "input_shape": [1, 3, 640, 640],
+      "output_shape": [1, 84, 8400],
+      "num_classes": 80,
+      "confidence_threshold": 0.25,
+      "nms_threshold": 0.45,
+      "target_device": "nvidia-jetson-orin-gpu",
+      "local_path": "brain_models/cv/",
+      "engine_file": "yolov11n.onnx",
+      "runtime": "brain_ai.model_runtime.onnx_adapter.YOLOAdapter",
+      "checksums": {
+        "algorithm": "sha256",
+        "yolov11n.onnx": "TBD"
+      },
+      "dependencies": ["onnxruntime-gpu>=1.17.0"],
+      "priority": "P0_critical",
+      "phase": "Phase2",
+      "inference_target": {
+        "fps": 30.0,
+        "max_latency_ms": 33.0
+      }
+    },
+    "yolov11s": {
+      "category": "cv",
+      "subcategory": "detection",
+      "name": "YOLOv11 Small ONNX",
+      "description": "标准目标检测 — 精度与速度均衡，非实时任务默认选择",
+      "huggingface": {
+        "repo": "Ultralytics/YOLO11",
+        "files": ["yolo11s.onnx"],
+        "revision": "main"
+      },
+      "format": "onnx",
+      "opset": 17,
+      "estimated_size_mb": 37.6,
+      "input_shape": [1, 3, 640, 640],
+      "output_shape": [1, 84, 8400],
+      "num_classes": 80,
+      "confidence_threshold": 0.25,
+      "nms_threshold": 0.45,
+      "target_device": "nvidia-jetson-orin-gpu",
+      "local_path": "brain_models/cv/",
+      "engine_file": "yolov11s.onnx",
+      "runtime": "brain_ai.model_runtime.onnx_adapter.YOLOAdapter",
+      "checksums": {
+        "algorithm": "sha256",
+        "yolov11s.onnx": "TBD"
+      },
+      "dependencies": ["onnxruntime-gpu>=1.17.0"],
+      "priority": "P1_general",
+      "phase": "Phase2",
+      "inference_target": {
+        "fps": 20.0,
+        "max_latency_ms": 50.0
+      }
+    },
+    "sam2_hiera_tiny": {
+      "category": "cv",
+      "subcategory": "segmentation",
+      "name": "SAM 2 Hiera Tiny ONNX",
+      "description": "实例分割 — 编码器-解码器架构，支持点/框/掩码多模态提示",
+      "huggingface": {
+        "repo": "facebook/sam2-hiera-tiny",
+        "files": ["sam2_hiera_tiny.encoder.onnx", "sam2_hiera_tiny.decoder.onnx"],
+        "revision": "main"
+      },
+      "format": "onnx",
+      "opset": 17,
+      "parts": {
+        "encoder": {
+          "file": "sam2_hiera_tiny.encoder.onnx",
+          "estimated_size_mb": 45.0,
+          "input_shape": [1, 3, 1024, 1024],
+          "output_shape": [1, 256, 64, 64]
+        },
+        "decoder": {
+          "file": "sam2_hiera_tiny.decoder.onnx",
+          "estimated_size_mb": 25.0,
+          "input_shape": [1, 256, 64, 64],
+          "output_shape": [1, 1, 1024, 1024]
+        }
+      },
+      "estimated_size_mb": 70.0,
+      "target_device": "nvidia-jetson-orin-gpu",
+      "local_path": "brain_models/cv/",
+      "runtime": "brain_ai.model_runtime.onnx_adapter.SAM2Adapter",
+      "checksums": {
+        "algorithm": "sha256",
+        "sam2_hiera_tiny.encoder.onnx": "TBD",
+        "sam2_hiera_tiny.decoder.onnx": "TBD"
+      },
+      "dependencies": ["onnxruntime-gpu>=1.17.0"],
+      "priority": "P1_general",
+      "phase": "Phase2",
+      "inference_target": {
+        "encoder_latency_ms": 50.0,
+        "decoder_latency_ms": 15.0
+      }
+    },
+    "whisper-large-v3-ct2": {
+      "category": "asr",
+      "name": "Whisper Large V3 CTranslate2",
+      "description": "中文语音识别 — CTranslate2 量化加速，支持流式与批量转录",
+      "huggingface": {
+        "repo": "marcoyang/whisper-large-v3-ct2",
+        "files": ["model.bin", "config.json", "vocabulary.txt", "tokenizer.json"],
+        "revision": "main"
+      },
+      "format": "ctranslate2",
+      "quantization": "int8_float16",
+      "estimated_size_gb": 1.5,
+      "sample_rate": 16000,
+      "language_support": ["zh", "en"],
+      "target_device": "nvidia-jetson-orin-gpu",
+      "local_path": "brain_models/asr/whisper-large-v3-ct2/",
+      "engine_file": "model.bin",
+      "model_dir": true,
+      "runtime": "brain_ai.voice_io.asr_engine.ASREngine",
+      "checksums": {
+        "algorithm": "sha256",
+        "model.bin": "TBD"
+      },
+      "dependencies": ["faster-whisper>=1.0.0", "ctranslate2>=4.0.0"],
+      "priority": "P1_general",
+      "phase": "Phase2",
+      "inference_target": {
+        "rtf": 0.05,
+        "max_latency_ms": 500.0
+      }
+    },
+    "orb_vocab": {
+      "category": "slam",
+      "name": "ORB-SLAM3 Vocabulary (fbow)",
+      "description": "ORB 词袋字典 — 用于视觉 SLAM 回环检测和重定位",
+      "huggingface": {
+        "repo": "TBD-orb-slam3-vocab",
+        "files": ["orb_vocab.fbow"],
+        "revision": "main"
+      },
+      "format": "fbow",
+      "estimated_size_mb": 112.0,
+      "target_device": "cpu-x86_64-arm64",
+      "local_path": "brain_models/slam/",
+      "engine_file": "orb_vocab.fbow",
+      "runtime": "brain_ai.perception.slam_wrapper.SLAMWrapper",
+      "checksums": {
+        "algorithm": "sha256",
+        "orb_vocab.fbow": "TBD"
+      },
+      "dependencies": [],
+      "priority": "P1_general",
+      "phase": "Phase2"
+    },
+    "brain-vla-chinese-lora": {
+      "category": "vla",
+      "name": "Brain-VLA Chinese LoRA",
+      "description": "视觉-语言-动作模型 — 中文指令到机器人动作的端到端映射，基于 Qwen2-VL + LoRA 微调",
+      "huggingface": {
+        "repo": "qoobot/brain-vla-chinese-lora",
+        "files": ["adapter_model.safetensors", "adapter_config.json", "special_tokens_map.json"],
+        "revision": "main"
+      },
+      "format": "pytorch_lora",
+      "base_model": "Qwen/Qwen2-VL-7B-Instruct",
+      "estimated_size_mb": 56.0,
+      "max_sequence_length": 4096,
+      "action_space": {
+        "arm": 7,
+        "gripper": 1,
+        "base": [2, 0.5]
+      },
+      "target_device": "nvidia-jetson-orin",
+      "local_path": "brain_models/vla/brain-vla-chinese-lora/",
+      "runtime": "brain_ai.model_runtime.vla_adapter.VLAAdapter",
+      "checksums": {
+        "algorithm": "sha256",
+        "adapter_model.safetensors": "TBD"
+      },
+      "dependencies": ["transformers>=4.40.0", "peft>=0.10.0", "qwen-vl-utils"],
+      "priority": "P2_experimental",
+      "phase": "Phase3"
+    },
+    "kinova_gen3_usd": {
+      "category": "simulation",
+      "name": "Kinova Gen3 USD Model",
+      "description": "Isaac Sim 机器人模型 — 包含 7-DOF 关节层级、碰撞几何、材质",
+      "format": "usd",
+      "source": "isaac_sim_assets",
+      "source_path": "omniverse://localhost/Assets/Isaac/2023.1.1/Robots/Kinova/Gen3/gen3.usd",
+      "estimated_size_mb": 15.0,
+      "target_device": "nvidia-rtx",
+      "local_path": "brain_models/simulation/kinova_gen3/",
+      "engine_file": "gen3.usd",
+      "runtime": "brain_sim.isaac_sim.isaac_bridge.IsaacBridge",
+      "dependencies": ["isaac-sim>=2023.1.1"],
+      "priority": "P2_experimental",
+      "phase": "Phase3"
+    },
+    "pick_red_cup_policy": {
+      "category": "simulation",
+      "name": "pick_red_cup RL Policy",
+      "description": "SKRL PPO 训练策略 — red cup 抓取任务 RL 权重",
+      "format": "pytorch",
+      "source": "training_output",
+      "estimated_size_mb": 5.0,
+      "target_device": "nvidia-rtx",
+      "local_path": "brain_models/simulation/pick_red_cup/",
+      "engine_file": "policy.pt",
+      "runtime": "brain_sim.isaac_sim.tasks.pick_red_cup.PickRedCupTask",
+      "dependencies": ["skrl>=1.3.0", "torch>=2.1.0"],
+      "priority": "P2_experimental",
+      "phase": "Phase3"
+    }
+  },
+  "global_config": {
+    "root_dir": "brain_models",
+    "cache_dir": "~/.cache/brain_models",
+    "verify_checksums": true,
+    "auto_download": false,
+    "download_concurrency": 4,
+    "mirror_sources": {
+      "huggingface": {
+        "primary": "https://huggingface.co",
+        "mirror": "https://hf-mirror.com"
+      }
+    }
+  },
+  "download_groups": {
+    "minimal": {
+      "description": "最小部署: 机器人在线推理必需",
+      "models": ["qwen2.5-7b-instruct-int4", "yolov11n", "orb_vocab"]
+    },
+    "standard": {
+      "description": "标准部署: 全部核心推理能力",
+      "models": ["qwen2.5-7b-instruct-int4", "qwen2.5-3b-instruct-int4", "qwen2.5-1.5b-instruct-gguf", "yolov11n", "yolov11s", "sam2_hiera_tiny", "whisper-large-v3-ct2", "orb_vocab"]
+    },
+    "full": {
+      "description": "完整部署: 含实验性 VLA + 仿真模型",
+      "models": ["qwen2.5-7b-instruct-int4", "qwen2.5-3b-instruct-int4", "qwen2.5-1.5b-instruct-gguf", "yolov11n", "yolov11s", "sam2_hiera_tiny", "whisper-large-v3-ct2", "orb_vocab", "brain-vla-chinese-lora", "kinova_gen3_usd", "pick_red_cup_policy"]
+    },
+    "llm_only": {
+      "description": "仅 LLM 推理引擎",
+      "models": ["qwen2.5-7b-instruct-int4", "qwen2.5-3b-instruct-int4", "qwen2.5-1.5b-instruct-gguf"]
+    },
+    "cv_only": {
+      "description": "仅计算机视觉模型",
+      "models": ["yolov11n", "yolov11s", "sam2_hiera_tiny"]
+    }
+  }
+}

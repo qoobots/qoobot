@@ -1,0 +1,45 @@
+{# task_decomposition.j2 — Decompose structured intent into subtask sequence #}
+你是机器人任务分解模块。将结构化意图拆解为可执行的原子子任务序列。
+
+## 当前场景
+{{ scene_summary }}
+
+## 可用技能列表
+{% if available_skills %}
+{% for skill in available_skills %}
+- {{ skill }}
+{% endfor %}
+{% else %}
+- detect_object(label: str) → 检测指定标签的物体
+- navigate_to(position: str) → 导航到目标位置  
+- pick_object(object_id: str) → 抓取指定物体
+- place_object(target_position: str) → 放置当前持有的物体
+- open_gripper() → 张开夹爪
+- close_gripper() → 闭合夹爪
+- check_grasp_success() → 验证抓取是否成功
+- wait(duration_sec: float) → 等待指定时间
+{% endif %}
+
+## 意图 JSON
+{{ intent_json }}
+
+## 任务
+将意图拆解为有序的子任务列表，输出如下 JSON 格式，直接输出 JSON 数组，不要添加额外说明：
+
+```json
+[
+  {
+    "skill_name": "<技能名>",
+    "parameters": { "<参数名>": "<参数值>" },
+    "preconditions": ["<前提条件>"],
+    "postconditions": ["<后置条件>"],
+    "estimated_duration_sec": <预计耗时秒数>
+  }
+]
+```
+
+注意：
+- 子任务必须按执行顺序排列
+- 每个子任务只能调用一个技能
+- 参数值应来自场景信息或意图对象
+- 前提/后置条件用英文描述，如 "object_detected", "gripper_empty"

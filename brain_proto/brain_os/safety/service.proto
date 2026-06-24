@@ -1,0 +1,77 @@
+syntax = "proto3";
+
+package brain_os.safety;
+
+option go_package = "github.com/brain-os/brain_proto/brain_os/safety";
+
+import "brain_os/safety/types.proto";
+import "brain_os/common/types.proto";
+
+// ─────────────────────────────────────────────
+// SafetyService — 安全监控 gRPC 接口
+// ─────────────────────────────────────────────
+
+service SafetyService {
+  // 获取安全快照
+  rpc GetSafetySnapshot(GetSafetySnapshotRequest) returns (GetSafetySnapshotResponse);
+
+  // 订阅安全告警流
+  rpc StreamAlarms(StreamAlarmsRequest) returns (stream SafetyAlarm);
+
+  // 清除已确认告警
+  rpc AcknowledgeAlarm(AcknowledgeAlarmRequest) returns (AcknowledgeAlarmResponse);
+
+  // 设置速度缩放因子（安全限速）
+  rpc SetVelocityScale(SetVelocityScaleRequest) returns (SetVelocityScaleResponse);
+}
+
+// ─────────────────────────────────────────────
+// GetSafetySnapshot
+// ─────────────────────────────────────────────
+
+message GetSafetySnapshotRequest {
+  string robot_id = 1;
+}
+
+message GetSafetySnapshotResponse {
+  brain_os.common.Status status   = 1;
+  SafetySnapshot         snapshot = 2;
+}
+
+// ─────────────────────────────────────────────
+// StreamAlarms
+// ─────────────────────────────────────────────
+
+message StreamAlarmsRequest {
+  string     robot_id   = 1;
+  AlarmLevel min_level  = 2;  // 只推送 >= min_level 的告警
+}
+
+// ─────────────────────────────────────────────
+// AcknowledgeAlarm
+// ─────────────────────────────────────────────
+
+message AcknowledgeAlarmRequest {
+  string robot_id = 1;
+  string alarm_id = 2;
+  string operator = 3;  // 操作员 ID
+}
+
+message AcknowledgeAlarmResponse {
+  brain_os.common.Status status = 1;
+}
+
+// ─────────────────────────────────────────────
+// SetVelocityScale
+// ─────────────────────────────────────────────
+
+message SetVelocityScaleRequest {
+  string robot_id = 1;
+  float  scale    = 2;  // [0, 1]
+  string reason   = 3;
+}
+
+message SetVelocityScaleResponse {
+  brain_os.common.Status status        = 1;
+  float                  applied_scale = 2;
+}

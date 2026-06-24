@@ -1,0 +1,46 @@
+# brain_core Docker 镜像
+# 基础：ROS 2 Humble + Ubuntu 22.04
+# 目标：编译 C++17 brain_core 节点
+
+FROM ros:humble-ros-base-jammy AS builder
+
+WORKDIR /workspace
+
+# 安装编译依赖
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    cmake \
+    libgrpc++-dev \
+    libprotobuf-dev \
+    protobuf-compiler-grpc \
+    ros-humble-rclcpp \
+    ros-humble-rclcpp-lifecycle \
+    ros-humble-geometry-msgs \
+    ros-humble-sensor-msgs \
+    ros-humble-std-msgs \
+    && rm -rf /var/lib/apt/lists/*
+
+# 复制源码
+COPY brain_core/ brain_core/
+COPY brain_proto/ brain_proto/
+COPY CMakeLists.txt .
+
+# 编译
+RUN . /opt/ros/humble/setup.sh && \
+    colcon build \
+        --packages-select brain_core \
+        --cmake-args -DCMAKE_BUILD_TYPE=Release
+
+# ─────── 运行时镜像 ───────
+FROM ros:humble-ros-base-jammy
+
+WORKDIR /workspace
+COPY --from=builder /workspace/install /workspace/install
+
+ENV ROS_DOMAIN_ID=42
+
+ENTRYPOINT ["/bin/bash", "-c", \
+    "source /opt/ros/humble/setup.bash && \
+     source /workspace/install/setup.bash && \
+     exec \"$@\"", "--"]
+CMD ["ros2", "launch", "brain_core", "brain_os.launch.py"]

@@ -1,0 +1,64 @@
+syntax = "proto3";
+
+package brain_os.cognition;
+
+option go_package = "github.com/brain-os/brain_proto/brain_os/cognition";
+
+import "brain_os/common/types.proto";
+import "google/protobuf/struct.proto";
+
+// ─────────────────────────────────────────────
+// 意图（Intent）
+// ─────────────────────────────────────────────
+
+enum IntentType {
+  INTENT_UNKNOWN     = 0;
+  INTENT_NAVIGATE    = 1;  // 导航到某处
+  INTENT_PICK        = 2;  // 抓取物体
+  INTENT_PLACE       = 3;  // 放置物体
+  INTENT_INSPECT     = 4;  // 检查/观察
+  INTENT_GREET       = 5;  // 问候
+  INTENT_STOP        = 6;  // 停止当前任务
+  INTENT_QUERY       = 7;  // 信息查询
+  INTENT_SEQUENCE    = 8;  // 顺序执行多个动作
+}
+
+message Intent {
+  IntentType               type       = 1;
+  string                   raw_text   = 2;  // 原始指令文本
+  float                    confidence = 3;
+  google.protobuf.Struct   params     = 4;  // 结构化参数，如 {"target": "red cup"}
+  string                   language   = 5;  // "zh-CN" / "en-US"
+}
+
+// ─────────────────────────────────────────────
+// 子任务（SubTask）
+// ─────────────────────────────────────────────
+
+enum TaskStatus {
+  TASK_PENDING    = 0;
+  TASK_RUNNING    = 1;
+  TASK_SUCCEEDED  = 2;
+  TASK_FAILED     = 3;
+  TASK_CANCELLED  = 4;
+  TASK_WAITING_HUMAN = 5;
+}
+
+message SubTask {
+  string                   task_id     = 1;
+  string                   skill_name  = 2;   // e.g. "NavigateTo", "Pick", "Place"
+  google.protobuf.Struct   parameters  = 3;
+  repeated string          depends_on  = 4;   // 前置子任务 ID 列表
+  TaskStatus               status      = 5;
+  float                    priority    = 6;   // [0, 1]
+}
+
+// ─────────────────────────────────────────────
+// 行为树定义（BehaviorTree）
+// ─────────────────────────────────────────────
+
+message BehaviorTree {
+  string  tree_id    = 1;
+  string  xml_str    = 2;   // BehaviorTree.CPP 格式的 XML 字符串
+  string  description = 3;
+}

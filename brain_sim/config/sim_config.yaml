@@ -1,0 +1,54 @@
+# Brain OS 仿真配置
+# 通用参数，被 Gazebo/Isaac Sim launch 文件读取
+
+sim:
+  # 物理引擎
+  physics_engine: ode        # ode | bullet | dart
+  real_time_factor: 1.0      # 1.0 = 实时，< 1.0 = 慢放，> 1.0 = 加速
+  max_step_size: 0.001       # 1ms 积分步长
+  update_rate: 1000          # Hz
+
+  # 默认世界
+  default_world: tabletop    # tabletop | warehouse | living_room
+
+  # 机器人
+  default_robot: kinova_gen3  # kinova_gen3 | turtlebot4 | custom
+
+robot:
+  kinova_gen3:
+    dof: 7
+    gripper: robotiq_2f_85
+    max_velocity: [1.05, 1.05, 1.05, 1.05, 1.26, 1.26, 1.26]  # rad/s
+    max_acceleration: [1.4, 1.4, 1.4, 1.4, 1.4, 1.4, 1.4]     # rad/s²
+    home_position: [0.0, 0.26, 3.14, -2.27, 0.0, 0.96, 1.57]   # rad
+
+  turtlebot4:
+    type: mobile_base
+    max_linear_vel: 0.31     # m/s
+    max_angular_vel: 1.90    # rad/s
+
+camera:
+  rgb:
+    width: 1280
+    height: 720
+    fps: 30
+    fov_deg: 69.4
+  depth:
+    width: 848
+    height: 480
+    fps: 30
+    min_range: 0.3           # m
+    max_range: 3.0           # m
+
+topics:
+  rgb_image: /camera/color/image_raw
+  depth_image: /camera/depth/image_rect_raw
+  point_cloud: /camera/depth/points
+  joint_states: /joint_states
+  cmd_vel: /cmd_vel
+
+brain_os:
+  grpc_address: "localhost:50051"
+  robot_id: "sim_robot_01"
+  hitl_timeout_sec: 3.0
+  safety_check_hz: 100

@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Table model — a simple rectangular table for tabletop manipulation tasks.
+  Dimensions: 0.8m (W) × 0.6m (D) × 0.75m (H)
+  Top thickness: 0.05m, Leg size: 0.05m × 0.05m
+-->
+<sdf version="1.9">
+  <model name="table">
+
+    <!-- Table top surface -->
+    <link name="table_top">
+      <pose>0 0 0.75 0 0 0</pose>
+      <inertial>
+        <mass>5.0</mass>
+        <inertia>
+          <ixx>0.5</ixx> <ixy>0.0</ixy> <ixz>0.0</ixz>
+          <iyy>0.3</iyy> <iyz>0.0</iyz>
+          <izz>0.5</izz>
+        </inertia>
+      </inertial>
+      <visual name="table_top_visual">
+        <geometry>
+          <box>
+            <size>0.80 0.60 0.05</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.65 0.50 0.35 1</ambient>
+          <diffuse>0.65 0.50 0.35 1</diffuse>
+          <specular>0.05 0.05 0.05 1</specular>
+        </material>
+      </visual>
+      <collision name="table_top_collision">
+        <geometry>
+          <box>
+            <size>0.80 0.60 0.05</size>
+          </box>
+        </geometry>
+      </collision>
+    </link>
+
+    <!-- Front-left leg -->
+    <link name="leg_fl">
+      <pose>0.35 0.25 0.375 0 0 0</pose>
+      <inertial>
+        <mass>1.0</mass>
+        <inertia>
+          <ixx>0.005</ixx> <ixy>0.0</ixy> <ixz>0.0</ixz>
+          <iyy>0.005</iyy> <iyz>0.0</iyz>
+          <izz>0.001</izz>
+        </inertia>
+      </inertial>
+      <visual name="leg_fl_visual">
+        <geometry>
+          <box>
+            <size>0.05 0.05 0.75</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.55 0.40 0.28 1</ambient>
+          <diffuse>0.55 0.40 0.28 1</diffuse>
+        </material>
+      </visual>
+      <collision name="leg_fl_collision">
+        <geometry>
+          <box>
+            <size>0.05 0.05 0.75</size>
+          </box>
+        </geometry>
+      </collision>
+    </link>
+
+    <!-- Front-right leg -->
+    <link name="leg_fr">
+      <pose>0.35 -0.25 0.375 0 0 0</pose>
+      <inertial>
+        <mass>1.0</mass>
+        <inertia>
+          <ixx>0.005</ixx> <ixy>0.0</ixy> <ixz>0.0</ixz>
+          <iyy>0.005</iyy> <iyz>0.0</iyz>
+          <izz>0.001</izz>
+        </inertia>
+      </inertial>
+      <visual name="leg_fr_visual">
+        <geometry>
+          <box>
+            <size>0.05 0.05 0.75</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.55 0.40 0.28 1</ambient>
+          <diffuse>0.55 0.40 0.28 1</diffuse>
+        </material>
+      </visual>
+      <collision name="leg_fr_collision">
+        <geometry>
+          <box>
+            <size>0.05 0.05 0.75</size>
+          </box>
+        </geometry>
+      </collision>
+    </link>
+
+    <!-- Back-left leg -->
+    <link name="leg_bl">
+      <pose>-0.35 0.25 0.375 0 0 0</pose>
+      <inertial>
+        <mass>1.0</mass>
+        <inertia>
+          <ixx>0.005</ixx> <ixy>0.0</ixy> <ixz>0.0</ixz>
+          <iyy>0.005</iyy> <iyz>0.0</iyz>
+          <izz>0.001</izz>
+        </inertia>
+      </inertial>
+      <visual name="leg_bl_visual">
+        <geometry>
+          <box>
+            <size>0.05 0.05 0.75</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.55 0.40 0.28 1</ambient>
+          <diffuse>0.55 0.40 0.28 1</diffuse>
+        </material>
+      </visual>
+      <collision name="leg_bl_collision">
+        <geometry>
+          <box>
+            <size>0.05 0.05 0.75</size>
+          </box>
+        </geometry>
+      </collision>
+    </link>
+
+    <!-- Back-right leg -->
+    <link name="leg_br">
+      <pose>-0.35 -0.25 0.375 0 0 0</pose>
+      <inertial>
+        <mass>1.0</mass>
+        <inertia>
+          <ixx>0.005</ixx> <ixy>0.0</ixy> <ixz>0.0</ixz>
+          <iyy>0.005</iyy> <iyz>0.0</iyz>
+          <izz>0.001</izz>
+        </inertia>
+      </inertial>
+      <visual name="leg_br_visual">
+        <geometry>
+          <box>
+            <size>0.05 0.05 0.75</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.55 0.40 0.28 1</ambient>
+          <diffuse>0.55 0.40 0.28 1</diffuse>
+        </material>
+      </visual>
+      <collision name="leg_br_collision">
+        <geometry>
+          <box>
+            <size>0.05 0.05 0.75</size>
+          </box>
+        </geometry>
+      </collision>
+    </link>
+
+    <!-- Fixed joints: top → legs -->
+    <joint name="leg_fl_joint" type="fixed">
+      <parent>table_top</parent>
+      <child>leg_fl</child>
+    </joint>
+    <joint name="leg_fr_joint" type="fixed">
+      <parent>table_top</parent>
+      <child>leg_fr</child>
+    </joint>
+    <joint name="leg_bl_joint" type="fixed">
+      <parent>table_top</parent>
+      <child>leg_bl</child>
+    </joint>
+    <joint name="leg_br_joint" type="fixed">
+      <parent>table_top</parent>
+      <child>leg_br</child>
+    </joint>
+
+  </model>
+</sdf>

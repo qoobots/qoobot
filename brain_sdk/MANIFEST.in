@@ -1,0 +1,6 @@
+include README.md
+include pyproject.toml
+recursive-include brain_os *.py
+recursive-include examples *.py
+recursive-include tests *.py
+include brain_os/py.typed

@@ -1,0 +1,64 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+dist/
+build/
+.eggs/
+*.egg
+.venv/
+venv/
+*.whl
+
+# C++
+*.o
+*.obj
+*.out
+build/
+install/
+log/
+*.cmake
+
+# Node.js
+node_modules/
+.npm/
+.next/
+out/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Docker
+docker-compose.override.yml
+
+# Model weights (Git LFS)
+*.bin
+*.safetensors
+*.gguf
+*.onnx
+*.engine
+*.fbow
+
+# Logs
+*.log
+logs/
+
+# Test
+.coverage
+htmlcov/
+coverage.xml
+.pytest_cache/
+
+# Protobuf generated
+brain_proto/gen/
+
+# Env
+.env
+.env.local

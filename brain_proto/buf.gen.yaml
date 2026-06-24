@@ -1,0 +1,31 @@
+version: v1
+plugins:
+  # Python gRPC（用于 brain_ai）
+  - plugin: buf.build/grpc/python:v1.59.0
+    out: ../brain_ai/brain_ai/proto_gen
+    opt:
+      - paths=source_relative
+  - plugin: buf.build/protocolbuffers/python:v24.4
+    out: ../brain_ai/brain_ai/proto_gen
+    opt:
+      - paths=source_relative
+
+  # Python SDK（用于 brain_sdk）
+  - plugin: buf.build/grpc/python:v1.59.0
+    out: ../brain_sdk/brain_os/proto_gen
+    opt:
+      - paths=source_relative
+  - plugin: buf.build/protocolbuffers/python:v24.4
+    out: ../brain_sdk/brain_os/proto_gen
+    opt:
+      - paths=source_relative
+
+  # C++ gRPC（用于 brain_core）
+  - plugin: buf.build/grpc/cpp:v1.59.0
+    out: ../brain_core/src/proto_gen
+    opt:
+      - paths=source_relative
+  - plugin: buf.build/protocolbuffers/cpp:v24.4
+    out: ../brain_core/src/proto_gen
+    opt:
+      - paths=source_relative

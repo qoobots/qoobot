@@ -1,0 +1,102 @@
+syntax = "proto3";
+
+package brain_os.knowledge;
+
+option go_package = "github.com/brain-os/brain_proto/brain_os/knowledge";
+
+import "brain_os/knowledge/types.proto";
+import "brain_os/common/types.proto";
+
+// ─────────────────────────────────────────────
+// KnowledgeService — 知识服务 gRPC 接口
+// ─────────────────────────────────────────────
+
+service KnowledgeService {
+  // 向量检索相似情景
+  rpc SearchEpisodes(SearchEpisodesRequest) returns (SearchEpisodesResponse);
+
+  // 存储新情景
+  rpc StoreEpisode(StoreEpisodeRequest) returns (StoreEpisodeResponse);
+
+  // 检索知识条目
+  rpc SearchKnowledge(SearchKnowledgeRequest) returns (SearchKnowledgeResponse);
+
+  // 列出可用技能
+  rpc ListSkills(ListSkillsRequest) returns (ListSkillsResponse);
+
+  // 注册新技能
+  rpc RegisterSkill(RegisterSkillRequest) returns (RegisterSkillResponse);
+}
+
+// ─────────────────────────────────────────────
+// SearchEpisodes
+// ─────────────────────────────────────────────
+
+message SearchEpisodesRequest {
+  string         robot_id    = 1;
+  string         query_text  = 2;
+  repeated float query_embed = 3;  // 直接传向量（与 query_text 二选一）
+  uint32         top_k       = 4;  // 默认 5
+  float          min_score   = 5;  // 最小相似度，默认 0.7
+  bool           success_only = 6;
+}
+
+message SearchEpisodesResponse {
+  brain_os.common.Status status   = 1;
+  repeated Episode       episodes = 2;
+  repeated float         scores   = 3;
+}
+
+// ─────────────────────────────────────────────
+// StoreEpisode
+// ─────────────────────────────────────────────
+
+message StoreEpisodeRequest {
+  Episode episode = 1;
+}
+
+message StoreEpisodeResponse {
+  brain_os.common.Status status     = 1;
+  string                 episode_id = 2;
+}
+
+// ─────────────────────────────────────────────
+// SearchKnowledge
+// ─────────────────────────────────────────────
+
+message SearchKnowledgeRequest {
+  string        query    = 1;
+  KnowledgeType type     = 2;  // 0 = 全部
+  uint32        top_k    = 3;
+}
+
+message SearchKnowledgeResponse {
+  brain_os.common.Status   status  = 1;
+  repeated KnowledgeEntry  entries = 2;
+}
+
+// ─────────────────────────────────────────────
+// ListSkills
+// ─────────────────────────────────────────────
+
+message ListSkillsRequest {
+  string tag_filter = 1;  // 空 = 全部
+}
+
+message ListSkillsResponse {
+  brain_os.common.Status status = 1;
+  repeated Skill         skills = 2;
+}
+
+// ─────────────────────────────────────────────
+// RegisterSkill
+// ─────────────────────────────────────────────
+
+message RegisterSkillRequest {
+  Skill skill = 1;
+}
+
+message RegisterSkillResponse {
+  brain_os.common.Status status   = 1;
+  string                 skill_id = 2;
+}

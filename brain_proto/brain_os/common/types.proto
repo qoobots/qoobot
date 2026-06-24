@@ -1,0 +1,80 @@
+syntax = "proto3";
+
+package brain_os.common;
+
+option go_package = "github.com/brain-os/brain_proto/brain_os/common";
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/struct.proto";
+
+// ─────────────────────────────────────────────
+// 基础几何类型
+// ─────────────────────────────────────────────
+
+message Vector3 {
+  double x = 1;
+  double y = 2;
+  double z = 3;
+}
+
+message Quaternion {
+  double x = 1;
+  double y = 2;
+  double z = 3;
+  double w = 4;
+}
+
+message Pose {
+  Vector3    position    = 1;
+  Quaternion orientation = 2;
+}
+
+message Twist {
+  Vector3 linear  = 1;
+  Vector3 angular = 2;
+}
+
+message BoundingBox3D {
+  Pose   center      = 1;
+  Vector3 dimensions = 2;  // x=length y=width z=height
+}
+
+// ─────────────────────────────────────────────
+// 通用元数据
+// ─────────────────────────────────────────────
+
+message Header {
+  uint64                    seq       = 1;  // 单调递增序列号
+  google.protobuf.Timestamp stamp     = 2;
+  string                    frame_id  = 3;  // 坐标系 ID
+}
+
+// ─────────────────────────────────────────────
+// 通用状态 / 结果
+// ─────────────────────────────────────────────
+
+enum StatusCode {
+  STATUS_OK              = 0;
+  STATUS_ERROR           = 1;
+  STATUS_TIMEOUT         = 2;
+  STATUS_CANCELLED       = 3;
+  STATUS_INVALID_REQUEST = 4;
+  STATUS_NOT_READY       = 5;
+  STATUS_UNAUTHORIZED    = 6;
+}
+
+message Status {
+  StatusCode code    = 1;
+  string     message = 2;
+}
+
+// ─────────────────────────────────────────────
+// 机器人身份标识
+// ─────────────────────────────────────────────
+
+message RobotInfo {
+  string robot_id   = 1;
+  string model_name = 2;  // e.g. "kinova_gen3", "turtlebot4"
+  string serial_no  = 3;
+  string firmware   = 4;
+}

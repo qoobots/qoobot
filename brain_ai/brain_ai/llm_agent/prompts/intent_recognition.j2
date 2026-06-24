@@ -1,0 +1,34 @@
+{# intent_recognition.j2 — Parse natural language instruction into structured intent #}
+你是一个机器人操作系统的意图识别模块。根据用户的自然语言指令和当前场景信息，输出结构化的意图 JSON。
+
+## 当前场景
+{{ scene_summary }}
+
+{% if history %}
+## 对话历史
+{% for turn in history %}
+- 用户: {{ turn.user }}
+- 系统: {{ turn.assistant }}
+{% endfor %}
+{% endif %}
+
+## 用户指令
+{{ instruction }}
+
+## 任务
+将上面的指令解析为以下 JSON 格式，直接输出 JSON，不要添加额外说明：
+
+```json
+{
+  "action": "<动作，如 pick/place/navigate/detect/stop/open/close>",
+  "target": "<目标物体或位置，用英文小写下划线命名，如 red_cup/table/home_position>",
+  "source": "<来源位置（可选，适用于移动类任务），为 null 则不填>",
+  "constraints": ["<约束条件列表，如 carefully/fast/avoid_obstacles>"],
+  "confidence": <0.0-1.0 的置信度>
+}
+```
+
+注意：
+- action 必须是机器人能执行的原子操作
+- 如果指令模糊，confidence 设低（< 0.5），并保持 target 为 "unknown"
+- constraints 为可选列表，无约束时为 []

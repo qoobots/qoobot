@@ -1,0 +1,57 @@
+syntax = "proto3";
+
+package brain_os.safety;
+
+option go_package = "github.com/brain-os/brain_proto/brain_os/safety";
+
+import "brain_os/common/types.proto";
+import "google/protobuf/timestamp.proto";
+
+// ─────────────────────────────────────────────
+// 告警级别（S0-S3）
+// ─────────────────────────────────────────────
+
+enum AlarmLevel {
+  ALARM_S3_INFO     = 0;  // 信息，无需干预
+  ALARM_S2_WARNING  = 1;  // 降速
+  ALARM_S1_ERROR    = 2;  // 暂停并等待确认
+  ALARM_S0_CRITICAL = 3;  // 立即急停，不可自动恢复
+}
+
+// ─────────────────────────────────────────────
+// 安全告警
+// ─────────────────────────────────────────────
+
+message SafetyAlarm {
+  string                    alarm_id   = 1;
+  AlarmLevel                level      = 2;
+  string                    source     = 3;  // e.g. "joint_limit", "collision", "power"
+  string                    message    = 4;
+  google.protobuf.Timestamp timestamp  = 5;
+  brain_os.common.Vector3   location   = 6;  // 发生位置（可选）
+  bool                      auto_clear = 7;
+}
+
+// ─────────────────────────────────────────────
+// 安全状态快照
+// ─────────────────────────────────────────────
+
+enum SafetyState {
+  SAFE_NORMAL    = 0;
+  SAFE_REDUCED   = 1;  // 降速运行
+  SAFE_PAUSED    = 2;  // 暂停等待确认
+  SAFE_STOPPED   = 3;  // 急停状态
+}
+
+message SafetySnapshot {
+  brain_os.common.Header header           = 1;
+  string                 robot_id         = 2;
+  SafetyState            state            = 3;
+  repeated SafetyAlarm   active_alarms    = 4;
+  // 关节力矩利用率 [0, 1]
+  repeated float         joint_load       = 5;
+  // 末端到最近障碍物距离 (m)
+  float                  min_obstacle_dist = 6;
+  // 当前速度缩放因子 [0, 1]
+  float                  velocity_scale   = 7;
+}

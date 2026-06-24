@@ -1,0 +1,99 @@
+syntax = "proto3";
+
+package brain_os.cognition;
+
+option go_package = "github.com/brain-os/brain_proto/brain_os/cognition";
+
+import "brain_os/cognition/types.proto";
+import "brain_os/common/types.proto";
+import "brain_os/perception/types.proto";
+
+// ─────────────────────────────────────────────
+// CognitionService — 认知服务 gRPC 接口
+// ─────────────────────────────────────────────
+
+service CognitionService {
+  // 自然语言 → 意图解析
+  rpc ParseIntent(ParseIntentRequest) returns (ParseIntentResponse);
+
+  // 意图 → 子任务序列
+  rpc DecomposeTask(DecomposeTaskRequest) returns (DecomposeTaskResponse);
+
+  // 意图 + 场景图 → 行为树 XML
+  rpc GenerateBehaviorTree(GenerateBTRequest) returns (GenerateBTResponse);
+
+  // 多轮对话澄清
+  rpc Clarify(ClarifyRequest) returns (ClarifyResponse);
+}
+
+// ─────────────────────────────────────────────
+// ParseIntent
+// ─────────────────────────────────────────────
+
+message ParseIntentRequest {
+  string robot_id    = 1;
+  string utterance   = 2;  // 原始语音/文本指令
+  string language    = 3;  // "zh-CN" / "en-US"
+  // 可选：会话上下文（最近 N 轮）
+  repeated ConversationTurn context = 4;
+}
+
+message ConversationTurn {
+  string role    = 1;  // "user" | "assistant"
+  string content = 2;
+}
+
+message ParseIntentResponse {
+  brain_os.common.Status status  = 1;
+  Intent                 intent  = 2;
+  // 当置信度低时，返回候选意图供 HITL
+  repeated Intent        candidates = 3;
+}
+
+// ─────────────────────────────────────────────
+// DecomposeTask
+// ─────────────────────────────────────────────
+
+message DecomposeTaskRequest {
+  string robot_id = 1;
+  Intent intent   = 2;
+  brain_os.perception.SceneGraph scene_graph = 3;
+}
+
+message DecomposeTaskResponse {
+  brain_os.common.Status  status   = 1;
+  string                  plan_id  = 2;
+  repeated SubTask        subtasks = 3;
+  string                  rationale = 4;  // LLM 规划说明
+}
+
+// ─────────────────────────────────────────────
+// GenerateBehaviorTree
+// ─────────────────────────────────────────────
+
+message GenerateBTRequest {
+  string           robot_id  = 1;
+  string           plan_id   = 2;
+  repeated SubTask subtasks  = 3;
+}
+
+message GenerateBTResponse {
+  brain_os.common.Status status = 1;
+  BehaviorTree           tree   = 2;
+}
+
+// ─────────────────────────────────────────────
+// Clarify（多轮澄清）
+// ─────────────────────────────────────────────
+
+message ClarifyRequest {
+  string robot_id    = 1;
+  string question    = 2;  // 澄清问题
+  string user_answer = 3;  // 用户回答
+  Intent original_intent = 4;
+}
+
+message ClarifyResponse {
+  brain_os.common.Status status         = 1;
+  Intent                 refined_intent = 2;
+}

@@ -1,0 +1,87 @@
+syntax = "proto3";
+
+package brain_os.control;
+
+option go_package = "github.com/brain-os/brain_proto/brain_os/control";
+
+import "brain_os/control/types.proto";
+import "brain_os/common/types.proto";
+
+// ─────────────────────────────────────────────
+// ControlService — 运动控制 gRPC 接口
+// ─────────────────────────────────────────────
+
+service ControlService {
+  // 执行轨迹（双向流：指令 + 反馈）
+  rpc ExecuteTrajectory(ExecuteTrajectoryRequest) returns (stream ExecutionFeedback);
+
+  // 控制夹爪
+  rpc ControlGripper(GripperCommand) returns (GripperControlResponse);
+
+  // 获取关节状态
+  rpc GetJointState(GetJointStateRequest) returns (GetJointStateResponse);
+
+  // 紧急停止（最高优先级）
+  rpc EmergencyStop(EmergencyStopRequest) returns (EmergencyStopResponse);
+
+  // 恢复运动（紧急停止后）
+  rpc ResumeMotion(ResumeMotionRequest) returns (ResumeMotionResponse);
+}
+
+// ─────────────────────────────────────────────
+// ExecuteTrajectory
+// ─────────────────────────────────────────────
+
+message ExecuteTrajectoryRequest {
+  ControlCommand command = 1;
+}
+
+// ─────────────────────────────────────────────
+// GripperControl
+// ─────────────────────────────────────────────
+
+message GripperControlResponse {
+  brain_os.common.Status status = 1;
+  GripperStatus          state  = 2;
+}
+
+// ─────────────────────────────────────────────
+// GetJointState
+// ─────────────────────────────────────────────
+
+message GetJointStateRequest {
+  string robot_id = 1;
+}
+
+message GetJointStateResponse {
+  brain_os.common.Status status = 1;
+  JointState             state  = 2;
+}
+
+// ─────────────────────────────────────────────
+// EmergencyStop
+// ─────────────────────────────────────────────
+
+message EmergencyStopRequest {
+  string robot_id = 1;
+  string reason   = 2;
+  uint32 level    = 3;  // S0~S3（0 最高）
+}
+
+message EmergencyStopResponse {
+  brain_os.common.Status status       = 1;
+  uint64                 stop_time_ns = 2;  // 响应时间（纳秒）
+}
+
+// ─────────────────────────────────────────────
+// ResumeMotion
+// ─────────────────────────────────────────────
+
+message ResumeMotionRequest {
+  string robot_id        = 1;
+  bool   require_confirm = 2;
+}
+
+message ResumeMotionResponse {
+  brain_os.common.Status status = 1;
+}

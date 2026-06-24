@@ -1,0 +1,102 @@
+syntax = "proto3";
+
+package brain_os.decision;
+
+option go_package = "github.com/brain-os/brain_proto/brain_os/decision";
+
+import "brain_os/decision/types.proto";
+import "brain_os/cognition/types.proto";
+import "brain_os/common/types.proto";
+
+// ─────────────────────────────────────────────
+// DecisionService — 决策服务 gRPC 接口
+// ─────────────────────────────────────────────
+
+service DecisionService {
+  // 执行行为树（开始规划 + 执行）
+  rpc ExecutePlan(ExecutePlanRequest) returns (ExecutePlanResponse);
+
+  // 生成多条候选轨迹
+  rpc GenerateTrajectories(GenerateTrajectoriesRequest) returns (GenerateTrajectoriesResponse);
+
+  // HITL：提交人类选择的轨迹
+  rpc SelectTrajectory(SelectTrajectoryRequest) returns (SelectTrajectoryResponse);
+
+  // 取消当前规划
+  rpc CancelPlan(CancelPlanRequest) returns (CancelPlanResponse);
+
+  // 流式获取规划状态
+  rpc StreamPlanStatus(StreamPlanStatusRequest) returns (stream PlanStatus);
+}
+
+// ─────────────────────────────────────────────
+// ExecutePlan
+// ─────────────────────────────────────────────
+
+message ExecutePlanRequest {
+  string                       robot_id      = 1;
+  brain_os.cognition.BehaviorTree tree       = 2;
+  string                       plan_id       = 3;
+  bool                         require_hitl  = 4;  // 是否强制 HITL
+}
+
+message ExecutePlanResponse {
+  brain_os.common.Status status  = 1;
+  string                 plan_id = 2;
+  PlanState              state   = 3;
+  // 若 require_hitl=true，返回候选轨迹
+  HITLEvent              hitl_event = 4;
+}
+
+// ─────────────────────────────────────────────
+// GenerateTrajectories
+// ─────────────────────────────────────────────
+
+message GenerateTrajectoriesRequest {
+  string                       robot_id      = 1;
+  string                       plan_id       = 2;
+  brain_os.common.Pose         target_pose   = 3;
+  uint32                       num_candidates = 4;  // 默认 3
+}
+
+message GenerateTrajectoriesResponse {
+  brain_os.common.Status   status       = 1;
+  repeated Trajectory      trajectories = 2;
+}
+
+// ─────────────────────────────────────────────
+// SelectTrajectory（HITL 回调）
+// ─────────────────────────────────────────────
+
+message SelectTrajectoryRequest {
+  string robot_id       = 1;
+  string plan_id        = 2;
+  string trajectory_id  = 3;  // 为空表示超时自动选推荐方案
+}
+
+message SelectTrajectoryResponse {
+  brain_os.common.Status status = 1;
+}
+
+// ─────────────────────────────────────────────
+// CancelPlan
+// ─────────────────────────────────────────────
+
+message CancelPlanRequest {
+  string robot_id = 1;
+  string plan_id  = 2;
+  string reason   = 3;
+}
+
+message CancelPlanResponse {
+  brain_os.common.Status status = 1;
+}
+
+// ─────────────────────────────────────────────
+// StreamPlanStatus
+// ─────────────────────────────────────────────
+
+message StreamPlanStatusRequest {
+  string robot_id = 1;
+  string plan_id  = 2;
+}

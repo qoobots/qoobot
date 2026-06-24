@@ -1,0 +1,59 @@
+syntax = "proto3";
+
+package brain_os.knowledge;
+
+option go_package = "github.com/brain-os/brain_proto/brain_os/knowledge";
+
+import "brain_os/common/types.proto";
+import "google/protobuf/struct.proto";
+import "google/protobuf/timestamp.proto";
+
+// ─────────────────────────────────────────────
+// 技能定义
+// ─────────────────────────────────────────────
+
+message Skill {
+  string                   skill_id    = 1;
+  string                   name        = 2;   // e.g. "NavigateTo"
+  string                   description = 3;
+  string                   version     = 4;
+  google.protobuf.Struct   param_schema = 5;  // JSON Schema
+  repeated string          tags        = 6;
+}
+
+// ─────────────────────────────────────────────
+// 情景记忆（Episode Memory）
+// ─────────────────────────────────────────────
+
+message Episode {
+  string                   episode_id  = 1;
+  string                   robot_id    = 2;
+  string                   task_type   = 3;
+  bool                     success     = 4;
+  float                    duration_sec = 5;
+  google.protobuf.Struct   context     = 6;   // 任务执行时的环境快照
+  google.protobuf.Struct   outcome     = 7;   // 执行结果
+  google.protobuf.Timestamp created_at = 8;
+  repeated float           embedding   = 9;   // 向量嵌入（用于相似检索）
+}
+
+// ─────────────────────────────────────────────
+// 知识条目（KnowledgeEntry）
+// ─────────────────────────────────────────────
+
+enum KnowledgeType {
+  KNOWLEDGE_FACT        = 0;  // 事实性知识
+  KNOWLEDGE_PROCEDURE   = 1;  // 操作流程
+  KNOWLEDGE_CONSTRAINT  = 2;  // 约束条件
+  KNOWLEDGE_PREFERENCE  = 3;  // 用户偏好
+}
+
+message KnowledgeEntry {
+  string                   entry_id   = 1;
+  KnowledgeType            type       = 2;
+  string                   content    = 3;
+  repeated float           embedding  = 4;
+  float                    confidence = 5;
+  google.protobuf.Timestamp updated_at = 6;
+  repeated string          tags       = 7;
+}

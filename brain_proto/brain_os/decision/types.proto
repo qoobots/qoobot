@@ -1,0 +1,66 @@
+syntax = "proto3";
+
+package brain_os.decision;
+
+option go_package = "github.com/brain-os/brain_proto/brain_os/decision";
+
+import "brain_os/common/types.proto";
+
+// ─────────────────────────────────────────────
+// 轨迹（Trajectory）
+// ─────────────────────────────────────────────
+
+message JointWaypoint {
+  repeated double positions  = 1;  // 关节角度（rad）
+  repeated double velocities = 2;
+  double          time_from_start_sec = 3;
+}
+
+message CartesianWaypoint {
+  brain_os.common.Pose pose              = 1;
+  double               time_from_start_sec = 2;
+}
+
+message Trajectory {
+  string                     trajectory_id  = 1;
+  string                     robot_id       = 2;
+  repeated JointWaypoint     joint_path     = 3;
+  repeated CartesianWaypoint cartesian_path = 4;
+  float                      score          = 5;  // [0, 1] 评分器输出
+  float                      duration_sec   = 6;
+  string                     description    = 7;  // 人类可读描述，用于 HITL 展示
+  bool                       is_recommended = 8;  // 是否为推荐轨迹
+}
+
+// ─────────────────────────────────────────────
+// 规划状态
+// ─────────────────────────────────────────────
+
+enum PlanState {
+  PLAN_IDLE        = 0;
+  PLAN_PLANNING    = 1;
+  PLAN_WAITING_HITL = 2;  // 等待人类选择轨迹
+  PLAN_EXECUTING   = 3;
+  PLAN_SUCCEEDED   = 4;
+  PLAN_FAILED      = 5;
+  PLAN_CANCELLED   = 6;
+}
+
+message PlanStatus {
+  string    plan_id       = 1;
+  PlanState state         = 2;
+  float     progress      = 3;  // [0, 1]
+  string    current_step  = 4;
+  string    error_message = 5;
+}
+
+// ─────────────────────────────────────────────
+// HITL 轨迹选择事件
+// ─────────────────────────────────────────────
+
+message HITLEvent {
+  string             plan_id            = 1;
+  repeated Trajectory candidates        = 2;
+  float              timeout_sec        = 3;   // 默认 3.0 秒
+  uint32             recommended_index  = 4;
+}
