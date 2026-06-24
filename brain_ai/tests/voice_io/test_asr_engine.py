@@ -1,38 +1,40 @@
-"""ASR 引擎测试"""
+"""ASR 引擎测试 — 基于 ASREngine (voice_io/asr_engine.py)"""
 import pytest
+from brain_ai.voice_io.asr_engine import ASREngine, ASRResult
 
 
 class TestASREngine:
     """语音识别引擎测试"""
-    
+
     @pytest.fixture
     def asr(self):
-        try:
-            from brain_ai.voice_io.asr_engine import ASREngine
-            return ASREngine()
-        except ImportError:
-            pytest.skip("ASR engine not available")
-    
+        return ASREngine()
+
     def test_transcribe_stub(self, asr):
         """ASR 桩模式转写"""
-        if hasattr(asr, 'transcribe'):
-            text = asr.transcribe(audio_data=b"mock_audio")
-            assert isinstance(text, str)
-    
+        result = asr.transcribe(audio_bytes=b"mock_audio")
+        assert isinstance(result, ASRResult)
+        assert hasattr(result, 'text')
+
     def test_transcribe_empty(self, asr):
         """空音频数据"""
-        if hasattr(asr, 'transcribe'):
-            text = asr.transcribe(audio_data=b"")
-            assert text is not None or text == ""
-    
+        result = asr.transcribe(audio_bytes=b"")
+        assert result is not None
+        assert isinstance(result, ASRResult)
+        assert result.text == ""  # stub mode returns empty
+
     def test_language_support(self, asr):
-        """语言支持"""
-        if hasattr(asr, 'SUPPORTED_LANGUAGES'):
-            langs = asr.SUPPORTED_LANGUAGES
-            assert "zh" in langs or "zh-CN" in langs
-    
+        """后端状态检查"""
+        assert asr._backend in ("stub", "funasr", "whisper")
+
     def test_model_loading_status(self, asr):
         """模型加载状态"""
-        if hasattr(asr, 'is_loaded'):
-            loaded = asr.is_loaded()
-            assert isinstance(loaded, bool)
+        available = asr.is_available
+        assert isinstance(available, bool)
+
+    def test_result_fields(self, asr):
+        """识别结果字段完整性"""
+        result = asr.transcribe(audio_bytes=b"hello")
+        assert isinstance(result.text, str)
+        assert isinstance(result.confidence, float)
+        assert 0.0 <= result.confidence <= 1.0

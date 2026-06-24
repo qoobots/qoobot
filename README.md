@@ -163,26 +163,16 @@ brain-os/
 ├── brain_core/          C++17          实时引擎 — ROS 2 桥接、行为树、安全监控、运动规划
 ├── brain_ai/            Python 3.11    AI 引擎 — LLM Agent、感知管线、任务规划、gRPC 服务
 ├── brain_viz/           TypeScript     Web 前端 — 3D 可视化、HITL 面板、开发者工具
-├── brain_sdk/           Python 3.11    Python SDK (brain-os pip 包)
-├── brain_deploy/        Docker/YAML    部署工具与配置
-├── brain_sim/           Python         Gazebo / Isaac Sim 仿真环境
-├── brain_models/        二进制 (LFS)   AI 模型权重存储
+├── brain_sdk/           Python 3.11    Python SDK (brain-os pip 包, 完整 gRPC 客户端)
+├── brain_deploy/        Docker/YAML    部署工具 (Docker/Compose/K8s/DEB/Envoy)
+├── brain_sim/           Python         Gazebo / Isaac Sim 仿真 (e2e_demo 643 行)
+├── brain_models/        二进制 (LFS)   AI 模型权重 + registry + 下载/转换脚本
 ├── brain_docs/          Markdown       MkDocs Material 文档站点
 ├── scripts/             Python/Shell   开发工具脚本
 └── tests/               Python         端到端集成测试
 ```
 
-| 子项目 | 语言 | 说明 | 完成度 |
-|--------|------|------|--------|
-| `brain_proto` | Protobuf | gRPC 服务与消息定义 (6 个服务) | 100% |
-| `brain_core` | C++17 | 实时引擎 (58 个 .cpp, 49 个 .h) | 100% |
-| `brain_ai` | Python 3.11 | AI 认知引擎 (140 个 .py) | 98% |
-| `brain_viz` | TypeScript | Web Dashboard (91 个源文件) | 100% |
-| `brain_sdk` | Python 3.11 | Python SDK | 34% |
-| `brain_deploy` | Docker/YAML | 部署配置 | 47% |
-| `brain_sim` | Python | 仿真环境 | 30% |
-| `brain_models` | 二进制 | 模型权重 | 16% |
-| `brain_docs` | Markdown | 文档站点 | 100% |
+
 
 ---
 
@@ -365,15 +355,14 @@ cd brain_docs && mkdocs serve
 - [x] 143 个测试用例全部通过
 - [x] 12 个端到端集成测试
 
-### Phase 2 (进行中) — 仿真 & 真机验证
+### Phase 2 (进行中) — 真机验证 & 工程化收尾
 
 | 优先级 | 任务 | 预计里程碑 |
 |--------|------|----------|
-| **P0** | `brain_sim` 真实物理仿真 | M6 (Week 28) |
+| **P0** | `brain_sim` 物理仿真完善 | M6 (Week 28) |
 | **P0** | `brain_models` 模型权重部署 | M6 (Week 28) |
-| **P1** | `brain_sdk` 完整发布 | M8 (Week 36) |
 | **P1** | `brain_core` 真机联调 (Jetson Orin + Kinova) | M7 (Week 32) |
-| **P1** | `brain_deploy` 生产部署验证 | M7 (Week 32) |
+| **P1** | `brain_sdk` 发布 pip 包 | M8 (Week 36) |
 | **P2** | DeepSeek-V3 云端集成 | M9 (Week 40) |
 | **P2** | `brain_viz` 性能优化 | M9 (Week 40) |
 
