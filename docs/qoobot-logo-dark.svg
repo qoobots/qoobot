@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 120" fill="none">
+  <defs>
+    <linearGradient id="brainGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#52b788"/>
+      <stop offset="100%" stop-color="#74c69d"/>
+    </linearGradient>
+    <linearGradient id="circuitGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#60a5fa"/>
+      <stop offset="100%" stop-color="#22d3ee"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Icon: stylized brain + circuit -->
+  <g transform="translate(10, 10)">
+    <ellipse cx="45" cy="50" rx="30" ry="38" fill="url(#brainGrad)" opacity="0.95"/>
+    <path d="M25 25 Q35 40 25 70" stroke="#0d1117" stroke-width="2.5" fill="none" opacity="0.6"/>
+    <path d="M35 20 Q42 38 35 75" stroke="#0d1117" stroke-width="2" fill="none" opacity="0.5"/>
+    <path d="M45 18 Q50 38 45 78" stroke="#0d1117" stroke-width="2" fill="none" opacity="0.4"/>
+    <path d="M55 25 Q60 45 55 70" stroke="#0d1117" stroke-width="2.5" fill="none" opacity="0.6"/>
+    <path d="M65 22 Q68 42 65 75" stroke="#0d1117" stroke-width="2" fill="none" opacity="0.5"/>
+    <path d="M73 25 Q76 45 73 68" stroke="#0d1117" stroke-width="1.5" fill="none" opacity="0.4"/>
+
+    <circle cx="45" cy="50" r="4" fill="url(#circuitGrad)" opacity="0.9"/>
+    <circle cx="30" cy="30" r="2.5" fill="url(#circuitGrad)" opacity="0.7"/>
+    <circle cx="60" cy="30" r="2.5" fill="url(#circuitGrad)" opacity="0.7"/>
+    <circle cx="30" cy="68" r="2.5" fill="url(#circuitGrad)" opacity="0.7"/>
+    <circle cx="60" cy="68" r="2.5" fill="url(#circuitGrad)" opacity="0.7"/>
+
+    <line x1="45" y1="46" x2="30" y2="32.5" stroke="#22d3ee" stroke-width="1.5" opacity="0.5"/>
+    <line x1="45" y1="46" x2="60" y2="32.5" stroke="#22d3ee" stroke-width="1.5" opacity="0.5"/>
+    <line x1="45" y1="54" x2="30" y2="65.5" stroke="#22d3ee" stroke-width="1.5" opacity="0.5"/>
+    <line x1="45" y1="54" x2="60" y2="65.5" stroke="#22d3ee" stroke-width="1.5" opacity="0.5"/>
+
+    <line x1="45" y1="12" x2="45" y2="8" stroke="url(#circuitGrad)" stroke-width="2"/>
+    <circle cx="45" cy="6" r="3" fill="url(#circuitGrad)"/>
+  </g>
+
+  <text x="110" y="52" font-family="system-ui, -apple-system, sans-serif" font-size="36" font-weight="800" fill="#e6edf3" letter-spacing="-1">QooBot</text>
+  <text x="112" y="72" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#8b949e" letter-spacing="2">OPEN BRAIN OS FOR ROBOTS</text>
+  <rect x="112" y="80" width="260" height="2" rx="1" fill="url(#circuitGrad)" opacity="0.5"/>
+</svg>

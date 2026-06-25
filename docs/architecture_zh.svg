@@ -1,0 +1,209 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 720" font-family="system-ui, -apple-system, 'Microsoft YaHei', sans-serif">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0d1117"/>
+      <stop offset="100%" stop-color="#161b22"/>
+    </linearGradient>
+    <linearGradient id="cloud" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#1a6b8a"/>
+      <stop offset="100%" stop-color="#1e7a9e"/>
+    </linearGradient>
+    <linearGradient id="brain" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#2d6a4f"/>
+      <stop offset="100%" stop-color="#40916c"/>
+    </linearGradient>
+    <linearGradient id="core" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#7b2d8b"/>
+      <stop offset="100%" stop-color="#9b5de5"/>
+    </linearGradient>
+    <linearGradient id="svc" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#c47e0a"/>
+      <stop offset="100%" stop-color="#e6a817"/>
+    </linearGradient>
+    <linearGradient id="eco" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#1e6091"/>
+      <stop offset="100%" stop-color="#3b82f6"/>
+    </linearGradient>
+    <linearGradient id="auth" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#b91c1c"/>
+      <stop offset="100%" stop-color="#ef4444"/>
+    </linearGradient>
+    <linearGradient id="body" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#4a6741"/>
+      <stop offset="100%" stop-color="#6b8f5e"/>
+    </linearGradient>
+    <linearGradient id="gear" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#5c4a3d"/>
+      <stop offset="100%" stop-color="#8b7355"/>
+    </linearGradient>
+    <linearGradient id="chain" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#4a4a6a"/>
+      <stop offset="100%" stop-color="#6b6b8e"/>
+    </linearGradient>
+    <linearGradient id="regs" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#6a4a3d"/>
+      <stop offset="100%" stop-color="#a0715a"/>
+    </linearGradient>
+    <linearGradient id="code" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#1a5c6a"/>
+      <stop offset="100%" stop-color="#2aa9c9"/>
+    </linearGradient>
+    <linearGradient id="community" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#6a1a4a"/>
+      <stop offset="100%" stop-color="#c43d8e"/>
+    </linearGradient>
+    <filter id="shadow" x="-4%" y="-4%" width="108%" height="112%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#00000044"/>
+    </filter>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="0" stdDeviation="6" flood-color="#58a6ff33"/>
+    </filter>
+  </defs>
+
+  <rect width="900" height="720" fill="url(#bg)" rx="12"/>
+
+  <text x="450" y="36" text-anchor="middle" fill="#e6edf3" font-size="20" font-weight="bold">QooBot 全栈架构</text>
+
+  <!-- Cloud -->
+  <rect x="300" y="52" width="300" height="50" rx="8" fill="url(#cloud)" filter="url(#shadow)"/>
+  <text x="450" y="74" text-anchor="middle" fill="#fff" font-size="14" font-weight="bold">☁️ qoocloud</text>
+  <text x="450" y="92" text-anchor="middle" fill="#d0e8f0" font-size="11">云端推理 · 数据同步 · 远程协作 · OTA</text>
+
+  <line x1="450" y1="102" x2="450" y2="122" stroke="#58a6ff" stroke-width="2" stroke-dasharray="4,3"/>
+  <text x="465" y="117" fill="#58a6ff" font-size="9">gRPC / MQTT</text>
+
+  <!-- Brain -->
+  <rect x="60" y="122" width="780" height="160" rx="10" fill="#1a2a1f" stroke="#40916c" stroke-width="1.5" filter="url(#glow)"/>
+  <text x="450" y="144" text-anchor="middle" fill="#74c69d" font-size="15" font-weight="bold">qoobrain — 大脑操作系统</text>
+  <text x="450" y="162" text-anchor="middle" fill="#8ab89a" font-size="11">感知 · 认知 · 决策 · 规划 · 运动控制 · 通信</text>
+
+  <!-- Brain sub-modules -->
+  <rect x="80" y="178" width="170" height="50" rx="6" fill="url(#core)" filter="url(#shadow)"/>
+  <text x="165" y="200" text-anchor="middle" fill="#fff" font-size="13" font-weight="bold">qoocore</text>
+  <text x="165" y="218" text-anchor="middle" fill="#e8d5f0" font-size="10">芯片加速 · 端侧推理</text>
+
+  <rect x="270" y="178" width="170" height="50" rx="6" fill="url(#svc)" filter="url(#shadow)"/>
+  <text x="355" y="200" text-anchor="middle" fill="#fff" font-size="13" font-weight="bold">qoosvc</text>
+  <text x="355" y="218" text-anchor="middle" fill="#fce8c0" font-size="10">语音助手 · 导航 · 空间理解</text>
+
+  <rect x="460" y="178" width="170" height="50" rx="6" fill="url(#eco)" filter="url(#shadow)"/>
+  <text x="545" y="200" text-anchor="middle" fill="#fff" font-size="13" font-weight="bold">qooeco</text>
+  <text x="545" y="218" text-anchor="middle" fill="#c8dff5" font-size="10">技能市场 · 第三方算法</text>
+
+  <rect x="650" y="178" width="170" height="50" rx="6" fill="url(#auth)" filter="url(#shadow)"/>
+  <text x="735" y="200" text-anchor="middle" fill="#fff" font-size="13" font-weight="bold">qooauth</text>
+  <text x="735" y="218" text-anchor="middle" fill="#f8d0d0" font-size="10">身份认证 · 权限管理</text>
+
+  <line x1="165" y1="178" x2="165" y2="170" stroke="#9b5de5" stroke-width="1"/>
+  <line x1="355" y1="178" x2="355" y2="170" stroke="#e6a817" stroke-width="1"/>
+  <line x1="545" y1="178" x2="545" y2="170" stroke="#3b82f6" stroke-width="1"/>
+  <line x1="735" y1="178" x2="735" y2="170" stroke="#ef4444" stroke-width="1"/>
+
+  <!-- Bottom row 1 -->
+  <rect x="60" y="302" width="185" height="50" rx="6" fill="url(#body)" filter="url(#shadow)"/>
+  <text x="152" y="324" text-anchor="middle" fill="#fff" font-size="13" font-weight="bold">qoobody</text>
+  <text x="152" y="342" text-anchor="middle" fill="#d8e8d0" font-size="10">硬件本体 · 参考设计</text>
+
+  <rect x="260" y="302" width="185" height="50" rx="6" fill="url(#gear)" filter="url(#shadow)"/>
+  <text x="352" y="324" text-anchor="middle" fill="#fff" font-size="13" font-weight="bold">qoogear</text>
+  <text x="352" y="342" text-anchor="middle" fill="#e8dcc8" font-size="10">配件生态 · 外设认证</text>
+
+  <rect x="460" y="302" width="185" height="50" rx="6" fill="url(#chain)" filter="url(#shadow)"/>
+  <text x="552" y="324" text-anchor="middle" fill="#fff" font-size="13" font-weight="bold">qoochain</text>
+  <text x="552" y="342" text-anchor="middle" fill="#d0d0e8" font-size="10">供应链 · 生产制造</text>
+
+  <rect x="660" y="302" width="180" height="50" rx="6" fill="url(#regs)" filter="url(#shadow)"/>
+  <text x="750" y="324" text-anchor="middle" fill="#fff" font-size="13" font-weight="bold">qooregs</text>
+  <text x="750" y="342" text-anchor="middle" fill="#f0d8c8" font-size="10">法规合规 · 安全标准</text>
+
+  <!-- Bottom row 2 -->
+  <rect x="150" y="370" width="280" height="50" rx="6" fill="url(#code)" filter="url(#shadow)"/>
+  <text x="290" y="392" text-anchor="middle" fill="#fff" font-size="13" font-weight="bold">qoocode</text>
+  <text x="290" y="410" text-anchor="middle" fill="#c8e8f0" font-size="10">IDE 插件 · 仿真器 · 调试器 · 数据标注</text>
+
+  <rect x="470" y="370" width="280" height="50" rx="6" fill="url(#community)" filter="url(#shadow)"/>
+  <text x="610" y="392" text-anchor="middle" fill="#fff" font-size="13" font-weight="bold">qoocommunity</text>
+  <text x="610" y="410" text-anchor="middle" fill="#f0c8e0" font-size="10">开源社区 · 开发者大会 · 高校合作</text>
+
+  <!-- Layer labels -->
+  <text x="20" y="147" fill="#40916c" font-size="10" font-weight="bold">核心层</text>
+  <line x1="50" y1="145" x2="58" y2="145" stroke="#40916c" stroke-width="1"/>
+  <text x="20" y="327" fill="#6b8f5e" font-size="10" font-weight="bold">保障层</text>
+  <line x1="50" y1="325" x2="58" y2="325" stroke="#6b8f5e" stroke-width="1"/>
+  <text x="20" y="395" fill="#2aa9c9" font-size="10" font-weight="bold">生态层</text>
+  <line x1="50" y1="393" x2="58" y2="393" stroke="#2aa9c9" stroke-width="1"/>
+
+  <!-- Dependency section -->
+  <rect x="60" y="445" width="780" height="225" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1"/>
+  <text x="450" y="470" text-anchor="middle" fill="#e6edf3" font-size="14" font-weight="bold">依赖关系</text>
+
+  <text x="80" y="498" fill="#8b949e" font-size="11">qoocore</text>
+  <text x="155" y="498" fill="#484f58" font-size="11">──►</text>
+  <text x="180" y="498" fill="#74c69d" font-size="11">qoobrain</text>
+  <text x="260" y="498" fill="#8b949e" font-size="10">（模型推理加速）</text>
+  <text x="480" y="498" fill="#8b949e" font-size="11">qoosvc</text>
+  <text x="545" y="498" fill="#484f58" font-size="11">──►</text>
+  <text x="570" y="498" fill="#74c69d" font-size="11">qoobrain</text>
+  <text x="650" y="498" fill="#8b949e" font-size="10">（系统服务 API）</text>
+
+  <text x="80" y="522" fill="#8b949e" font-size="11">qoogear</text>
+  <text x="155" y="522" fill="#484f58" font-size="11">──►</text>
+  <text x="180" y="522" fill="#6b8f5e" font-size="11">qoobody</text>
+  <text x="260" y="522" fill="#8b949e" font-size="10">（配件 HAL 接口）</text>
+  <text x="480" y="522" fill="#8b949e" font-size="11">qoogear</text>
+  <text x="545" y="522" fill="#484f58" font-size="11">──►</text>
+  <text x="570" y="522" fill="#3b82f6" font-size="11">qooeco</text>
+  <text x="650" y="522" fill="#8b949e" font-size="10">（配件技能分发）</text>
+
+  <text x="80" y="546" fill="#8b949e" font-size="11">qooeco</text>
+  <text x="155" y="546" fill="#484f58" font-size="11">──►</text>
+  <text x="180" y="546" fill="#74c69d" font-size="11">qoobrain SDK</text>
+  <text x="260" y="546" fill="#8b949e" font-size="10">（技能开发）</text>
+  <text x="480" y="546" fill="#8b949e" font-size="11">qooeco</text>
+  <text x="545" y="546" fill="#484f58" font-size="11">──►</text>
+  <text x="570" y="546" fill="#1e7a9e" font-size="11">qoocloud</text>
+  <text x="650" y="546" fill="#8b949e" font-size="10">（技能市场后端）</text>
+
+  <text x="80" y="570" fill="#8b949e" font-size="11">qoocloud</text>
+  <text x="155" y="570" fill="#484f58" font-size="11">──►</text>
+  <text x="180" y="570" fill="#74c69d" font-size="11">qoobrain</text>
+  <text x="260" y="570" fill="#8b949e" font-size="10">（云端推理/同步）</text>
+  <text x="480" y="570" fill="#8b949e" font-size="11">qoocloud</text>
+  <text x="545" y="570" fill="#484f58" font-size="11">──►</text>
+  <text x="570" y="570" fill="#6b6b8e" font-size="11">qoochain</text>
+  <text x="650" y="570" fill="#8b949e" font-size="10">（设备追溯）</text>
+
+  <text x="80" y="594" fill="#8b949e" font-size="11">qoocode</text>
+  <text x="155" y="594" fill="#484f58" font-size="11">──►</text>
+  <text x="180" y="594" fill="#74c69d" font-size="11">qoobrain</text>
+  <text x="260" y="594" fill="#8b949e" font-size="10">+</text>
+  <text x="278" y="594" fill="#6b8f5e" font-size="11">qoobody</text>
+  <text x="480" y="594" fill="#8b949e" font-size="11">qoocommunity</text>
+  <text x="590" y="594" fill="#484f58" font-size="11">►</text>
+  <text x="608" y="594" fill="#e6edf3" font-size="11">所有项目</text>
+  <text x="690" y="594" fill="#8b949e" font-size="10">（人才培养 · 生态运营）</text>
+
+  <text x="80" y="618" fill="#ef4444" font-size="11">qooauth</text>
+  <text x="155" y="618" fill="#484f58" font-size="11">──►</text>
+  <text x="180" y="618" fill="#e6edf3" font-size="11">所有服务</text>
+  <text x="260" y="618" fill="#8b949e" font-size="10">（认证 · 授权 · 加密）</text>
+  <text x="480" y="618" fill="#a0715a" font-size="11">qooregs</text>
+  <text x="545" y="618" fill="#484f58" font-size="11">──►</text>
+  <text x="570" y="618" fill="#6b8f5e" font-size="11">qoobody</text>
+  <text x="648" y="618" fill="#484f58" font-size="11">+</text>
+  <text x="660" y="618" fill="#74c69d" font-size="11">qoobrain</text>
+  <text x="740" y="618" fill="#484f58" font-size="11">+</text>
+  <text x="750" y="618" fill="#1e7a9e" font-size="11">qoocloud</text>
+
+  <!-- Legend -->
+  <rect x="280" y="645" width="12" height="12" rx="2" fill="url(#brain)"/>
+  <text x="298" y="656" fill="#8b949e" font-size="10">核心</text>
+  <rect x="340" y="645" width="12" height="12" rx="2" fill="url(#eco)"/>
+  <text x="358" y="656" fill="#8b949e" font-size="10">平台</text>
+  <rect x="400" y="645" width="12" height="12" rx="2" fill="url(#body)"/>
+  <text x="418" y="656" fill="#8b949e" font-size="10">保障</text>
+  <rect x="460" y="645" width="12" height="12" rx="2" fill="url(#code)"/>
+  <text x="478" y="656" fill="#8b949e" font-size="10">生态</text>
+  <rect x="520" y="645" width="12" height="12" rx="2" fill="url(#auth)"/>
+  <text x="538" y="656" fill="#8b949e" font-size="10">横切</text>
+</svg>
