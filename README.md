@@ -1,70 +1,264 @@
-# QooBot — 具身智能机器人全栈生态
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/qoobots/qoobot/main/docs/qoobot-banner-dark.svg">
+    <img alt="QooBot" src="https://raw.githubusercontent.com/qoobots/qoobot/main/docs/qoobot-banner-light.svg" width="600">
+  </picture>
+</p>
 
-> 开源、开放，为所有机器人而生。
+<p align="center">
+  <strong>The Open-Source Brain Operating System for Embodied Robots</strong>
+</p>
 
----
+<p align="center">
+  <a href="https://github.com/qoobots/qoobot/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-Apache%202.0-blue.svg" alt="License"></a>
+  <a href="https://github.com/qoobots/qoobot/stargazers"><img src="https://img.shields.io/github/stars/qoobots/qoobot?style=social" alt="Stars"></a>
+  <a href="https://github.com/qoobots/qoobot/network/members"><img src="https://img.shields.io/github/forks/qoobots/qoobot?style=social" alt="Forks"></a>
+  <a href="https://discord.gg/qoobot"><img src="https://img.shields.io/badge/community-discord-5865F2?logo=discord&logoColor=white" alt="Discord"></a>
+  <a href="https://github.com/qoobots/qoobot/discussions"><img src="https://img.shields.io/badge/discussions-welcome-181717?logo=github" alt="Discussions"></a>
+</p>
 
-## 项目地图（12 子项目）
-
-### 🧬 核心层 — 机器人本体能力
-
-| 项目 | 定位 | 说明 |
-|------|------|------|
-| **[qoobody](./qoobody/)** | 硬件本体 | 传感器、执行器、计算平台、机械结构、能源 |
-| **[qoobrain](./qoobrain/)** | 大脑操作系统 | 感知、认知、决策、规划、运动控制、通信 |
-| **[qoocore](./qoocore/)** | 芯片与加速 | 端侧推理、模型编译、硬件加速 |
-
-### 🔌 平台层 — 开发者与用户服务
-
-| 项目 | 定位 | 说明 |
-|------|------|------|
-| **[qooeco](./qooeco/)** | 技能市场 | 技能分发、开发者生态、第三方算法集成 |
-| **[qoocloud](./qoocloud/)** | 云端服务 | 云端推理、数据同步、远程协作、多机管理 |
-| **[qoosvc](./qoosvc/)** | 系统服务 | 语音助手、导航、空间理解、多机互联、自诊断 |
-
-### 🛡️ 保障层 — 质量与安全
-
-| 项目 | 定位 | 说明 |
-|------|------|------|
-| **[qoocode](./qoocode/)** | 开发者工具 | IDE 插件、仿真器、调试器、性能剖析、数据标注 |
-| **[qooauth](./qooauth/)** | 账号与安全 | 身份认证、权限管理、隐私合规 |
-| **[qooregs](./qooregs/)** | 法规合规 | 安全标准、无线认证、隐私法规、出口管制 |
-
-### 🌍 生态层 — 产业与社区
-
-| 项目 | 定位 | 说明 |
-|------|------|------|
-| **[qoogear](./qoogear/)** | 配件生态 | 第三方配件认证、末端执行器、可穿戴设备 |
-| **[qoocommunity](./qoocommunity/)** | 开源社区 | 贡献者网络、开发者大会、高校合作 |
-| **[qoochain](./qoochain/)** | 供应链制造 | 生产标准、出厂标定、质量检测、BOM 设计 |
+<p align="center">
+  <a href="#-what-is-qoobot">What</a> •
+  <a href="#-architecture">Architecture</a> •
+  <a href="#-projects">Projects</a> •
+  <a href="#-getting-started">Get Started</a> •
+  <a href="#-roadmap">Roadmap</a> •
+  <a href="#-community">Community</a> •
+  <a href="#-license">License</a>
+</p>
 
 ---
 
-## 架构全景
+## 🤖 What is QooBot?
 
-![QooBot 架构全景](./docs/architecture.svg)
+QooBot is an **open-source, full-stack ecosystem** for embodied intelligent robots. We are building the universal operating system that powers the next generation of physical AI — from industrial manipulators to humanoid robots, from warehouse automation to home assistants.
 
----
+> One brain. Any body. Everywhere.
 
-## 项目状态
-
-| # | 项目 | 状态 | 说明 |
-|---|------|------|------|
-| 1 | qoobrain | 🟢 Alpha | Python: 313/315 ✅ · TS: 15/21 |
-| 2 | qoobody | 📋 规划中 | 硬件接口规范设计 |
-| 3 | qoocore | 📋 规划中 | 推理运行时设计 |
-| 4 | qooeco | 📋 规划中 | 技能市场设计 |
-| 5 | qoocloud | 📋 规划中 | 云端架构设计 |
-| 6 | qoosvc | 📋 规划中 | 系统服务设计 |
-| 7 | qoocode | 📋 规划中 | 工具链设计 |
-| 8 | qooauth | 📋 规划中 | 安全框架设计 |
-| 9 | qoogear | 📋 规划中 | 配件认证体系 |
-| 10 | qoocommunity | 📋 规划中 | 社区运营体系 |
-| 11 | qoochain | 📋 规划中 | 供应链标准 |
-| 12 | qooregs | 📋 规划中 | 合规框架 |
+Our mission is to do for robotics what open-source operating systems did for computing: **democratize access, accelerate innovation, and build a global community** around shared infrastructure.
 
 ---
 
-## 许可
+## 🧭 Why QooBot?
 
-所有子项目均采用 Apache-2.0 许可协议。
+| Challenge | QooBot's Answer |
+|-----------|----------------|
+| 🧩 **Fragmentation** — Every robot runs proprietary software, no reuse across platforms | **Unified OS** — A single brain OS that works across robot morphologies and manufacturers |
+| 🔒 **Vendor Lock-in** — Closed ecosystems limit choice and innovation | **Open Standard** — Apache 2.0 licensed, community-driven, fork-friendly |
+| 🐌 **Slow Progress** — Everyone reinvents perception, planning, and control from scratch | **Shared Foundation** — Production-grade modules for perception, cognition, motion, and more |
+| 🌍 **High Barrier** — Robotics development requires deep expertise across too many domains | **Developer First** — Rich SDK, simulator, debugger, and a global skill marketplace |
+| ⚡ **Edge to Cloud** — No unified stack for on-device + cloud intelligence | **Seamless Scale** — From on-chip inference to cloud collaboration |
+
+---
+
+## 🏗 Architecture
+
+<p align="center">
+  <img src="./docs/architecture.svg" alt="QooBot Architecture" width="100%">
+</p>
+
+QooBot is organized into **four layers** across **12 projects**:
+
+### 🧬 Core — The Robot Stack
+
+Projects that run directly on the robot:
+
+| Project | Description |
+|---------|-------------|
+| **[qoobrain](./qoobrain/)** | **Brain OS** — Perception, cognition, decision-making, motion planning, real-time communication. The central nervous system. |
+| **[qoocore](./qoocore/)** | **Compute & Acceleration** — On-device inference runtime, model compilation, hardware abstraction for NPU/GPU/DSP. |
+| **[qoobody](./qoobody/)** | **Hardware Reference** — Sensor interfaces, actuator drivers, compute platform specs, mechanical & energy reference designs. |
+
+### 🔌 Platform — Developer & User Services
+
+Projects that connect robots to developers and users:
+
+| Project | Description |
+|---------|-------------|
+| **[qooeco](./qooeco/)** | **Skill Marketplace** — Discover, publish, and monetize robot skills. Third-party algorithm integration and distribution. |
+| **[qoocloud](./qoocloud/)** | **Cloud Services** — Remote inference, fleet management, OTA updates, data synchronization, multi-robot orchestration. |
+| **[qoosvc](./qoosvc/)** | **System Services** — Voice assistant, spatial understanding, navigation, multi-robot connectivity, self-diagnostics. |
+
+### 🛡️ Foundation — Quality & Trust
+
+Projects that ensure reliability and compliance:
+
+| Project | Description |
+|---------|-------------|
+| **[qoocode](./qoocode/)** | **Developer Toolchain** — IDE plugins, robot simulator, behavior debugger, performance profiler, data labeling tools. |
+| **[qooauth](./qooauth/)** | **Identity & Security** — Unified robot/user identity, authentication, authorization, privacy framework. |
+| **[qooregs](./qooregs/)** | **Regulatory Compliance** — Safety standards (ISO 10218, ISO 13482), wireless certifications, export controls, regional privacy laws. |
+
+### 🌍 Ecosystem — Industry & Community
+
+Projects that build the global robotics community:
+
+| Project | Description |
+|---------|-------------|
+| **[qoogear](./qoogear/)** | **Accessory Ecosystem** — Third-party peripheral certification, end-effectors, wearable devices, connectivity standards. |
+| **[qoocommunity](./qoocommunity/)** | **Global Community** — Contributor network, annual developer conference, university partnerships, ambassador program. |
+| **[qoochain](./qoochain/)** | **Supply Chain** — Manufacturing standards, factory calibration, quality assurance, BOM reference designs. |
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- **Python** ≥ 3.10
+- **Node.js** ≥ 20
+- **CUDA** ≥ 12.0 (optional, for GPU acceleration)
+
+### Quick Start
+
+```bash
+# Clone the monorepo
+git clone https://github.com/qoobots/qoobot.git
+cd qoobot/qoobrain
+
+# Install dependencies
+pip install -e ".[dev]"
+
+# Run the brain OS
+python -m brain_ai.launch
+
+# Run the test suite
+pytest tests/ -v
+```
+
+### Build Your First Skill
+
+```python
+from qoobrain import Skill, Perception, Action
+
+class PickAndPlace(Skill):
+    """A simple pick-and-place skill."""
+
+    def setup(self):
+        self.perception = Perception(cameras=["front_rgbd"])
+        self.action = Action(controller="arm_6dof")
+
+    async def run(self, target: str):
+        obj = await self.perception.detect(target)
+        grasp = await self.action.plan_grasp(obj)
+        await self.action.execute(grasp)
+```
+
+---
+
+## 📊 Project Status
+
+| # | Project | Status | Details |
+|---|---------|--------|---------|
+| 1 | **qoobrain** | 🟢 **Alpha** | Python 313/315 tests passing · TS 15/21 |
+| 2 | qoobody | 📋 Design | Hardware interface specification |
+| 3 | qoocore | 📋 Design | Inference runtime architecture |
+| 4 | qooeco | 📋 Design | Skill marketplace design |
+| 5 | qoocloud | 📋 Design | Cloud architecture |
+| 6 | qoosvc | 📋 Design | System services design |
+| 7 | qoocode | 📋 Design | Toolchain design |
+| 8 | qooauth | 📋 Design | Security framework |
+| 9 | qoogear | 📋 Design | Accessory certification |
+| 10 | qoocommunity | 📋 Design | Community operations |
+| 11 | qoochain | 📋 Design | Supply chain standards |
+| 12 | qooregs | 📋 Design | Compliance framework |
+
+---
+
+## 🗺 Roadmap
+
+### Now (Alpha)
+- [x] Core brain OS: perception, planning, decision engine
+- [x] HITL (Human-in-the-Loop) visualization panel
+- [x] Voice I/O foundation
+- [x] Multi-agent communication protocol
+- [x] Python & TypeScript test suites
+- [ ] Real robot deployment on ≥ 3 platforms
+
+### Next (Beta)
+- [ ] Simulation environment (Isaac Sim + MuJoCo integration)
+- [ ] Skill SDK v1.0 with developer documentation
+- [ ] Cloud inference & fleet management alpha
+- [ ] Accessory HAL specification v1.0
+- [ ] Community governance model (RFC process)
+
+### Future (v1.0)
+- [ ] Global skill marketplace launch
+- [ ] On-device inference compiler (qoocore)
+- [ ] Security & identity framework (qooauth)
+- [ ] Multi-robot collaboration framework
+- [ ] Supply chain reference implementation
+- [ ] Annual developer conference
+
+---
+
+## 🌍 Community
+
+QooBot is built by and for the global robotics community.
+
+| Channel | Link |
+|---------|------|
+| 💬 **Discord** | [Join our Discord](https://discord.gg/qoobot) |
+| 💡 **Discussions** | [GitHub Discussions](https://github.com/qoobots/qoobot/discussions) |
+| 🐛 **Issues** | [Report a bug](https://github.com/qoobots/qoobot/issues) |
+| 📖 **Docs** | [Documentation](https://docs.qoobot.dev) (coming soon) |
+| 🎓 **Academia** | Partner with us: `research@qoobot.dev` |
+
+### Contributing
+
+We welcome contributions of all kinds — code, documentation, hardware designs, research, and community building.
+
+```bash
+# Fork & clone
+git clone https://github.com/YOUR_USERNAME/qoobot.git
+
+# Create a branch
+git checkout -b feat/your-feature
+
+# Make changes & test
+pytest tests/ -v
+
+# Submit a PR
+```
+
+See [CONTRIBUTING.md](./CONTRIBUTING.md) for our full contributor guide.
+
+### Governance
+
+QooBot follows an open governance model inspired by successful open-source foundations. Project decisions are made transparently through RFCs and community consensus. Maintainers are nominated based on sustained contribution merit.
+
+---
+
+## 🤝 Partners & Adopters
+
+<p align="center">
+  <em>We are actively building our partner network. If your organization is interested in adopting QooBot or collaborating on its development, reach out to <a href="mailto:partners@qoobot.dev">partners@qoobot.dev</a>.</em>
+</p>
+
+---
+
+## 📄 License
+
+```
+Copyright 2024-2026 The QooBot Authors
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+```
+
+All sub-projects in this monorepo are licensed under **[Apache License 2.0](./LICENSE)** .
+
+---
+
+<p align="center">
+  <sub>Built with ❤️ by the global robotics community. One brain. Any body. Everywhere.</sub>
+</p>
