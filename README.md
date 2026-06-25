@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./docs/qoobot-logo.svg" alt="QooBot" width="600">
+  <img src="./docs/static/qoobot-logo.svg" alt="QooBot" width="600">
 </p>
 
 <p align="center">
@@ -52,7 +52,7 @@ QooBot 是一个面向具身智能机器人的**开源全栈生态**。我们正
 ## 🏗 架构全景
 
 <p align="center">
-  <img src="./docs/architecture_zh.svg" alt="QooBot 架构全景" width="100%">
+  <img src="./docs/static/architecture_zh.svg" alt="QooBot 架构全景" width="100%">
 </p>
 
 QooBot 分为**四层架构**，涵盖 **12 个子项目**：

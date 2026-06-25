@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./docs/qoobot-logo.svg" alt="QooBot" width="600">
+  <img src="./docs/static/qoobot-logo.svg" alt="QooBot" width="600">
 </p>
 
 <p align="center">
@@ -52,7 +52,7 @@ Our mission is to do for robotics what open-source operating systems did for com
 ## 🏗 Architecture
 
 <p align="center">
-  <img src="./docs/architecture.svg" alt="QooBot Architecture" width="100%">
+  <img src="./docs/static/architecture.svg" alt="QooBot Architecture" width="100%">
 </p>
 
 QooBot is organized into **four layers** across **12 projects**:
