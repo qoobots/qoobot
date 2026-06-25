@@ -62,3 +62,4 @@ brain_proto/gen/
 # Env
 .env
 .env.local
+/qoobrain/.workbuddy/

@@ -272,7 +272,11 @@ class TestHITLManager(unittest.TestCase):
         async def run():
             return await mgr.start_selection(plan=plan, trajectory_set=ts, timeout_sec=0.1)
 
-        result = asyncio.get_event_loop().run_until_complete(run())
+        loop = asyncio.new_event_loop()
+        try:
+            result = loop.run_until_complete(run())
+        finally:
+            loop.close()
         self.assertEqual(result.state, HITLState.TIMED_OUT)
         self.assertFalse(result.selected_by_user)
         self.assertEqual(result.selected_trajectory_id, "traj_a")
@@ -305,7 +309,11 @@ class TestHITLManager(unittest.TestCase):
                 mgr.select_trajectory(session_id, "traj_x")
             return await task
 
-        result = asyncio.get_event_loop().run_until_complete(run())
+        loop = asyncio.new_event_loop()
+        try:
+            result = loop.run_until_complete(run())
+        finally:
+            loop.close()
         self.assertEqual(result.state, HITLState.SELECTED)
         self.assertTrue(result.selected_by_user)
         self.assertEqual(result.selected_trajectory_id, "traj_x")
@@ -340,7 +348,11 @@ class TestHITLManager(unittest.TestCase):
                 self.assertFalse(ok, "Invalid trajectory should be rejected")
             return await task
 
-        result = asyncio.get_event_loop().run_until_complete(run_with_select())
+        loop = asyncio.new_event_loop()
+        try:
+            result = loop.run_until_complete(run_with_select())
+        finally:
+            loop.close()
         # Should have timed out since invalid selection was rejected
         self.assertIsNotNone(result)
         print("  ✅ Invalid trajectory ID rejected")
@@ -368,7 +380,11 @@ class TestHITLManager(unittest.TestCase):
             self.assertEqual(result.state, HITLState.CANCELLED)
             return result
 
-        result = asyncio.get_event_loop().run_until_complete(run())
+        loop = asyncio.new_event_loop()
+        try:
+            result = loop.run_until_complete(run())
+        finally:
+            loop.close()
         self.assertEqual(result.state, HITLState.CANCELLED)
         print("  ✅ HITL session cancelled")
 
