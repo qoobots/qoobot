@@ -9,7 +9,7 @@ description = "Brain OS Python SDK — 机器人操作系统客户端库"
 readme = "README.md"
 requires-python = ">=3.11"
 license = { text = "Apache-2.0" }
-keywords = ["robotics", "brain-os", "grpc", "embodied-ai"]
+keywords = ["robotics", "brain-os", "grpc", "humanoid-robot"]
 classifiers = [
     "Development Status :: 3 - Alpha",
     "Intended Audience :: Developers",

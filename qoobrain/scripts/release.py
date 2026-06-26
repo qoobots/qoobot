@@ -178,7 +178,7 @@ def generate_manifest(version: str) -> dict:
     manifest = {
         "version": version,
         "release_date": datetime.date.today().isoformat(),
-        "project": "Brain OS — 具身智能机器人操作系统",
+        "project": "Brain OS — 人形机器人操作系统",
         "modules": {}
     }
     

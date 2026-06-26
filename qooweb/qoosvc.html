@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="qoosvc — 系统服务 — QooBot 生态的平台层项目，为机器人提供语音助手、空间理解、导航、多机器人互联与自诊断的基础服务">
+  <title>qoosvc — 系统服务 | QooBot 生态</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" type="image/svg+xml" href="assets/qoobot-logo.svg">
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <img src="assets/qoobot-logo.svg" alt="QooBot">
+      </a>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="index.html">首页</a></li>
+        <li class="nav-dropdown-trigger">
+          <a href="products.html" class="nav-dropdown-link">产品 <span class="dropdown-arrow">▾</span></a>
+          <div class="nav-dropdown nav-dropdown-mega">
+            <div class="nav-dropdown-mega-inner">
+              <div class="nav-dropdown-group">
+                <span class="nav-dropdown-label">机器人平台</span>
+                <a href="products.html#max">🦾 QooBot Max</a>
+                <span class="nav-dropdown-desc">男性成人 · 工业旗舰 · 1.90m · 40+ DOF · 100 TOPS</span>
+                <a href="products.html#nova">✨ QooBot Nova</a>
+                <span class="nav-dropdown-desc">女性成人 · 商业服务 · 1.70m · 36+ DOF · 80 TOPS</span>
+              </div>
+              <div class="nav-dropdown-group">
+                <span class="nav-dropdown-label">开源图纸</span>
+                <a href="products.html#hardware-designs">📐 硬件参考设计</a>
+                <span class="nav-dropdown-desc">81 张工程图纸全开源 — 腰部 · 胸腔 · 头部 · 腿足</span>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="nav-dropdown-trigger">
+          <a href="products.html#ecosystem" class="nav-dropdown-link active">生态 <span class="dropdown-arrow">▾</span></a>
+          <div class="nav-dropdown nav-dropdown-mega">
+            <div class="nav-dropdown-mega-inner">
+              <div class="nav-dropdown-group">
+                <span class="nav-dropdown-label">核心层</span>
+                <a href="qoobrain.html">🧠 qoobrain — 大脑操作系统</a>
+                <a href="qoocore.html">⚡ qoocore — 芯片与加速</a>
+                <a href="qoobody.html">🔩 qoobody — 硬件参考设计</a>
+              </div>
+              <div class="nav-dropdown-group">
+                <span class="nav-dropdown-label">平台层</span>
+                <a href="qooeco.html">🛒 qooeco — 技能市场</a>
+                <a href="qoocloud.html">☁️ qoocloud — 云端服务</a>
+                <a href="qoosvc.html">🔧 qoosvc — 系统服务</a>
+              </div>
+              <div class="nav-dropdown-group">
+                <span class="nav-dropdown-label">保障层</span>
+                <a href="qoocode.html">💻 qoocode — 开发者工具链</a>
+                <a href="qooauth.html">🔐 qooauth — 账号与安全</a>
+                <a href="qooregs.html">📋 qooregs — 法规合规</a>
+              </div>
+              <div class="nav-dropdown-group">
+                <span class="nav-dropdown-label">生态层</span>
+                <a href="qoogear.html">🔌 qoogear — 配件生态</a>
+                <a href="qoocommunity.html">👥 qoocommunity — 全球社区</a>
+                <a href="qoochain.html">🏭 qoochain — 供应链</a>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li><a href="about.html">关于</a></li>
+        <li><a href="https://github.com/qoobots/qoobot" target="_blank" rel="noopener">GitHub</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a href="en/products.html" class="nav-lang">EN</a>
+        <button class="nav-theme" id="theme-toggle" aria-label="切换深色模式">🌙</button>
+        <button class="nav-toggle" id="nav-toggle" aria-label="菜单">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ====== Hero ====== -->
+  <section class="product-hero">
+    <div class="section-label fade-up visible">平台层 · 系统服务</div>
+    <h1 class="section-title fade-up visible">🔧 qoosvc</h1>
+    <p class="section-desc fade-up visible" style="margin: 0 auto; max-width: 800px;">
+      机器人基础功能服务集 — 提供语音助手、空间理解、导航、多机器人互联与自诊断等关键系统服务。
+    </p>
+    <div class="mt-24 fade-up visible">
+      <span class="eco-badge status-design">设计阶段</span>
+      <span class="eco-badge status-alpha">原型开发中</span>
+    </div>
+  </section>
+
+  <!-- ====== Project Overview ====== -->
+  <section class="section">
+    <div class="section-inner">
+      <div class="section-label fade-up">项目概览</div>
+      <h2 class="section-title fade-up">机器人<span class="gradient-text">基础能力</span>服务化</h2>
+      <p class="section-desc fade-up">
+        qoosvc 是 QooBot 生态的系统服务平台，将机器人常用的基础功能封装为标准化服务，供上层应用快速调用与集成。
+      </p>
+
+      <div class="brain-grid fade-up">
+        <div class="brain-card">
+          <div class="brain-card-number">服务 01</div>
+          <div class="brain-card-icon">🗣️</div>
+          <h3>语音助手服务</h3>
+          <p>语音识别、自然语言理解、语音合成、对话管理的完整语音交互能力。</p>
+        </div>
+        <div class="brain-card">
+          <div class="brain-card-number">服务 02</div>
+          <div class="brain-card-icon">🗺️</div>
+          <h3>空间理解服务</h3>
+          <p>环境建模、物体识别、场景理解、空间推理的智能环境感知能力。</p>
+        </div>
+        <div class="brain-card">
+          <div class="brain-card-number">服务 03</div>
+          <div class="brain-card-icon">🧭</div>
+          <h3>导航服务</h3>
+          <p>路径规划、避障算法、定位跟踪、地图构建的自主导航能力。</p>
+        </div>
+        <div class="brain-card">
+          <div class="brain-card-number">服务 04</div>
+          <div class="brain-card-icon">🔗</div>
+          <h3>多机器人互联</h3>
+          <p>机器人间通信、任务协同、数据共享、群体协调的多机协作能力。</p>
+        </div>
+        <div class="brain-card">
+          <div class="brain-card-number">服务 05</div>
+          <div class="brain-card-icon">🔍</div>
+          <h3>自诊断服务</h3>
+          <p>健康监测、故障检测、性能分析、预防性维护的系统自愈能力。</p>
+        </div>
+        <div class="brain-card">
+          <div class="brain-card-number">服务 06</div>
+          <div class="brain-card-icon">⚙️</div>
+          <h3>系统管理服务</h3>
+          <p>配置管理、日志收集、性能监控、资源调度的系统运维能力。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== Technical Architecture ====== -->
+  <section class="section section-dark">
+    <div class="section-inner">
+      <div class="section-label fade-up">技术架构</div>
+      <h2 class="section-title fade-up">微服务架构，<span class="gradient-text">服务即能力</span></h2>
+      <p class="section-desc fade-up">
+        qoosvc 采用微服务架构设计，每个基础功能都作为独立的服务运行，支持按需部署与弹性扩展。
+      </p>
+
+      <div class="arch-overview fade-up">
+        <div class="arch-layer arch-layer-core">
+          <div class="arch-layer-header">
+            <span class="arch-layer-icon">🗣️</span>
+            <span class="arch-layer-name">交互服务组</span>
+            <span class="arch-layer-desc">人机交互能力</span>
+          </div>
+          <div class="eco-grid">
+            <div class="eco-card">
+              <div class="eco-card-icon">🎤</div>
+              <div class="eco-card-body">
+                <h3>语音识别服务</h3>
+                <p>支持多语言、多口音、噪声环境下的高精度语音转文本。</p>
+                <div class="eco-card-tags">
+                  <span>多语言</span><span>噪声抑制</span><span>实时识别</span>
+                </div>
+              </div>
+            </div>
+            <div class="eco-card">
+              <div class="eco-card-icon">🧠</div>
+              <div class="eco-card-body">
+                <h3>自然语言理解</h3>
+                <p>意图识别、实体抽取、情感分析、上下文理解的 NLU 服务。</p>
+                <div class="eco-card-tags">
+                  <span>意图识别</span><span>实体抽取</span><span>情感分析</span>
+                </div>
+              </div>
+            </div>
+            <div class="eco-card">
+              <div class="eco-card-icon">🔊</div>
+              <div class="eco-card-body">
+                <h3>语音合成服务</h3>
+                <p>自然流畅、情感丰富、多音色选择的文本转语音服务。</p>
+                <div class="eco-card-tags">
+                  <span>情感合成</span><span>多音色</span><span>实时合成</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="arch-layer arch-layer-platform">
+          <div class="arch-layer-header">
+            <span class="arch-layer-icon">🗺️</span>
+            <span class="arch-layer-name">感知服务组</span>
+            <span class="arch-layer-desc">环境感知能力</span>
+          </div>
+          <div class="eco-grid">
+            <div class="eco-card">
+              <div class="eco-card-icon">👁️</div>
+              <div class="eco-card-body">
+                <h3>视觉理解服务</h3>
+                <p>物体检测、场景分割、姿态估计、行为识别的视觉分析服务。</p>
+                <div class="eco-card-tags">
+                  <span>物体检测</span><span>场景分割</span><span>姿态估计</span>
+                </div>
+              </div>
+            </div>
+            <div class="eco-card">
+              <div class="eco-card-icon">📍</div>
+              <div class="eco-card-body">
+                <h3>定位与建图</h3>
+                <p>SLAM、定位跟踪、地图更新、环境建模的空间感知服务。</p>
+                <div class="eco-card-tags">
+                  <span>SLAM</span><span>定位跟踪</span><span>环境建模</span>
+                </div>
+              </div>
+            </div>
+            <div class="eco-card">
+              <div class="eco-card-icon">🧭</div>
+              <div class="eco-card-body">
+                <h3>导航规划服务</h3>
+                <p>全局路径规划、局部避障、动态重规划、多目标导航服务。</p>
+                <div class="eco-card-tags">
+                  <span>路径规划</span><span>局部避障</span><span>动态重规划</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="arch-layer arch-layer-quality">
+          <div class="arch-layer-header">
+            <span class="arch-layer-icon">🔗</span>
+            <span class="arch-layer-name">协作服务组</span>
+            <span class="arch-layer-desc">多机协作能力</span>
+          </div>
+          <div class="eco-grid">
+            <div class="eco-card">
+              <div class="eco-card-icon">📡</div>
+              <div class="eco-card-body">
+                <h3>机器人间通信</h3>
+                <p>低延迟、高可靠、自组织的机器人间直接通信服务。</p>
+                <div class="eco-card-tags">
+                  <span>低延迟</span><span>高可靠</span><span>自组织</span>
+                </div>
+              </div>
+            </div>
+            <div class="eco-card">
+              <div class="eco-card-icon">🤝</div>
+              <div class="eco-card-body">
+                <h3>任务协同服务</h3>
+                <p>任务分解、分配、协调、监控的多机器人协同作业服务。</p>
+                <div class="eco-card-tags">
+                  <span>任务分解</span><span>任务分配</span><span>协同作业</span>
+                </div>
+              </div>
+            </div>
+            <div class="eco-card">
+              <div class="eco-card-icon">📊</div>
+              <div class="eco-card-body">
+                <h3>数据共享服务</h3>
+                <p>传感器数据、地图信息、任务状态的实时共享与同步服务。</p>
+                <div class="eco-card-tags">
+                  <span>数据共享</span><span>实时同步</span><span>状态同步</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== Key Features ====== -->
+  <section class="section">
+    <div class="section-inner">
+      <div class="section-label fade-up">核心特性</div>
+      <h2 class="section-title fade-up">为<span class="gradient-text">智能机器人</span>而设计</h2>
+      
+      <div class="feature-grid fade-up">
+        <div class="feature-card">
+          <div class="feature-card-icon">🚀</div>
+          <h3>即插即用</h3>
+          <p>标准化服务接口，支持快速集成与部署，降低开发复杂度。</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-icon">🔧</div>
+          <h3>模块化设计</h3>
+          <p>服务独立部署与升级，支持按需组合与定制化配置。</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-icon">⚡</div>
+          <h3>高性能</h3>
+          <p>优化算法与硬件加速，确保实时响应与低延迟处理。</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-icon">🔒</div>
+          <h3>安全可靠</h3>
+          <p>服务隔离、故障转移、数据加密、访问控制的安全机制。</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-icon">📈</div>
+          <h3>弹性扩展</h3>
+          <p>支持水平扩展与负载均衡，适应不同规模的部署需求。</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-icon">🌐</div>
+          <h3>跨平台兼容</h3>
+          <p>支持多种机器人平台、操作系统与硬件配置的适配。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ====== Get Started ====== -->
+  <section class="section">
+    <div class="section-inner">
+      <div class="section-label fade-up">开始使用</div>
+      <h2 class="section-title fade-up">集成<span class="gradient-text">qoosvc</span>服务</h2>
+      <p class="section-desc fade-up">
+        qoosvc 提供完整的服务 API 与集成指南，欢迎开发者将基础功能服务集成到自己的机器人应用中。
+      </p>
+
+      <div class="feature-grid fade-up" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));">
+        <div class="feature-card">
+          <div class="feature-card-icon">📚</div>
+          <h3>API 文档</h3>
+          <p>详细的 REST API 文档、gRPC 接口定义、SDK 使用指南。</p>
+          <a href="https://github.com/qoobots/qoobot/tree/main/qoosvc/docs" target="_blank" rel="noopener" class="eco-link mt-16">查看文档 →</a>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-icon">💻</div>
+          <h3>示例代码</h3>
+          <p>多种编程语言的示例代码、集成 demo、最佳实践案例。</p>
+          <a href="https://github.com/qoobots/qoobot/tree/main/qoosvc/examples" target="_blank" rel="noopener" class="eco-link mt-16">查看示例 →</a>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-icon">🤝</div>
+          <h3>社区支持</h3>
+          <p>活跃的开发者社区、技术讨论组、集成经验分享会。</p>
+          <a href="https://discord.gg/qoobot" target="_blank" rel="noopener" class="eco-link mt-16">加入社区 →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== Related Projects ====== -->
+  <section class="section section-dark">
+    <div class="section-inner">
+      <div class="section-label fade-up">相关项目</div>
+      <h2 class="section-title fade-up">生态<span class="gradient-text">协同</span>发展</h2>
+      <p class="section-desc fade-up">
+        qoosvc 与其他 QooBot 生态项目紧密集成，共同构建完整的机器人服务生态。
+      </p>
+
+      <div class="eco-grid fade-up">
+        <div class="eco-card">
+          <div class="eco-card-icon">🧠</div>
+          <div class="eco-card-body">
+            <h3>qoobrain</h3>
+            <p>大脑操作系统，基于 qoosvc 提供的基础服务构建高级智能应用。</p>
+            <a href="qoobrain.html" class="eco-link">了解 qoobrain →</a>
+          </div>
+        </div>
+        <div class="eco-card">
+          <div class="eco-card-icon">🛒</div>
+          <div class="eco-card-body">
+            <h3>qooeco</h3>
+            <p>技能市场，基于 qoosvc 服务开发与发布丰富的机器人技能。</p>
+            <a href="qooeco.html" class="eco-link">了解 qooeco →</a>
+          </div>
+        </div>
+        <div class="eco-card">
+          <div class="eco-card-icon">☁️</div>
+          <div class="eco-card-body">
+            <h3>qoocloud</h3>
+            <p>云端服务，为 qoosvc 提供远程计算与数据同步能力。</p>
+            <a href="qoocloud.html" class="eco-link">了解 qoocloud →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-col">
+        <h4>产品</h4>
+        <ul>
+          <li><a href="products.html">产品与生态</a></li>
+          <li><a href="products.html#ecosystem">开源子项目</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>开发者</h4>
+        <ul>
+          <li><a href="https://github.com/qoobots/qoobot" target="_blank" rel="noopener">GitHub</a></li>
+          <li><a href="https://github.com/qoobots/qoobot/blob/main/LICENSE" target="_blank" rel="noopener">许可证</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>社区</h4>
+        <ul>
+          <li><a href="https://discord.gg/qoobot" target="_blank" rel="noopener">Discord</a></li>
+          <li><a href="https://github.com/qoobots/qoobot/discussions" target="_blank" rel="noopener">GitHub Discussions</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>关于</h4>
+        <ul>
+          <li><a href="about.html">品牌故事</a></li>
+          <li><a href="about.html#team">团队</a></li>
+          <li><a href="about.html#contact">联系我们</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 QooBot. 保留所有权利。</span>
+      <span>Apache 2.0 开源协议</span>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

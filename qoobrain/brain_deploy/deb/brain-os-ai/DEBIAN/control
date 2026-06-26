@@ -7,8 +7,8 @@ Depends: python3 (>= 3.11), libgrpc++-dev, libprotobuf-dev, protobuf-compiler-gr
 Recommends: nvidia-cuda-toolkit, tensorrt
 Maintainer: Brain OS Team <dev@brain-os.local>
 Homepage: https://github.com/brain-os/brain-os
-Description: Brain OS AI — Cognitive engine for embodied robotics
- Brain OS is an embodied AI robot operating system that translates
+Description: Brain OS AI — Cognitive engine for humanoid robotics
+ Brain OS is a humanoid robot operating system that translates
  natural language instructions into robot execution.
  .
  This package provides the Python AI cognitive engine including:

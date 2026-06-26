@@ -1,4 +1,4 @@
-# qoocore — 具身机器人芯片与加速框架
+# qoocore — 人形机器人芯片与加速框架
 
 > 机器人的"Apple Silicon + Core ML + Neural Engine"：
 > 端侧模型推理运行时、模型编译优化、硬件加速抽象。

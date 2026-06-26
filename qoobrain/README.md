@@ -6,7 +6,7 @@
 </p>
 
 <p align="center">
-  <strong>Embodied Intelligence Robot Operating System</strong><br>
+  <strong>Humanoid Robot Operating System</strong><br>
   Full-stack platform from natural language commands to robot execution
 </p>
 
@@ -46,7 +46,7 @@
 
 ## Overview
 
-Brain OS is a robot operating system purpose-built for **embodied intelligence**. It unifies large language models (LLM), computer vision, motion planning, and real-time control into a single end-to-end pipeline — enabling robots to **understand natural language, perceive their environment, plan actions, and execute safely**.
+Brain OS is a robot operating system purpose-built for **humanoid robots**. It unifies large language models (LLM), computer vision, motion planning, and real-time control into a single end-to-end pipeline — enabling robots to **understand natural language, perceive their environment, plan actions, and execute safely**.
 
 ### Why Brain OS?
 

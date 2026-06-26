@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="qoocore — 芯片与加速 — QooBot 生态的核心层项目，为机器人提供高性能推理运行时与硬件抽象层">
+  <title>qoocore — 芯片与加速 | QooBot 生态</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" type="image/svg+xml" href="assets/qoobot-logo.svg">
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <img src="assets/qoobot-logo.svg" alt="QooBot">
+      </a>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="index.html">首页</a></li>
+        <li class="nav-dropdown-trigger">
+          <a href="products.html" class="nav-dropdown-link">产品 <span class="dropdown-arrow">▾</span></a>
+          <div class="nav-dropdown nav-dropdown-mega">
+            <div class="nav-dropdown-mega-inner">
+              <div class="nav-dropdown-group">
+                <span class="nav-dropdown-label">机器人平台</span>
+                <a href="products.html#max">🦾 QooBot Max</a>
+                <span class="nav-dropdown-desc">男性成人 · 工业旗舰 · 1.90m · 40+ DOF · 100 TOPS</span>
+                <a href="products.html#nova">✨ QooBot Nova</a>
+                <span class="nav-dropdown-desc">女性成人 · 商业服务 · 1.70m · 36+ DOF · 80 TOPS</span>
+              </div>
+              <div class="nav-dropdown-group">
+                <span class="nav-dropdown-label">开源图纸</span>
+                <a href="products.html#hardware-designs">📐 硬件参考设计</a>
+                <span class="nav-dropdown-desc">81 张工程图纸全开源 — 腰部 · 胸腔 · 头部 · 腿足</span>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="nav-dropdown-trigger">
+          <a href="products.html#ecosystem" class="nav-dropdown-link active">生态 <span class="dropdown-arrow">▾</span></a>
+          <div class="nav-dropdown nav-dropdown-mega">
+            <div class="nav-dropdown-mega-inner">
+              <div class="nav-dropdown-group">
+                <span class="nav-dropdown-label">核心层</span>
+                <a href="qoobrain.html">🧠 qoobrain — 大脑操作系统</a>
+                <a href="qoocore.html">⚡ qoocore — 芯片与加速</a>
+                <a href="qoobody.html">🔩 qoobody — 硬件参考设计</a>
+              </div>
+              <div class="nav-dropdown-group">
+                <span class="nav-dropdown-label">平台层</span>
+                <a href="qooeco.html">🛒 qooeco — 技能市场</a>
+                <a href="qoocloud.html">☁️ qoocloud — 云端服务</a>
+                <a href="qoosvc.html">🔧 qoosvc — 系统服务</a>
+              </div>
+              <div class="nav-dropdown-group">
+                <span class="nav-dropdown-label">保障层</span>
+                <a href="qoocode.html">💻 qoocode — 开发者工具链</a>
+                <a href="qooauth.html">🔐 qooauth — 账号与安全</a>
+                <a href="qooregs.html">📋 qooregs — 法规合规</a>
+              </div>
+              <div class="nav-dropdown-group">
+                <span class="nav-dropdown-label">生态层</span>
+                <a href="qoogear.html">🔌 qoogear — 配件生态</a>
+                <a href="qoocommunity.html">👥 qoocommunity — 全球社区</a>
+                <a href="qoochain.html">🏭 qoochain — 供应链</a>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li><a href="about.html">关于</a></li>
+        <li><a href="https://github.com/qoobots/qoobot" target="_blank" rel="noopener">GitHub</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a href="en/products.html" class="nav-lang">EN</a>
+        <button class="nav-theme" id="theme-toggle" aria-label="切换深色模式">🌙</button>
+        <button class="nav-toggle" id="nav-toggle" aria-label="菜单">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ====== Hero ====== -->
+  <section class="product-hero">
+    <div class="section-label fade-up visible">核心层 · 芯片与加速</div>
+    <h1 class="section-title fade-up visible">⚡ qoocore</h1>
+    <p class="section-desc fade-up visible" style="margin: 0 auto; max-width: 800px;">
+      高性能推理运行时与硬件抽象层 — 统一 NPU、GPU、DSP 等异构计算资源，为机器人 AI 提供极致的算力支持。
+    </p>
+    <div class="mt-24 fade-up visible">
+      <span class="eco-badge status-alpha">Alpha 阶段</span>
+      <span class="eco-badge status-design">架构设计完成</span>
+    </div>
+  </section>
+
+  <!-- ====== Project Overview ====== -->
+  <section class="section">
+    <div class="section-inner">
+      <div class="section-label fade-up">项目概览</div>
+      <h2 class="section-title fade-up">异构计算的<span class="gradient-text">统一抽象</span></h2>
+      <p class="section-desc fade-up">
+        qoocore 是 QooBot 生态的计算加速核心，负责管理和抽象各种异构计算硬件，为上层应用提供统一的加速接口。
+      </p>
+
+      <div class="brain-grid fade-up">
+        <div class="brain-card">
+          <div class="brain-card-number">核心 01</div>
+          <div class="brain-card-icon">🧮</div>
+          <h3>硬件抽象层 (HAL)</h3>
+          <p>统一 NPU、GPU、DSP、FPGA 等异构硬件的编程接口与资源管理。</p>
+        </div>
+        <div class="brain-card">
+          <div class="brain-card-number">核心 02</div>
+          <div class="brain-card-icon">📦</div>
+          <h3>模型编译与优化</h3>
+          <p>支持 TensorFlow、PyTorch、ONNX 等主流框架的模型转换与性能优化。</p>
+        </div>
+        <div class="brain-card">
+          <div class="brain-card-number">核心 03</div>
+          <div class="brain-card-icon">🚀</div>
+          <h3>高性能推理运行时</h3>
+          <p>低延迟、高吞吐的推理引擎，支持批处理、流水线与动态调度。</p>
+        </div>
+        <div class="brain-card">
+          <div class="brain-card-number">核心 04</div>
+          <div class="brain-card-icon">⚡</div>
+          <h3>实时计算调度</h3>
+          <p>支持硬实时任务的优先级调度，确保关键计算任务的即时响应。</p>
+        </div>
+        <div class="brain-card">
+          <div class="brain-card-number">核心 05</div>
+          <div class="brain-card-icon">🔌</div>
+          <h3>插件式后端支持</h3>
+          <p>可扩展的后端架构，支持 CUDA、OpenCL、Vulkan、Metal 等多种计算 API。</p>
+        </div>
+        <div class="brain-card">
+          <div class="brain-card-number">核心 06</div>
+          <div class="brain-card-icon">📊</div>
+          <h3>性能监控与调优</h3>
+          <p>实时性能监控、功耗分析、自动调优与瓶颈诊断工具。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== Technical Architecture ====== -->
+  <section class="section section-dark">
+    <div class="section-inner">
+      <div class="section-label fade-up">技术架构</div>
+      <h2 class="section-title fade-up">三层设计，<span class="gradient-text">极致性能</span></h2>
+      <p class="section-desc fade-up">
+        qoocore 采用三层架构设计，从底层的硬件驱动到顶层的应用接口，每一层都针对性能与可移植性进行优化。
+      </p>
+
+      <div class="arch-overview fade-up">
+        <div class="arch-layer arch-layer-core">
+          <div class="arch-layer-header">
+            <span class="arch-layer-icon">🔌</span>
+            <span class="arch-layer-name">硬件驱动层</span>
+            <span class="arch-layer-desc">原生硬件支持</span>
+          </div>
+          <div class="eco-grid">
+            <div class="eco-card">
+              <div class="eco-card-icon">🖥️</div>
+              <div class="eco-card-body">
+                <h3>GPU 后端</h3>
+                <p>支持 NVIDIA CUDA、AMD ROCm、Intel oneAPI 等主流 GPU 计算平台。</p>
+                <div class="eco-card-tags">
+                  <span>CUDA</span><span>ROCm</span><span>oneAPI</span>
+                </div>
+              </div>
+            </div>
+            <div class="eco-card">
+              <div class="eco-card-icon">🧠</div>
+              <div class="eco-card-body">
+                <h3>NPU 后端</h3>
+                <p>支持华为昇腾、寒武纪、地平线等主流 NPU 芯片的推理加速。</p>
+                <div class="eco-card-tags">
+                  <span>昇腾</span><span>寒武纪</span><span>地平线</span>
+                </div>
+              </div>
+            </div>
+            <div class="eco-card">
+              <div class="eco-card-icon">⚡</div>
+              <<div class="eco-card-body">
+                <h3>DSP/FPGA 后端</h3>
+                <p>支持 Qualcomm Hexagon、Intel FPGA、Xilinx Vitis 等专用加速器。</p>
+                <div class="eco-card-tags">
+                  <span>Hexagon</span><span>FPGA</span><span>Vitis</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="arch-layer arch-layer-platform">
+          <div class="arch-layer-header">
+            <span class="arch-layer-icon">🧩</span>
+            <span class="arch-layer-name">运行时层</span>
+            <span class="arch-layer-desc">统一计算抽象</span>
+          </div>
+          <div class="eco-grid">
+            <div class="eco-card">
+              <div class="eco-card-icon">📦</div>
+              <div class="eco-card-body">
+                <h3>模型编译器</h3>
+                <p>跨框架模型转换、图优化、算子融合、量化压缩等编译优化技术。</p>
+                <div class="eco-card-tags">
+                  <span>模型转换</span><span>图优化</span><span>算子融合</span>
+                </div>
+              </div>
+            </div>
+            <div class="eco-card">
+              <div class="eco-card-icon">🚀</div>
+              <div class="eco-card-body">
+                <h3>推理引擎</h3>
+                <p>内存优化、批处理、流水线并行、动态形状支持等高性能推理特性。</p>
+                <div class="eco-card-tags">
+                  <span>内存优化</span><span>批处理</span><span>流水线</span>
+                </div>
+              </div>
+            </div>
+            <div class="eco-card">
+              <div class="eco-card-icon">⚙️</div>
+              <div class="eco-card-body">
+                <h3>调度器</h3>
+                <p>任务调度、资源分配、优先级管理、实时性保障等调度机制。</p>
+                <div class="eco-card-tags">
+                  <span>任务调度</span><span>资源分配</span><span>实时性</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="arch-layer arch-layer-quality">
+          <div class="arch-layer-header">
+            <span class="arch-layer-icon">🔧</span>
+            <span class="arch-layer-name">应用接口层</span>
+            <span class="arch-layer-desc">开发者友好</span>
+          </div>
+          <div class="eco-grid">
+            <div class="eco-card">
+              <div class="eco-card-icon">📚</div>
+              <div class="eco-card-body">
+                <h3>C++ API</h3>
+                <p>高性能 C++ 原生接口，提供细粒度控制与极致性能访问。</p>
+                <div class="eco-card-tags">
+                  <span>高性能</span><span>细粒度控制</span><span>原生接口</span>
+                </div>
+              </div>
+            </div>
+            <div class="eco-card">
+              <div class="eco-card-icon">🐍</div>
+              <div class="eco-card-body">
+                <h3>Python Binding</h3>
+                <p>Python 友好接口，支持 NumPy 集成与 PyTorch/TensorFlow 互操作。</p>
+                <div class="eco-card-tags">
+                  <span>Python</span><span>NumPy</span><span>互操作</span>
+                </div>
+              </div>
+            </div>
+            <div class="eco-card">
+              <div class="eco-card-icon">🌐</div>
+              <div class="eco-card-body">
+                <h3>REST/gRPC 服务</h3>
+                <p>远程推理服务接口，支持云端部署与分布式计算。</p>
+                <div class="eco-card-tags">
+                  <span>REST</span><span>gRPC</span><span>云端部署</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== Key Features ====== -->
+  <section class="section">
+    <div class="section-inner">
+      <div class="section-label fade-up">核心特性</div>
+      <h2 class="section-title fade-up">为<span class="gradient-text">极致性能</span>而设计</h2>
+      
+      <div class="feature-grid fade-up">
+        <div class="feature-card">
+          <div class="feature-card-icon">🚀</div>
+          <h3>跨平台性能</h3>
+          <p>在多种硬件平台上提供接近原生性能的推理加速，最大化硬件利用率。</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-icon">🔧</div>
+          <h3>硬件无关抽象</h3>
+          <p>统一的编程模型，使应用代码无需关心底层硬件的具体实现细节。</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-icon">⚡</div>
+          <h3>低延迟推理</h3>
+          <p>针对实时性要求高的机器人场景优化，提供毫秒级推理延迟。</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-icon">📊</div>
+          <h3>动态功耗管理</h3>
+          <p>根据负载动态调整功耗，平衡性能与能效，延长机器人续航时间。</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-icon">🔌</div>
+          <h3>热插拔支持</h3>
+          <p>支持运行时硬件检测与动态加载，无需重启即可切换计算后端。</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-icon">🧪</div>
+          <h3>全面测试覆盖</h3>
+          <p>单元测试、集成测试、性能测试、兼容性测试的完整测试体系。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ====== Get Started ====== -->
+  <section class="section">
+    <div class="section-inner">
+      <div class="section-label fade-up">开始使用</div>
+      <h2 class="section-title fade-up">加入<span class="gradient-text">qoocore</span>开发</h2>
+      <p class="section-desc fade-up">
+        qoocore 是一个完全开源的项目，欢迎硬件工程师、AI 研究员、系统开发者参与贡献。
+      </p>
+
+      <div class="feature-grid fade-up" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));">
+        <div class="feature-card">
+          <div class="feature-card-icon">📚</div>
+          <h3>文档与教程</h3>
+          <p>详细的 API 文档、硬件集成指南、性能优化手册与最佳实践。</p>
+          <a href="https://github.com/qoobots/qoobot/tree/main/qoocore/docs" target="_blank" rel="noopener" class="eco-link mt-16">查看文档 →</a>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-icon">💻</div>
+          <h3>代码仓库</h3>
+          <p>完整的源代码、硬件驱动、测试框架与构建系统。</p>
+          <a href="https://github.com/qoobots/qoobot/tree/main/qoocore" target="_blank" rel="noopener" class="eco-link mt-16">访问 GitHub →</a>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-icon">🤝</div>
+          <h3>社区支持</h3>
+          <p>活跃的 Discord 社区、硬件讨论组、定期技术分享会。</p>
+          <a href="https://discord.gg/qoobot" target="_blank" rel="noopener" class="eco-link mt-16">加入社区 →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== Related Projects ====== -->
+  <section class="section section-dark">
+    <div class="section-inner">
+      <div class="section-label fade-up">相关项目</div>
+      <h2 class="section-title fade-up">生态<span class="gradient-text">协同</span>发展</h2>
+      <p class="section-desc fade-up">
+        qoocore 与其他 QooBot 生态项目紧密集成，共同构建完整的机器人计算栈。
+      </p>
+
+      <div class="eco-grid fade-up">
+        <div class="eco-card">
+          <div class="eco-card-icon">🧠</div>
+          <div class="eco-card-body">
+            <h3>qoobrain</h3>
+            <p>大脑操作系统，使用 qoocore 作为计算后端，提供统一的 AI 推理能力。</p>
+            <a href="qoobrain.html" class="eco-link">了解 qoobrain →</a>
+          </div>
+        </div>
+        <div class="eco-card">
+          <div class="eco-card-icon">🔩</div>
+          <div class="eco-card-body">
+            <h3>qoobody</h3>
+            <p>硬件参考设计，与 qoocore 协同定义计算模块的硬件接口标准。</p>
+            <a href="qoobody.html" class="eco-link">了解 qoobody →</a>
+          </div>
+        </div>
+        <div class="eco-card">
+          <div class="eco-card-icon">☁️</div>
+          <div class="eco-card-body">
+            <h3>qoocloud</h3>
+            <p>云端服务，为 qoocore 提供远程模型部署与分布式计算能力。</p>
+            <a href="qoocloud.html" class="eco-link">了解 qoocloud →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-col">
+        <h4>产品</h4>
+        <ul>
+          <li><a href="products.html">产品与生态</a></li>
+          <li><a href="products.html#ecosystem">开源子项目</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>开发者</h4>
+        <ul>
+          <li><a href="https://github.com/qoobots/qoobot" target="_blank" rel="noopener">GitHub</a></li>
+          <li><a href="https://github.com/qoobots/qoobot/blob/main/LICENSE" target="_blank" rel="noopener">许可证</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>社区</h4>
+        <ul>
+          <li><a href="https://discord.gg/qoobot" target="_blank" rel="noopener">Discord</a></li>
+          <li><a href="https://github.com/qoobots/qoobot/discussions" target="_blank" rel="noopener">GitHub Discussions</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>关于</h4>
+        <ul>
+          <li><a href="about.html">品牌故事</a></li>
+          <li><a href="about.html#team">团队</a></li>
+          <li><a href="about.html#contact">联系我们</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 QooBot. 保留所有权利。</span>
+      <span>Apache 2.0 开源协议</span>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

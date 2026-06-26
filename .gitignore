@@ -63,3 +63,5 @@ brain_proto/gen/
 .env
 .env.local
 /qoobrain/.workbuddy/
+/qoobody/mechanical/mujoco/qpOASES-releases-3.2.1/
+/qoobody/mechanical/mujoco/glfw-3.4.bin.WIN64/

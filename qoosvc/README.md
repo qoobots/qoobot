@@ -1,4 +1,4 @@
-# qoosvc — 具身机器人系统服务
+# qoosvc — 人形机器人系统服务
 
 > 机器人的"Siri + MapKit + ARKit + HomeKit + HealthKit"：
 > 语音助手、导航服务、空间理解、多机互联、自诊断。

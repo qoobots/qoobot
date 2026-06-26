@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="qoogear — 配件生态 — QooBot 生态的生态层项目，为机器人提供第三方外设认证、末端执行器、可穿戴设备与配件通信标准">
+  <title>qoogear — 配件生态 | QooBot 生态</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" type="image/svg+xml" href="assets/qoobot-logo.svg">
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <img src="assets/qoobot-logo.svg" alt="QooBot">
+      </a>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="index.html">首页</a></li>
+        <li class="nav-dropdown-trigger">
+          <a href="products.html" class="nav-dropdown-link">产品 <span class="dropdown-arrow">▾</span></a>
+          <div class="nav-dropdown nav-dropdown-mega">
+            <div class="nav-dropdown-mega-inner">
+              <div class="nav-dropdown-group">
+                <span class="nav-dropdown-label">机器人平台</span>
+                <a href="products.html#max">🦾 QooBot Max</a>
+                <span class="nav-dropdown-desc">男性成人 · 工业旗舰 · 1.90m · 40+ DOF · 100 TOPS</span>
+                <a href="products.html#nova">✨ QooBot Nova</a>
+                <span class="nav-dropdown-desc">女性成人 · 商业服务 · 1.70m · 36+ DOF · 80 TOPS</span>
+              </div>
+              <div class="nav-dropdown-group">
+                <span class="nav-dropdown-label">开源图纸</span>
+                <a href="products.html#hardware-designs">📐 硬件参考设计</a>
+                <span class="nav-dropdown-desc">81 张工程图纸全开源 — 腰部 · 胸腔 · 头部 · 腿足</span>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="nav-dropdown-trigger">
+          <a href="products.html#ecosystem" class="nav-dropdown-link active">生态 <span class="dropdown-arrow">▾</span></a>
+          <div class="nav-dropdown nav-dropdown-mega">
+            <div class="nav-dropdown-mega-inner">
+              <div class="nav-dropdown-group">
+                <span class="nav-dropdown-label">核心层</span>
+                <a href="qoobrain.html">🧠 qoobrain — 大脑操作系统</a>
+                <a href="qoocore.html">⚡ qoocore — 芯片与加速</a>
+                <a href="qoobody.html">🔩 qoobody — 硬件参考设计</a>
+              </div>
+              <div class="nav-dropdown-group">
+                <span class="nav-dropdown-label">平台层</span>
+                <a href="qooeco.html">🛒 qooeco — 技能市场</a>
+                <a href="qoocloud.html">☁️ qoocloud — 云端服务</a>
+                <a href="qoosvc.html">🔧 qoosvc — 系统服务</a>
+              </div>
+              <div class="nav-dropdown-group">
+                <span class="nav-dropdown-label">保障层</span>
+                <a href="qoocode.html">💻 qoocode — 开发者工具链</a>
+                <a href="qooauth.html">🔐 qooauth — 账号与安全</a>
+                <a href="qooregs.html">📋 qooregs — 法规合规</a>
+              </div>
+              <div class="nav-dropdown-group">
+                <span class="nav-dropdown-label">生态层</span>
+                <a href="qoogear.html">🔌 qoogear — 配件生态</a>
+                <a href="qoocommunity.html">👥 qoocommunity — 全球社区</a>
+                <a href="qoochain.html">🏭 qoochain — 供应链</a>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li><a href="about.html">关于</a></li>
+        <li><a href="https://github.com/qoobots/qoobot" target="_blank" rel="noopener">GitHub</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a href="en/products.html" class="nav-lang">EN</a>
+        <button class="nav-theme" id="theme-toggle" aria-label="切换深色模式">🌙</button>
+        <button class="nav-toggle" id="nav-toggle" aria-label="菜单">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ====== Hero ====== -->
+  <section class="product-hero">
+    <div class="section-label fade-up visible">生态层 · 配件生态</div>
+    <h1 class="section-title fade-up visible">🔌 qoogear</h1>
+    <p class="section-desc fade-up visible" style="margin: 0 auto; max-width: 800px;">
+      机器人配件生态系统 — 提供第三方外设认证、标准化接口、通信协议与质量保证，构建开放且可信的机器人配件生态。
+    </p>
+    <div class="mt-24 fade-up visible">
+      <span class="eco-badge status-design">架构设计完成</span>
+      <span class="eco-badge status-alpha">Alpha 开发中</span>
+    </div>
+  </section>
+
+  <!-- ====== Project Overview ====== -->
+  <section class="section">
+    <div class="section-inner">
+      <div class="section-label fade-up">项目概览</div>
+      <h2 class="section-title fade-up">机器人<span class="gradient-text">配件生态</span>的统一标准</h2>
+      <p class="section-desc fade-up">
+        qoogear 定义了 QooBot 机器人配件的统一接口、认证标准与通信协议。它确保第三方配件在性能、安全与兼容性上达到最高标准，为机器人提供无限扩展可能。
+      </p>
+
+      <div class="brain-grid fade-up">
+        <div class="brain-card">
+          <div class="brain-card-number">模块 01</div>
+          <div class="brain-card-icon">🔍</div>
+          <h3>配件认证体系</h3>
+          <p>建立第三方配件的认证流程、测试标准与质量保证，确保配件兼容性与安全性。</p>
+        </div>
+        <div class="brain-card">
+          <div class="brain-card-number">模块 02</div>
+          <div class="brain-card-icon">🔌</div>
+          <h3>标准化接口</h3>
+          <p>定义机械、电气、通信接口的统一标准，简化配件开发与集成流程。</p>
+        </div>
+        <div class="brain-card">
+          <div class="brain-card-number">模块 03</div>
+          <div class="brain-card-icon">🤖</div>
+          <h3>末端执行器</h3>
+          <p>支持多种末端执行器，包括灵巧手、夹具、工具头等，覆盖不同应用场景。</p>
+        </div>
+        <div class="brain-card">
+          <div class="brain-card-number">模块 04</div>
+          <div class="brain-card-icon">⌚</div>
+          <h3>可穿戴设备</h3>
+          <p>集成头戴显示器、触觉反馈手套、体感服等可穿戴配件，增强人机交互体验。</p>
+        </div>
+        <div class="brain-card">
+          <div class="brain-card-number">模块 05</div>
+          <div class="brain-card-icon">📡</div>
+          <h3>通信协议栈</h3>
+          <p>提供配件通信的统一协议栈，支持有线、无线、近场通信等多种连接方式。</p>
+        </div>
+        <div class="brain-card">
+          <div class="brain-card-number">模块 06</div>
+          <div class="brain-card-icon">🛡️</div>
+          <h3>安全与合规</h3>
+          <p>确保所有配件符合电磁兼容、电气安全、数据隐私等法规要求。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== Technical Architecture ====== -->
+  <section class="section section-dark">
+    <div class="section-inner">
+      <div class="section-label fade-up">技术架构</div>
+      <h2 class="section-title fade-up">三层认证体系，<span class="gradient-text">开放生态</span></h2>
+      <p class="section-desc fade-up">
+        qoogear 采用三层架构设计，从物理接口到软件驱动，再到认证管理，为配件生态提供完整的解决方案。
+      </p>
+
+      <div class="arch-overview fade-up">
+        <div class="arch-layer arch-layer-core">
+          <div class="arch-layer-header">
+            <span class="arch-layer-icon">🔩</span>
+            <span class="arch-layer-name">物理接口层</span>
+            <span class="arch-layer-desc">硬件连接标准</span>
+          </div>
+          <div class="eco-grid">
+            <div class="eco-card">
+              <div class="eco-card-icon">🔌</div>
+              <div class="eco-card-body">
+                <h3>机械接口标准</h3>
+                <p>定义配件安装的机械接口、尺寸公差、锁紧机构与连接方式。</p>
+                <div class="eco-card-tags">
+                  <span>安装接口</span><span>尺寸标准</span><span>锁紧机构</span>
+                </div>
+              </div>
+            </div>
+            <div class="eco-card">
+              <div class="eco-card-icon">⚡</div>
+              <div class="eco-card-body">
+                <h3>电气接口规范</h3>
+                <p>电源、信号、数据传输的电气接口标准，包括电压、电流、协议等参数。</p>
+                <div class="eco-card-tags">
+                  <span>电源接口</span><span>信号协议</span><span>数据总线</span>
+                </div>
+              </div>
+            </div>
+            <div class="eco-card">
+              <div class="eco-card-icon">📡</div>
+              <div class="eco-card-body">
+                <h3>无线通信接口</h3>
+                <p>蓝牙、Wi-Fi、UWB 等无线通信的接口标准与协议栈。</p>
+                <div class="eco-card-tags">
+                  <span>蓝牙</span><span>Wi-Fi</span><span>UWB</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="arch-layer arch-layer-platform">
+          <div class="arch-layer-header">
+            <span class="arch-layer-icon">💾</span>
+            <span class="arch-layer-name">驱动与协议层</span>
+            <span class="arch-layer-desc">软件接口标准</span>
+          </div>
+          <div class="eco-grid">
+            <div class="eco-card">
+              <div class="eco-card-icon">🚀</div>
+              <div class="eco-card-body">
+                <h3>设备驱动框架</h3>
+                <p>统一的设备驱动框架，支持即插即用、热插拔与动态加载。</p>
+                <div class="eco-card-tags">
+                  <span>即插即用</span><span>热插拔</span><span>动态加载</span>
+                </div>
+              </div>
+            </div>
+            <div class="eco-card">
+              <div class="eco-card-icon">🔧</div>
+              <div class="eco-card-body">
+                <h3>通信协议栈</h3>
+                <p>标准化的通信协议栈，支持 CAN、EtherCAT、MQTT、WebSocket 等协议。</p>
+                <div class="eco-card-tags">
+                  <span>CAN</span><span>EtherCAT</span><span>MQTT</span>
+                </div>
+              </div>
+            </div>
+            <div class="eco-card">
+              <div class="eco-card-icon">📦</div>
+              <div class="eco-card-body">
+                <h3>数据格式标准</h3>
+                <p>传感器数据、控制命令、状态反馈的统一数据格式与编码规范。</p>
+                <div class="eco-card-tags">
+                  <span>数据格式</span><span>编码规范</span><span>状态反馈</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="arch-layer arch-layer-quality">
+          <div class="arch-layer-header">
+            <span class="arch-layer-icon">🛡️</span>
+            <span class="arch-layer-name">认证与管理层</span>
+            <span class="arch-layer-desc">质量与合规保障</span>
+          </div>
+          <div class="eco-grid">
+            <div class="eco-card">
+              <div class="eco-card-icon">✅</div>
+              <div class="eco-card-body">
+                <h3>认证测试套件</h3>
+                <p>自动化测试套件，验证配件的兼容性、性能与安全性。</p>
+                <div class="eco-card-tags">
+                  <span>兼容性测试</span><span>性能验证</span><span>安全测试</span>
+                </div>
+              </div>
+            </div>
+            <div class="eco-card">
+              <div class="eco-card-icon">📋</div>
+              <div class="eco-card-body">
+                <h3>配件注册中心</h3>
+                <p>所有认证配件的注册数据库，提供版本管理、更新推送与兼容性检查。</p>
+                <div class="eco-card-tags">
+                  <span>注册数据库</span><span>版本管理</span><span>更新推送</span>
+                </div>
+              </div>
+            </div>
+            <div class="eco-card">
+              <div class="eco-card-icon">🔐</div>
+              <div class="eco-card-body">
+                <h3>安全与合规</h3>
+                <p>确保配件符合电磁兼容、电气安全、数据隐私等法规要求。</p>
+                <div class="eco-card-tags">
+                  <span>EMC 认证</span><span>电气安全</span><span>隐私保护</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== Key Features ====== -->
+  <section class="section">
+    <div class="section-inner">
+      <div class="section-label fade-up">核心特性</div>
+      <h2 class="section-title fade-up">构建<span class="gradient-text">开放配件生态</span></h2>
+      
+      <div class="feature-grid fade-up">
+        <div class="feature-card">
+          <div class="feature-card-icon">🔌</div>
+          <h3>即插即用</h3>
+          <p>支持配件的自动识别、驱动加载与配置，无需手动安装与设置。</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-icon">🛡️</div>
+          <h3>安全认证</h3>
+          <p>所有配件必须通过严格的安全与兼容性认证，确保系统稳定性。</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-icon">🌐</div>
+          <h3>开放标准</h3>
+          <p>公开的接口规范与协议文档，支持第三方厂商自由开发配件。</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-icon">📈</div>
+          <h3>生态扩展</h3>
+          <p>支持从工业工具到消费配件的广泛扩展，满足不同应用场景需求。</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-icon">🔄</div>
+          <h3>向后兼容</h3>
+          <p>确保新配件与旧版本系统的兼容性，保护用户投资。</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-icon">🔍</div>
+          <h3>质量保证</h3>
+          <p>严格的测试流程与质量标准，确保每个配件的可靠性与耐用性。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ====== Get Started ====== -->
+  <section class="section">
+    <div class="section-inner">
+      <div class="section-label fade-up">开始使用</div>
+      <h2 class="section-title fade-up">加入<span class="gradient-text">qoogear</span>生态</h2>
+      <p class="section-desc fade-up">
+        qoogear 欢迎配件制造商、开发者、集成商参与生态建设，共同定义机器人配件的未来标准。
+      </p>
+
+      <div class="feature-grid fade-up" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));">
+        <div class="feature-card">
+          <div class="feature-card-icon">📚</div>
+          <h3>开发文档</h3>
+          <p>详细的接口规范、认证流程、开发指南与最佳实践文档。</p>
+          <a href="https://github.com/qoobots/qoobot/tree/main/qoogear/docs" target="_blank" rel="noopener" class="eco-link mt-16">查看文档 →</a>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-icon">🔧</div>
+          <h3>开发工具包</h3>
+          <p>认证测试工具、驱动开发模板、仿真环境与调试工具。</p>
+          <a href="https://github.com/qoobots/qoobot/tree/main/qoogear/sdk" target="_blank" rel="noopener" class="eco-link mt-16">获取 SDK →</a>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-icon">🤝</div>
+          <h3>合作伙伴计划</h3>
+          <p>加入配件合作伙伴计划，获取技术支持、市场推广与认证优先权。</p>
+          <a href="https://discord.gg/qoobot" target="_blank" rel="noopener" class="eco-link mt-16">申请加入 →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== Related Projects ====== -->
+  <section class="section section-dark">
+    <div class="section-inner">
+      <div class="section-label fade-up">相关项目</div>
+      <h2 class="section-title fade-up">生态<span class="gradient-text">协同</span>发展</h2>
+      <p class="section-desc fade-up">
+        qoogear 与其他 QooBot 生态项目紧密集成，共同构建完整的机器人配件生态。
+      </p>
+
+      <div class="eco-grid fade-up">
+        <div class="eco-card">
+          <div class="eco-card-icon">🔩</div>
+          <div class="eco-card-body">
+            <h3>qoobody</h3>
+            <p>硬件参考设计，为 qoogear 提供机械接口与电气规范的基础。</p>
+            <a href="qoobody.html" class="eco-link">了解 qoobody →</a>
+          </div>
+        </div>
+        <div class="eco-card">
+          <div class="eco-card-icon">🏭</div>
+          <div class="eco-card-body">
+            <h3>qoochain</h3>
+            <p>供应链管理，为配件制造商提供生产标准与质量检测体系。</p>
+            <a href="qoochain.html" class="eco-link">了解 qoochain →</a>
+          </div>
+        </div>
+        <div class="eco-card">
+          <div class="eco-card-icon">🛒</div>
+          <div class="eco-card-body">
+            <h3>qooeco</h3>
+            <p>技能市场，为认证配件提供销售渠道与生态集成。</p>
+            <a href="qooeco.html" class="eco-link">了解 qooeco →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-col">
+        <h4>产品</h4>
+        <ul>
+          <li><a href="products.html">产品与生态</a></li>
+          <li><a href="products.html#ecosystem">开源子项目</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>开发者</h4>
+        <ul>
+          <li><a href="https://github.com/qoobots/qoobot" target="_blank" rel="noopener">GitHub</a></li>
+          <li><a href="https://github.com/qoobots/qoobot/blob/main/LICENSE" target="_blank" rel="noopener">许可证</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>社区</h4>
+        <ul>
+          <li><a href="https://discord.gg/qoobot" target="_blank" rel="noopener">Discord</a></li>
+          <li><a href="https://github.com/qoobots/qoobot/discussions" target="_blank" rel="noopener">GitHub Discussions</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>关于</h4>
+        <ul>
+          <li><a href="about.html">品牌故事</a></li>
+          <li><a href="about.html#team">团队</a></li>
+          <li><a href="about.html#contact">联系我们</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 QooBot. 保留所有权利。</span>
+      <span>Apache 2.0 开源协议</span>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

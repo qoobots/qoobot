@@ -1,0 +1,336 @@
+// QooBot 参考平台设备树 (Device Tree Source)
+// 适用 SoC: NVIDIA Tegra Orin / Rockchip RK3588 (示例)
+// 编译: dtc -I dts -O dtb -o qoo_body_v1.dtb qoo_device_tree.dts
+
+/dts-v1/;
+/plugin/;
+
+#include <dt-bindings/gpio/gpio.h>
+#include <dt-bindings/clock/tegra234-clock.h>  // 按 SoC 替换
+#include <dt-bindings/interrupt-controller/irq.h>
+
+/ {
+    model = "QooBot QooBody v1 Reference Platform";
+    compatible = "qoobot,body-v1", "nvidia,tegra234";  // 按 SoC 调整
+
+    // ======== 内存 ========
+    memory@80000000 {
+        device_type = "memory";
+        reg = <0x0 0x80000000 0x0 0x80000000>;  // 2GB 示例，实际按板子配置
+    };
+
+    reserved-memory {
+        #address-cells = <2>;
+        #size-cells = <2>;
+        ranges;
+
+        // 安全 MCU 共享内存 (用于与主控通信)
+        safety_shared_mem: shm@90000000 {
+            compatible = "qoobot,safety-shm";
+            reg = <0x0 0x90000000 0x0 0x1000>;  // 4KB
+            no-map;
+        };
+
+        // NPU 固件保留内存
+        npu_fw_mem: npu-fw@9a000000 {
+            compatible = "shared-dma-pool";
+            reg = <0x0 0x9a000000 0x0 0x800000>;  // 8MB
+            no-map;
+        };
+    };
+
+    // ======== 选择器中禁用 unused 时钟/电源 (降低功耗) ========
+    // 由内核自动管理
+
+    // ======== 控制 SoC 节点 ========
+    soc {
+        // ---- I2C 总线 0: IMU + 温湿度传感器 ----
+        i2c@3160000 {
+            compatible = "nvidia,tegra234-i2c";
+            reg = <0x0 0x3160000 0x0 0x10000>;
+            interrupts = <0 27 IRQ_TYPE_LEVEL_HIGH>;
+            #address-cells = <1>;
+            #size-cells = <0>;
+            clock-frequency = <400000>;  // 400kHz
+            status = "okay";
+
+            // BMI270 IMU (6轴)
+            imu_bmi270: imu@68 {
+                compatible = "bosch,bmi270";
+                reg = <0x68>;
+                interrupt-parent = <&gpio>;
+                interrupts = <10 IRQ_TYPE_EDGE_RISING>;  // GPIO 10 作为中断
+                vdd-supply = <&vdd_3v3>;
+                vddio-supply = <&vdd_1v8>;
+            };
+
+            // BME280 温湿度传感器
+            env_bme280: env@76 {
+                compatible = "bosch,bme280";
+                reg = <0x76>;
+            };
+        };
+
+        // ---- I2C 总线 1: 麦克风阵列编解码器 ----
+        i2c@c240000 {
+            compatible = "nvidia,tegra234-i2c";
+            reg = <0x0 0xc240000 0x0 0x10000>;
+            #address-cells = <1>;
+            #size-cells = <0>;
+            status = "okay";
+
+            // TLV320AIC3104 音频编解码器 (连接麦克风阵列)
+            audio_codec: codec@18 {
+                compatible = "ti,tlv320aic3104";
+                reg = <0x18>;
+                #sound-dai-cells = <0>;
+                clocks = <&clk_audio>;
+                clock-names = "mclk";
+            };
+        };
+
+        // ---- SPI 总线 0: ADC (关节力矩传感器) ----
+        spi@3210000 {
+            compatible = "nvidia,tegra234-spi";
+            reg = <0x0 0x3210000 0x0 0x10000>;
+            #address-cells = <1>;
+            #size-cells = <0>;
+            num-cs = <1>;
+            status = "okay";
+
+            // ADS131M08 24-bit ADC (8通道，读取关节力矩)
+            adc_joint: adc@0 {
+                compatible = "ti,ads131m08";
+                reg = <0>;
+                spi-max-frequency = <1000000>;
+                vref-supply = <&vref_3v3>;
+            };
+        };
+
+        // ---- SPI 总线 1: 触摸屏 / 外部 SPI 设备 ----
+        spi@3230000 {
+            compatible = "nvidia,tegra234-spi";
+            reg = <0x0 0x3230000 0x0 0x10000>;
+            status = "okay";
+
+            // 用户态 SPI 设备 (spidev)
+            spidev@0 {
+                compatible = "rohm,dh2228fv";
+                reg = <0>;
+                spi-max-frequency = <1000000>;
+            };
+        };
+
+        // ---- CAN FD 控制器 0: 电机控制总线 ----
+        can@c310000 {
+            compatible = "nvidia,tegra234-can";
+            reg = <0x0 0xc310000 0x0 0x10000>;
+            interrupts = <0 60 IRQ_TYPE_LEVEL_HIGH>;
+            clocks = <&clk_can0>;
+            clock-names = "can";
+            status = "okay";
+
+            // 设备树中配置位时序（示例: 1Mbps 仲裁 + 5Mbps 数据）
+            // 实际由 ip link set can0 type can bitrate 1000000 dbitrate 5000000 fd on 配置
+        };
+
+        // ---- CAN FD 控制器 1: 传感器/安全总线 ----
+        can@c320000 {
+            compatible = "nvidia,tegra234-can";
+            reg = <0x0 0xc320000 0x0 0x10000>;
+            status = "okay";
+        };
+
+        // ---- GPIO 控制器 ----
+        gpio: gpio@2200000 {
+            compatible = "nvidia,tegra234-gpio";
+            reg = <0x0 0x2200000 0x0 0x10000>;
+            interrupts = <0 32 IRQ_TYPE_LEVEL_HIGH>;
+            #gpio-cells = <2>;
+            gpio-controller;
+            interrupt-controller;
+            #interrupt-cells = <2>;
+            status = "okay";
+
+            // GPIO 管脚用途定义
+            //  GPIO 10: IMU 中断
+            //  GPIO 20: 急停输入 1 (NC)
+            //  GPIO 21: 急停输入 2 (NC)
+            //  GPIO 22: 安全继电器控制
+            //  GPIO 23: 全局抱闸控制
+            //  GPIO 24: 系统心跳 LED
+        };
+
+        // ---- PWM: 相机触发信号 ----
+        pwm@3280000 {
+            compatible = "nvidia,tegra234-pwm";
+            reg = <0x0 0x3280000 0x0 0x10000>;
+            #pwm-cells = <2>;
+            status = "okay";
+
+            // PWM 通道 0: 相机 FSIN 触发 (30Hz/60Hz)
+            // PWM 通道 1: 伺服使能 PWM (如有)
+        };
+
+        // ---- I2S/TDM: 麦克风阵列音频接口 ----
+        i2s@2901000 {
+            compatible = "nvidia,tegra234-i2s";
+            reg = <0x0 0x2901000 0x0 0x10000>;
+            clocks = <&clk_i2s1>;
+            clock-names = "i2s";
+            #sound-dai-cells = <0>;
+            status = "okay";
+
+            // TDM 模式: 8 通道 (8 麦克风)
+            // 采样率: 48kHz, 位深: 24-bit
+            qcom,tdm-slots = <8>;
+            qcom,tdm-slot-width = <32>;
+        };
+
+        // ---- MIPI CSI-2: 相机接口 ----
+        // 以下节点通常由相机传感器驱动动态注册
+        csi@3300000 {
+            compatible = "nvidia,tegra234-csi";
+            reg = <0x0 0x3300000 0x0 0x10000>;
+            status = "okay";
+
+            // 4-lane MIPI CSI-2 接口 (相机 0: 前视 RGB)
+            port@0 {
+                csi_in0: endpoint {
+                    remote-endpoint = <&cam0_out>;
+                    data-lanes = <1 2 3 4>;
+                };
+            };
+        };
+
+        // ---- 以太网: EtherCAT 主站 ----
+        ethernet@2310000 {
+            compatible = "nvidia,tegra234-ether";
+            reg = <0x0 0x2310000 0x0 0x10000>;
+            interrupts = <0 67 IRQ_TYPE_LEVEL_HIGH>;
+            // EtherCAT 主站使用此接口
+            // 要求: 支持 PTP (IEEE 1588)
+            // 要求: 支持硬件时间戳
+            nvidia,phy-iface = "rgmii";
+            status = "okay";
+        };
+
+        // ---- USB 3.0: 外部传感器 / 调试 ----
+        usb@3610000 {
+            compatible = "nvidia,tegra234-xhci";
+            reg = <0x0 0x3610000 0x0 0x10000>;
+            interrupts = <0 129 IRQ_TYPE_LEVEL_HIGH>;
+            status = "okay";
+        };
+
+        // ---- PCIe: NVMe SSD / 扩展卡 ----
+        pcie@1410000 {
+            compatible = "nvidia,tegra234-pcie";
+            reg = <0x0 0x1410000 0x0 0x10000>;
+            interrupts = <0 72 IRQ_TYPE_LEVEL_HIGH>;
+            // NVMe SSD 连接在此
+            status = "okay";
+        };
+
+        // ---- 高精度定时器 (用于实时控制) ----
+        timer@3010000 {
+            compatible = "nvidia,tegra234-timer";
+            reg = <0x0 0x3010000 0x0 0x10000>;
+            interrupts = <0 13 IRQ_TYPE_LEVEL_HIGH>;
+            // 用于 1kHz 运动控制中断
+            status = "okay";
+        };
+    };
+
+    // ======== 声卡 (麦克风阵列) ========
+    sound {
+        compatible = "simple-audio-card";
+        simple-audio-card,name = "QooBot-Audio";
+        simple-audio-card,format = "tdm";
+        simple-audio-card,bitclock-master = <&snd_cpu>;
+        simple-audio-card,frame-master = <&snd_cpu>;
+
+        snd_cpu: simple-audio-card,cpu {
+            sound-dai = <&i2s0>;
+        };
+
+        simple-audio-card,codec {
+            sound-dai = <&audio_codec>;
+            clocks = <&clk_audio>;
+            clock-names = "mclk";
+        };
+    };
+
+    // ======== LED 指示 ========
+    leds {
+        compatible = "gpio-leds";
+
+        // 系统心跳 LED
+        led-heartbeat {
+            label = "qoobot:heartbeat";
+            gpios = <&gpio 24 GPIO_ACTIVE_HIGH>;
+            linux,default-trigger = "heartbeat";
+        };
+
+        // 安全状态 LED (由安全 MCU 控制，此处为内核控制示例)
+        led-safety {
+            label = "qoobot:safety";
+            gpios = <&gpio 25 GPIO_ACTIVE_HIGH>;
+            // 由用户态安全守护进程控制
+        };
+    };
+
+    // ======== 电源管理 IC (PMIC) 参考节点 ========
+    // 按实际 PMIC 型号配置
+    // pmic@3c { ... };
+
+    // ======== 时钟配置 ========
+    clocks {
+        // 音频主时钟 ( codec MCLK)
+        clk_audio: codec-mclk {
+            compatible = "fixed-clock";
+            #clock-cells = <0>;
+            clock-frequency = <24576000>;  // 24.576 MHz (48kHz * 512)
+        };
+
+        // 相机参考时钟
+        clk_cam_mclk: cam-mclk {
+            compatible = "fixed-clock";
+            #clock-cells = <0>;
+            clock-frequency = <24000000>;  // 24 MHz
+        };
+    };
+
+    // ======== 电压调节器 (Regulators) ========
+    vdd_3v3: regulator-3v3 {
+        compatible = "regulator-fixed";
+        regulator-name = "VDD_3V3";
+        regulator-min-microvolt = <3300000>;
+        regulator-max-microvolt = <3300000>;
+        regulator-always-on;
+    };
+
+    vdd_1v8: regulator-1v8 {
+        compatible = "regulator-fixed";
+        regulator-name = "VDD_1V8";
+        regulator-min-microvolt = <1800000>;
+        regulator-max-microvolt = <1800000>;
+        regulator-always-on;
+    };
+
+    vref_3v3: regulator-vref {
+        compatible = "regulator-fixed";
+        regulator-name = "VREF_3V3";
+        regulator-min-microvolt = <3300000>;
+        regulator-max-microvolt = <3300000>;
+    };
+};
+
+// ======== 插件覆盖 (Device Tree Overlay) ========
+// 用于在基础 DTS 上动态添加/修改节点
+// 编译: dtc -I dts -O dtb -o qoo_extra.dtbo qoo_extra.dts
+
+/ {
+    // 示例: 添加外部 2D LiDAR (UART 接口)
+    // 通常在运行时通过 UUID 加载 overlay，此处仅为示例
+};

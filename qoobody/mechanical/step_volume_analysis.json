@@ -1,0 +1,313 @@
+{
+  "summary": {
+    "total_parts_analyzed": 36,
+    "total_volume_cm3": 1937.3,
+    "categories": {
+      "紧固件(螺钉/销/螺母)": {
+        "count": 7,
+        "volume_cm3": 26.2
+      },
+      "轴承/衬套/垫片": {
+        "count": 2,
+        "volume_cm3": 1.2
+      },
+      "轴类零件": {
+        "count": 11,
+        "volume_cm3": 94.2
+      },
+      "板/固定件": {
+        "count": 1,
+        "volume_cm3": 40.8
+      },
+      "电机/转接件": {
+        "count": 1,
+        "volume_cm3": 197.1
+      },
+      "支架/框架": {
+        "count": 2,
+        "volume_cm3": 1072.5
+      },
+      "连杆/臂类": {
+        "count": 5,
+        "volume_cm3": 115.2
+      },
+      "其他": {
+        "count": 3,
+        "volume_cm3": 33.7
+      },
+      "腿足部件": {
+        "count": 4,
+        "volume_cm3": 356.4
+      }
+    }
+  },
+  "cost_estimates": [
+    {
+      "material": "FDM/PLA",
+      "density": 1.25,
+      "mass_kg": 2.42,
+      "cost_low": 363,
+      "cost_high": 726
+    },
+    {
+      "material": "SLA/树脂",
+      "density": 1.2,
+      "mass_kg": 2.32,
+      "cost_low": 1162,
+      "cost_high": 3487
+    },
+    {
+      "material": "SLS/尼龙",
+      "density": 1.1,
+      "mass_kg": 2.13,
+      "cost_low": 2131,
+      "cost_high": 6393
+    },
+    {
+      "material": "MJF/尼龙",
+      "density": 1.1,
+      "mass_kg": 2.13,
+      "cost_low": 3196,
+      "cost_high": 7458
+    },
+    {
+      "material": "SLM/铝合金",
+      "density": 2.7,
+      "mass_kg": 5.23,
+      "cost_low": 26153,
+      "cost_high": 41845
+    },
+    {
+      "material": "SLM/不锈钢",
+      "density": 7.85,
+      "mass_kg": 15.21,
+      "cost_low": 91245,
+      "cost_high": 152075
+    },
+    {
+      "material": "SLM/钛合金",
+      "density": 4.51,
+      "mass_kg": 8.74,
+      "cost_low": 69896,
+      "cost_high": 131056
+    }
+  ],
+  "part_details": [
+    {
+      "file": "TA00-12-00-0001膝关节销轴.step",
+      "category": "紧固件(螺钉/销/螺母)",
+      "volume_mm3": 7403.68,
+      "volume_cm3": 7.4
+    },
+    {
+      "file": "TA00-12-00-0002膝关节销轴锁紧螺钉.step",
+      "category": "紧固件(螺钉/销/螺母)",
+      "volume_mm3": 1105.83,
+      "volume_cm3": 1.11
+    },
+    {
+      "file": "TA00-12-00-0003连杆销针C.step",
+      "category": "紧固件(螺钉/销/螺母)",
+      "volume_mm3": 4055.7,
+      "volume_cm3": 4.06
+    },
+    {
+      "file": "TA00-12-00-0004连杆衬套B.step",
+      "category": "轴承/衬套/垫片",
+      "volume_mm3": 738.09,
+      "volume_cm3": 0.74
+    },
+    {
+      "file": "TA00-12-00-0006脚踝俯仰轴.step",
+      "category": "轴类零件",
+      "volume_mm3": 5216.55,
+      "volume_cm3": 5.22
+    },
+    {
+      "file": "TA00-12-00-0007脚踝俯仰轴 B.step",
+      "category": "轴类零件",
+      "volume_mm3": 7014.0,
+      "volume_cm3": 7.01
+    },
+    {
+      "file": "TA00-12-00-0011脚踝俯仰轴垫片.step",
+      "category": "轴类零件",
+      "volume_mm3": 108.04,
+      "volume_cm3": 0.11
+    },
+    {
+      "file": "TA00-12-00-0013十字俯仰轴.step",
+      "category": "轴类零件",
+      "volume_mm3": 12645.49,
+      "volume_cm3": 12.65
+    },
+    {
+      "file": "TA00-12-00-0014十字侧摆轴.step",
+      "category": "轴类零件",
+      "volume_mm3": 5969.04,
+      "volume_cm3": 5.97
+    },
+    {
+      "file": "TA00-12-00-0015十字侧摆轴衬套.step",
+      "category": "轴类零件",
+      "volume_mm3": 1794.95,
+      "volume_cm3": 1.79
+    },
+    {
+      "file": "TA00-12-00-0016踝关节锁紧螺钉.step",
+      "category": "紧固件(螺钉/销/螺母)",
+      "volume_mm3": 1289.7,
+      "volume_cm3": 1.29
+    },
+    {
+      "file": "TA00-12-00-0017十字俯仰轴关节衬套.step",
+      "category": "轴类零件",
+      "volume_mm3": 2342.27,
+      "volume_cm3": 2.34
+    },
+    {
+      "file": "TA00-12-00-0018膝关节轴承垫片.step",
+      "category": "轴类零件",
+      "volume_mm3": 159.15,
+      "volume_cm3": 0.16
+    },
+    {
+      "file": "TA00-12-02-0001髋关节俯仰电机法兰.step",
+      "category": "板/固定件",
+      "volume_mm3": 40772.48,
+      "volume_cm3": 40.77
+    },
+    {
+      "file": "TA00-12-02-0002俯仰电机支撑架.step",
+      "category": "电机/转接件",
+      "volume_mm3": 197089.56,
+      "volume_cm3": 197.09
+    },
+    {
+      "file": "TA00-12-02-0003右大腿支架.step",
+      "category": "支架/框架",
+      "volume_mm3": 650946.45,
+      "volume_cm3": 650.95
+    },
+    {
+      "file": "TA00-12-02-0004膝关节电机关节轴.step",
+      "category": "轴类零件",
+      "volume_mm3": 33300.64,
+      "volume_cm3": 33.3
+    },
+    {
+      "file": "TA00-12-02-0005轴承锁紧螺母.step",
+      "category": "紧固件(螺钉/销/螺母)",
+      "volume_mm3": 7345.77,
+      "volume_cm3": 7.35
+    },
+    {
+      "file": "TA00-12-02-0006轴承钢套.step",
+      "category": "轴类零件",
+      "volume_mm3": 9651.69,
+      "volume_cm3": 9.65
+    },
+    {
+      "file": "TA00-12-02-0007摇臂.step",
+      "category": "连杆/臂类",
+      "volume_mm3": 27678.72,
+      "volume_cm3": 27.68
+    },
+    {
+      "file": "TA00-12-02-0008连杆销针.step",
+      "category": "紧固件(螺钉/销/螺母)",
+      "volume_mm3": 3306.63,
+      "volume_cm3": 3.31
+    },
+    {
+      "file": "TA00-12-02-0009连杆锁紧螺钉B.step",
+      "category": "紧固件(螺钉/销/螺母)",
+      "volume_mm3": 1739.19,
+      "volume_cm3": 1.74
+    },
+    {
+      "file": "TA00-12-02-0010连杆.step",
+      "category": "连杆/臂类",
+      "volume_mm3": 36962.36,
+      "volume_cm3": 36.96
+    },
+    {
+      "file": "TA00-12-02-0011连杆衬套.step",
+      "category": "轴承/衬套/垫片",
+      "volume_mm3": 453.96,
+      "volume_cm3": 0.45
+    },
+    {
+      "file": "TA00-12-02-0012支撑轴B.step",
+      "category": "轴类零件",
+      "volume_mm3": 15975.29,
+      "volume_cm3": 15.98
+    },
+    {
+      "file": "TA00-12-02-0015髋关节俯仰限位块.step",
+      "category": "其他",
+      "volume_mm3": 8111.2,
+      "volume_cm3": 8.11
+    },
+    {
+      "file": "TA00-12-04-0001右小腿支架.step",
+      "category": "支架/框架",
+      "volume_mm3": 421593.72,
+      "volume_cm3": 421.59
+    },
+    {
+      "file": "TA00-12-04-0002-A1小腿曲柄.step",
+      "category": "连杆/臂类",
+      "volume_mm3": 15743.96,
+      "volume_cm3": 15.74
+    },
+    {
+      "file": "TA00-12-04-0003小腿拉杆A.step",
+      "category": "连杆/臂类",
+      "volume_mm3": 14850.9,
+      "volume_cm3": 14.85
+    },
+    {
+      "file": "TA00-12-04-0004小腿拉杆C.step",
+      "category": "连杆/臂类",
+      "volume_mm3": 19940.27,
+      "volume_cm3": 19.94
+    },
+    {
+      "file": "TA00-12-04-0005 右小腿下限位.step",
+      "category": "其他",
+      "volume_mm3": 12521.61,
+      "volume_cm3": 12.52
+    },
+    {
+      "file": "TA00-12-04-0006右小腿上限位.step",
+      "category": "其他",
+      "volume_mm3": 13023.96,
+      "volume_cm3": 13.02
+    },
+    {
+      "file": "TA00-12-06-0001足本体.step",
+      "category": "腿足部件",
+      "volume_mm3": 221972.02,
+      "volume_cm3": 221.97
+    },
+    {
+      "file": "TA00-12-06-0002足底后橡胶垫.step",
+      "category": "腿足部件",
+      "volume_mm3": 50583.66,
+      "volume_cm3": 50.58
+    },
+    {
+      "file": "TA00-12-06-0003足底前橡胶垫.step",
+      "category": "腿足部件",
+      "volume_mm3": 77961.7,
+      "volume_cm3": 77.96
+    },
+    {
+      "file": "TA00-12-06-0004足底端盖.step",
+      "category": "腿足部件",
+      "volume_mm3": 5890.61,
+      "volume_cm3": 5.89
+    }
+  ]
+}

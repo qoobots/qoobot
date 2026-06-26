@@ -7,7 +7,7 @@ Depends: ros-humble-ros-base, libprotobuf-dev, libgrpc++-dev, protobuf-compiler-
 Maintainer: Brain OS Team <dev@brain-os.local>
 Homepage: https://github.com/brain-os/brain-os
 Description: Brain OS Core — Real-time robotics control engine
- Brain OS is an embodied AI robot operating system that translates
+ Brain OS is a humanoid robot operating system that translates
  natural language instructions into robot execution.
  .
  This package provides the C++17 real-time control engine including:

@@ -3,7 +3,7 @@
 </p>
 
 <p align="center">
-  <strong>The Open-Source Brain Operating System for Embodied Robots</strong>
+  <strong>The Open-Source Brain Operating System for Humanoid Robots</strong>
 </p>
 
 <p align="center">
@@ -29,7 +29,7 @@
 
 ## 🤖 What is QooBot?
 
-QooBot is an **open-source, full-stack ecosystem** for embodied intelligent robots. We are building the universal operating system that powers the next generation of physical AI — from industrial manipulators to humanoid robots, from warehouse automation to home assistants.
+QooBot is an **open-source, full-stack ecosystem** for humanoid robots. We are building the universal operating system that powers the next generation of physical AI — with humanoid robots at the core, spanning industrial, service, and home applications.
 
 > One brain. Any body. Everywhere.
 
@@ -41,7 +41,7 @@ Our mission is to do for robotics what open-source operating systems did for com
 
 | Challenge | QooBot's Answer |
 |-----------|----------------|
-| 🧩 **Fragmentation** — Every robot runs proprietary software, no reuse across platforms | **Unified OS** — A single brain OS that works across robot morphologies and manufacturers |
+| 🧩 **Fragmentation** — Every humanoid robot runs proprietary software, no reuse across platforms | **Unified OS** — A single brain OS that works across humanoid robot morphologies and manufacturers |
 | 🔒 **Vendor Lock-in** — Closed ecosystems limit choice and innovation | **Open Standard** — Apache 2.0 licensed, community-driven, fork-friendly |
 | 🐌 **Slow Progress** — Everyone reinvents perception, planning, and control from scratch | **Shared Foundation** — Production-grade modules for perception, cognition, motion, and more |
 | 🌍 **High Barrier** — Robotics development requires deep expertise across too many domains | **Developer First** — Rich SDK, simulator, debugger, and a global skill marketplace |

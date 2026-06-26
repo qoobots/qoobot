@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="qooauth — 账号与安全 — QooBot 生态的保障层项目，为机器人提供统一的身份认证、授权管理与隐私框架">
+  <title>qooauth — 账号与安全 | QooBot 生态</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" type="image/svg+xml" href="assets/qoobot-logo.svg">
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <img src="assets/qoobot-logo.svg" alt="QooBot">
+      </a>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="index.html">首页</a></li>
+        <li class="nav-dropdown-trigger">
+          <a href="products.html" class="nav-dropdown-link">产品 <span class="dropdown-arrow">▾</span></a>
+          <div class="nav-dropdown nav-dropdown-mega">
+            <div class="nav-dropdown-mega-inner">
+              <div class="nav-dropdown-group">
+                <span class="nav-dropdown-label">机器人平台</span>
+                <a href="products.html#max">🦾 QooBot Max</a>
+                <span class="nav-dropdown-desc">男性成人 · 工业旗舰 · 1.90m · 40+ DOF · 100 TOPS</span>
+                <a href="products.html#nova">✨ QooBot Nova</a>
+                <span class="nav-dropdown-desc">女性成人 · 商业服务 · 1.70m · 36+ DOF · 80 TOPS</span>
+              </div>
+              <div class="nav-dropdown-group">
+                <span class="nav-dropdown-label">开源图纸</span>
+                <a href="products.html#hardware-designs">📐 硬件参考设计</a>
+                <span class="nav-dropdown-desc">81 张工程图纸全开源 — 腰部 · 胸腔 · 头部 · 腿足</span>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="nav-dropdown-trigger">
+          <a href="products.html#ecosystem" class="nav-dropdown-link active">生态 <span class="dropdown-arrow">▾</span></a>
+          <div class="nav-dropdown nav-dropdown-mega">
+            <div class="nav-dropdown-mega-inner">
+              <div class="nav-dropdown-group">
+                <span class="nav-dropdown-label">核心层</span>
+                <a href="qoobrain.html">🧠 qoobrain — 大脑操作系统</a>
+                <a href="qoocore.html">⚡ qoocore — 芯片与加速</a>
+                <a href="qoobody.html">🔩 qoobody — 硬件参考设计</a>
+              </div>
+              <div class="nav-dropdown-group">
+                <span class="nav-dropdown-label">平台层</span>
+                <a href="qooeco.html">🛒 qooeco — 技能市场</a>
+                <a href="qoocloud.html">☁️ qoocloud — 云端服务</a>
+                <a href="qoosvc.html">🔧 qoosvc — 系统服务</a>
+              </div>
+              <div class="nav-dropdown-group">
+                <span class="nav-dropdown-label">保障层</span>
+                <a href="qoocode.html">💻 qoocode — 开发者工具链</a>
+                <a href="qooauth.html">🔐 qooauth — 账号与安全</a>
+                <a href="qooregs.html">📋 qooregs — 法规合规</a>
+              </div>
+              <div class="nav-dropdown-group">
+                <span class="nav-dropdown-label">生态层</span>
+                <a href="qoogear.html">🔌 qoogear — 配件生态</a>
+                <a href="qoocommunity.html">👥 qoocommunity — 全球社区</a>
+                <a href="qoochain.html">🏭 qoochain — 供应链</a>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li><a href="about.html">关于</a></li>
+        <li><a href="https://github.com/qoobots/qoobot" target="_blank" rel="noopener">GitHub</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a href="en/products.html" class="nav-lang">EN</a>
+        <button class="nav-theme" id="theme-toggle" aria-label="切换深色模式">🌙</button>
+        <button class="nav-toggle" id="nav-toggle" aria-label="菜单">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ====== Hero ====== -->
+  <section class="product-hero">
+    <div class="section-label fade-up visible">保障层 · 账号与安全</div>
+    <h1 class="section-title fade-up visible">🔐 qooauth</h1>
+    <p class="section-desc fade-up visible" style="margin: 0 auto; max-width: 800px;">
+      统一身份认证与安全框架 — 为机器人、用户、开发者提供安全的身份管理、访问控制与隐私保护。
+    </p>
+    <div class="mt-24 fade-up visible">
+      <span class="eco-badge status-design">设计阶段</span>
+      <span class="eco-badge status-alpha">原型开发中</span>
+    </div>
+  </section>
+
+  <!-- ====== Project Overview ====== -->
+  <section class="section">
+    <div class="section-inner">
+      <div class="section-label fade-up">项目概览</div>
+      <h2 class="section-title fade-up">机器人生态的<span class="gradient-text">信任基石</span></h2>
+      <p class="section-desc fade-up">
+        qooauth 是 QooBot 生态的安全基础项目，为整个生态系统提供统一的身份认证、授权管理、数据加密与隐私保护能力。
+      </p>
+
+      <div class="brain-grid fade-up">
+        <div class="brain-card">
+          <div class="brain-card-number">组件 01</div>
+          <div class="brain-card-icon">👤</div>
+          <h3>身份管理系统</h3>
+          <p>用户、机器人、开发者、组织等多维度的统一身份标识与管理。</p>
+        </div>
+        <div class="brain-card">
+          <div class="brain-card-number">组件 02</div>
+          <div class="brain-card-icon">🔑</div>
+          <h3>认证服务</h3>
+          <p>多因子认证、生物识别、单点登录、社交登录等多样化认证方式。</p>
+        </div>
+        <div class="brain-card">
+          <div class="brain-card-number">组件 03</div>
+          <div class="brain-card-icon">⚖️</div>
+          <h3>授权框架</h3>
+          <p>基于角色的访问控制、属性基授权、动态权限管理等授权机制。</p>
+        </div>
+        <div class="brain-card">
+          <div class="brain-card-number">组件 04</div>
+          <div class="brain-card-icon">🔒</div>
+          <h3>数据安全</h3>
+          <p>端到端加密、数据脱敏、安全存储、传输保护等数据安全措施。</p>
+        </div>
+        <div class="brain-card">
+          <div class="brain-card-number">组件 05</div>
+          <div class="brain-card-icon">🛡️</div>
+          <h3>隐私保护</h3>
+          <p>数据最小化、用户同意管理、隐私政策、合规审计等隐私框架。</p>
+        </div>
+        <div class="brain-card">
+          <div class="brain-card-number">组件 06</div>
+          <div class="brain-card-icon">📋</div>
+          <h3>安全审计</h3>
+          <p>操作日志、异常检测、合规报告、安全事件响应等审计功能。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== Technical Architecture ====== -->
+  <section class="section section-dark">
+    <div class="section-inner">
+      <div class="section-label fade-up">技术架构</div>
+      <h2 class="section-title fade-up">四层安全，<span class="gradient-text">纵深防御</span></h2>
+      <p class="section-desc fade-up">
+        qooauth 采用四层安全架构，从身份验证到数据保护，构建完整的纵深防御体系。
+      </p>
+
+      <div class="arch-overview fade-up">
+        <div class="arch-layer arch-layer-core">
+          <div class="arch-layer-header">
+            <span class="arch-layer-icon">👤</span>
+            <span class="arch-layer-name">身份层</span>
+            <span class="arch-layer-desc">统一身份管理</span>
+          </div>
+          <div class="eco-grid">
+            <div class="eco-card">
+              <div class="eco-card-icon">📝</div>
+              <div class="eco-card-body">
+                <h3>身份注册</h3>
+                <p>用户注册、机器人注册、开发者注册、组织注册的统一流程。</p>
+                <div class="eco-card-tags">
+                  <span>用户注册</span><span>机器人注册</span><span>组织注册</span>
+                </div>
+              </div>
+            </div>
+            <div class="eco-card">
+              <div class="eco-card-icon">🔑</div>
+              <div class="eco-card-body">
+                <h3>凭证管理</h3>
+                <p>密码管理、API 密钥、数字证书、生物特征等凭证存储与管理。</p>
+                <div class="eco-card-tags">
+                  <span>密码管理</span><span>API 密钥</span><span>数字证书</span>
+                </div>
+              </div>
+            </div>
+            <div class="eco-card">
+              <div class="eco-card-icon">🔄</div>
+              <div class="eco-card-body">
+                <h3>会话管理</h3>
+                <p>登录会话、令牌刷新、会话失效、并发控制等会话管理机制。</p>
+                <div class="eco-card-tags">
+                  <span>登录会话</span><span>令牌刷新</span><span>并发控制</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="arch-layer arch-layer-platform">
+          <div class="arch-layer-header">
+            <span class="arch-layer-icon">🔒</span>
+            <span class="arch-layer-name">认证层</span>
+            <span class="arch-layer-desc">多样化认证</span>
+          </div>
+          <div class="eco-grid">
+            <div class="eco-card">
+              <div class="eco-card-icon">🔢</div>
+              <div class="eco-card-body">
+                <h3>多因子认证</h3>
+                <p>短信验证码、邮件验证、TOTP、硬件令牌等多因子认证支持。</p>
+                <div class="eco-card-tags">
+                  <span>短信验证</span><span>邮件验证</span><span>TOTP</span>
+                </div>
+              </div>
+            </div>
+            <div class="eco-card">
+              <div class="eco-card-icon">👁️</div>
+              <div class="eco-card-body">
+                <h3>生物识别</h3>
+                <p>面部识别、指纹识别、声纹识别、虹膜识别等生物特征认证。</p>
+                <div class="eco-card-tags">
+                  <span>面部识别</span><span>指纹识别</span><span>声纹识别</span>
+                </div>
+              </div>
+            </div>
+            <div class="eco-card">
+              <div class="eco-card-icon">🌐</div>
+              <div class="eco-card-body">
+                <h3>社交登录</h3>
+                <p>微信、Google、GitHub、Apple 等第三方社交账号登录集成。</p>
+                <div class="eco-card-tags">
+                  <span>微信登录</span><span>Google 登录</span><span>GitHub 登录</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="arch-layer arch-layer-quality">
+          <div class="arch-layer-header">
+            <span class="arch-layer-icon">⚖️</span>
+            <span class="arch-layer-name">授权层</span>
+            <span class="arch-layer-desc">精细化控制</span>
+          </div>
+          <div class="eco-grid">
+            <div class="eco-card">
+              <div class="eco-card-icon">👥</div>
+              <div class="eco-card-body">
+                <h3>RBAC 模型</h3>
+                <p>基于角色的访问控制，支持角色、权限、用户组的精细化管理。</p>
+                <div class="eco-card-tags">
+                  <span>角色管理</span><span>权限分配</span><span>用户组</span>
+                </div>
+              </div>
+            </div>
+            <div class="eco-card">
+              <div class="eco-card-icon">🏷️</div>
+              <div class="eco-card-body">
+                <h3>ABAC 模型</h3>
+                <p>基于属性的访问控制，支持动态策略与上下文感知的授权决策。</p>
+                <div class="eco-card-tags">
+                  <span>属性策略</span><span>动态授权</span><span>上下文感知</span>
+                </div>
+              </div>
+            </div>
+            <div class="eco-card">
+              <div class="eco-card-icon">📋</div>
+              <div class="eco-card-body">
+                <h3>策略管理</h3>
+                <p>策略定义、评估、执行、审计的完整策略管理生命周期。</p>
+                <div class="eco-card-tags">
+                  <span>策略定义</span><span>策略评估</span><span>策略审计</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="arch-layer arch-layer-community">
+          <div class="arch-layer-header">
+            <span class="arch-layer-icon">🛡️</span>
+            <span class="arch-layer-name">保护层</span>
+            <span class="arch-layer-desc">数据与隐私</span>
+          </div>
+          <div class="eco-grid">
+            <div class="eco-card">
+              <div class="eco-card-icon">🔐</div>
+              <div class="eco-card-body">
+                <h3>数据加密</h3>
+                <p>传输层加密、存储加密、字段级加密、密钥管理的加密体系。</p>
+                <div class="eco-card-tags">
+                  <span>传输加密</span><span>存储加密</span><span>密钥管理</span>
+                </div>
+              </div>
+            </div>
+            <div class="eco-card">
+              <div class="eco-card-icon">👁️</div>
+              <div class="eco-card-body">
+                <h3>隐私保护</h3>
+                <p>数据脱敏、匿名化、假名化、差分隐私等隐私保护技术。</p>
+                <div class="eco-card-tags">
+                  <span>数据脱敏</span><span>匿名化</span><span>差分隐私</span>
+                </div>
+              </div>
+            </div>
+            <div class="eco-card">
+              <div class="eco-card-icon">📋</div>
+              <div class="eco-card-body">
+                <h3>合规管理</h3>
+                <p>GDPR、CCPA、PIPL 等隐私法规的合规检查与报告生成。</p>
+                <div class="eco-card-tags">
+                  <span>GDPR</span><span>CCPA</span><span>PIPL</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== Key Features ====== -->
+  <section class="section">
+    <div class="section-inner">
+      <div class="section-label fade-up">核心特性</div>
+      <h2 class="section-title fade-up">为<span class="gradient-text">安全可信</span>而设计</h2>
+      
+      <div class="feature-grid fade-up">
+        <div class="feature-card">
+          <div class="feature-card-icon">🔒</div>
+          <h3>端到端安全</h3>
+          <p>从身份验证到数据访问的全链路安全保护，无安全死角。</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-icon">⚡</div>
+          <h3>高性能</h3>
+          <p>优化的加密算法与分布式架构，确保安全操作的低延迟。</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-icon">🔧</div>
+          <h3>易集成</h3>
+          <p>标准化的 OAuth 2.0、OpenID Connect 协议，支持快速集成。</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-icon">🌐</div>
+          <h3>多租户支持</h3>
+          <p>支持企业级多租户架构，确保租户间的数据隔离与安全。</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-icon">📊</div>
+          <h3>可审计性</h3>
+          <p>完整的操作日志、安全事件记录、合规报告生成能力。</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-icon">🔄</div>
+          <h3>高可用</h3>
+          <p>多区域部署、故障自动转移、数据冗余备份的高可用架构。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ====== Get Started ====== -->
+  <section class="section">
+    <div class="section-inner">
+      <div class="section-label fade-up">开始使用</div>
+      <h2 class="section-title fade-up">集成<span class="gradient-text">qooauth</span>安全</h2>
+      <p class="section-desc fade-up">
+        qooauth 提供完整的身份认证与安全解决方案，欢迎开发者与企业集成到自己的机器人应用中。
+      </p>
+
+      <div class="feature-grid fade-up" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));">
+        <div class="feature-card">
+          <div class="feature-card-icon">📚</div>
+          <h3>集成指南</h3>
+          <p>详细的 API 文档、SDK 使用指南、最佳实践与安全建议。</p>
+          <a href="https://github.com/qoobots/qoobot/tree/main/qooauth/docs" target="_blank" rel="noopener" class="eco-link mt-16">查看文档 →</a>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-icon">🔧</div>
+          <h3>安全评估</h3>
+          <p>安全架构审查、威胁建模、渗透测试、合规检查服务。</p>
+          <a href="https://github.com/qoobots/qoobot/tree/main/qooauth/security" target="_blank" rel="noopener" class="eco-link mt-16">安全评估 →</a>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-icon">🤝</div>
+          <h3>专业支持</h3>
+          <p>安全专家咨询、应急响应、合规指导、定制化开发支持。</p>
+          <a href="https://discord.gg/qoobot" target="_blank" rel="noopener" class="eco-link mt-16">联系支持 →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== Related Projects ====== -->
+  <section class="section section-dark">
+    <div class="section-inner">
+      <div class="section-label fade-up">相关项目</div>
+      <h2 class="section-title fade-up">生态<span class="gradient-text">协同</span>发展</h2>
+      <p class="section-desc fade-up">
+        qooauth 与其他 QooBot 生态项目紧密集成，共同构建安全的机器人生态。
+      </p>
+
+      <div class="eco-grid fade-up">
+        <div class="eco-card">
+          <div class="eco-card-icon">🧠</div>
+          <div class="eco-card-body">
+            <h3>qoobrain</h3>
+            <p>大脑操作系统，基于 qooauth 提供安全的用户认证与访问控制。</p>
+            <a href="qoobrain.html" class="eco-link">了解 qoobrain →</a>
+          </div>
+        </div>
+        <div class="eco-card">
+          <div class="eco-card-icon">☁️</div>
+          <div class="eco-card-body">
+            <h3>qoocloud</h3>
+            <p>云端服务，与 qooauth 集成实现安全的云端访问与数据保护。</p>
+            <a href="qoocloud.html" class="eco-link">了解 qoocloud →</a>
+          </div>
+        </div>
+        <div class="eco-card">
+          <div class="eco-card-icon">📋</div>
+          <div class="eco-card-body">
+            <h3>qooregs</h3>
+            <p>法规合规，与 qooauth 协同确保安全实践符合法律法规要求。</p>
+            <a href="qooregs.html" class="eco-link">了解 qooregs →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-col">
+        <h4>产品</h4>
+        <ul>
+          <li><a href="products.html">产品与生态</a></li>
+          <li><a href="products.html#ecosystem">开源子项目</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>开发者</h4>
+        <ul>
+          <li><a href="https://github.com/qoobots/qoobot" target="_blank" rel="noopener">GitHub</a></li>
+          <li><a href="https://github.com/qoobots/qoobot/blob/main/LICENSE" target="_blank" rel="noopener">许可证</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>社区</h4>
+        <ul>
+          <li><a href="https://discord.gg/qoobot" target="_blank" rel="noopener">Discord</a></li>
+          <li><a href="https://github.com/qoobots/qoobot/discussions" target="_blank" rel="noopener">GitHub Discussions</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>关于</h4>
+        <ul>
+          <li><a href="about.html">品牌故事</a></li>
+          <li><a href="about.html#team">团队</a></li>
+          <li><a href="about.html#contact">联系我们</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 QooBot. 保留所有权利。</span>
+      <span>Apache 2.0 开源协议</span>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

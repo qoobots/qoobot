@@ -17,8 +17,49 @@
       </a>
       <ul class="nav-links" id="nav-links">
         <li><a href="index.html">Home</a></li>
-        <li><a href="products.html">Products</a></li>
-        <li><a href="buy.html">Buy</a></li>
+        <li class="nav-dropdown-trigger">
+          <a href="products.html" class="nav-dropdown-link">Products <span class="dropdown-arrow">▾</span></a>
+          <div class="nav-dropdown nav-dropdown-mega">
+            <div class="nav-dropdown-mega-inner">
+            <div class="nav-dropdown-group">
+              <span class="nav-dropdown-label">Hardware Platform</span>
+              <a href="products.html#max">QooBot Max</a>
+              <span class="nav-dropdown-desc">Bipedal humanoid robot, full perception & manipulation</span>
+            </div>
+            </div>
+          </div>
+        </li>
+        <li class="nav-dropdown-trigger">
+          <a href="products.html#ecosystem" class="nav-dropdown-link">Ecosystem <span class="dropdown-arrow">▾</span></a>
+          <div class="nav-dropdown nav-dropdown-mega">
+            <div class="nav-dropdown-mega-inner">
+            <div class="nav-dropdown-group">
+              <span class="nav-dropdown-label">Core Layer</span>
+              <a href="../qoobrain.html">🧠 qoobrain — Brain OS</a>
+              <a href="../qoocore.html">⚡ qoocore — Chip & Acceleration</a>
+              <a href="../qoobody.html">🔩 qoobody — Hardware Reference</a>
+            </div>
+            <div class="nav-dropdown-group">
+              <span class="nav-dropdown-label">Platform Layer</span>
+              <a href="../qooeco.html">🛒 qooeco — Skill Marketplace</a>
+              <a href="../qoocloud.html">☁️ qoocloud — Cloud Services</a>
+              <a href="../qoosvc.html">🔧 qoosvc — System Services</a>
+            </div>
+            <div class="nav-dropdown-group">
+              <span class="nav-dropdown-label">Quality Layer</span>
+              <a href="../qoocode.html">💻 qoocode — Developer Toolchain</a>
+              <a href="../qooauth.html">🔐 qooauth — Account & Security</a>
+              <a href="../qooregs.html">📋 qooregs — Regulatory Compliance</a>
+            </div>
+            <div class="nav-dropdown-group">
+              <span class="nav-dropdown-label">Ecosystem Layer</span>
+              <a href="../qoogear.html">🔌 qoogear — Accessory Ecosystem</a>
+              <a href="../qoocommunity.html">👥 qoocommunity — Global Community</a>
+              <a href="../qoochain.html">🏭 qoochain — Supply Chain</a>
+            </div>
+            </div>
+          </div>
+        </li>
         <li><a href="about.html" class="active">About</a></li>
         <li><a href="https://github.com/qoobots/qoobot" target="_blank" rel="noopener">GitHub</a></li>
       </ul>
@@ -41,6 +82,10 @@
       Just as Linux did for computing — QooBot is doing the same for robotics.
     </p>
   </section>
+
+  <div class="about-hero-img fade-up">
+    <img src="../assets/robot_lab.jpg" alt="QooBot Lab" class="about-hero-pic">
+  </div>
 
   <div class="about-content">
     <h2>Our Mission</h2>
@@ -79,34 +124,6 @@
       </div>
     </div>
 
-    <h2 id="progress">Development Progress</h2>
-    <p>
-      The core module qoobrain (Brain OS) is 100% validated — all 8 functional modules are ready. Hardware adaptation (Phase 2) is underway, with the remaining 11 sub-projects advancing on schedule.
-    </p>
-    <div class="progress-stats mt-24">
-      <div class="progress-stat">
-        <div class="number">8/8</div>
-        <div class="label">qoobrain Complete</div>
-      </div>
-      <div class="progress-stat">
-        <div class="number">528</div>
-        <div class="label">Source Files</div>
-      </div>
-      <div class="progress-stat">
-        <div class="number">301</div>
-        <div class="label">Test Cases</div>
-      </div>
-      <div class="progress-stat">
-        <div class="number">100%</div>
-        <div class="label">Test Pass Rate</div>
-      </div>
-    </div>
-    <p>
-      <a href="https://github.com/qoobots/qoobot/blob/main/docs/01功能清单完成进度.md" target="_blank" rel="noopener">
-        View Full Roadmap →
-      </a>
-    </p>
-
     <h2 id="team">Team</h2>
     <p>
       QooBot was founded by a group of engineers and researchers passionate about robotics. We come from diverse backgrounds — robotics, autonomous driving, cloud computing, and open source communities — united by the mission to build the "Linux" of robotics.
@@ -120,7 +137,7 @@
       Interested in QooBot? Whether for technical collaboration, business inquiries, or joining the community — we'd love to hear from you.
     </p>
     <p>
-      📧 <a href="mailto:hello@qoobot.ai">hello@qoobot.ai</a><br>
+      📧 <a href="mailto:hello@qoobot.com">hello@qoobot.com</a><br>
       💬 <a href="https://discord.gg/qoobot" target="_blank" rel="noopener">Join Discord Community</a><br>
       🐙 <a href="https://github.com/qoobots/qoobot/discussions" target="_blank" rel="noopener">GitHub Discussions</a>
     </p>
@@ -131,16 +148,15 @@
       <div class="footer-col">
         <h4>Products</h4>
         <ul>
-          <li><a href="products.html">Product Line</a></li>
-          <li><a href="buy.html">How to Buy</a></li>
-          <li><a href="about.html#progress">Progress</a></li>
+          <li><a href="products.html">Products & Ecosystem</a></li>
+
         </ul>
       </div>
       <div class="footer-col">
         <h4>Developers</h4>
         <ul>
           <li><a href="https://github.com/qoobots/qoobot" target="_blank" rel="noopener">GitHub</a></li>
-          <li><a href="https://github.com/qoobots/qoobot/blob/main/docs/01功能清单完成进度.md" target="_blank" rel="noopener">Roadmap</a></li>
+
           <li><a href="https://github.com/qoobots/qoobot/blob/main/LICENSE" target="_blank" rel="noopener">License</a></li>
         </ul>
       </div>

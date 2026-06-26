@@ -1,0 +1,365 @@
+# QooBot 实时内核配置参考 (kernel defconfig)
+# 基于 Linux 5.15 LTS + PREEMPT_RT
+# 适用架构: ARM64 (aarch64) / x86_64
+# 使用方法:
+#   $ cp qoo_kernel_defconfig .config
+#   $ make olddefconfig
+#   $ make -j$(nproc)
+
+# ========================
+# 基础配置
+# ========================
+CONFIG_64BIT=y
+CONFIG_ARM64=y
+# CONFIG_X86_64 is not set
+
+CONFIG_SMP=y
+CONFIG_NR_CPUS=8
+
+CONFIG_GCC_VERSION=1104
+CONFIG_CC_IS_GCC=y
+CONFIG_LD_IS_BFD=y
+
+# ========================
+# 实时补丁 (PREEMPT_RT)
+# ========================
+CONFIG_PREEMPT_RT=y
+CONFIG_PREEMPT=y
+# CONFIG_PREEMPT_VOLUNTARY is not set
+# CONFIG_PREEMPT_NONE is not set
+
+# ========================
+# 高精度定时器
+# ========================
+CONFIG_HIGH_RES_TIMERS=y
+CONFIG_HZ=1000
+CONFIG_HZ_1000=y
+# CONFIG_NO_HZ_IDLE is not set
+CONFIG_NO_HZ_FULL=y
+CONFIG_CONTEXT_TRACKING=y
+# CONFIG_NO_HZ_COMMON is not set (自动选中)
+
+# ========================
+# 调度器
+# ========================
+CONFIG_SCHED_CORE=y
+CONFIG_FAIR_GROUP_SCHED=y
+CONFIG_CFS_BANDWIDTH=y
+CONFIG_RT_GROUP_SCHED=y
+CONFIG_SCHED_AUTOGROUP=y
+
+# ========================
+# 内存管理 (实时优化)
+# ========================
+CONFIG_MIGRATION=y
+CONFIG_MEMORY_ISOLATION=y
+# 禁用透明大页 (避免延迟尖峰)
+# CONFIG_TRANSPARENT_HUGEPAGE is not set
+CONFIG_CMA=y
+CONFIG_DMA_CMA=y
+
+# ========================
+# CPU 频率管理 (实时: 固定性能模式)
+# ========================
+CONFIG_CPU_FREQ=y
+CONFIG_CPU_FREQ_DEFAULT_GOV_PERFORMANCE=y
+# CONFIG_CPU_FREQ_DEFAULT_GOV_SCHEDUTIL is not set
+CONFIG_CPU_FREQ_GOV_PERFORMANCE=y
+# CONFIG_CPU_FREQ_GOV_POWERSAVE is not set
+# CONFIG_CPU_FREQ_GOV_USERSPACE is not set
+# CONFIG_CPU_FREQ_GOV_ONDEMAND is not set
+# CONFIG_CPU_FREQ_GOV_CONSERVATIVE is not set
+# CONFIG_CPU_FREQ_GOV_SCHEDUTIL is not set
+
+# ========================
+# CPU 隔离
+# ========================
+CONFIG_CPU_ISOLATION=y
+# isolcpus=2,3 通过启动参数传递，不在内核配置中写死
+
+# ========================
+# RCU (实时优化)
+# ========================
+CONFIG_TREE_RCU=y
+CONFIG_RCU_FAST_NO_HZ=y
+CONFIG_RCU_NOCB_CPU=y
+# rcu_nocbs=2,3 通过启动参数传递
+
+# ========================
+# 内核抢占模型
+# ========================
+# PREEMPT_RT 已启用，以下自动配置：
+# - 内核完全可抢占
+# - 中断线程化
+# - 软中断线程化
+
+# ========================
+# 调试 (开发阶段启用，量产禁用)
+# ========================
+CONFIG_PREEMPT_TRACER=y
+CONFIG_SCHED_TRACER=y
+CONFIG_FTRACE=y
+CONFIG_FUNCTION_TRACER=y
+CONFIG_INTERRUPTS_TRACER=y
+CONFIG_PREEMPTIRQ_DELAY_TEST=y
+# CONFIG_LOCKDEP 是重量级锁检测，开发阶段启用
+CONFIG_PROVE_LOCKING=y
+CONFIG_DEBUG_ATOMIC_SLEEP=y
+# 量产阶段禁用以上调试选项以降低开销
+
+# ========================
+# 设备驱动 - 计算平台
+# ========================
+
+# PCIe 支持 (NVMe / 扩展卡)
+CONFIG_PCI=y
+CONFIG_PCIEPORTBUS=y
+CONFIG_PCIEASPM=y
+CONFIG_PCIE_PME=y
+CONFIG_PCI_MSI=y
+
+# NVMe 支持
+CONFIG_BLK_DEV_NVME=y
+CONFIG_BLK_DEV_NVME_SCSI=y
+
+# ========================
+# 设备驱动 - 通信
+# ========================
+
+# CAN 总线子系统
+CONFIG_CAN=y
+CONFIG_CAN_RAW=y
+CONFIG_CAN_BCM=y
+CONFIG_CAN_GW=y
+
+# CAN 设备驱动
+CONFIG_CAN_VCAN=y
+CONFIG_CAN_DEV=y
+CONFIG_CAN_NETLINK=y
+CONFIG_CAN_CALC_BITTIMING=y
+
+# CAN FD 硬件驱动 (以 mcp251xfd 为例，实际按 SoC 选择)
+CONFIG_CAN_MCP251XFD=y
+# SoC 内置 CAN (如 NXP FlexCAN)
+# CONFIG_CAN_FLEXCAN=y
+
+# EtherCAT 主站 (由 IgH EtherCAT Master 补丁提供)
+# CONFIG_ETHERCAT=y  # 由外部补丁添加
+
+# 以太网
+CONFIG_NET=y
+CONFIG_INET=y
+CONFIG_NETDEVICES=y
+CONFIG_ETHERNET=y
+CONFIG_NET_VENDOR_INTEL=y  # 示例: Intel I210 (EtherCAT 常用)
+# 具体 MAC/PHY 按 SoC 选择
+
+# PTP 时间同步
+CONFIG_PTP_1588_CLOCK=y
+CONFIG_NET_PTP_CLASSIFY=y
+
+# ========================
+# 设备驱动 - 感知传感器
+# ========================
+
+# I2C 子系统
+CONFIG_I2C=y
+CONFIG_I2C_CHARDEV=y
+CONFIG_I2C_MUX=y
+
+# SPI 子系统
+CONFIG_SPI=y
+CONFIG_SPI_MASTER=y
+CONFIG_SPI_SPIDEV=y
+
+# 工业 I/O (ADC/传感器)
+CONFIG_IIO=y
+CONFIG_IIO_BUFFER=y
+CONFIG_IIO_TRIGGERED_BUFFER=y
+# IMU 传感器 (BMI270 / ICM-42688 等)
+CONFIG_IIO_ST_SENSORS=y
+CONFIG_IIO_ST_SENSORS_I2C=y
+CONFIG_IIO_ST_SENSORS_SPI=y
+
+# 视频4Linux (相机)
+CONFIG_MEDIA_SUPPORT=y
+CONFIG_MEDIA_CAMERA_SUPPORT=y
+CONFIG_VIDEO_DEV=y
+CONFIG_VIDEO_V4L2=y
+CONFIG_V4L2_FWNODE=y
+
+# MIPI CSI-2 (按 SoC 选择具体驱动)
+# CONFIG_VIDEO_TEGRA_HOST1X 等
+
+# 麦克风阵列 (I2S/TDM)
+CONFIG_SOUND=y
+CONFIG_SND=y
+CONFIG_SND_SOC=y
+CONFIG_SND_SOC_I2S=y
+CONFIG_SND_SOC_TDM=y
+# 具体编解码器按硬件选择
+
+# ========================
+# 设备驱动 - 执行器
+# ========================
+
+# PWM 支持
+CONFIG_PWM=y
+CONFIG_PWM_SYSFS=y
+
+# GPIO 支持
+CONFIG_GPIOLIB=y
+CONFIG_GPIO_CDEV=y
+CONFIG_GPIO_CDEV_V1=y  # 兼容旧 ABI
+CONFIG_GPIO_SYSFS=y
+
+# 电机驱动 (通常通过 CAN/EtherCAT，不需要特定内核驱动)
+
+# ========================
+# 设备驱动 - 存储
+# ========================
+
+# eMMC / UFS
+CONFIG_MMC=y
+CONFIG_MMC_BLOCK=y
+CONFIG_MMC_SDHCI=y
+# 具体 SoC 的 MMC 控制器驱动
+
+# USB 存储
+CONFIG_USB=y
+CONFIG_USB_STORAGE=y
+CONFIG_USB_XHCI_HCD=y  # USB 3.x
+
+# ========================
+# 设备驱动 - 电源管理
+# ========================
+
+# 禁用深度休眠 (机器人不需要)
+# CONFIG_SUSPEND is not set
+# CONFIG_HIBERNATION is not set
+
+CONFIG_PM=y
+CONFIG_PM_SLEEP=y
+# CONFIG_PM_SLEEP_DEBUG is not set
+
+# CPU 空闲 (实时系统通常禁用 C-state 深度休眠)
+# CONFIG_CPU_IDLE 可以保留，但需通过内核参数禁用深度 C-state
+
+# ========================
+# 文件系统
+# ========================
+
+CONFIG_EXT4_FS=y
+CONFIG_EXT4_FS_POSIX_ACL=y
+CONFIG_EXT4_FS_SECURITY=y
+CONFIG_VFAT_FS=y
+CONFIG_TMPFS=y
+CONFIG_TMPFS_POSIX_ACL=y
+CONFIG_HUGETLBFS=y  # 大页内存支持 (实时应用)
+
+CONFIG_OVERLAY_FS=y  # Docker 容器需要
+
+# ========================
+# 网络
+# ========================
+
+CONFIG_NET=y
+CONFIG_PACKET=y
+CONFIG_UNIX=y
+CONFIG_INET=y
+CONFIG_IP_MULTICAST=y
+CONFIG_NET_IPIP=y
+
+# DDS / ROS2 需要
+CONFIG_IP_MROUTE=y
+CONFIG_IP_PIMSM_V1=y
+CONFIG_IP_PIMSM_V2=y
+
+# iptables (防火墙)
+CONFIG_NETFILTER=y
+CONFIG_NF_TABLES=y
+
+# ========================
+# 安全
+# ========================
+
+CONFIG_SECURITY=y
+CONFIG_SECURITY_NETWORK=y
+CONFIG_SECURITY_APPARMOR=y
+CONFIG_SECURITY_YAMA=y
+
+# 安全启动 (Secure Boot) 相关
+CONFIG_EFI=y
+CONFIG_EFI_SECURE_BOOT=y  # 如果支持
+
+# 模块签名
+CONFIG_MODULE_SIG=y
+CONFIG_MODULE_SIG_FORCE=y
+CONFIG_MODULE_SIG_HASH="SHA256"
+
+# TPM (可信平台模块)
+CONFIG_TCG_TPM=y
+CONFIG_TCG_TIS=y
+
+# ========================
+# 调试与性能分析
+# ========================
+
+CONFIG_PERF_EVENTS=y
+CONFIG_HW_PERF_EVENTS=y
+
+CONFIG_PRINTK_TIME=y
+CONFIG_CONSOLE_LOGLEVEL_DEFAULT=7
+
+# 延迟测量
+CONFIG_PRINTK_TIME=y
+CONFIG_IRQSOFF_TRACER=y
+CONFIG_PREEMPTOFF_TRACER=y
+CONFIG_WAKEUP_LATENCY_TRACER=y
+
+# ========================
+# 禁用选项 (降低延迟/ overhead)
+# ========================
+
+# 禁用内核调试选项 (量产)
+# CONFIG_DEBUG_KERNEL is not set
+# CONFIG_DEBUG_INFO is not set
+# CONFIG_KGDB is not set
+
+# 禁用 NUMA (如果不是 NUMA 平台)
+# CONFIG_NUMA is not set
+
+# 禁用 KPROBES (避免运行时修改内核代码)
+# CONFIG_KPROBES is not set
+
+# 禁用 JUMP_LABEL (某些实时场景下可禁用)
+# CONFIG_JUMP_LABEL is not set
+
+# ========================
+# 架构特定选项 (ARM64)
+# ========================
+
+CONFIG_ARM64_PA_BITS_48=y
+CONFIG_ARM64_VA_BITS_48=y
+
+# 大物理地址扩展
+CONFIG_ARM64_4K_PAGES=y
+# CONFIG_ARM64_64K_PAGES is not set
+
+# SMMU (IOMMU)
+CONFIG_IOMMU_SUPPORT=y
+CONFIG_ARM_SMMU=y
+CONFIG_ARM_SMMU_V3=y
+
+# GIC (中断控制器)
+CONFIG_IRQCHIP=y
+CONFIG_ARM_GIC=y
+CONFIG_ARM_GIC_V3=y
+
+# 架构计时 (SoC 特定)
+CONFIG_ARM_ARCH_TIMER=y
+CONFIG_ARM_ARCH_TIMER_EVTSTREAM=y
+
+# ========================
+# 结束
+# ========================

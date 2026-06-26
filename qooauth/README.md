@@ -1,4 +1,4 @@
-# qooauth — 具身机器人账号与安全框架
+# qooauth — 人形机器人账号与安全框架
 
 > 机器人的"Apple ID + Face ID + Secure Enclave"：
 > 统一身份认证、设备安全、权限管理、隐私保护。

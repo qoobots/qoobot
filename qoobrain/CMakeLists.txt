@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.22)
 project(
   brain_os
   VERSION 0.1.0
-  DESCRIPTION "Brain OS — Embodied Intelligence Robot Operating System"
+  DESCRIPTION "Brain OS — Humanoid Robot Operating System"
   LANGUAGES CXX
 )
 

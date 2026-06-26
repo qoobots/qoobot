@@ -1,6 +1,6 @@
 # Brain OS Python SDK
 
-**具身智能机器人操作系统 Python SDK** — 自然语言到机器人执行的完整工具链。
+**人形机器人操作系统 Python SDK** — 自然语言到机器人执行的完整工具链。
 
 [![Python 3.11+](https://img.shields.io/badge/Python-3.11+-blue.svg)](https://python.org)
 [![License](https://img.shields.io/badge/License-Apache%202.0-green.svg)](LICENSE)

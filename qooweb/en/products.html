@@ -17,8 +17,49 @@
       </a>
       <ul class="nav-links" id="nav-links">
         <li><a href="index.html">Home</a></li>
-        <li><a href="products.html" class="active">Products & Ecosystem</a></li>
-        <li><a href="buy.html">Buy</a></li>
+        <li class="nav-dropdown-trigger">
+          <a href="products.html" class="active nav-dropdown-link">Products <span class="dropdown-arrow">▾</span></a>
+          <div class="nav-dropdown nav-dropdown-mega">
+            <div class="nav-dropdown-mega-inner">
+            <div class="nav-dropdown-group">
+              <span class="nav-dropdown-label">Hardware Platform</span>
+              <a href="products.html#max">QooBot Max</a>
+              <span class="nav-dropdown-desc">Bipedal humanoid robot, full perception & manipulation</span>
+            </div>
+            </div>
+          </div>
+        </li>
+        <li class="nav-dropdown-trigger">
+          <a href="products.html#ecosystem" class="nav-dropdown-link">Ecosystem <span class="dropdown-arrow">▾</span></a>
+          <div class="nav-dropdown nav-dropdown-mega">
+            <div class="nav-dropdown-mega-inner">
+            <div class="nav-dropdown-group">
+              <span class="nav-dropdown-label">Core Layer</span>
+              <a href="../qoobrain.html">🧠 qoobrain — Brain OS</a>
+              <a href="../qoocore.html">⚡ qoocore — Chip & Acceleration</a>
+              <a href="../qoobody.html">🔩 qoobody — Hardware Reference</a>
+            </div>
+            <div class="nav-dropdown-group">
+              <span class="nav-dropdown-label">Platform Layer</span>
+              <a href="../qooeco.html">🛒 qooeco — Skill Marketplace</a>
+              <a href="../qoocloud.html">☁️ qoocloud — Cloud Services</a>
+              <a href="../qoosvc.html">🔧 qoosvc — System Services</a>
+            </div>
+            <div class="nav-dropdown-group">
+              <span class="nav-dropdown-label">Quality Layer</span>
+              <a href="../qoocode.html">💻 qoocode — Developer Toolchain</a>
+              <a href="../qooauth.html">🔐 qooauth — Account & Security</a>
+              <a href="../qooregs.html">📋 qooregs — Regulatory Compliance</a>
+            </div>
+            <div class="nav-dropdown-group">
+              <span class="nav-dropdown-label">Ecosystem Layer</span>
+              <a href="../qoogear.html">🔌 qoogear — Accessory Ecosystem</a>
+              <a href="../qoocommunity.html">👥 qoocommunity — Global Community</a>
+              <a href="../qoochain.html">🏭 qoochain — Supply Chain</a>
+            </div>
+            </div>
+          </div>
+        </li>
         <li><a href="about.html">About</a></li>
         <li><a href="https://github.com/qoobots/qoobot" target="_blank" rel="noopener">GitHub</a></li>
       </ul>
@@ -44,95 +85,27 @@
   <!-- ====== Hardware Products ====== -->
   <section class="section">
     <div class="section-inner">
-      <div class="section-label fade-up">Hardware Platforms</div>
-      <h2 class="section-title fade-up">Three robots for every need.</h2>
+      <div class="section-label fade-up">Hardware Platform</div>
+      <h2 class="section-title fade-up">Two bipedal humanoid robots, <span class="gradient-text">covering every scenario.</span></h2>
       <p class="section-desc fade-up">
-        From developer exploration to industrial deployment, QooBot offers hardware platforms for every scenario.
+        From industrial flagship to commercial service — male and female, fully open-source and customizable.
       </p>
     </div>
   </section>
 
   <div class="product-list">
 
-    <!-- Explorer -->
-    <div class="product-card fade-up">
-      <div class="product-card-visual">
-        <video src="../assets/qoobot_demo.mp4" autoplay muted loop playsinline class="product-card-video"></video>
-      </div>
-      <div class="product-card-info">
-        <span class="section-label">Dev Kit</span>
-        <h2>QooBot Explorer</h2>
-        <p class="tagline">Your first step into embodied AI</p>
-        <p class="desc">
-          An entry-level platform designed for developers, researchers, and makers. Powered by qoobrain Brain OS with a full simulation environment pre-installed — start developing robot algorithms right out of the box.
-        </p>
-        <div class="product-specs">
-          <div class="product-spec">
-            <span class="label">Compute</span>
-            <span class="value">6 TOPS</span>
-          </div>
-          <div class="product-spec">
-            <span class="label">DOF</span>
-            <span class="value">6 DOF</span>
-          </div>
-          <div class="product-spec">
-            <span class="label">Sensors</span>
-            <span class="value">RGB-D + IMU</span>
-          </div>
-          <div class="product-spec">
-            <span class="label">Weight</span>
-            <span class="value">&lt; 5 kg</span>
-          </div>
-        </div>
-        <a href="buy.html#explorer" class="btn btn-primary">Learn More →</a>
-      </div>
-    </div>
-
-    <!-- Pro -->
-    <div class="product-card fade-up">
-      <div class="product-card-visual">
-        <img src="../assets/robot_hero.jpg" alt="QooBot Pro" class="product-card-img">
-      </div>
-      <div class="product-card-info">
-        <span class="section-label">Professional</span>
-        <h2>QooBot Pro</h2>
-        <p class="tagline">Industrial precision, commercial reliability</p>
-        <p class="desc">
-          A high-performance platform for enterprise R&D and commercial deployment. Dual-arm configuration, 24/7 continuous operation, with built-in safety monitoring and industrial communication interfaces.
-        </p>
-        <div class="product-specs">
-          <div class="product-spec">
-            <span class="label">Compute</span>
-            <span class="value">32 TOPS</span>
-          </div>
-          <div class="product-spec">
-            <span class="label">DOF</span>
-            <span class="value">14 DOF</span>
-          </div>
-          <div class="product-spec">
-            <span class="label">Payload</span>
-            <span class="value">5 kg/arm</span>
-          </div>
-          <div class="product-spec">
-            <span class="label">Repeatability</span>
-            <span class="value">±0.02 mm</span>
-          </div>
-        </div>
-        <a href="buy.html#pro" class="btn btn-primary">Learn More →</a>
-      </div>
-    </div>
-
     <!-- Max -->
-    <div class="product-card fade-up">
+    <div class="product-card fade-up" id="max">
       <div class="product-card-visual">
         <img src="../assets/robot_lab.jpg" alt="QooBot Max" class="product-card-img">
       </div>
       <div class="product-card-info">
-        <span class="section-label">Flagship</span>
+        <span class="section-label">Flagship · Adult Male</span>
         <h2>QooBot Max</h2>
-        <p class="tagline">Humanoid robot, full perception &amp; manipulation</p>
+        <p class="tagline">Industrial flagship for manufacturing &amp; research</p>
         <p class="desc">
-          A full-size humanoid robot platform for cutting-edge research and high-end applications. Full-body force control, dexterous hand manipulation, autonomous navigation — redefining what robots can do.
+          Full-size bipedal humanoid robot with full-body force control, dexterous hand manipulation, and autonomous navigation. Powered by qoobrain OS with 100 TOPS compute — redefining what industrial robots can do. Available in Deep Gray, Titanium Blue, and Midnight Black.
         </p>
         <div class="product-specs">
           <div class="product-spec">
@@ -145,18 +118,129 @@
           </div>
           <div class="product-spec">
             <span class="label">Height</span>
-            <span class="value">1.65 m</span>
+            <span class="value">1.90 m</span>
           </div>
           <div class="product-spec">
             <span class="label">Runtime</span>
-            <span class="value">4-6 hrs</span>
+            <span class="value">5-7 hrs</span>
           </div>
         </div>
-        <a href="buy.html#max" class="btn btn-primary">Learn More →</a>
+        <div class="product-color-tags">
+          <span class="color-dot" style="background:#3a3a3a"></span>
+          <span class="color-dot" style="background:#2c5f8a"></span>
+          <span class="color-dot" style="background:#1a1a2e"></span>
+          <span class="color-label">Deep Gray · Titanium Blue · Midnight Black</span>
+        </div>
+        <a href="#ecosystem" class="btn btn-primary">Explore Ecosystem →</a>
+      </div>
+    </div>
+
+    <!-- Nova -->
+    <div class="product-card fade-up" id="nova">
+      <div class="product-card-visual">
+        <img src="../assets/robot-fm.jpg" alt="QooBot Nova" class="product-card-img">
+      </div>
+      <div class="product-card-info">
+        <span class="section-label">Professional · Adult Female</span>
+        <h2>QooBot Nova</h2>
+        <p class="tagline">Empathetic interaction for commercial service &amp; healthcare</p>
+        <p class="desc">
+          Full-size bipedal humanoid robot with elegant streamlined design, featuring emotional computing engine and multimodal interaction system. 36+ DOF full-body coordination, ideal for retail navigation, medical assistance, and hospitality. Available in Pearl White, Starlight Blue, and Sakura Pink.
+        </p>
+        <div class="product-specs">
+          <div class="product-spec">
+            <span class="label">Compute</span>
+            <span class="value">80 TOPS</span>
+          </div>
+          <div class="product-spec">
+            <span class="label">DOF</span>
+            <span class="value">36+ DOF</span>
+          </div>
+          <div class="product-spec">
+            <span class="label">Height</span>
+            <span class="value">1.70 m</span>
+          </div>
+          <div class="product-spec">
+            <span class="label">Runtime</span>
+            <span class="value">5-7 hrs</span>
+          </div>
+        </div>
+        <div class="product-color-tags">
+          <span class="color-dot" style="background:#f5f0eb"></span>
+          <span class="color-dot" style="background:#4a90d9"></span>
+          <span class="color-dot" style="background:#f4a9c6"></span>
+          <span class="color-label">Pearl White · Starlight Blue · Sakura Pink</span>
+        </div>
+        <a href="#ecosystem" class="btn btn-primary">Explore Ecosystem →</a>
       </div>
     </div>
 
   </div>
+
+  <!-- ====== Hardware Reference Designs ====== -->
+  <section class="section" id="hardware-designs">
+    <div class="section-inner">
+      <div class="section-label fade-up">Hardware Reference Designs</div>
+      <h2 class="section-title fade-up">Open-source drawings to <span class="gradient-text">accelerate development.</span></h2>
+      <p class="section-desc fade-up">
+        Complete 2D engineering drawings for key humanoid robot components — waist, thorax, head perception, and leg-foot systems, covering 81 production-grade drawings.
+      </p>
+
+      <div class="hardware-grid fade-up">
+        <!-- Waist -->
+        <div class="hardware-card">
+          <div class="hardware-card-preview">
+            <img src="../assets/hardware/TA00-03-00-腰部组件-二维图纸/TA00-03-0001-腰部支架.svg" alt="Waist Assembly" loading="lazy">
+          </div>
+          <div class="hardware-card-info">
+            <div class="hardware-card-icon">🦿</div>
+            <h3>Waist Assembly</h3>
+            <p>Core connectors including waist bracket, motor mounts, and blind-spot camera brackets.</p>
+            <span class="hardware-card-count">9 drawings</span>
+          </div>
+        </div>
+
+        <!-- Thorax -->
+        <div class="hardware-card">
+          <div class="hardware-card-preview">
+            <img src="../assets/hardware/TA00-04-00-胸腔系统-二维图纸/TA00-04-0001 前胸机架 - 图纸1.svg" alt="Thorax System" loading="lazy">
+          </div>
+          <div class="hardware-card-info">
+            <div class="hardware-card-icon">⚙️</div>
+            <h3>Thorax System</h3>
+            <p>Chassis structures including front frame, battery mounts, controller brackets, and surround-view fixtures.</p>
+            <span class="hardware-card-count">17 drawings</span>
+          </div>
+        </div>
+
+        <!-- Head -->
+        <div class="hardware-card">
+          <div class="hardware-card-preview">
+            <img src="../assets/hardware/TA00-07-00-头部感知系统-二维图纸/TA00-07-01-0003.svg" alt="Head Perception" loading="lazy">
+          </div>
+          <div class="hardware-card-info">
+            <div class="hardware-card-icon">🤖</div>
+            <h3>Head Perception</h3>
+            <p>Sensor mounting bases, camera brackets, and perception module fixtures.</p>
+            <span class="hardware-card-count">13 drawings</span>
+          </div>
+        </div>
+
+        <!-- Leg -->
+        <div class="hardware-card">
+          <div class="hardware-card-preview">
+            <img src="../assets/hardware/TA00-12-00-腿足系统-二维图纸/TA00-12-06脚部组件.svg" alt="Leg-Foot System" loading="lazy">
+          </div>
+          <div class="hardware-card-info">
+            <div class="hardware-card-icon">🦶</div>
+            <h3>Leg-Foot System</h3>
+            <p>Complete drawings for knee joints, hip joints, ankle pitch axes, linkages, and foot assemblies.</p>
+            <span class="hardware-card-count">42 drawings</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <!-- ====== Ecosystem ====== -->
   <section class="section section-dark" id="ecosystem">
@@ -166,10 +250,6 @@
       <p class="section-desc fade-up">
         The QooBot ecosystem spans the complete technology stack — from silicon to cloud, from developer tools to global community. Each sub-project can be used independently or combined freely.
       </p>
-
-      <div class="eco-hero-img fade-up">
-        <img src="../assets/robot_ecosystem.jpg" alt="QooBot Ecosystem" class="eco-hero-pic">
-      </div>
 
       <!-- Architecture Overview -->
       <div class="arch-overview fade-up">
@@ -189,6 +269,7 @@
                   <span>Perception</span><span>Decision Engine</span><span>Motion Planning</span><span>RTC</span>
                 </div>
                 <a href="https://github.com/qoobots/qoobot/tree/main/qoobrain" target="_blank" rel="noopener" class="eco-link">Explore →</a>
+                <a href="../qoobrain.html" class="eco-link" style="display:inline;opacity:0.6;font-size:0.85rem;">Details →</a>
               </div>
             </div>
             <div class="eco-card">
@@ -200,6 +281,7 @@
                   <span>Inference Runtime</span><span>Model Compiler</span><span>HAL</span>
                 </div>
                 <a href="https://github.com/qoobots/qoobot/tree/main/qoocore" target="_blank" rel="noopener" class="eco-link">Explore →</a>
+                <a href="../qoocore.html" class="eco-link" style="display:inline;opacity:0.6;font-size:0.85rem;">Details →</a>
               </div>
             </div>
             <div class="eco-card">
@@ -211,6 +293,7 @@
                   <span>Sensor Interface</span><span>Actuator Driver</span><span>Reference Design</span>
                 </div>
                 <a href="https://github.com/qoobots/qoobot/tree/main/qoobody" target="_blank" rel="noopener" class="eco-link">Explore →</a>
+                <a href="../qoobody.html" class="eco-link" style="display:inline;opacity:0.6;font-size:0.85rem;">Details →</a>
               </div>
             </div>
           </div>
@@ -232,6 +315,7 @@
                   <span>Skill Distribution</span><span>Commercialization</span><span>Algorithm Market</span>
                 </div>
                 <a href="https://github.com/qoobots/qoobot/tree/main/qooeco" target="_blank" rel="noopener" class="eco-link">Explore →</a>
+                <a href="../qooeco.html" class="eco-link" style="display:inline;opacity:0.6;font-size:0.85rem;">Details →</a>
               </div>
             </div>
             <div class="eco-card">
@@ -243,6 +327,7 @@
                   <span>Remote Inference</span><span>Cluster Mgmt</span><span>OTA</span><span>Orchestration</span>
                 </div>
                 <a href="https://github.com/qoobots/qoobot/tree/main/qoocloud" target="_blank" rel="noopener" class="eco-link">Explore →</a>
+                <a href="../qoocloud.html" class="eco-link" style="display:inline;opacity:0.6;font-size:0.85rem;">Details →</a>
               </div>
             </div>
             <div class="eco-card">
@@ -254,6 +339,7 @@
                   <span>Voice Assistant</span><span>Spatial AI</span><span>Navigation</span><span>Diagnostics</span>
                 </div>
                 <a href="https://github.com/qoobots/qoobot/tree/main/qoosvc" target="_blank" rel="noopener" class="eco-link">Explore →</a>
+                <a href="../qoosvc.html" class="eco-link" style="display:inline;opacity:0.6;font-size:0.85rem;">Details →</a>
               </div>
             </div>
           </div>
@@ -275,6 +361,7 @@
                   <span>IDE Plugin</span><span>Simulator</span><span>Debugger</span><span>Data Annotation</span>
                 </div>
                 <a href="https://github.com/qoobots/qoobot/tree/main/qoocode" target="_blank" rel="noopener" class="eco-link">Explore →</a>
+                <a href="../qoocode.html" class="eco-link" style="display:inline;opacity:0.6;font-size:0.85rem;">Details →</a>
               </div>
             </div>
             <div class="eco-card">
@@ -286,6 +373,7 @@
                   <span>Identity Auth</span><span>Authorization</span><span>Privacy</span>
                 </div>
                 <a href="https://github.com/qoobots/qoobot/tree/main/qooauth" target="_blank" rel="noopener" class="eco-link">Explore →</a>
+                <a href="../qooauth.html" class="eco-link" style="display:inline;opacity:0.6;font-size:0.85rem;">Details →</a>
               </div>
             </div>
             <div class="eco-card">
@@ -297,6 +385,7 @@
                   <span>Safety Standards</span><span>Certification</span><span>Export Control</span>
                 </div>
                 <a href="https://github.com/qoobots/qoobot/tree/main/qooregs" target="_blank" rel="noopener" class="eco-link">Explore →</a>
+                <a href="../qooregs.html" class="eco-link" style="display:inline;opacity:0.6;font-size:0.85rem;">Details →</a>
               </div>
             </div>
           </div>
@@ -318,6 +407,7 @@
                   <span>Peripheral Cert</span><span>End-Effectors</span><span>Comm Standards</span>
                 </div>
                 <a href="https://github.com/qoobots/qoobot/tree/main/qoogear" target="_blank" rel="noopener" class="eco-link">Explore →</a>
+                <a href="../qoogear.html" class="eco-link" style="display:inline;opacity:0.6;font-size:0.85rem;">Details →</a>
               </div>
             </div>
             <div class="eco-card">
@@ -329,6 +419,7 @@
                   <span>Contributor Network</span><span>Dev Conference</span><span>Academic</span>
                 </div>
                 <a href="https://github.com/qoobots/qoobot/tree/main/qoocommunity" target="_blank" rel="noopener" class="eco-link">Explore →</a>
+                <a href="../qoocommunity.html" class="eco-link" style="display:inline;opacity:0.6;font-size:0.85rem;">Details →</a>
               </div>
             </div>
             <div class="eco-card">
@@ -340,6 +431,7 @@
                   <span>Manufacturing</span><span>Calibration</span><span>Quality Inspection</span>
                 </div>
                 <a href="https://github.com/qoobots/qoobot/tree/main/qoochain" target="_blank" rel="noopener" class="eco-link">Explore →</a>
+                <a href="../qoochain.html" class="eco-link" style="display:inline;opacity:0.6;font-size:0.85rem;">Details →</a>
               </div>
             </div>
           </div>
@@ -357,7 +449,6 @@
         <h4>Products</h4>
         <ul>
           <li><a href="products.html">Products & Ecosystem</a></li>
-          <li><a href="buy.html">How to Buy</a></li>
           <li><a href="products.html#ecosystem">Sub-Projects</a></li>
 
         </ul>

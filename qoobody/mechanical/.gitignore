@@ -1,0 +1,51 @@
+# ============================================================================
+# QooBot Mechanical — .gitignore
+# ============================================================================
+
+# Build outputs
+build/
+cmake-build-*/
+*.o
+*.obj
+*.exe
+*.out
+*.a
+*.so
+*.dylib
+*.dll
+*.lib
+
+# IDE / Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+*.code-workspace
+*.suo
+*.user
+*.sdf
+*.opensdf
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+.eggs/
+
+# CAD / STEP files (large binary files, not needed for simulation)
+
+
+# macOS
+.DS_Store
+
+# Logs
+*.log
+/mujoco/openloong-dyn-control-main/
+/.codebuddy/
+/.workbuddy/
+/mujoco/qpOASES-releases-3.2.1/

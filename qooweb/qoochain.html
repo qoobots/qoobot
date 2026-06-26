@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="qoochain — 供应链 — QooBot 生态的生态层项目，提供生产制造标准、出厂标定、质量检测与 BOM 参考设计">
+  <title>qoochain — 供应链 | QooBot 生态</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" type="image/svg+xml" href="assets/qoobot-logo.svg">
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <img src="assets/qoobot-logo.svg" alt="QooBot">
+      </a>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="index.html">首页</a></li>
+        <li class="nav-dropdown-trigger">
+          <a href="products.html" class="nav-dropdown-link">产品 <span class="dropdown-arrow">▾</span></a>
+          <div class="nav-dropdown nav-dropdown-mega">
+            <div class="nav-dropdown-mega-inner">
+              <div class="nav-dropdown-group">
+                <span class="nav-dropdown-label">机器人平台</span>
+                <a href="products.html#max">🦾 QooBot Max</a>
+                <span class="nav-dropdown-desc">男性成人 · 工业旗舰 · 1.90m · 40+ DOF · 100 TOPS</span>
+                <a href="products.html#nova">✨ QooBot Nova</a>
+                <span class="nav-dropdown-desc">女性成人 · 商业服务 · 1.70m · 36+ DOF · 80 TOPS</span>
+              </div>
+              <div class="nav-dropdown-group">
+                <span class="nav-dropdown-label">开源图纸</span>
+                <a href="products.html#hardware-designs">📐 硬件参考设计</a>
+                <span class="nav-dropdown-desc">81 张工程图纸全开源 — 腰部 · 胸腔 · 头部 · 腿足</span>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="nav-dropdown-trigger">
+          <a href="products.html#ecosystem" class="nav-dropdown-link active">生态 <span class="dropdown-arrow">▾</span></a>
+          <div class="nav-dropdown nav-dropdown-mega">
+            <div class="nav-dropdown-mega-inner">
+              <div class="nav-dropdown-group">
+                <span class="nav-dropdown-label">核心层</span>
+                <a href="qoobrain.html">🧠 qoobrain — 大脑操作系统</a>
+                <a href="qoocore.html">⚡ qoocore — 芯片与加速</a>
+                <a href="qoobody.html">🔩 qoobody — 硬件参考设计</a>
+              </div>
+              <div class="nav-dropdown-group">
+                <span class="nav-dropdown-label">平台层</span>
+                <a href="qooeco.html">🛒 qooeco — 技能市场</a>
+                <a href="qoocloud.html">☁️ qoocloud — 云端服务</a>
+                <a href="qoosvc.html">🔧 qoosvc — 系统服务</a>
+              </div>
+              <div class="nav-dropdown-group">
+                <span class="nav-dropdown-label">保障层</span>
+                <a href="qoocode.html">💻 qoocode — 开发者工具链</a>
+                <a href="qooauth.html">🔐 qooauth — 账号与安全</a>
+                <a href="qooregs.html">📋 qooregs — 法规合规</a>
+              </div>
+              <div class="nav-dropdown-group">
+                <span class="nav-dropdown-label">生态层</span>
+                <a href="qoogear.html">🔌 qoogear — 配件生态</a>
+                <a href="qoocommunity.html">👥 qoocommunity — 全球社区</a>
+                <a href="qoochain.html">🏭 qoochain — 供应链</a>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li><a href="about.html">关于</a></li>
+        <li><a href="https://github.com/qoobots/qoobot" target="_blank" rel="noopener">GitHub</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a href="en/products.html" class="nav-lang">EN</a>
+        <button class="nav-theme" id="theme-toggle" aria-label="切换深色模式">🌙</button>
+        <button class="nav-toggle" id="nav-toggle" aria-label="菜单">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ====== Hero ====== -->
+  <section class="product-hero">
+    <div class="section-label fade-up visible">生态层 · 供应链</div>
+    <h1 class="section-title fade-up visible">🏭 qoochain</h1>
+    <p class="section-desc fade-up visible" style="margin: 0 auto; max-width: 800px;">
+      机器人生产制造供应链体系 — 提供标准化生产流程、质量检测、出厂标定与 BOM 管理，确保机器人产品的可制造性与一致性。
+    </p>
+    <div class="mt-24 fade-up visible">
+      <span class="eco-badge status-design">架构设计完成</span>
+      <span class="eco-badge status-alpha">Alpha 开发中</span>
+    </div>
+  </section>
+
+  <!-- ====== Project Overview ====== -->
+  <section class="section">
+    <div class="section-inner">
+      <div class="section-label fade-up">项目概览</div>
+      <h2 class="section-title fade-up">标准化<span class="gradient-text">机器人生产制造</span></h2>
+      <p class="section-desc fade-up">
+        qoochain 定义了 QooBot 机器人的完整供应链管理体系，从元器件采购到最终产品交付，确保每个环节的质量与一致性。它为制造商、集成商、开发者提供透明的生产标准与质量控制流程。
+      </p>
+
+      <div class="brain-grid fade-up">
+        <div class="brain-card">
+          <div class="brain-card-number">模块 01</div>
+          <div class="brain-card-icon">📋</div>
+          <h3>BOM 参考设计</h3>
+          <p>提供完整的物料清单、供应商信息、替代方案与成本分析，支持规模化生产。</p>
+        </div>
+        <div class="brain-card">
+          <div class="brain-card-number">模块 02</div>
+          <div class="brain-card-icon">🏭</div>
+          <h3>生产制造标准</h3>
+          <p>定义装配流程、工艺要求、设备配置与产线布局的标准化规范。</p>
+        </div>
+        <div class="brain-card">
+          <div class="brain-card-number">模块 03</div>
+          <div class="brain-card-icon">⚙️</div>
+          <h3>出厂标定系统</h3>
+          <p>自动化标定流程、参数配置、功能测试与性能验证的完整解决方案。</p>
+        </div>
+        <div class="brain-card">
+          <div class="brain-card-number">模块 04</div>
+          <div class="brain-card-icon">🔍</div>
+          <h3>质量检测体系</h3>
+          <p>多层次质量检测、缺陷识别、数据分析与持续改进的质量管理体系。</p>
+        </div>
+        <div class="brain-card">
+          <div class="brain-card-number">模块 05</div>
+          <div class="brain-card-icon">📦</div>
+          <h3>供应链管理</h3>
+          <p>供应商管理、库存控制、物流优化与风险预警的供应链解决方案。</p>
+        </div>
+        <div class="brain-card">
+          <div class="brain-card-number">模块 06</div>
+          <div class="brain-card-icon">📊</div>
+          <h3>追溯与合规</h3>
+          <p>产品全生命周期追溯、合规性验证、文档管理与审计支持。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== Technical Architecture ====== -->
+  <section class="section section-dark">
+    <div class="section-inner">
+      <div class="section-label fade-up">技术架构</div>
+      <h2 class="section-title fade-up">端到端<span class="gradient-text">供应链管理体系</span></h2>
+      <p class="section-desc fade-up">
+        qoochain 采用四层架构设计，从设计规范到生产执行，再到质量追溯，为机器人制造提供全流程支持。
+      </p>
+
+      <div class="arch-overview fade-up">
+        <div class="arch-layer arch-layer-core">
+          <div class="arch-layer-header">
+            <span class="arch-layer-icon">📐</span>
+            <span class="arch-layer-name">设计规范层</span>
+            <span class="arch-layer-desc">生产设计标准</span>
+          </div>
+          <div class="eco-grid">
+            <div class="eco-card">
+              <div class="eco-card-icon">📋</div>
+              <div class="eco-card-body">
+                <h3>BOM 管理系统</h3>
+                <p>完整的物料清单管理，包括零件编号、规格、供应商、替代方案与成本分析。</p>
+                <div class="eco-card-tags">
+                  <span>物料清单</span><span>供应商管理</span><span>成本分析</span>
+                </div>
+              </div>
+            </div>
+            <div class="eco-card">
+              <div class="eco-card-icon">🔩</div>
+              <div class="eco-card-body">
+                <h3>工艺设计规范</h3>
+                <p>装配工艺、焊接规范、涂装要求、测试流程等生产制造标准。</p>
+                <div class="eco-card-tags">
+                  <span>装配工艺</span><span>焊接规范</span><span>测试流程</span>
+                </div>
+              </div>
+            </div>
+            <div class="eco-card">
+              <div class="eco-card-icon">📏</div>
+              <div class="eco-card-body">
+                <h3>公差与配合</h3>
+                <p>机械公差、电气参数、软件配置的标准化与一致性要求。</p>
+                <div class="eco-card-tags">
+                  <span>机械公差</span><span>电气参数</span><span>软件配置</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="arch-layer arch-layer-platform">
+          <div class="arch-layer-header">
+            <span class="arch-layer-icon">🏭</span>
+            <span class="arch-layer-name">生产执行层</span>
+            <span class="arch-layer-desc">制造过程管理</span>
+          </div>
+          <div class="eco-grid">
+            <div class="eco-card">
+              <div class="eco-card-icon">⚙️</div>
+              <div class="eco-card-body">
+                <h3>产线布局设计</h3>
+                <p>优化生产线布局、工作站配置、物料流动与产能规划。</p>
+                <div class="eco-card-tags">
+                  <span>产线布局</span><span>工作站配置</span><span>产能规划</span>
+                </div>
+              </div>
+            </div>
+            <div class="eco-card">
+              <div class="eco-card-icon">🔧</div>
+              <div class="eco-card-body">
+                <h3>装配指导系统</h3>
+                <p>数字化的装配指导、错误预防、质量检查点与进度追踪。</p>
+                <div class="eco-card-tags">
+                  <span>装配指导</span><span>错误预防</span><span>进度追踪</span>
+                </div>
+              </div>
+            </div>
+            <div class="eco-card">
+              <div class="eco-card-icon">📊</div>
+              <div class="eco-card-body">
+                <h3>生产数据采集</h3>
+                <p>实时采集生产数据、设备状态、工艺参数与质量指标。</p>
+                <div class="eco-card-tags">
+                  <span>数据采集</span><span>设备状态</span><span>质量指标</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="arch-layer arch-layer-quality">
+          <div class="arch-layer-header">
+            <span class="arch-layer-icon">🔍</span>
+            <span class="arch-layer-name">质量控制层</span>
+            <span class="arch-layer-desc">质量检测与保证</span>
+          </div>
+          <div class="eco-grid">
+            <div class="eco-card">
+              <div class="eco-card-icon">✅</div>
+              <div class="eco-card-body">
+                <h3>自动化检测</h3>
+                <p>视觉检测、功能测试、性能验证、安全测试的自动化系统。</p>
+                <div class="eco-card-tags">
+                  <span>视觉检测</span><span>功能测试</span><span>性能验证</span>
+                </div>
+              </div>
+            </div>
+            <div class="eco-card">
+              <div class="eco-card-icon">⚡</div>
+              <div class="eco-card-body">
+                <h3>出厂标定系统</h3>
+                <p>运动学标定、传感器校准、软件配置、功能验证的完整流程。</p>
+                <div class="eco-card-tags">
+                  <span>运动学标定</span><span>传感器校准</span><span>功能验证</span>
+                </div>
+              </div>
+            </div>
+            <div class="eco-card">
+              <div class="eco-card-icon">📈</div>
+              <div class="eco-card-body">
+                <h3>质量数据分析</h3>
+                <p>缺陷分析、过程能力分析、质量趋势预测与持续改进。</p>
+                <div class="eco-card-tags">
+                  <span>缺陷分析</span><span>过程能力</span><span>趋势预测</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="arch-layer arch-layer-community">
+          <div class="arch-layer-header">
+            <span class="arch-layer-icon">📦</span>
+            <span class="arch-layer-name">追溯与合规层</span>
+            <span class="arch-layer-desc">全生命周期管理</span>
+          </div>
+          <div class="eco-grid">
+            <div class="eco-card">
+              <div class="eco-card-icon">🔍</div>
+              <div class="eco-card-body">
+                <h3>产品追溯系统</h3>
+                <p>从原材料到成品的全流程追溯，支持批次管理、序列号追踪。</p>
+                <div class="eco-card-tags">
+                  <span>全流程追溯</span><span>批次管理</span><span>序列号追踪</span>
+                </div>
+              </div>
+            </div>
+            <div class="eco-card">
+              <div class="eco-card-icon">📋</div>
+              <div class="eco-card-body">
+                <h3>合规性管理</h3>
+                <p>法规符合性验证、认证管理、文档控制与审计支持。</p>
+                <div class="eco-card-tags">
+                  <span>法规符合</span><span>认证管理</span><span>文档控制</span>
+                </div>
+              </div>
+            </div>
+            <div class="eco-card">
+              <div class="eco-card-icon">🔄</div>
+              <div class="eco-card-body">
+                <h3>持续改进</h3>
+                <p>基于数据的持续改进流程、问题解决、经验积累与知识管理。</p>
+                <div class="eco-card-tags">
+                  <span>持续改进</span><span>问题解决</span><span>知识管理</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== Key Features ====== -->
+  <section class="section">
+    <div class="section-inner">
+      <div class="section-label fade-up">核心特性</div>
+      <h2 class="section-title fade-up">确保<span class="gradient-text">高质量制造</span></h2>
+      
+      <div class="feature-grid fade-up">
+        <div class="feature-card">
+          <div class="feature-card-icon">📊</div>
+          <h3>标准化流程</h3>
+          <p>定义从设计到交付的标准化生产流程，确保产品一致性与可重复性。</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-icon">🔍</div>
+          <h3>全面质量控制</h3>
+          <p>多层次质量检测体系，覆盖原材料、生产过程、成品检验全环节。</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-icon">⚡</div>
+          <h3>自动化标定</h3>
+          <p>机器人出厂前的自动化标定系统，确保每台机器人的性能一致性。</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-icon">📦</div>
+          <h3>供应链透明</h3>
+          <p>完整的供应链可追溯性，支持批次管理、供应商评估与风险预警。</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-icon">🔄</div>
+          <h3>持续改进</h3>
+          <p>基于数据的持续改进循环，不断优化生产流程与产品质量。</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-icon">🌐</div>
+          <h3>全球适用</h3>
+          <p>支持不同地区、不同规模的制造需求，适应全球化生产布局。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ====== Get Started ====== -->
+  <section class="section">
+    <div class="section-inner">
+      <div class="section-label fade-up">开始使用</div>
+      <h2 class="section-title fade-up">实施<span class="gradient-text">qoochain</span>标准</h2>
+      <p class="section-desc fade-up">
+        qoochain 为制造商、集成商、开发者提供完整的供应链管理解决方案，支持从原型到量产的全过程。
+      </p>
+
+      <div class="feature-grid fade-up" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));">
+        <div class="feature-card">
+          <div class="feature-card-icon">📚</div>
+          <h3>制造标准文档</h3>
+          <p>详细的生产规范、工艺要求、质量标准的完整文档体系。</p>
+          <a href="https://github.com/qoobots/qoobot/tree/main/qoochain/docs" target="_blank" rel="noopener" class="eco-link mt-16">查看文档 →</a>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-icon">🔧</div>
+          <h3>生产工具包</h3>
+          <p>标定软件、检测工具、数据采集系统等生产配套工具。</p>
+          <a href="https://github.com/qoobots/qoobot/tree/main/qoochain/tools" target="_blank" rel="noopener" class="eco-link mt-16">获取工具 →</a>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-icon">🤝</div>
+          <h3>认证制造商计划</h3>
+          <p>加入认证制造商计划，获取技术支持、质量认证与市场推广支持。</p>
+          <a href="https://discord.gg/qoobot" target="_blank" rel="noopener" class="eco-link mt-16">申请加入 →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== Related Projects ====== -->
+  <section class="section section-dark">
+    <div class="section-inner">
+      <div class="section-label fade-up">相关项目</div>
+      <h2 class="section-title fade-up">生态<span class="gradient-text">协同</span>发展</h2>
+      <p class="section-desc fade-up">
+        qoochain 与其他 QooBot 生态项目紧密集成，共同构建完整的机器人制造生态。
+      </p>
+
+      <div class="eco-grid fade-up">
+        <div class="eco-card">
+          <div class="eco-card-icon">🔩</div>
+          <div class="eco-card-body">
+            <h3>qoobody</h3>
+            <p>硬件参考设计，为 qoochain 提供机械与电气设计的标准化基础。</p>
+            <a href="qoobody.html" class="eco-link">了解 qoobody →</a>
+          </div>
+        </div>
+        <div class="eco-card">
+          <div class="eco-card-icon">🔌</div>
+          <div class="eco-card-body">
+            <h3>qoogear</h3>
+            <p>配件生态，为 qoochain 提供配件制造标准与认证体系。</p>
+            <a href="qoogear.html" class="eco-link">了解 qoogear →</a>
+          </div>
+        </div>
+        <div class="eco-card">
+          <div class="eco-card-icon">📋</div>
+          <div class="eco-card-body">
+            <h3>qooregs</h3>
+            <p>法规合规，为 qoochain 提供产品认证与合规性支持。</p>
+            <a href="qooregs.html" class="eco-link">了解 qooregs →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-col">
+        <h4>产品</h4>
+        <ul>
+          <li><a href="products.html">产品与生态</a></li>
+          <li><a href="products.html#ecosystem">开源子项目</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>开发者</h4>
+        <ul>
+          <li><a href="https://github.com/qoobots/qoobot" target="_blank" rel="noopener">GitHub</a></li>
+          <li><a href="https://github.com/qoobots/qoobot/blob/main/LICENSE" target="_blank" rel="noopener">许可证</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>社区</h4>
+        <ul>
+          <li><a href="https://discord.gg/qoobot" target="_blank" rel="noopener">Discord</a></li>
+          <li><a href="https://github.com/qoobots/qoobot/discussions" target="_blank" rel="noopener">GitHub Discussions</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>关于</h4>
+        <ul>
+          <li><a href="about.html">品牌故事</a></li>
+          <li><a href="about.html#team">团队</a></li>
+          <li><a href="about.html#contact">联系我们</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 QooBot. 保留所有权利。</span>
+      <span>Apache 2.0 开源协议</span>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

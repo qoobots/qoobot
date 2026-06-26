@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="QooBot — 开源、开放，为所有机器人而生。驱动下一代物理 AI 的通用操作系统。">
-  <title>QooBot — 开源机器人操作系统</title>
+  <title>QooBot — 开源机器人操作系统 | 驱动物理 AI 的未来</title>
   <link rel="stylesheet" href="css/style.css">
   <link rel="icon" type="image/svg+xml" href="assets/qoobot-logo.svg">
 </head>
@@ -18,8 +18,56 @@
       </a>
       <ul class="nav-links" id="nav-links">
         <li><a href="index.html" class="active">首页</a></li>
-        <li><a href="products.html">产品与生态</a></li>
-        <li><a href="buy.html">购买</a></li>
+        <li class="nav-dropdown-trigger">
+          <a href="products.html" class="nav-dropdown-link">产品 <span class="dropdown-arrow">▾</span></a>
+          <div class="nav-dropdown nav-dropdown-mega">
+            <div class="nav-dropdown-mega-inner">
+            <div class="nav-dropdown-group">
+              <span class="nav-dropdown-label">机器人平台</span>
+              <a href="products.html#max">🦾 QooBot Max</a>
+              <span class="nav-dropdown-desc">男性成人 · 工业旗舰 · 1.90m · 40+ DOF · 100 TOPS</span>
+              <a href="products.html#nova">✨ QooBot Nova</a>
+              <span class="nav-dropdown-desc">女性成人 · 商业服务 · 1.70m · 36+ DOF · 80 TOPS</span>
+            </div>
+            <div class="nav-dropdown-group">
+              <span class="nav-dropdown-label">开源图纸</span>
+              <a href="products.html#hardware-designs">📐 硬件参考设计</a>
+              <span class="nav-dropdown-desc">81 张工程图纸全开源 — 腰部 · 胸腔 · 头部 · 腿足</span>
+            </div>
+            </div>
+          </div>
+        </li>
+        <li class="nav-dropdown-trigger">
+          <a href="products.html#ecosystem" class="nav-dropdown-link">生态 <span class="dropdown-arrow">▾</span></a>
+          <div class="nav-dropdown nav-dropdown-mega">
+            <div class="nav-dropdown-mega-inner">
+            <div class="nav-dropdown-group">
+              <span class="nav-dropdown-label">核心层</span>
+              <a href="qoobrain.html">🧠 qoobrain — 大脑操作系统</a>
+              <a href="qoocore.html">⚡ qoocore — 芯片与加速</a>
+              <a href="qoobody.html">🔩 qoobody — 硬件参考设计</a>
+            </div>
+            <div class="nav-dropdown-group">
+              <span class="nav-dropdown-label">平台层</span>
+              <a href="qooeco.html">🛒 qooeco — 技能市场</a>
+              <a href="qoocloud.html">☁️ qoocloud — 云端服务</a>
+              <a href="qoosvc.html">🔧 qoosvc — 系统服务</a>
+            </div>
+            <div class="nav-dropdown-group">
+              <span class="nav-dropdown-label">保障层</span>
+              <a href="qoocode.html">💻 qoocode — 开发者工具链</a>
+              <a href="qooauth.html">🔐 qooauth — 账号与安全</a>
+              <a href="qooregs.html">📋 qooregs — 法规合规</a>
+            </div>
+            <div class="nav-dropdown-group">
+              <span class="nav-dropdown-label">生态层</span>
+              <a href="qoogear.html">🔌 qoogear — 配件生态</a>
+              <a href="qoocommunity.html">👥 qoocommunity — 全球社区</a>
+              <a href="qoochain.html">🏭 qoochain — 供应链</a>
+            </div>
+            </div>
+          </div>
+        </li>
         <li><a href="about.html">关于</a></li>
         <li><a href="https://github.com/qoobots/qoobot" target="_blank" rel="noopener">GitHub</a></li>
       </ul>
@@ -38,18 +86,28 @@
     <div class="hero-bg">
       <video src="assets/qoobot_intro.mp4" autoplay muted loop playsinline class="hero-bg-video"></video>
       <div class="hero-bg-overlay"></div>
+      <div class="hero-glow"></div>
+      <canvas id="hero-particles"></canvas>
+      <div class="hero-gradient-anim"></div>
     </div>
     <div class="hero-content">
       <div class="hero-logo fade-up visible">
         <img src="assets/qoobot-logo.svg" alt="QooBot">
       </div>
-      <h1 class="hero-tagline fade-up">一个大脑，任意身体，无处不在。</h1>
+      <h1 class="hero-tagline fade-up">
+        <span class="gradient-text">人形机器人</span>开源社区
+      </h1>
       <p class="hero-subtitle fade-up">
-        为具身智能机器人打造的通用操作系统——覆盖工业机械臂、人形机器人、仓储自动化、家用服务等一切形态。
+        融合操作系统、硬件设计、AI算法、应用市场、芯片与云端，打造双足人形机器人全栈开源生态。
       </p>
       <div class="hero-cta fade-up">
-        <a href="buy.html" class="btn btn-primary btn-large">预订 QooBot</a>
-        <a href="https://github.com/qoobots/qoobot" class="btn btn-outline btn-large" target="_blank" rel="noopener">探索开源项目 →</a>
+        <a href="products.html" class="btn btn-primary btn-large">了解 QooBot Max</a>
+        <a href="https://github.com/qoobots/qoobot" class="btn btn-outline-hero btn-large" target="_blank" rel="noopener">探索开源项目 <span class="arrow-right">→</span></a>
+      </div>
+
+      <div class="hero-scroll fade-up">
+        <span>向下滚动探索</span>
+        <div class="scroll-indicator"></div>
       </div>
     </div>
   </section>
@@ -58,9 +116,9 @@
   <section class="section">
     <div class="section-inner">
       <div class="section-label fade-up">为什么选择 QooBot</div>
-      <h2 class="section-title fade-up">机器人开发，本该如此简单。</h2>
+      <h2 class="section-title fade-up">为机器人时代，<span class="gradient-text">重构操作系统。</span></h2>
       <p class="section-desc fade-up">
-        碎片化的机器人生态让创新举步维艰。QooBot 提供从芯片到云端的统一全栈平台，让开发者专注于创造，而非重复造轮子。
+        碎片化的机器人生态让创新举步维艰。QooBot 提供从芯片到云端的统一全栈平台，<br>让开发者专注于创造，而非重复造轮子。
       </p>
       <div class="feature-grid">
         <div class="feature-card fade-up">
@@ -97,42 +155,105 @@
     </div>
   </section>
 
-  <!-- ====== Brain OS ====== -->
+  <!-- ====== Product Preview ====== -->
   <section class="section section-dark">
     <div class="section-inner">
+      <div class="section-label fade-up">硬件平台</div>
+      <h2 class="section-title fade-up">两款双足人形机器人，<span class="gradient-text">覆盖全场景。</span></h2>
+      <p class="section-desc fade-up">
+        从工业旗舰到商业服务——男、女双线并行，全栈开源，自由定制。
+      </p>
+      <div class="product-preview-grid fade-up">
+        <!-- Max -->
+        <div class="product-preview-card">
+          <div class="product-preview-visual max-visual">
+            <span class="product-preview-emoji">🦾</span>
+          </div>
+          <div class="product-preview-info">
+            <span class="product-preview-tier">旗舰平台 · 男性成人</span>
+            <h3>QooBot Max</h3>
+            <p>工业级全尺寸双足人形机器人，全身力控、灵巧手操作、自主导航——面向制造与前沿研究。</p>
+            <div class="product-preview-specs">
+              <span>40+ DOF</span><span>100 TOPS</span><span>1.90 m</span><span>灵巧手</span>
+            </div>
+            <div class="product-color-tags">
+              <span class="color-dot" style="background:#3a3a3a" title="深空灰"></span>
+              <span class="color-dot" style="background:#2c5f8a" title="钛金蓝"></span>
+              <span class="color-dot" style="background:#1a1a2e" title="暗夜黑"></span>
+              <span class="color-label">深空灰 · 钛金蓝 · 暗夜黑</span>
+            </div>
+            <a href="products.html#max" class="btn btn-outline btn-sm">了解详情 →</a>
+          </div>
+        </div>
+
+        <!-- Nova -->
+        <div class="product-preview-card">
+          <div class="product-preview-visual nova-visual">
+            <span class="product-preview-emoji">✨</span>
+          </div>
+          <div class="product-preview-info">
+            <span class="product-preview-tier">专业平台 · 女性成人</span>
+            <h3>QooBot Nova</h3>
+            <p>优雅设计，亲和交互，专为商业服务、医疗辅助与接待导览打造的全尺寸双足平台。</p>
+            <div class="product-preview-specs">
+              <span>36+ DOF</span><span>80 TOPS</span><span>1.70 m</span><span>情感交互</span>
+            </div>
+            <div class="product-color-tags">
+              <span class="color-dot" style="background:#f5f0eb" title="珍珠白"></span>
+              <span class="color-dot" style="background:#4a90d9" title="星空蓝"></span>
+              <span class="color-dot" style="background:#f4a9c6" title="樱花粉"></span>
+              <span class="color-label">珍珠白 · 星空蓝 · 樱花粉</span>
+            </div>
+            <a href="products.html#nova" class="btn btn-outline btn-sm">了解详情 →</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== Brain OS ====== -->
+  <section class="section">
+    <div class="section-inner">
       <div class="section-label fade-up">核心能力</div>
-      <h2 class="section-title fade-up">qoobrain — 大脑操作系统</h2>
+      <h2 class="section-title fade-up">qoobrain — <span class="gradient-text">大脑操作系统</span></h2>
       <p class="section-desc fade-up">
         感知、认知、决策、规划、控制、通信——六大核心能力全部就绪，已在仿真环境中完成原型验证。
       </p>
-      <div class="feature-grid">
-        <div class="feature-card fade-up">
-          <div class="feature-card-icon">👁️</div>
+      <div class="brain-grid fade-up">
+        <div class="brain-card">
+          <div class="brain-card-number">01</div>
+          <div class="brain-card-icon">👁️</div>
           <h3>多模态感知</h3>
           <p>视觉、听觉、触觉、力觉传感器融合，实时构建环境理解。</p>
         </div>
-        <div class="feature-card fade-up">
-          <div class="feature-card-icon">🗺️</div>
+        <div class="brain-card">
+          <div class="brain-card-number">02</div>
+          <div class="brain-card-icon">🗺️</div>
           <h3>环境认知</h3>
           <p>SLAM、物体识别、场景理解、语义地图——机器人知道自己在哪、周围有什么。</p>
         </div>
-        <div class="feature-card fade-up">
-          <div class="feature-card-icon">🤔</div>
+        <div class="brain-card">
+          <div class="brain-card-number">03</div>
+          <div class="brain-card-icon">🤔</div>
           <h3>任务决策</h3>
           <p>基于 LLM 的任务分解与推理，自然语言指令直接驱动行为树。</p>
         </div>
-        <div class="feature-card fade-up">
-          <div class="feature-card-icon">🎯</div>
+        <div class="brain-card">
+          <div class="brain-card-number">04</div>
+          <div class="brain-card-icon">🎯</div>
           <h3>运动规划</h3>
           <p>全身运动规划、避障、抓取轨迹生成——TRAC-IK + MoveIt2 工业级方案。</p>
         </div>
-        <div class="feature-card fade-up">
-          <div class="feature-card-icon">🎮</div>
+        <div class="brain-card">
+          <div class="brain-card-number">05</div>
+          <div class="brain-card-icon">🎮</div>
           <h3>实时控制</h3>
           <p>力控/位控、阻抗控制、全身协调——100Hz 实时控制回路。</p>
         </div>
-        <div class="feature-card fade-up">
-          <div class="feature-card-icon">🛡️</div>
+        <div class="brain-card">
+          <div class="brain-card-number">06</div>
+          <div class="brain-card-icon">🛡️</div>
           <h3>安全监护</h3>
           <p>碰撞检测 &lt;5ms 响应、关节限位、力监控、硬件看门狗——永不妥协的安全。</p>
         </div>
@@ -140,50 +261,130 @@
     </div>
   </section>
 
-  <!-- ====== Ecosystem ====== -->
-  <section class="section">
+  <!-- ====== Architecture ====== -->
+  <section class="section section-dark">
     <div class="section-inner">
-      <div class="section-label fade-up">开源生态</div>
-      <h2 class="section-title fade-up">12 个子项目，四层架构，全栈就绪。</h2>
+      <div class="section-label fade-up">技术架构</div>
+      <h2 class="section-title fade-up">四层架构，<span class="gradient-text">全栈就绪。</span></h2>
       <p class="section-desc fade-up">
-        从芯片到云端、从开发工具到全球社区，QooBot 生态的每个子项目均可独立使用、自由组合。
+        从底层芯片到上层应用生态，每一层都经过精心设计——12 个子项目独立可用，自由组合。
       </p>
+      <div class="arch-visual fade-up">
+        <div class="arch-layer-visual layer-eco">
+          <div class="arch-layer-header-visual">
+            <span class="arch-layer-num">L4</span>
+            <span>生态层</span>
+          </div>
+          <div class="arch-layer-items">
+            <span>🔌 qoogear</span><span>👥 qoocommunity</span><span>🏭 qoochain</span>
+          </div>
+        </div>
+        <div class="arch-layer-visual layer-quality">
+          <div class="arch-layer-header-visual">
+            <span class="arch-layer-num">L3</span>
+            <span>保障层</span>
+          </div>
+          <div class="arch-layer-items">
+            <span>💻 qoocode</span><span>🔐 qooauth</span><span>📋 qooregs</span>
+          </div>
+        </div>
+        <div class="arch-layer-visual layer-platform">
+          <div class="arch-layer-header-visual">
+            <span class="arch-layer-num">L2</span>
+            <span>平台层</span>
+          </div>
+          <div class="arch-layer-items">
+            <span>🛒 qooeco</span><span>☁️ qoocloud</span><span>🔧 qoosvc</span>
+          </div>
+        </div>
+        <div class="arch-layer-visual layer-core">
+          <div class="arch-layer-header-visual">
+            <span class="arch-layer-num">L1</span>
+            <span>核心层</span>
+          </div>
+          <div class="arch-layer-items">
+            <span>🧠 qoobrain</span><span>⚡ qoocore</span><span>🔩 qoobody</span>
+          </div>
+        </div>
+      </div>
       <div class="text-center mt-24 fade-up">
         <a href="products.html#ecosystem" class="btn btn-outline">探索完整生态 →</a>
       </div>
     </div>
   </section>
 
+  <!-- ====== Vision ====== -->
+  <section class="section vision-section">
+    <div class="section-inner">
+      <div class="vision-content fade-up">
+        <div class="section-label">品牌愿景</div>
+        <h2 class="section-title">让每一台机器人，<br>都拥有<span class="gradient-text">同一个大脑。</span></h2>
+        <p class="section-desc">
+          我们相信，机器人行业的未来不属于封闭的垂直整合，而属于开放的水平协作。QooBot 致力于成为机器人领域的「Android」——让硬件厂商专注制造，让软件开发者专注创新，让每一行代码都能在任意机器人上运行。
+        </p>
+        <div class="vision-values">
+          <div class="vision-value">
+            <span class="vision-value-icon">🌐</span>
+            <h4>开放标准</h4>
+            <p>基于开放协议与标准接口，打破厂商锁定</p>
+          </div>
+          <div class="vision-value">
+            <span class="vision-value-icon">🚀</span>
+            <h4>加速创新</h4>
+            <p>复用成熟模块，将开发周期从年缩短到周</p>
+          </div>
+          <div class="vision-value">
+            <span class="vision-value-icon">🤝</span>
+            <h4>协作共赢</h4>
+            <p>全球开发者共建生态，技能与应用自由流通</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ====== CTA ====== -->
-  <section class="section section-dark">
+  <section class="section section-dark cta-section">
     <div class="section-inner text-center">
-      <h2 class="section-title fade-up">准备好加入了吗？</h2>
-      <p class="section-desc fade-up" style="margin: 0 auto 32px;">
-        无论是开发者、研究者还是企业，QooBot 社区欢迎你的到来。
+      <div class="cta-glow"></div>
+      <h2 class="section-title fade-up">准备好加入机器人革命了吗？</h2>
+      <p class="section-desc fade-up" style="margin: 0 auto 40px; font-size: 1.2rem; max-width: 700px;">
+        无论是个人开发者、研究实验室还是企业团队，QooBot 为你提供从入门到旗舰的完整解决方案。
       </p>
       <div class="hero-cta fade-up">
-        <a href="buy.html" class="btn btn-primary btn-large">预订开发套件</a>
-        <a href="https://github.com/qoobots/qoobot" class="btn btn-outline btn-large" target="_blank" rel="noopener">Star on GitHub</a>
+        <a href="https://github.com/qoobots/qoobot" class="btn btn-primary btn-large" target="_blank" rel="noopener">加入开源社区</a>
+        <a href="https://github.com/qoobots/qoobot" class="btn btn-outline-hero btn-large" target="_blank" rel="noopener">Star on GitHub <span class="arrow-right">→</span></a>
       </div>
+      <p class="cta-note fade-up">Apache 2.0 开源协议 · 社区驱动 · 免费使用</p>
     </div>
   </section>
 
   <!-- ====== Footer ====== -->
   <footer class="footer">
     <div class="footer-inner">
+      <div class="footer-brand">
+        <img src="assets/qoobot-logo.svg" alt="QooBot" class="footer-logo">
+        <p>开源、开放，为所有机器人而生。<br>驱动下一代物理 AI 的通用操作系统。</p>
+      </div>
       <div class="footer-col">
         <h4>产品</h4>
         <ul>
-          <li><a href="products.html">产品与生态</a></li>
-          <li><a href="buy.html">购买方式</a></li>
-
+          <li><a href="products.html#max">QooBot Max</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>生态</h4>
+        <ul>
+          <li><a href="qoobrain.html">qoobrain 大脑</a></li>
+          <li><a href="qoocore.html">qoocore 芯片</a></li>
+          <li><a href="qoocloud.html">qoocloud 云服务</a></li>
+          <li><a href="products.html#ecosystem">完整生态 →</a></li>
         </ul>
       </div>
       <div class="footer-col">
         <h4>开发者</h4>
         <ul>
           <li><a href="https://github.com/qoobots/qoobot" target="_blank" rel="noopener">GitHub</a></li>
-
           <li><a href="https://github.com/qoobots/qoobot/blob/main/LICENSE" target="_blank" rel="noopener">许可证</a></li>
         </ul>
       </div>

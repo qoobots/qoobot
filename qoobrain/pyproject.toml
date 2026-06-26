@@ -5,11 +5,11 @@ build-backend = "setuptools.backends.legacy:build"
 [project]
 name = "brain-os"
 version = "0.1.0"
-description = "Brain OS — Embodied Intelligence Robot Operating System (Python Components)"
+description = "Brain OS — Humanoid Robot Operating System (Python Components)"
 readme = "README.md"
 requires-python = ">=3.11"
 license = { text = "Apache-2.0" }
-keywords = ["robotics", "embodied-ai", "brain-os", "grpc", "ros2"]
+keywords = ["robotics", "humanoid-robot", "brain-os", "grpc", "ros2"]
 classifiers = [
     "Development Status :: 3 - Alpha",
     "Programming Language :: Python :: 3.11",
