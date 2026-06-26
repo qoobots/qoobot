@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="QooBot 产品系列 — 从开发套件到工业级机器人平台">
-  <title>产品 — QooBot</title>
+  <meta name="description" content="QooBot 产品与生态 — 从机器人硬件到 12 个开源子项目，覆盖全栈机器人开发">
+  <title>产品与生态 — QooBot</title>
   <link rel="stylesheet" href="css/style.css">
   <link rel="icon" type="image/svg+xml" href="assets/qoobot-logo.svg">
 </head>
@@ -17,7 +17,7 @@
       </a>
       <ul class="nav-links" id="nav-links">
         <li><a href="index.html">首页</a></li>
-        <li><a href="products.html" class="active">产品</a></li>
+        <li><a href="products.html" class="active">产品与生态</a></li>
         <li><a href="buy.html">购买</a></li>
         <li><a href="about.html">关于</a></li>
         <li><a href="https://github.com/qoobots/qoobot" target="_blank" rel="noopener">GitHub</a></li>
@@ -32,12 +32,24 @@
     </div>
   </nav>
 
+  <!-- ====== Hero ====== -->
   <section class="product-hero">
-    <div class="section-label fade-up visible">产品系列</div>
-    <h1 class="section-title fade-up visible">为每一种需求而设计。</h1>
+    <div class="section-label fade-up visible">产品与生态</div>
+    <h1 class="section-title fade-up visible">硬件 + 软件 + 生态，三位一体。</h1>
     <p class="section-desc fade-up visible" style="margin: 0 auto;">
-      从开发者探索到工业部署，QooBot 提供覆盖全场景的机器人平台。
+      QooBot 不仅是机器人硬件平台，更是一个覆盖全栈的开源生态——12 个子项目，四层架构，为机器人领域的每一个环节赋能。
     </p>
+  </section>
+
+  <!-- ====== Hardware Products ====== -->
+  <section class="section">
+    <div class="section-inner">
+      <div class="section-label fade-up">硬件平台</div>
+      <h2 class="section-title fade-up">三款机器人，满足每一种需求。</h2>
+      <p class="section-desc fade-up">
+        从开发者探索到工业部署，QooBot 提供覆盖全场景的机器人硬件平台。
+      </p>
+    </div>
   </section>
 
   <div class="product-list">
@@ -45,7 +57,7 @@
     <!-- Explorer -->
     <div class="product-card fade-up">
       <div class="product-card-visual">
-        <div class="placeholder">🔬</div>
+        <video src="assets/qoobot_demo.mp4" autoplay muted loop playsinline class="product-card-video"></video>
       </div>
       <div class="product-card-info">
         <span class="section-label">开发者套件</span>
@@ -79,7 +91,7 @@
     <!-- Pro -->
     <div class="product-card fade-up">
       <div class="product-card-visual">
-        <div class="placeholder">🦾</div>
+        <img src="assets/robot_hero.jpg" alt="QooBot Pro" class="product-card-img">
       </div>
       <div class="product-card-info">
         <span class="section-label">专业平台</span>
@@ -113,7 +125,7 @@
     <!-- Max -->
     <div class="product-card fade-up">
       <div class="product-card-visual">
-        <div class="placeholder">🤖</div>
+        <img src="assets/robot_lab.jpg" alt="QooBot Max" class="product-card-img">
       </div>
       <div class="product-card-info">
         <span class="section-label">旗舰平台</span>
@@ -146,21 +158,215 @@
 
   </div>
 
+  <!-- ====== Ecosystem ====== -->
+  <section class="section section-dark" id="ecosystem">
+    <div class="section-inner">
+      <div class="section-label fade-up">开源生态</div>
+      <h2 class="section-title fade-up">12 个子项目，四层架构，全栈覆盖。</h2>
+      <p class="section-desc fade-up">
+        QooBot 生态涵盖从芯片到云端、从开发工具到全球社区的完整技术栈，每个子项目均可独立使用、自由组合。
+      </p>
+
+      <div class="eco-hero-img fade-up">
+        <img src="assets/robot_ecosystem.jpg" alt="QooBot 生态架构" class="eco-hero-pic">
+      </div>
+
+      <!-- Architecture Overview -->
+      <div class="arch-overview fade-up">
+        <div class="arch-layer arch-layer-core">
+          <div class="arch-layer-header">
+            <span class="arch-layer-icon">🧬</span>
+            <span class="arch-layer-name">核心层 — 机器人本体能力</span>
+            <span class="arch-layer-desc">直接运行于机器人端的项目</span>
+          </div>
+          <div class="eco-grid">
+            <div class="eco-card">
+              <div class="eco-card-icon">🧠</div>
+              <div class="eco-card-body">
+                <h3>qoobrain</h3>
+                <p>大脑操作系统 — 感知、认知、决策、运动规划、实时通信。机器人的中枢神经系统。</p>
+                <div class="eco-card-tags">
+                  <span>感知引擎</span><span>决策系统</span><span>运动规划</span><span>实时通信</span>
+                </div>
+                <a href="https://github.com/qoobots/qoobot/tree/main/qoobrain" target="_blank" rel="noopener" class="eco-link">探索项目 →</a>
+              </div>
+            </div>
+            <div class="eco-card">
+              <div class="eco-card-icon">⚡</div>
+              <div class="eco-card-body">
+                <h3>qoocore</h3>
+                <p>芯片与加速 — 端侧推理运行时、模型编译、NPU/GPU/DSP 硬件抽象层。</p>
+                <div class="eco-card-tags">
+                  <span>推理运行时</span><span>模型编译</span><span>硬件抽象</span>
+                </div>
+                <a href="https://github.com/qoobots/qoobot/tree/main/qoocore" target="_blank" rel="noopener" class="eco-link">探索项目 →</a>
+              </div>
+            </div>
+            <div class="eco-card">
+              <div class="eco-card-icon">🔩</div>
+              <div class="eco-card-body">
+                <h3>qoobody</h3>
+                <p>硬件参考设计 — 传感器接口、执行器驱动、计算平台规范、机械与能源参考设计。</p>
+                <div class="eco-card-tags">
+                  <span>传感器接口</span><span>执行器驱动</span><span>参考设计</span>
+                </div>
+                <a href="https://github.com/qoobots/qoobot/tree/main/qoobody" target="_blank" rel="noopener" class="eco-link">探索项目 →</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="arch-layer arch-layer-platform">
+          <div class="arch-layer-header">
+            <span class="arch-layer-icon">🔌</span>
+            <span class="arch-layer-name">平台层 — 开发者与用户服务</span>
+            <span class="arch-layer-desc">连接机器人、开发者和用户的项目</span>
+          </div>
+          <div class="eco-grid">
+            <div class="eco-card">
+              <div class="eco-card-icon">🛒</div>
+              <div class="eco-card-body">
+                <h3>qooeco</h3>
+                <p>技能市场 — 机器人技能的发现、发布与商业化，第三方算法集成与分发。</p>
+                <div class="eco-card-tags">
+                  <span>技能分发</span><span>商业化</span><span>算法市场</span>
+                </div>
+                <a href="https://github.com/qoobots/qoobot/tree/main/qooeco" target="_blank" rel="noopener" class="eco-link">探索项目 →</a>
+              </div>
+            </div>
+            <div class="eco-card">
+              <div class="eco-card-icon">☁️</div>
+              <div class="eco-card-body">
+                <h3>qoocloud</h3>
+                <p>云端服务 — 远程推理、集群管理、OTA 升级、数据同步、多机器人编排。</p>
+                <div class="eco-card-tags">
+                  <span>远程推理</span><span>集群管理</span><span>OTA</span><span>多机编排</span>
+                </div>
+                <a href="https://github.com/qoobots/qoobot/tree/main/qoocloud" target="_blank" rel="noopener" class="eco-link">探索项目 →</a>
+              </div>
+            </div>
+            <div class="eco-card">
+              <div class="eco-card-icon">🔧</div>
+              <div class="eco-card-body">
+                <h3>qoosvc</h3>
+                <p>系统服务 — 语音助手、空间理解、导航、多机器人互联、自诊断。</p>
+                <div class="eco-card-tags">
+                  <span>语音助手</span><span>空间理解</span><span>导航</span><span>自诊断</span>
+                </div>
+                <a href="https://github.com/qoobots/qoobot/tree/main/qoosvc" target="_blank" rel="noopener" class="eco-link">探索项目 →</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="arch-layer arch-layer-quality">
+          <div class="arch-layer-header">
+            <span class="arch-layer-icon">🛡️</span>
+            <span class="arch-layer-name">保障层 — 质量与信任</span>
+            <span class="arch-layer-desc">确保可靠性与合规性的项目</span>
+          </div>
+          <div class="eco-grid">
+            <div class="eco-card">
+              <div class="eco-card-icon">💻</div>
+              <div class="eco-card-body">
+                <h3>qoocode</h3>
+                <p>开发者工具链 — IDE 插件、机器人仿真器、行为调试器、性能剖析、数据标注工具。</p>
+                <div class="eco-card-tags">
+                  <span>IDE 插件</span><span>仿真器</span><span>调试器</span><span>数据标注</span>
+                </div>
+                <a href="https://github.com/qoobots/qoobot/tree/main/qoocode" target="_blank" rel="noopener" class="eco-link">探索项目 →</a>
+              </div>
+            </div>
+            <div class="eco-card">
+              <div class="eco-card-icon">🔐</div>
+              <div class="eco-card-body">
+                <h3>qooauth</h3>
+                <p>账号与安全 — 统一的机器人/用户身份认证、授权、隐私框架。</p>
+                <div class="eco-card-tags">
+                  <span>身份认证</span><span>授权管理</span><span>隐私框架</span>
+                </div>
+                <a href="https://github.com/qoobots/qoobot/tree/main/qooauth" target="_blank" rel="noopener" class="eco-link">探索项目 →</a>
+              </div>
+            </div>
+            <div class="eco-card">
+              <div class="eco-card-icon">📋</div>
+              <div class="eco-card-body">
+                <h3>qooregs</h3>
+                <p>法规合规 — 安全标准（ISO 10218、ISO 13482）、无线认证、出口管制、区域隐私法规。</p>
+                <div class="eco-card-tags">
+                  <span>安全标准</span><span>合规认证</span><span>出口管制</span>
+                </div>
+                <a href="https://github.com/qoobots/qoobot/tree/main/qooregs" target="_blank" rel="noopener" class="eco-link">探索项目 →</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="arch-layer arch-layer-community">
+          <div class="arch-layer-header">
+            <span class="arch-layer-icon">🌍</span>
+            <span class="arch-layer-name">生态层 — 产业与社区</span>
+            <span class="arch-layer-desc">构建全球机器人产业生态的项目</span>
+          </div>
+          <div class="eco-grid">
+            <div class="eco-card">
+              <div class="eco-card-icon">🔌</div>
+              <div class="eco-card-body">
+                <h3>qoogear</h3>
+                <p>配件生态 — 第三方外设认证、末端执行器、可穿戴设备、配件通信标准。</p>
+                <div class="eco-card-tags">
+                  <span>外设认证</span><span>末端执行器</span><span>通信标准</span>
+                </div>
+                <a href="https://github.com/qoobots/qoobot/tree/main/qoogear" target="_blank" rel="noopener" class="eco-link">探索项目 →</a>
+              </div>
+            </div>
+            <div class="eco-card">
+              <div class="eco-card-icon">👥</div>
+              <div class="eco-card-body">
+                <h3>qoocommunity</h3>
+                <p>全球社区 — 贡献者网络、年度开发者大会、高校合作、大使计划。</p>
+                <div class="eco-card-tags">
+                  <span>贡献者网络</span><span>开发者大会</span><span>高校合作</span>
+                </div>
+                <a href="https://github.com/qoobots/qoobot/tree/main/qoocommunity" target="_blank" rel="noopener" class="eco-link">探索项目 →</a>
+              </div>
+            </div>
+            <div class="eco-card">
+              <div class="eco-card-icon">🏭</div>
+              <div class="eco-card-body">
+                <h3>qoochain</h3>
+                <p>供应链 — 生产制造标准、出厂标定、质量检测、BOM 参考设计。</p>
+                <div class="eco-card-tags">
+                  <span>制造标准</span><span>出厂标定</span><span>质量检测</span>
+                </div>
+                <a href="https://github.com/qoobots/qoobot/tree/main/qoochain" target="_blank" rel="noopener" class="eco-link">探索项目 →</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+
   <footer class="footer">
     <div class="footer-inner">
       <div class="footer-col">
         <h4>产品</h4>
         <ul>
-          <li><a href="products.html">产品系列</a></li>
+          <li><a href="products.html">产品与生态</a></li>
           <li><a href="buy.html">购买方式</a></li>
-          <li><a href="about.html#progress">开发进度</a></li>
+          <li><a href="products.html#ecosystem">开源子项目</a></li>
+
         </ul>
       </div>
       <div class="footer-col">
         <h4>开发者</h4>
         <ul>
           <li><a href="https://github.com/qoobots/qoobot" target="_blank" rel="noopener">GitHub</a></li>
-          <li><a href="https://github.com/qoobots/qoobot/blob/main/docs/01功能清单完成进度.md" target="_blank" rel="noopener">功能清单</a></li>
+
           <li><a href="https://github.com/qoobots/qoobot/blob/main/LICENSE" target="_blank" rel="noopener">许可证</a></li>
         </ul>
       </div>

@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="QooBot Product Line — From dev kit to industrial-grade robot platform">
-  <title>Products — QooBot</title>
+  <meta name="description" content="QooBot Products & Ecosystem — From robot hardware to 12 open-source sub-projects covering the full stack">
+  <title>Products & Ecosystem — QooBot</title>
   <link rel="stylesheet" href="../css/style.css">
   <link rel="icon" type="image/svg+xml" href="../assets/qoobot-logo.svg">
 </head>
@@ -17,7 +17,7 @@
       </a>
       <ul class="nav-links" id="nav-links">
         <li><a href="index.html">Home</a></li>
-        <li><a href="products.html" class="active">Products</a></li>
+        <li><a href="products.html" class="active">Products & Ecosystem</a></li>
         <li><a href="buy.html">Buy</a></li>
         <li><a href="about.html">About</a></li>
         <li><a href="https://github.com/qoobots/qoobot" target="_blank" rel="noopener">GitHub</a></li>
@@ -32,19 +32,32 @@
     </div>
   </nav>
 
+  <!-- ====== Hero ====== -->
   <section class="product-hero">
-    <div class="section-label fade-up visible">Product Line</div>
-    <h1 class="section-title fade-up visible">Designed for every need.</h1>
+    <div class="section-label fade-up visible">Products & Ecosystem</div>
+    <h1 class="section-title fade-up visible">Hardware + Software + Ecosystem, the complete triad.</h1>
     <p class="section-desc fade-up visible" style="margin: 0 auto;">
-      From developer exploration to industrial deployment, QooBot offers platforms for every scenario.
+      QooBot is more than a robot hardware platform — it's a full-stack open-source ecosystem with 12 sub-projects across four architectural layers, empowering every aspect of robotics.
     </p>
+  </section>
+
+  <!-- ====== Hardware Products ====== -->
+  <section class="section">
+    <div class="section-inner">
+      <div class="section-label fade-up">Hardware Platforms</div>
+      <h2 class="section-title fade-up">Three robots for every need.</h2>
+      <p class="section-desc fade-up">
+        From developer exploration to industrial deployment, QooBot offers hardware platforms for every scenario.
+      </p>
+    </div>
   </section>
 
   <div class="product-list">
 
+    <!-- Explorer -->
     <div class="product-card fade-up">
       <div class="product-card-visual">
-        <div class="placeholder">🔬</div>
+        <video src="../assets/qoobot_demo.mp4" autoplay muted loop playsinline class="product-card-video"></video>
       </div>
       <div class="product-card-info">
         <span class="section-label">Dev Kit</span>
@@ -75,9 +88,10 @@
       </div>
     </div>
 
+    <!-- Pro -->
     <div class="product-card fade-up">
       <div class="product-card-visual">
-        <div class="placeholder">🦾</div>
+        <img src="../assets/robot_hero.jpg" alt="QooBot Pro" class="product-card-img">
       </div>
       <div class="product-card-info">
         <span class="section-label">Professional</span>
@@ -108,9 +122,10 @@
       </div>
     </div>
 
+    <!-- Max -->
     <div class="product-card fade-up">
       <div class="product-card-visual">
-        <div class="placeholder">🤖</div>
+        <img src="../assets/robot_lab.jpg" alt="QooBot Max" class="product-card-img">
       </div>
       <div class="product-card-info">
         <span class="section-label">Flagship</span>
@@ -143,21 +158,215 @@
 
   </div>
 
+  <!-- ====== Ecosystem ====== -->
+  <section class="section section-dark" id="ecosystem">
+    <div class="section-inner">
+      <div class="section-label fade-up">Open-Source Ecosystem</div>
+      <h2 class="section-title fade-up">12 sub-projects. 4 layers. Full-stack coverage.</h2>
+      <p class="section-desc fade-up">
+        The QooBot ecosystem spans the complete technology stack — from silicon to cloud, from developer tools to global community. Each sub-project can be used independently or combined freely.
+      </p>
+
+      <div class="eco-hero-img fade-up">
+        <img src="../assets/robot_ecosystem.jpg" alt="QooBot Ecosystem" class="eco-hero-pic">
+      </div>
+
+      <!-- Architecture Overview -->
+      <div class="arch-overview fade-up">
+        <div class="arch-layer arch-layer-core">
+          <div class="arch-layer-header">
+            <span class="arch-layer-icon">🧬</span>
+            <span class="arch-layer-name">Core Layer — Robot On-Body Capabilities</span>
+            <span class="arch-layer-desc">Projects running directly on robots</span>
+          </div>
+          <div class="eco-grid">
+            <div class="eco-card">
+              <div class="eco-card-icon">🧠</div>
+              <div class="eco-card-body">
+                <h3>qoobrain</h3>
+                <p>Brain OS — perception, cognition, decision-making, motion planning, real-time communication. The central nervous system of robots.</p>
+                <div class="eco-card-tags">
+                  <span>Perception</span><span>Decision Engine</span><span>Motion Planning</span><span>RTC</span>
+                </div>
+                <a href="https://github.com/qoobots/qoobot/tree/main/qoobrain" target="_blank" rel="noopener" class="eco-link">Explore →</a>
+              </div>
+            </div>
+            <div class="eco-card">
+              <div class="eco-card-icon">⚡</div>
+              <div class="eco-card-body">
+                <h3>qoocore</h3>
+                <p>Chip & Acceleration — on-device inference runtime, model compilation, NPU/GPU/DSP hardware abstraction layer.</p>
+                <div class="eco-card-tags">
+                  <span>Inference Runtime</span><span>Model Compiler</span><span>HAL</span>
+                </div>
+                <a href="https://github.com/qoobots/qoobot/tree/main/qoocore" target="_blank" rel="noopener" class="eco-link">Explore →</a>
+              </div>
+            </div>
+            <div class="eco-card">
+              <div class="eco-card-icon">🔩</div>
+              <div class="eco-card-body">
+                <h3>qoobody</h3>
+                <p>Hardware Reference Design — sensor interfaces, actuator drivers, compute platform specifications, mechanical & power reference designs.</p>
+                <div class="eco-card-tags">
+                  <span>Sensor Interface</span><span>Actuator Driver</span><span>Reference Design</span>
+                </div>
+                <a href="https://github.com/qoobots/qoobot/tree/main/qoobody" target="_blank" rel="noopener" class="eco-link">Explore →</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="arch-layer arch-layer-platform">
+          <div class="arch-layer-header">
+            <span class="arch-layer-icon">🔌</span>
+            <span class="arch-layer-name">Platform Layer — Developer & User Services</span>
+            <span class="arch-layer-desc">Projects connecting robots, developers, and users</span>
+          </div>
+          <div class="eco-grid">
+            <div class="eco-card">
+              <div class="eco-card-icon">🛒</div>
+              <div class="eco-card-body">
+                <h3>qooeco</h3>
+                <p>Skill Marketplace — discovery, publishing, and commercialization of robot skills; third-party algorithm integration and distribution.</p>
+                <div class="eco-card-tags">
+                  <span>Skill Distribution</span><span>Commercialization</span><span>Algorithm Market</span>
+                </div>
+                <a href="https://github.com/qoobots/qoobot/tree/main/qooeco" target="_blank" rel="noopener" class="eco-link">Explore →</a>
+              </div>
+            </div>
+            <div class="eco-card">
+              <div class="eco-card-icon">☁️</div>
+              <div class="eco-card-body">
+                <h3>qoocloud</h3>
+                <p>Cloud Services — remote inference, cluster management, OTA updates, data sync, multi-robot orchestration.</p>
+                <div class="eco-card-tags">
+                  <span>Remote Inference</span><span>Cluster Mgmt</span><span>OTA</span><span>Orchestration</span>
+                </div>
+                <a href="https://github.com/qoobots/qoobot/tree/main/qoocloud" target="_blank" rel="noopener" class="eco-link">Explore →</a>
+              </div>
+            </div>
+            <div class="eco-card">
+              <div class="eco-card-icon">🔧</div>
+              <div class="eco-card-body">
+                <h3>qoosvc</h3>
+                <p>System Services — voice assistant, spatial understanding, navigation, multi-robot interconnect, self-diagnostics.</p>
+                <div class="eco-card-tags">
+                  <span>Voice Assistant</span><span>Spatial AI</span><span>Navigation</span><span>Diagnostics</span>
+                </div>
+                <a href="https://github.com/qoobots/qoobot/tree/main/qoosvc" target="_blank" rel="noopener" class="eco-link">Explore →</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="arch-layer arch-layer-quality">
+          <div class="arch-layer-header">
+            <span class="arch-layer-icon">🛡️</span>
+            <span class="arch-layer-name">Quality Layer — Trust & Compliance</span>
+            <span class="arch-layer-desc">Projects ensuring reliability and regulatory compliance</span>
+          </div>
+          <div class="eco-grid">
+            <div class="eco-card">
+              <div class="eco-card-icon">💻</div>
+              <div class="eco-card-body">
+                <h3>qoocode</h3>
+                <p>Developer Toolchain — IDE plugins, robot simulator, behavior debugger, performance profiler, data annotation tools.</p>
+                <div class="eco-card-tags">
+                  <span>IDE Plugin</span><span>Simulator</span><span>Debugger</span><span>Data Annotation</span>
+                </div>
+                <a href="https://github.com/qoobots/qoobot/tree/main/qoocode" target="_blank" rel="noopener" class="eco-link">Explore →</a>
+              </div>
+            </div>
+            <div class="eco-card">
+              <div class="eco-card-icon">🔐</div>
+              <div class="eco-card-body">
+                <h3>qooauth</h3>
+                <p>Account & Security — unified robot/user identity authentication, authorization, and privacy framework.</p>
+                <div class="eco-card-tags">
+                  <span>Identity Auth</span><span>Authorization</span><span>Privacy</span>
+                </div>
+                <a href="https://github.com/qoobots/qoobot/tree/main/qooauth" target="_blank" rel="noopener" class="eco-link">Explore →</a>
+              </div>
+            </div>
+            <div class="eco-card">
+              <div class="eco-card-icon">📋</div>
+              <div class="eco-card-body">
+                <h3>qooregs</h3>
+                <p>Regulatory Compliance — safety standards (ISO 10218, ISO 13482), wireless certification, export control, regional privacy regulations.</p>
+                <div class="eco-card-tags">
+                  <span>Safety Standards</span><span>Certification</span><span>Export Control</span>
+                </div>
+                <a href="https://github.com/qoobots/qoobot/tree/main/qooregs" target="_blank" rel="noopener" class="eco-link">Explore →</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="arch-layer arch-layer-community">
+          <div class="arch-layer-header">
+            <span class="arch-layer-icon">🌍</span>
+            <span class="arch-layer-name">Ecosystem Layer — Industry & Community</span>
+            <span class="arch-layer-desc">Projects building the global robotics industry ecosystem</span>
+          </div>
+          <div class="eco-grid">
+            <div class="eco-card">
+              <div class="eco-card-icon">🔌</div>
+              <div class="eco-card-body">
+                <h3>qoogear</h3>
+                <p>Accessory Ecosystem — third-party peripheral certification, end-effectors, wearables, accessory communication standards.</p>
+                <div class="eco-card-tags">
+                  <span>Peripheral Cert</span><span>End-Effectors</span><span>Comm Standards</span>
+                </div>
+                <a href="https://github.com/qoobots/qoobot/tree/main/qoogear" target="_blank" rel="noopener" class="eco-link">Explore →</a>
+              </div>
+            </div>
+            <div class="eco-card">
+              <div class="eco-card-icon">👥</div>
+              <div class="eco-card-body">
+                <h3>qoocommunity</h3>
+                <p>Global Community — contributor network, annual developer conference, university partnerships, ambassador program.</p>
+                <div class="eco-card-tags">
+                  <span>Contributor Network</span><span>Dev Conference</span><span>Academic</span>
+                </div>
+                <a href="https://github.com/qoobots/qoobot/tree/main/qoocommunity" target="_blank" rel="noopener" class="eco-link">Explore →</a>
+              </div>
+            </div>
+            <div class="eco-card">
+              <div class="eco-card-icon">🏭</div>
+              <div class="eco-card-body">
+                <h3>qoochain</h3>
+                <p>Supply Chain — manufacturing standards, factory calibration, quality inspection, BOM reference designs.</p>
+                <div class="eco-card-tags">
+                  <span>Manufacturing</span><span>Calibration</span><span>Quality Inspection</span>
+                </div>
+                <a href="https://github.com/qoobots/qoobot/tree/main/qoochain" target="_blank" rel="noopener" class="eco-link">Explore →</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+
   <footer class="footer">
     <div class="footer-inner">
       <div class="footer-col">
         <h4>Products</h4>
         <ul>
-          <li><a href="products.html">Product Line</a></li>
+          <li><a href="products.html">Products & Ecosystem</a></li>
           <li><a href="buy.html">How to Buy</a></li>
-          <li><a href="about.html#progress">Progress</a></li>
+          <li><a href="products.html#ecosystem">Sub-Projects</a></li>
+
         </ul>
       </div>
       <div class="footer-col">
         <h4>Developers</h4>
         <ul>
           <li><a href="https://github.com/qoobots/qoobot" target="_blank" rel="noopener">GitHub</a></li>
-          <li><a href="https://github.com/qoobots/qoobot/blob/main/docs/01功能清单完成进度.md" target="_blank" rel="noopener">Roadmap</a></li>
+
           <li><a href="https://github.com/qoobots/qoobot/blob/main/LICENSE" target="_blank" rel="noopener">License</a></li>
         </ul>
       </div>
