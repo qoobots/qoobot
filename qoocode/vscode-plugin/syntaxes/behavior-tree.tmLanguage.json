@@ -1,0 +1,21 @@
+{
+    "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+    "name": "Behavior Tree",
+    "scopeName": "source.behavior-tree",
+    "patterns": [
+        {
+            "comment": "JSON keys",
+            "match": "\"(name|type|children|version|description|params)\"",
+            "name": "support.type.property-name.json"
+        },
+        {
+            "comment": "Node type values",
+            "match": "\"(Sequence|Fallback|Parallel|Inverter|Retry|Timeout|Action|Condition|Decorator|SubTree)\"",
+            "name": "entity.name.type.json"
+        },
+        {
+            "include": "source.json"
+        }
+    ],
+    "fileTypes": ["btree", "bt.json"]
+}

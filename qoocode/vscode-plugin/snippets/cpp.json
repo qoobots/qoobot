@@ -1,0 +1,37 @@
+{
+    "QooSkill C++ Class": {
+        "prefix": "qooskills-cpp",
+        "body": [
+            "#include <qoobot_sdk/skill.h>",
+            "",
+            "class ${1:MySkill} : public qoobot::Skill {",
+            "public:",
+            "    ${1:MySkill}() : qoobot::Skill(\"${1:MySkill}\") {}",
+            "",
+            "    void setup() override {",
+            "        ${2:// Initialize skill resources}",
+            "    }",
+            "",
+            "    void loop() override {",
+            "        ${3:// Main skill loop}",
+            "    }",
+            "",
+            "    void teardown() override {",
+            "        ${4:// Clean up resources}",
+            "    }",
+            "};"
+        ],
+        "description": "Create a C++ QooSkill class"
+    },
+    "Joint Control C++": {
+        "prefix": "qoo-joint-cpp",
+        "body": [
+            "qoobot::JointCommand cmd;",
+            "cmd.joint_names = {${1:\"joint_1\", \"joint_2\"}};",
+            "cmd.positions = {${2:0.0, 0.0}};",
+            "cmd.velocities = {${3:0.0, 0.0}};",
+            "send_control(cmd);"
+        ],
+        "description": "C++ joint control command"
+    }
+}

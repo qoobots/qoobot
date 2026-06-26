@@ -1,0 +1,249 @@
+{
+  "name": "qoocode-vscode",
+  "displayName": "qoocode — Robot Skill IDE",
+  "description": "VS Code extension for qoocode: robot skill development, LSP support, behavior tree editor, and simulation integration.",
+  "version": "0.3.0",
+  "publisher": "qoobot",
+  "license": "Apache-2.0",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Programming Languages",
+    "Debuggers",
+    "Visualization",
+    "Other"
+  ],
+  "keywords": [
+    "robotics",
+    "qoobot",
+    "qoocode",
+    "skill",
+    "behavior-tree",
+    "simulation"
+  ],
+  "activationEvents": [
+    "onLanguage:python",
+    "onLanguage:cpp",
+    "onCommand:qoocode.init",
+    "onCommand:qoocode.build",
+    "onCommand:qoocode.run",
+    "onCommand:qoocode.test",
+    "onCommand:qoocode.doctor",
+    "onCommand:qoocode.openBehaviorTree",
+    "onView:qoocode.projectExplorer"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "qoocode.init",
+        "title": "qoocode: Init Project",
+        "category": "qoocode"
+      },
+      {
+        "command": "qoocode.build",
+        "title": "qoocode: Build",
+        "category": "qoocode"
+      },
+      {
+        "command": "qoocode.run",
+        "title": "qoocode: Run",
+        "category": "qoocode"
+      },
+      {
+        "command": "qoocode.test",
+        "title": "qoocode: Test",
+        "category": "qoocode"
+      },
+      {
+        "command": "qoocode.doctor",
+        "title": "qoocode: Doctor (Environment Check)",
+        "category": "qoocode"
+      },
+      {
+        "command": "qoocode.openBehaviorTree",
+        "title": "qoocode: Open Behavior Tree Editor",
+        "category": "qoocode"
+      },
+      {
+        "command": "qoocode.createSkill",
+        "title": "qoocode: Create New Skill",
+        "category": "qoocode"
+      },
+      {
+        "command": "qoocode.createService",
+        "title": "qoocode: Create New Service",
+        "category": "qoocode"
+      },
+      {
+        "command": "qoocode.createModel",
+        "title": "qoocode: Create New Model",
+        "category": "qoocode"
+      }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "qoocode",
+          "title": "qoocode",
+          "icon": "resources/qoocode-icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "qoocode": [
+        {
+          "id": "qoocode.projectExplorer",
+          "name": "Project Explorer"
+        },
+        {
+          "id": "qoocode.skillList",
+          "name": "Skills"
+        },
+        {
+          "id": "qoocode.behaviorTrees",
+          "name": "Behavior Trees"
+        }
+      ]
+    },
+    "menus": {
+      "commandPalette": [
+        {
+          "command": "qoocode.init",
+          "when": "!qoocode.isQoocodeProject"
+        },
+        {
+          "command": "qoocode.build",
+          "when": "qoocode.isQoocodeProject"
+        },
+        {
+          "command": "qoocode.run",
+          "when": "qoocode.isQoocodeProject"
+        },
+        {
+          "command": "qoocode.test",
+          "when": "qoocode.isQoocodeProject"
+        },
+        {
+          "command": "qoocode.doctor",
+          "when": "qoocode.isQoocodeProject"
+        },
+        {
+          "command": "qoocode.openBehaviorTree",
+          "when": "qoocode.isQoocodeProject"
+        }
+      ],
+      "view/title": [
+        {
+          "command": "qoocode.createSkill",
+          "when": "view == qoocode.skillList",
+          "group": "navigation"
+        },
+        {
+          "command": "qoocode.createService",
+          "when": "view == qoocode.skillList",
+          "group": "navigation"
+        },
+        {
+          "command": "qoocode.createModel",
+          "when": "view == qoocode.skillList",
+          "group": "navigation"
+        }
+      ]
+    },
+    "snippets": [
+      {
+        "language": "python",
+        "path": "./snippets/python.json"
+      },
+      {
+        "language": "cpp",
+        "path": "./snippets/cpp.json"
+      }
+    ],
+    "languages": [
+      {
+        "id": "behavior-tree",
+        "aliases": ["Behavior Tree", "behavior-tree"],
+        "extensions": [".btree", ".bt.json"],
+        "icon": {
+          "light": "resources/btree-light.svg",
+          "dark": "resources/btree-dark.svg"
+        }
+      }
+    ],
+    "grammars": [
+      {
+        "language": "behavior-tree",
+        "scopeName": "source.behavior-tree",
+        "path": "./syntaxes/behavior-tree.tmLanguage.json"
+      }
+    ],
+    "configuration": {
+      "title": "qoocode",
+      "properties": {
+        "qoocode.qoo.path": {
+          "type": "string",
+          "default": "qoo",
+          "description": "Path to the qoo CLI executable."
+        },
+        "qoocode.lsp.pythonPath": {
+          "type": "string",
+          "default": "python",
+          "description": "Path to Python interpreter for LSP server."
+        },
+        "qoocode.lsp.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable qoocode LSP server."
+        },
+        "qoocode.behaviorTree.autoLayout": {
+          "type": "boolean",
+          "default": true,
+          "description": "Auto-layout nodes in behavior tree editor."
+        },
+        "qoocode.simulation.defaultEngine": {
+          "type": "string",
+          "enum": ["isaac_sim", "mujoco", "gazebo"],
+          "default": "mujoco",
+          "description": "Default simulation engine."
+        }
+      }
+    },
+    "keybindings": [
+      {
+        "command": "qoocode.build",
+        "key": "ctrl+shift+b",
+        "when": "qoocode.isQoocodeProject"
+      },
+      {
+        "command": "qoocode.run",
+        "key": "ctrl+shift+r",
+        "when": "qoocode.isQoocodeProject"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "lint": "eslint src --ext .ts",
+    "package": "vsce package",
+    "build:webview": "cd webview && npm run build"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/vscode": "^1.85.0",
+    "@typescript-eslint/eslint-plugin": "^7.0.0",
+    "@typescript-eslint/parser": "^7.0.0",
+    "eslint": "^8.56.0",
+    "typescript": "^5.3.0",
+    "@vscode/vsce": "^2.22.0"
+  },
+  "dependencies": {
+    "vscode-languageclient": "^9.0.0",
+    "vscode-debugadapter": "^1.60.0",
+    "vscode-debugprotocol": "^1.60.0"
+  }
+}

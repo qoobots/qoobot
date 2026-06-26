@@ -1,0 +1,24 @@
+# QooCoreConfig.cmake.in - CMake 导出配置模板
+# 供下游项目 find_package(QooCore) 使用
+
+@PACKAGE_INIT@
+
+# 导入目标
+include("${CMAKE_CURRENT_LIST_DIR}/QooCoreTargets.cmake")
+
+# 检查请求组件
+check_required_components(QooCore)
+
+# 设置变量（向后兼容）
+set(QooCore_VERSION "@PROJECT_VERSION@")
+set(QooCore_VERSION_MAJOR @PROJECT_VERSION_MAJOR@)
+set(QooCore_VERSION_MINOR @PROJECT_VERSION_MINOR@)
+set(QooCore_VERSION_PATCH @PROJECT_VERSION_PATCH@)
+
+# 查找依赖（若需要）
+if(NOT TARGET FlatBuffers::flatbuffers)
+    find_package(FlatBuffers REQUIRED)
+endif()
+if(NOT TARGET spdlog::spdlog)
+    find_package(spdlog REQUIRED)
+endif()

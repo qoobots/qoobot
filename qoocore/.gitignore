@@ -1,0 +1,64 @@
+# QooCore - 忽略规则
+
+# 构建产物
+build/
+build-*/
+*.o
+*.obj
+*.exe
+*.dll
+*.so
+*.dylib
+*.a
+*.lib
+
+# CMake 中间文件
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+install_manifest.txt
+Makefile
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/python/
+*.egg
+
+# 测试输出
+*.log
+test_output/
+
+# 第三方依赖（若不作为 submodule 构建）
+third_party/*/build/
+third_party/*/CMakeFiles/
+
+# 文档生成
+docs/html/
+docs/latex/
+
+# 性能剖析输出
+profile_output/
+*.prof
+*.trace
+
+# 模型文件（大文件，不提交）
+*.qoomodel
+*.onnx
+*.pt
+*.pb
+*.tflite
+
+# 环境变量
+.env

@@ -1,0 +1,33 @@
+#cmakedefine QOOCORE_VERSION_MAJOR @PROJECT_VERSION_MAJOR@
+#cmakedefine QOOCORE_VERSION_MINOR @PROJECT_VERSION_MINOR@
+#cmakedefine QOOCORE_VERSION_PATCH @PROJECT_VERSION_PATCH@
+#cmakedefine QOOCORE_VERSION_STRING "@PROJECT_VERSION@"
+
+// 后端支持宏（由 CMake 选项控制）
+#cmakedefine QOOCORE_ENABLE_QNN  1
+#cmakedefine QOOCORE_ENABLE_BPU  1
+#cmakedefine QOOCORE_ENABLE_RKNN 1
+#cmakedefine QOOCORE_ENABLE_CUDA 1
+#cmakedefine QOOCORE_ENABLE_OPENCL 1
+#cmakedefine QOOCORE_ENABLE_DSP 1
+
+// 功能宏
+#cmakedefine QOOCORE_ENABLE_PROFILING 1
+#cmakedefine QOOCORE_ENABLE_ION 1
+#cmakedefine QOOCORE_USE_MLIR 1
+
+// 编译工具链支持
+#cmakedefine QOOCORE_ENABLE_ONNX 1
+
+// 平台检测
+#cmakedefine QOOCORE_OS_LINUX   1
+#cmakedefine QOOCORE_OS_ANDROID 1
+#cmakedefine QOOCORE_OS_WINDOWS 1
+#cmakedefine QOOCORE_OS_MACOS   1
+
+// 架构检测
+#cmakedefine QOOCORE_ARCH_ARM64   1
+#cmakedefine QOOCORE_ARCH_X86_64  1
+
+// C++ 标准
+#cmakedefine QOOCORE_CXX_STANDARD @CMAKE_CXX_STANDARD@

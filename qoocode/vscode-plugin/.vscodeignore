@@ -1,0 +1,8 @@
+.vscode/**
+.gitignore
+src/**
+tsconfig.json
+node_modules
+webview/node_modules
+webview/src
+webview/tsconfig.json

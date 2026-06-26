@@ -1,0 +1,163 @@
+# QooCore CI — 多平台构建与测试
+#
+# 触发条件：
+#   - push 到 main/develop 分支
+#   - 创建 Pull Request 到 main 分支
+#
+# 构建矩阵：
+#   - Ubuntu 22.04 (GCC 12, Clang 16)
+#   - Android (交叉编译，未来)
+#
+# @copyright QooBot Project
+# @version 0.1.0
+
+name: QooCore CI
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+
+env:
+  QOOCORE_VERSION: "0.1.0"
+
+jobs:
+  # ── Job 1：Ubuntu 构建 + 测试 ──────────────────────────────────
+  build-ubuntu:
+    name: "Build (Ubuntu 22.04, GCC ${{ matrix.compiler }})"
+    runs-on: ubuntu-22.04
+
+    strategy:
+      matrix:
+        compiler: [g++-12, clang++-16]
+        build-type: [Release, Debug]
+        include:
+          - compiler: g++-12
+            cc: gcc-12
+          - compiler: clang++-16
+            cc: clang-16
+
+    steps:
+      - name: "Checkout 代码"
+        uses: actions/checkout@v4
+
+      - name: "安装依赖"
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            cmake \
+            ${{ matrix.compiler }} \
+            ${{ matrix.cc }} \
+            libflatbuffers-dev \
+            libsdlog-dev \
+            libyaml-cpp-dev \
+            libgtest-dev \
+            git-lfs
+
+      - name: "配置 CMake"
+        run: |
+          mkdir build && cd build
+          cmake .. \
+            -DCMAKE_BUILD_TYPE=${{ matrix.build-type }} \
+            -DCMAKE_CXX_COMPILER=${{ matrix.compiler }} \
+            -DCMAKE_C_COMPILER=${{ matrix.cc }} \
+            -DQOOCORE_BUILD_PYTHON=OFF \
+            -DQOOCORE_BUILD_CLI=ON \
+            -DQOOCORE_BUILD_TESTS=ON \
+            -DQOOCORE_ENABLE_ION=OFF
+
+      - name: "编译"
+        run: |
+          cd build
+          make -j$(nproc) 2>&1 | tee build.log
+          echo "Build complete."
+
+      - name: "运行单元测试"
+        run: |
+          cd build
+          ctest --output-on-failure
+
+      - name: "上传构建日志（失败时）"
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-logs-${{ matrix.compiler }}-${{ matrix.build-type }}
+          path: build/build.log
+
+  # ── Job 2：代码规范检查（.clang-format）──────────────
+  lint:
+    name: "Lint (clang-format)"
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: "Checkout 代码"
+        uses: actions/checkout@v4
+
+      - name: "安装 clang-format"
+        run: sudo apt-get install -y clang-format-16
+
+      - name: "检查代码格式"
+        run: |
+          clang-format-16 --version
+          # 检查 include/ 和 src/ 中的 .h 和 .cpp 文件
+          find include/qoocore src tests cli python -name "*.h" -o -name "*.cpp" | \
+            xargs clang-format-16 --dry-run --Werror
+
+  # ── Job 3：FlatBuffer Schema 编译检查 ───────────────────
+  schema-check:
+    name: "Schema Check (FlatBuffers)"
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: "Checkout 代码"
+        uses: actions/checkout@v4
+
+      - name: "安装 FlatBuffers 编译器"
+        run: |
+          wget https://github.com/google/flatbuffers/releases/download/v24.3.25/flatc-24.3.25-linux-x86-64.tar.gz
+          tar -xzf flatc-*.tar.gz -C /usr/local/bin/
+          flatc --version
+
+      - name: "编译 .fbs → .h"
+        run: |
+          flatc --cpp -o include/qoocore/schema/ schema/qoomodel.fbs
+          echo "FlatBuffer schema compiled successfully."
+
+  # ── Job 4：文档检查 ─────────────────────────────────────
+  docs-check:
+    name: "Docs Check"
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: "Checkout 代码"
+        uses: actions/checkout@v4
+
+      - name: "检查设计文档是否存在"
+        run: |
+          test -f docs/02架构设计.md || (echo "Missing: 02架构设计.md" && exit 1)
+          test -f docs/03交互设计.md || (echo "Missing: 03交互设计.md" && exit 1)
+          test -f docs/04数据设计.md || (echo "Missing: 04数据设计.md" && exit 1)
+          test -f docs/05项目目录结构.md || (echo "Missing: 05项目目录结构.md" && exit 1)
+          echo "All design documents present."
+
+  # ── Job 5：发布（仅 tag 触发）────────────────────────
+  release:
+    name: "Release (tagged commits only)"
+    runs-on: ubuntu-22.04
+    needs: [build-ubuntu, lint, schema-check, docs-check]
+    if: startsWith(github.ref, 'refs/tags/v')
+
+    steps:
+      - name: "Checkout 代码"
+        uses: actions/checkout@v4
+
+      - name: "创建 Release"
+        uses: softprops/action-gh-release@v1
+        with:
+          draft: true
+          files: |
+            LICENSE
+            README.md
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

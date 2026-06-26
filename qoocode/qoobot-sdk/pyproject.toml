@@ -1,0 +1,46 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "qoobot-sdk"
+version = "0.1.0"
+description = "QooBot SDK - Python SDK for QooBot Humanoid Robot Development"
+readme = "README.md"
+license = {text = "Apache-2.0"}
+requires-python = ">=3.11"
+authors = [
+    {name = "QooBot Team"}
+]
+keywords = ["robotics", "humanoid", "sdk", "qoobot"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering",
+]
+
+dependencies = [
+    "numpy>=1.24",
+    "pydantic>=2.0",
+    "grpcio>=1.54",
+    "protobuf>=4.21",
+    "websockets>=11.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "pytest-asyncio>=0.21",
+    "black>=23.0",
+    "ruff>=0.1.0",
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["qoobot_sdk", "qoobot_sdk.*"]
+
+[tool.setuptools.package-data]
+qoobot_sdk = ["py.typed"]

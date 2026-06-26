@@ -1,0 +1,132 @@
+{
+    "QooSkill Class": {
+        "prefix": "qooskills",
+        "body": [
+            "import asyncio",
+            "from qoobot_sdk.skill import QooSkill, SkillConfig, SkillState",
+            "",
+            "",
+            "class ${1:MySkill}(QooSkill):",
+            "    \"\"\"${2:Skill description}\"\"\"",
+            "",
+            "    def __init__(self, config: SkillConfig | None = None):",
+            "        super().__init__(config or SkillConfig(name=\"${1:MySkill}\"))",
+            "",
+            "    async def setup(self) -> None:",
+            "        \"\"\"Called once when skill is loaded.\"\"\"",
+            "        ${3:pass}",
+            "",
+            "    async def loop(self) -> None:",
+            "        \"\"\"Main skill loop — called repeatedly.\"\"\"",
+            "        ${4:pass}",
+            "",
+            "    async def teardown(self) -> None:",
+            "        \"\"\"Called when skill is unloaded.\"\"\"",
+            "        ${5:pass}",
+            "",
+            "",
+            "if __name__ == \"__main__\":",
+            "    skill = ${1:MySkill}()",
+            "    asyncio.run(skill.run())"
+        ],
+        "description": "Create a new QooSkill class with lifecycle methods"
+    },
+    "QooSkill Minimal": {
+        "prefix": "qooskills-min",
+        "body": [
+            "from qoobot_sdk.skill import QooSkill, SkillConfig",
+            "",
+            "",
+            "class ${1:MySkill}(QooSkill):",
+            "    \"\"\"${2:Skill description}\"\"\"",
+            "",
+            "    async def setup(self):",
+            "        ${3:pass}",
+            "",
+            "    async def loop(self):",
+            "        ${4:pass}"
+        ],
+        "description": "Minimal QooSkill class"
+    },
+    "Perception Handler": {
+        "prefix": "qoo-perception",
+        "body": [
+            "async def on_perception(self, data: ${1:Image}):",
+            "    \"\"\"Handle incoming perception data.\"\"\"",
+            "    ${2:pass}"
+        ],
+        "description": "QooSkill perception handler"
+    },
+    "Joint Control": {
+        "prefix": "qoo-joint-control",
+        "body": [
+            "from qoobot_sdk.control import JointCommand",
+            "",
+            "cmd = JointCommand(",
+            "    joint_names=[${1:\"joint_1\", \"joint_2\"}],",
+            "    positions=[${2:0.0, 0.0}],",
+            "    velocities=[${3:0.0, 0.0}],",
+            "    efforts=[${4:0.0, 0.0}]",
+            ")",
+            "await self.send_control(cmd)"
+        ],
+        "description": "Send joint control command"
+    },
+    "End Effector Control": {
+        "prefix": "qoo-ee-control",
+        "body": [
+            "from qoobot_sdk.control import EndEffectorTarget",
+            "",
+            "target = EndEffectorTarget(",
+            "    position=(${1:0.5}, ${2:0.0}, ${3:0.3}),",
+            "    orientation=(${4:0.0}, ${5:0.0}, ${6:0.0}, ${7:1.0})",
+            ")",
+            "await self.send_control(target)"
+        ],
+        "description": "Send end-effector pose target"
+    },
+    "BrainOS Client": {
+        "prefix": "qoo-brainos",
+        "body": [
+            "from qoobot_sdk.communication import BrainOSClient",
+            "",
+            "client = BrainOSClient(host=\"${1:localhost}\", port=${2:9090})",
+            "await client.connect()",
+            "",
+            "# Send perception data",
+            "await client.send_perception(${3:data})",
+            "",
+            "# Receive control commands",
+            "cmd = await client.receive_control()"
+        ],
+        "description": "Connect to BrainOS client"
+    },
+    "ROS2 Bridge": {
+        "prefix": "qoo-ros2",
+        "body": [
+            "from qoobot_sdk.communication import ROS2Bridge",
+            "",
+            "bridge = ROS2Bridge(node_name=\"${1:qoobot_skill}\")",
+            "await bridge.connect()",
+            "",
+            "# Subscribe to sensor topics",
+            "bridge.subscribe(\"${2:/camera/rgb}\", self.on_perception)",
+            "",
+            "# Publish control commands",
+            "await bridge.publish(\"${3:/joint_command}\", cmd)"
+        ],
+        "description": "Connect via ROS2 Bridge"
+    },
+    "Logger Setup": {
+        "prefix": "qoo-logger",
+        "body": [
+            "from qoobot_sdk.logging import QooLogger",
+            "",
+            "logger = QooLogger(\"${1:my_skill}\")",
+            "logger.info(\"${2:Skill started}\")",
+            "logger.debug(\"State: ${3:state}\")",
+            "logger.error(\"${4:Error message}\")"
+        ],
+        "description": "QooLogger usage"
+    }
+}
