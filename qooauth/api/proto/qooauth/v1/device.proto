@@ -1,0 +1,51 @@
+syntax = "proto3";
+package qooauth.v1;
+
+import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/qoobot/qooauth/api/proto/qooauth/v1;qooauthv1";
+
+// DeviceService 设备服务 gRPC 接口
+service DeviceService {
+  rpc GetDevice(GetDeviceRequest) returns (Device);
+  rpc VerifyDeviceCertificate(VerifyDeviceCertRequest) returns (VerifyDeviceCertResponse);
+  rpc ListUserDevices(ListUserDevicesRequest) returns (ListUserDevicesResponse);
+}
+
+message Device {
+  string id = 1;
+  string user_id = 2;
+  string device_name = 3;
+  string device_type = 4;
+  string serial_number = 5;
+  string certificate_fp = 6;
+  string firmware_version = 7;
+  string hardware_model = 8;
+  string online_status = 9;
+  google.protobuf.Timestamp last_seen_at = 10;
+  bool activation_locked = 11;
+  google.protobuf.Timestamp created_at = 12;
+}
+
+message GetDeviceRequest {
+  string device_id = 1;
+}
+
+message VerifyDeviceCertRequest {
+  string certificate_pem = 1;
+}
+
+message VerifyDeviceCertResponse {
+  bool valid = 1;
+  string device_id = 2;
+  string serial_number = 3;
+}
+
+message ListUserDevicesRequest {
+  string user_id = 1;
+}
+
+message ListUserDevicesResponse {
+  repeated Device devices = 1;
+}
