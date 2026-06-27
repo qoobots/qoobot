@@ -8,13 +8,14 @@
         <groupId>com.qoobot</groupId>
         <artifactId>qoobot-cloud</artifactId>
         <version>0.2.0-SNAPSHOT</version>
+        <relativePath>../../qoobot-cloud/pom.xml</relativePath>
     </parent>
 
-    <artifactId>qooeco</artifactId>
+    <artifactId>qooeco-cloud</artifactId>
     <packaging>jar</packaging>
 
-    <name>QooEco</name>
-    <description>技能市场微服务 — 技能发布 / 审核 / 计费 / 分发</description>
+    <name>QooEco Cloud</name>
+    <description>qooeco 云端部分 — 技能商店后端 / 发布审核 / 计费 / 分发 / 运营分析</description>
 
     <dependencies>
         <!-- Spring Boot Web -->

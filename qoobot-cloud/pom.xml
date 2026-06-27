@@ -16,7 +16,7 @@
         <module>qoobot-cloud-gateway</module>
         <module>qooauth</module>
         <module>qoocloud</module>
-        <module>qooeco</module>
+        <module>../qooeco/qooeco-cloud</module>
     </modules>
 
     <!-- ========== 版本集中管理 ========== -->
@@ -163,7 +163,7 @@
             </dependency>
             <dependency>
                 <groupId>com.qoobot</groupId>
-                <artifactId>qooeco</artifactId>
+                <artifactId>qooeco-cloud</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>
