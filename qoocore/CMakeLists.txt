@@ -131,13 +131,16 @@ set(QOOCORE_ENGINE_SOURCES
 # 编译器源文件
 set(QOOCORE_COMPILER_SOURCES
     src/compiler/importer/onnx_importer.cpp
-    # qoomodel_writer.cpp 暂时跳过
+    src/compiler/optimizer/graph_optimizer.cpp
+    src/compiler/quantizer/quantizer.cpp
     src/compiler/package/qoomodel_reader.cpp
+    src/compiler/package/qoomodel_writer.cpp
 )
 
 # 运行时源文件（按后端条件编译）
 set(QOOCORE_RUNTIME_SOURCES
-    # 基础运行时（npu_hal_loader 暂时跳过，编译有问题）
+    src/hal/npu_hal_loader.cpp
+    src/hal/mock_npu_hal.cpp
 )
 if(QOOCORE_ENABLE_NPU_QNN)
     list(APPEND QOOCORE_RUNTIME_SOURCES src/runtime/hal/qnn_hal.cpp)
@@ -146,11 +149,20 @@ endif()
 # 内存管理源文件
 set(QOOCORE_MEMORY_SOURCES
     src/memory/ion/ion_allocator.cpp
+    src/memory/pool/model_pool.cpp
 )
 
 # 硬件探测源文件
 set(QOOCORE_HARDWARE_SOURCES
     src/hardware/probe/hardware_probe.cpp
+    src/hardware/probe/hardware_prober.cpp
+    src/hardware/chip/chip_support_matrix.cpp
+)
+
+# 性能剖析源文件
+set(QOOCORE_PROFILER_SOURCES
+    src/profiler/latency/latency_profiler.cpp
+    src/profiler/resource/resource_monitor.cpp
 )
 
 # # 配置管理（暂时跳过，后续实现）
@@ -166,6 +178,7 @@ set(QOOCORE_ALL_SOURCES
     ${QOOCORE_RUNTIME_SOURCES}
     ${QOOCORE_MEMORY_SOURCES}
     ${QOOCORE_HARDWARE_SOURCES}
+    ${QOOCORE_PROFILER_SOURCES}
     ${QOOCORE_CONFIG_SOURCES}
 )
 
