@@ -133,6 +133,9 @@ set(QOOCORE_COMPILER_SOURCES
     src/compiler/importer/onnx_importer.cpp
     src/compiler/optimizer/graph_optimizer.cpp
     src/compiler/quantizer/quantizer.cpp
+    src/compiler/codegen/codegen_npu.cpp
+    src/compiler/codegen/codegen_gpu.cpp
+    src/compiler/codegen/codegen_cpu.cpp
     src/compiler/package/qoomodel_reader.cpp
     src/compiler/package/qoomodel_writer.cpp
 )
@@ -141,6 +144,7 @@ set(QOOCORE_COMPILER_SOURCES
 set(QOOCORE_RUNTIME_SOURCES
     src/hal/npu_hal_loader.cpp
     src/hal/mock_npu_hal.cpp
+    src/runtime/scheduler/realtime_scheduler.cpp
 )
 if(QOOCORE_ENABLE_NPU_QNN)
     list(APPEND QOOCORE_RUNTIME_SOURCES src/runtime/hal/qnn_hal.cpp)
@@ -149,6 +153,7 @@ endif()
 # 内存管理源文件
 set(QOOCORE_MEMORY_SOURCES
     src/memory/ion/ion_allocator.cpp
+    src/memory/ion/ion_allocator_ext.cpp
     src/memory/pool/model_pool.cpp
 )
 
@@ -156,6 +161,7 @@ set(QOOCORE_MEMORY_SOURCES
 set(QOOCORE_HARDWARE_SOURCES
     src/hardware/probe/hardware_probe.cpp
     src/hardware/probe/hardware_prober.cpp
+    src/hardware/probe/feature_probe.cpp
     src/hardware/chip/chip_support_matrix.cpp
 )
 
@@ -163,6 +169,12 @@ set(QOOCORE_HARDWARE_SOURCES
 set(QOOCORE_PROFILER_SOURCES
     src/profiler/latency/latency_profiler.cpp
     src/profiler/resource/resource_monitor.cpp
+)
+
+# 专用算子库源文件
+set(QOOCORE_OPERATORS_SOURCES
+    src/operators/vision/vision_ops.cpp
+    src/operators/lidar/lidar_ops.cpp
 )
 
 # # 配置管理（暂时跳过，后续实现）
@@ -179,6 +191,7 @@ set(QOOCORE_ALL_SOURCES
     ${QOOCORE_MEMORY_SOURCES}
     ${QOOCORE_HARDWARE_SOURCES}
     ${QOOCORE_PROFILER_SOURCES}
+    ${QOOCORE_OPERATORS_SOURCES}
     ${QOOCORE_CONFIG_SOURCES}
 )
 
