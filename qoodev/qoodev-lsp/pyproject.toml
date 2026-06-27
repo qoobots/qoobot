@@ -1,0 +1,25 @@
+﻿[project]
+name = "qoodev-lsp"
+version = "0.3.0"
+description = "qoodev Language Server Protocol — Python/C++ language services for robot skill development"
+authors = [{name = "qoobot"}]
+license = {text = "Apache-2.0"}
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "pygls>=1.2.0",
+    "lsprotocol>=2023.0.0",
+    "pydantic>=2.0",
+    "jedi>=0.19.0",
+    "qoobot-sdk>=0.1.0",
+]
+
+[project.scripts]
+qoodev-lsp = "lsp_server.__main__:main"
+
+[build-system]
+requires = ["setuptools>=68.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["lsp_server*"]

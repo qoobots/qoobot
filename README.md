@@ -1,4 +1,4 @@
-<p align="center">
+﻿<p align="center">
   <img src="./docs/static/qoobot-logo.svg" alt="QooBot" width="600">
 </p>
 
@@ -83,7 +83,7 @@ QooBot 分为**四层架构**，涵盖 **12 个子项目**：
 
 | 项目 | 说明 |
 |---------|-------------|
-| **[qoocode](./qoocode/)** | **开发者工具链** — IDE 插件、机器人仿真器、行为调试器、性能剖析、数据标注工具。 |
+| **[qoodev](./qoodev/)** | **开发者工具链** — IDE 插件、机器人仿真器、行为调试器、性能剖析、数据标注工具。 |
 | **[qooauth](./qooauth/)** | **账号与安全** — 统一的机器人/用户身份认证、授权、隐私框架。 |
 | **[qooregs](./qooregs/)** | **法规合规** — 安全标准（ISO 10218、ISO 13482）、无线认证、出口管制、区域隐私法规。 |
 
@@ -154,7 +154,7 @@ class PickAndPlace(Skill):
 | 4 | qooeco | 📋 设计中 | 技能市场设计 |
 | 5 | qoocloud | 📋 设计中 | 云端架构设计 |
 | 6 | qoosvc | 📋 设计中 | 系统服务设计 |
-| 7 | qoocode | 📋 设计中 | 工具链设计 |
+| 7 | qoodev | 📋 设计中 | 工具链设计 |
 | 8 | qooauth | 📋 设计中 | 安全框架设计 |
 | 9 | qoogear | 📋 设计中 | 配件认证体系设计 |
 | 10 | qoocommunity | 📋 设计中 | 社区运营体系设计 |

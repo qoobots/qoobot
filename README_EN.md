@@ -1,4 +1,4 @@
-<p align="center">
+﻿<p align="center">
   <img src="./docs/static/qoobot-logo.svg" alt="QooBot" width="600">
 </p>
 
@@ -83,7 +83,7 @@ Projects that ensure reliability and compliance:
 
 | Project | Description |
 |---------|-------------|
-| **[qoocode](./qoocode/)** | **Developer Toolchain** — IDE plugins, robot simulator, behavior debugger, performance profiler, data labeling tools. |
+| **[qoodev](./qoodev/)** | **Developer Toolchain** — IDE plugins, robot simulator, behavior debugger, performance profiler, data labeling tools. |
 | **[qooauth](./qooauth/)** | **Identity &amp; Security** — Unified robot/user identity, authentication, authorization, privacy framework. |
 | **[qooregs](./qooregs/)** | **Regulatory Compliance** — Safety standards (ISO 10218, ISO 13482), wireless certifications, export controls, regional privacy laws. |
 
@@ -154,7 +154,7 @@ class PickAndPlace(Skill):
 | 4 | qooeco | 📋 Design | Skill marketplace design |
 | 5 | qoocloud | 📋 Design | Cloud architecture |
 | 6 | qoosvc | 📋 Design | System services design |
-| 7 | qoocode | 📋 Design | Toolchain design |
+| 7 | qoodev | 📋 Design | Toolchain design |
 | 8 | qooauth | 📋 Design | Security framework |
 | 9 | qoogear | 📋 Design | Accessory certification |
 | 10 | qoocommunity | 📋 Design | Community operations |

@@ -1,0 +1,249 @@
+﻿{
+  "name": "qoodev-vscode",
+  "displayName": "qoodev — Robot Skill IDE",
+  "description": "VS Code extension for qoodev: robot skill development, LSP support, behavior tree editor, and simulation integration.",
+  "version": "0.3.0",
+  "publisher": "qoobot",
+  "license": "Apache-2.0",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Programming Languages",
+    "Debuggers",
+    "Visualization",
+    "Other"
+  ],
+  "keywords": [
+    "robotics",
+    "qoobot",
+    "qoodev",
+    "skill",
+    "behavior-tree",
+    "simulation"
+  ],
+  "activationEvents": [
+    "onLanguage:python",
+    "onLanguage:cpp",
+    "onCommand:qoodev.init",
+    "onCommand:qoodev.build",
+    "onCommand:qoodev.run",
+    "onCommand:qoodev.test",
+    "onCommand:qoodev.doctor",
+    "onCommand:qoodev.openBehaviorTree",
+    "onView:qoodev.projectExplorer"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "qoodev.init",
+        "title": "qoodev: Init Project",
+        "category": "qoodev"
+      },
+      {
+        "command": "qoodev.build",
+        "title": "qoodev: Build",
+        "category": "qoodev"
+      },
+      {
+        "command": "qoodev.run",
+        "title": "qoodev: Run",
+        "category": "qoodev"
+      },
+      {
+        "command": "qoodev.test",
+        "title": "qoodev: Test",
+        "category": "qoodev"
+      },
+      {
+        "command": "qoodev.doctor",
+        "title": "qoodev: Doctor (Environment Check)",
+        "category": "qoodev"
+      },
+      {
+        "command": "qoodev.openBehaviorTree",
+        "title": "qoodev: Open Behavior Tree Editor",
+        "category": "qoodev"
+      },
+      {
+        "command": "qoodev.createSkill",
+        "title": "qoodev: Create New Skill",
+        "category": "qoodev"
+      },
+      {
+        "command": "qoodev.createService",
+        "title": "qoodev: Create New Service",
+        "category": "qoodev"
+      },
+      {
+        "command": "qoodev.createModel",
+        "title": "qoodev: Create New Model",
+        "category": "qoodev"
+      }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "qoodev",
+          "title": "qoodev",
+          "icon": "resources/qoodev-icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "qoodev": [
+        {
+          "id": "qoodev.projectExplorer",
+          "name": "Project Explorer"
+        },
+        {
+          "id": "qoodev.skillList",
+          "name": "Skills"
+        },
+        {
+          "id": "qoodev.behaviorTrees",
+          "name": "Behavior Trees"
+        }
+      ]
+    },
+    "menus": {
+      "commandPalette": [
+        {
+          "command": "qoodev.init",
+          "when": "!qoodev.isqoodevProject"
+        },
+        {
+          "command": "qoodev.build",
+          "when": "qoodev.isqoodevProject"
+        },
+        {
+          "command": "qoodev.run",
+          "when": "qoodev.isqoodevProject"
+        },
+        {
+          "command": "qoodev.test",
+          "when": "qoodev.isqoodevProject"
+        },
+        {
+          "command": "qoodev.doctor",
+          "when": "qoodev.isqoodevProject"
+        },
+        {
+          "command": "qoodev.openBehaviorTree",
+          "when": "qoodev.isqoodevProject"
+        }
+      ],
+      "view/title": [
+        {
+          "command": "qoodev.createSkill",
+          "when": "view == qoodev.skillList",
+          "group": "navigation"
+        },
+        {
+          "command": "qoodev.createService",
+          "when": "view == qoodev.skillList",
+          "group": "navigation"
+        },
+        {
+          "command": "qoodev.createModel",
+          "when": "view == qoodev.skillList",
+          "group": "navigation"
+        }
+      ]
+    },
+    "snippets": [
+      {
+        "language": "python",
+        "path": "./snippets/python.json"
+      },
+      {
+        "language": "cpp",
+        "path": "./snippets/cpp.json"
+      }
+    ],
+    "languages": [
+      {
+        "id": "behavior-tree",
+        "aliases": ["Behavior Tree", "behavior-tree"],
+        "extensions": [".btree", ".bt.json"],
+        "icon": {
+          "light": "resources/btree-light.svg",
+          "dark": "resources/btree-dark.svg"
+        }
+      }
+    ],
+    "grammars": [
+      {
+        "language": "behavior-tree",
+        "scopeName": "source.behavior-tree",
+        "path": "./syntaxes/behavior-tree.tmLanguage.json"
+      }
+    ],
+    "configuration": {
+      "title": "qoodev",
+      "properties": {
+        "qoodev.qoo.path": {
+          "type": "string",
+          "default": "qoo",
+          "description": "Path to the qoo CLI executable."
+        },
+        "qoodev.lsp.pythonPath": {
+          "type": "string",
+          "default": "python",
+          "description": "Path to Python interpreter for LSP server."
+        },
+        "qoodev.lsp.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable qoodev LSP server."
+        },
+        "qoodev.behaviorTree.autoLayout": {
+          "type": "boolean",
+          "default": true,
+          "description": "Auto-layout nodes in behavior tree editor."
+        },
+        "qoodev.simulation.defaultEngine": {
+          "type": "string",
+          "enum": ["isaac_sim", "mujoco", "gazebo"],
+          "default": "mujoco",
+          "description": "Default simulation engine."
+        }
+      }
+    },
+    "keybindings": [
+      {
+        "command": "qoodev.build",
+        "key": "ctrl+shift+b",
+        "when": "qoodev.isqoodevProject"
+      },
+      {
+        "command": "qoodev.run",
+        "key": "ctrl+shift+r",
+        "when": "qoodev.isqoodevProject"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "lint": "eslint src --ext .ts",
+    "package": "vsce package",
+    "build:webview": "cd webview && npm run build"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/vscode": "^1.85.0",
+    "@typescript-eslint/eslint-plugin": "^7.0.0",
+    "@typescript-eslint/parser": "^7.0.0",
+    "eslint": "^8.56.0",
+    "typescript": "^5.3.0",
+    "@vscode/vsce": "^2.22.0"
+  },
+  "dependencies": {
+    "vscode-languageclient": "^9.0.0",
+    "vscode-debugadapter": "^1.60.0",
+    "vscode-debugprotocol": "^1.60.0"
+  }
+}

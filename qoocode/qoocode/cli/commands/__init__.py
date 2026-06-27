@@ -1,1 +1,0 @@
-"""QooCode CLI subcommands."""
