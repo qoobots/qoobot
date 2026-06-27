@@ -13,6 +13,7 @@
  * @version 0.1.0
  */
 
+#include "qoocore/core.h"
 #include <spdlog/spdlog.h>
 
 #include <memory>
@@ -105,4 +106,14 @@ int main(int argc, char** argv) {
 
     spdlog::error("Unknown command: '{}'. Use 'qoocore help' for usage.", cmd);
     return 1;
+}
+
+// ── cmd_help ─────────────────────────────────────────────────────────────────
+int cmd_help(const std::string& cmd) {
+    if (cmd.empty() || cmd == "help") {
+        print_usage();
+    } else {
+        spdlog::info("No detailed help available for '{}'. See 'qoocore help'.", cmd);
+    }
+    return 0;
 }

@@ -153,7 +153,7 @@ table QooModel {
     // 版本
     version: uint = 1;
     // 魔数（冗余校验，文件头也有）
-    magic: [ubyte] (fixed: 4);  // ASCII: QOO\x01
+    magic: [ubyte];  // 4 字节: QOO\x01
 
     // 标志位（位掩码）
     flags: uint = 0;
@@ -185,7 +185,7 @@ table QooModel {
 
     // 校验和（覆盖文件内容，不包括此外的 checksum 段）
     // 实际文件中 checksum 是单独区段，此处为逻辑完整性
-    content_checksum: [ubyte] (fixed: 32);  // SHA-256
+    content_checksum: [ubyte];  // 32 字节：SHA-256
 }
 
 // ── 文件标识符和扩展名 ────────────────────────────────────────────────────

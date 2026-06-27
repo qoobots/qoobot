@@ -17,8 +17,8 @@
 
 #pragma once
 
-#include "core.h"
-#include "tensor.h"
+#include "qoocore/core.h"
+#include "qoocore/tensor.h"
 
 #include <future>
 #include <memory>
@@ -241,7 +241,7 @@ public:
         const std::vector<std::vector<std::int64_t>>& shapes,
         const std::vector<DType>& dtypes) {
         (void)handle; (void)ion_fds; (void)shapes; (void)dtypes;
-        return Error(ErrorCode::NOT_IMPLEMENTED,
+        return Error<std::vector<Tensor>>(ErrorCode::NOT_IMPLEMENTED,
                      "Zero-copy not implemented by this HAL");
     }
 
@@ -342,7 +342,8 @@ public:
     Result<std::vector<std::string>> auto_probe();
 
 private:
-    NpuHalLoader() = default;
+    NpuHalLoader();
+    ~NpuHalLoader();
     struct Impl;
     std::unique_ptr<Impl> impl_;
 };

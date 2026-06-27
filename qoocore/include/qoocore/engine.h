@@ -273,13 +273,14 @@ public:
     /**
      * @brief 返回编译器接口（用于模型编译）。
      */
-    [[nodiscard]] Compiler& compiler();
+    [[nodiscard]] ModelCompiler* compiler();
 
     // ── 性能剖析 ───────────────────────────────────────────────────────
     /**
-     * @brief 返回性能剖析器。
+     * @brief 返回性能剖析报告（JSON 字符串）。
+     * @note Profiler 子系统尚未实现，此处返回空串占位。
      */
-    class Profiler& profiler();
+    std::string profiling_summary() const;
 
     /**
      * @brief 导出所有模型的性能报告（JSON）。

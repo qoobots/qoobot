@@ -11,7 +11,7 @@
 
 #pragma once
 
-#include "core.h"
+#include "qoocore/core.h"
 
 #include <string>
 #include <vector>

@@ -10,7 +10,7 @@
 
 #pragma once
 
-#include "core.h"
+#include "qoocore/core.h"
 
 #include <cstdint>
 #include <cstddef>

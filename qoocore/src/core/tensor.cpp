@@ -43,7 +43,7 @@ Result<Tensor> Tensor::create(const std::vector<std::int64_t>& shape,
                                  DType dtype,
                                  TensorLayout layout) {
     if (shape.empty()) {
-        return Error(ErrorCode::INVALID_ARGUMENT, "Shape cannot be empty");
+        return Error<Tensor>(ErrorCode::INVALID_ARGUMENT, "Shape cannot be empty");
     }
 
     Tensor t;
@@ -67,7 +67,7 @@ Result<Tensor> Tensor::create(const std::vector<std::int64_t>& shape,
     // 分配对齐内存（64 字节对齐，适配 SIMD）
     t.data_ = static_cast<std::uint8_t*>(aligned_alloc(64, t.nbytes_));
     if (!t.data_) {
-        return Error(ErrorCode::OUT_OF_MEMORY,
+        return Error<Tensor>(ErrorCode::OUT_OF_MEMORY,
                      "Failed to allocate " + std::to_string(t.nbytes_) + " bytes");
     }
 
@@ -106,7 +106,7 @@ Result<Tensor> Tensor::from_ion_fd(int ion_fd,
                                       DType dtype,
                                       std::size_t size) {
     (void)ion_fd; (void)shape; (void)dtype; (void)size;
-    return Error(ErrorCode::NOT_IMPLEMENTED,
+    return Error<Tensor>(ErrorCode::NOT_IMPLEMENTED,
                  "Tensor::from_ion_fd() not yet implemented");
 }
 
@@ -118,12 +118,12 @@ Tensor::Tensor(Tensor&& other) noexcept
     , strides_(std::move(other.strides_))
     , ion_fd_(other.ion_fd_)
     , deleter_(other.deleter_)
-    , deleter_ctx_(other.deleter_ctx_) {
+    , deleter_context_(other.deleter_context_) {
     other.data_     = nullptr;
     other.nbytes_   = 0;
     other.ion_fd_   = -1;
     other.deleter_   = nullptr;
-    other.deleter_ctx_ = nullptr;
+    other.deleter_context_ = nullptr;
 }
 
 Tensor& Tensor::operator=(Tensor&& other) noexcept {
@@ -135,13 +135,13 @@ Tensor& Tensor::operator=(Tensor&& other) noexcept {
         strides_       = std::move(other.strides_);
         ion_fd_       = other.ion_fd_;
         deleter_       = other.deleter_;
-        deleter_ctx_   = other.deleter_ctx_;
+        deleter_context_   = other.deleter_context_;
 
         other.data_     = nullptr;
         other.nbytes_   = 0;
         other.ion_fd_   = -1;
         other.deleter_   = nullptr;
-        other.deleter_ctx_ = nullptr;
+        other.deleter_context_ = nullptr;
     }
     return *this;
 }
@@ -154,7 +154,7 @@ Tensor::~Tensor() {
 // ── Tensor::release() ────────────────────────────────────────────
 void Tensor::release() {
     if (data_ && deleter_) {
-        deleter_(deleter_ctx_, data_);
+        deleter_(deleter_context_, data_);
     } else if (data_ && owns_data()) {
         aligned_free(data_);
     }
@@ -162,7 +162,7 @@ void Tensor::release() {
     nbytes_   = 0;
     ion_fd_   = -1;
     deleter_   = nullptr;
-    deleter_ctx_ = nullptr;
+    deleter_context_ = nullptr;
 }
 
 // ── Tensor::quantize() ──────────────────────────────────────────
@@ -171,7 +171,7 @@ Result<void> Tensor::quantize(const QuantParams& params) {
         // FP32 → INT8 量化（逐张量）
         // 公式：q = round(f / scale) + zero_point
         // TODO: 完整实现
-        return Error(ErrorCode::NOT_IMPLEMENTED,
+        return Error<void>(ErrorCode::NOT_IMPLEMENTED,
                      "Tensor::quantize() not yet implemented");
     }
     return Error(ErrorCode::INVALID_ARGUMENT, "Unsupported quantization");
@@ -180,21 +180,24 @@ Result<void> Tensor::quantize(const QuantParams& params) {
 // ── Tensor::dequantize() ───────────────────────────────────────
 Result<Tensor> Tensor::dequantize() const {
     if (!meta_.quant.has_value()) {
-        return Error(ErrorCode::INVALID_ARGUMENT, "Tensor is not quantized");
+        return Error<Tensor>(ErrorCode::INVALID_ARGUMENT, "Tensor is not quantized");
     }
     // TODO: 完整实现
-    return Error(ErrorCode::NOT_IMPLEMENTED,
+    return Error<Tensor>(ErrorCode::NOT_IMPLEMENTED,
                  "Tensor::dequantize() not yet implemented");
 }
 
 // ── Tensor::to_layout() ───────────────────────────────────────
 Result<Tensor> Tensor::to_layout(TensorLayout target) const {
     if (meta_.layout == target) {
-        return Tensor(*this);  // 返回副本
+        // 返回副本（当前布局已匹配，但拷贝构造已禁用）
+        // TODO: 实现真正的副本创建
+        return Error<Tensor>(ErrorCode::NOT_IMPLEMENTED,
+                     "Tensor::to_layout() copy not yet implemented");
     }
     // NCHW → NHWC 转换
     // TODO: 完整实现
-    return Error(ErrorCode::NOT_IMPLEMENTED,
+    return Error<Tensor>(ErrorCode::NOT_IMPLEMENTED,
                  "Tensor::to_layout() not yet implemented");
 }
 

@@ -17,11 +17,14 @@
 
 #include "qoocore/compiler.h"
 
+#include <spdlog/spdlog.h>
+
 #include <fstream>
 #include <vector>
 #include <string>
 #include <cstring>
 #include <iomanip>
+#include <sstream>
 
 namespace qoocore {
 namespace compiler {
@@ -42,7 +45,7 @@ Result<std::string> read_qoomodel(const std::string& file_path) {
     // 1. 打开文件
     std::ifstream ifs(file_path, std::ios::binary | std::ios::ate);
     if (!ifs) {
-        return Error(ErrorCode::FILE_NOT_FOUND,
+        return Error<std::string>(ErrorCode::FILE_NOT_FOUND,
                      "Cannot open .qoomodel file: " + file_path);
     }
 
@@ -50,7 +53,7 @@ Result<std::string> read_qoomodel(const std::string& file_path) {
     ifs.seekg(0, std::ios::beg);
 
     if (file_size < 4 + 64 + 32) {  // Magic + Header + Checksum 最小大小
-        return Error(ErrorCode::FILE_CORRUPTED,
+        return Error<std::string>(ErrorCode::FILE_CORRUPTED,
                      "File too small to be a valid .qoomodel");
     }
 
@@ -58,11 +61,11 @@ Result<std::string> read_qoomodel(const std::string& file_path) {
     std::uint8_t magic[4];
     ifs.read(reinterpret_cast<char*>(magic), 4);
     if (!ifs) {
-        return Error(ErrorCode::FILE_CORRUPTED, "Failed to read magic number");
+        return Error<std::string>(ErrorCode::FILE_CORRUPTED, "Failed to read magic number");
     }
     if (std::memcmp(magic, EXPECTED_MAGIC, 4) != 0) {
-        return Error(ErrorCode::FILE_CORRUPTED,
-                     "Invalid magic number (expected QOO\\x01, got " +
+        return Error<std::string>(ErrorCode::FILE_CORRUPTED,
+                     std::string("Invalid magic number (expected QOO\\x01, got ") +
                      std::to_string(magic[0]) + " " + std::to_string(magic[1]) + " " +
                      std::to_string(magic[2]) + " " + std::to_string(magic[3]));
     }
@@ -71,7 +74,7 @@ Result<std::string> read_qoomodel(const std::string& file_path) {
     std::vector<std::uint8_t> header(64, 0x00);
     ifs.read(reinterpret_cast<char*>(header.data()), 64);
     if (!ifs) {
-        return Error(ErrorCode::FILE_CORRUPTED, "Failed to read header");
+        return Error<std::string>(ErrorCode::FILE_CORRUPTED, "Failed to read header");
     }
 
     // 解析 Header 字段

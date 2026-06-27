@@ -9,7 +9,7 @@
  * 支持平台：
  *   - Linux：/dev/ion 设备（Android / 嵌入式 Linux）
  *   - Linux：DMA-BUF 子系统（现代 Linux 内核）
- *   - 未来：Windows：需要使用 WDM 或 DirectX Shared Memory
+ *   - 其他：提供 stub 实现（返回 NOT_IMPLEMENTED）
  *
  * @copyright QooBot Project
  * @version 0.1.0
@@ -17,17 +17,18 @@
 
 #include "qoocore/memory/ion_allocator.h"
 
-#ifdef QOOCORE_ENABLE_ION
+#include <cstring>
+#include <string>
+
+#if defined(QOOCORE_ENABLE_ION) && defined(__linux__)
 
 #include <fcntl.h>
 #include <sys/ioctl.h>
 #include <sys/mman.h>
 #include <unistd.h>
-#include <cstring>
-#include <string>
+#include <errno.h>
 
 // ── ION 内核接口定义（避免依赖 Linux 内核头文件）─────────────
-// 这些定义需与内核 ion.h 保持一致
 #define ION_IOC_MAGIC 'I'
 
 struct ion_allocation_data {
@@ -38,14 +39,14 @@ struct ion_allocation_data {
     std::intptr_t handle;
 };
 
-#define ION_IOC_ALLOC _IOWR(ION_IOC_MAGIC, 0, struct ion_allocation_data)
-#define ION_IOC_MAP   _IOWR(ION_IOC_MAGIC, 2, struct ion_allocation_data)
+#define ION_IOC_ALLOC  _IOWR(ION_IOC_MAGIC, 0, struct ion_allocation_data)
+#define ION_IOC_MAP    _IOWR(ION_IOC_MAGIC, 2, struct ion_allocation_data)
 #define ION_IOC_SHARE _IOWR(ION_IOC_MAGIC, 4, int)
 
 namespace qoocore {
 namespace memory {
 
-// ── IonAllocator 实现 ────────────────────────────────────────────────
+// ── IonAllocator::Impl ───────────────────────────────────────────
 class IonAllocator::Impl {
 public:
     Impl() : ion_fd(-1) {}
@@ -138,9 +139,9 @@ Result<int> IonAllocator::share_fd(const IonBuffer& buffer) {
 }  // namespace memory
 }  // namespace qoocore
 
-#else  // !QOOCORE_ENABLE_ION
+#else  // !(__linux__ && QOOCORE_ENABLE_ION)
 
-// 未启用 ION 支持时，提供空实现
+// 未启用 ION 支持，或非 Linux 平台时，提供空实现
 namespace qoocore {
 namespace memory {
 
@@ -148,9 +149,9 @@ Result<IonBuffer> IonAllocator::alloc(std::size_t size,
                                         std::size_t align,
                                         IonFlags flags) {
     (void)size; (void)align; (void)flags;
-    return Error(ErrorCode::NOT_IMPLEMENTED,
+    return Error<IonBuffer>(ErrorCode::NOT_IMPLEMENTED,
                  "ION/DMA-BUF support not enabled. "
-                 "Compile with -DQOOCORE_ENABLE_ION=ON");
+                 "Compile with -DQOOCORE_ENABLE_ION=ON (Linux only)");
 }
 
 void IonAllocator::free(IonBuffer& buffer) {
@@ -159,10 +160,11 @@ void IonAllocator::free(IonBuffer& buffer) {
 
 Result<int> IonAllocator::share_fd(const IonBuffer& buffer) {
     (void)buffer;
-    return Error(ErrorCode::NOT_IMPLEMENTED);
+    return Error<int>(ErrorCode::NOT_IMPLEMENTED,
+                     "ION/DMA-BUF not enabled");
 }
 
 }  // namespace memory
 }  // namespace qoocore
 
-#endif  // QOOCORE_ENABLE_ION
+#endif  // QOOCORE_ENABLE_ION && __linux__

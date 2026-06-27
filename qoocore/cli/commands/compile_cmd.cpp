@@ -9,11 +9,15 @@
  * @version 0.1.0
  */
 
+#include "qoocore/compiler.h"
+#include "qoocore/core.h"
 #include <spdlog/spdlog.h>
 
 #include <string>
 #include <vector>
 #include <cstdint>
+
+using namespace qoocore;
 
 // ── compile 命令选项 ────────────────────────────────────────────────
 struct CompileOptions {
@@ -25,6 +29,9 @@ struct CompileOptions {
     bool help{false};
     bool verbose{false};
 };
+
+// ── 前向声明 ──────────────────────────────────────────────────────
+static void print_compile_help();
 
 // ── 解析命令行参数 ──────────────────────────────────────────────────
 static Result<CompileOptions> parse_compile_args(int argc, char** argv) {
@@ -51,17 +58,16 @@ static Result<CompileOptions> parse_compile_args(int argc, char** argv) {
 
     if (opts.help) {
         print_compile_help();
-        return Error(ErrorCode::CANCELLED, "Help displayed");
+        return Error<CompileOptions>(ErrorCode::CANCELLED, "Help displayed");
     }
 
     if (opts.input_path.empty()) {
-        return Error(ErrorCode::INVALID_ARGUMENT,
-                     "Missing input file (-i/--input)");
+        return Error<CompileOptions>(ErrorCode::INVALID_ARGUMENT,
+                                     "Missing input file (-i/--input)");
     }
     if (opts.output_path.empty()) {
         // 自动生成输出路径
         opts.output_path = opts.input_path;
-        // 替换扩展名
         auto pos = opts.output_path.find_last_of('.');
         if (pos != std::string::npos) {
             opts.output_path = opts.output_path.substr(0, pos);
@@ -88,7 +94,6 @@ qoocore compile — 编译模型为 .qoomodel 格式
   --backend <name>       目标后端（npu_qnn / npu_bpu / npu_rknn / gpu_cuda）
   --quant <scheme>       量化方案（int8_per_tensor / int8_per_channel / int4 / fp16）
   --opt-level <0-3>      优化等级（默认 2）
-  --calibration-data <path> 量化校准数据集路径
   --verbose                详细日志
   -h, --help              显示帮助
 
@@ -111,7 +116,7 @@ int cmd_compile(int argc, char** argv) {
                        opts_result.error().message);
         return 1;
     }
-    auto opts = std::move(opts_result.value());
+    auto opts = std::move(opts_result).value();
 
     if (opts.verbose) {
         spdlog::set_level(spdlog::level::debug);
@@ -134,7 +139,7 @@ int cmd_compile(int argc, char** argv) {
     CompilationConfig config;
     config.source_model_path = opts.input_path;
     config.output_path      = opts.output_path;
-    config.opt_level       = static_cast<OptimizationLevel>(opts.opt_level);
+    config.opt_level        = static_cast<OptimizationLevel>(opts.opt_level);
 
     if (opts.quant_scheme == "int8_per_tensor") {
         QuantizationConfig qc;
@@ -146,7 +151,7 @@ int cmd_compile(int argc, char** argv) {
     spdlog::info("Starting compilation...");
     auto result = compiler->compile(config,
         [](float progress, const std::string& msg) {
-            spdlog::info("  [{:.1f}%] {}", progress * 100, msg);
+            spdlog::info("  [{:.1f}%] {}", progress * 100.0f, msg);
         });
 
     if (!result.ok()) {
@@ -157,14 +162,14 @@ int cmd_compile(int argc, char** argv) {
     }
 
     auto& r = result.value();
-    spdlog::info("✅ Compilation successful!");
+    spdlog::info("Compilation successful!");
     spdlog::info("   Output:  {}", r.output_path);
-    spdlog::info("   Size:    {} bytes (original) → {} bytes (compiled)",
+    spdlog::info("   Size:    {} bytes (original) -> {} bytes (compiled)",
                    r.size_info.original_size_bytes,
                    r.size_info.compiled_size_bytes);
-    if (r.accuracy_info.top1_accuracy.has_value()) {
+    if (r.accuracy_info.top1_acc.has_value()) {
         spdlog::info("   Accuracy: Top-1 = {:.3f}",
-                       r.accuracy_info.top1_accuracy.value());
+                       r.accuracy_info.top1_acc.value());
     }
 
     return 0;

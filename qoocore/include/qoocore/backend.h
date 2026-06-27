@@ -19,6 +19,7 @@
 #include "core.h"
 #include "tensor.h"
 
+#include <future>
 #include <memory>
 #include <string>
 #include <vector>
@@ -196,7 +197,7 @@ public:
         const std::vector<int>& ion_fds) {
         (void)model_handle;
         (void)ion_fds;
-        return Error(ErrorCode::NOT_IMPLEMENTED,
+        return Error<std::vector<Tensor>>(ErrorCode::NOT_IMPLEMENTED,
                      "Zero-copy inference not supported by " + name());
     }
 

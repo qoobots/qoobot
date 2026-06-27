@@ -18,6 +18,7 @@
 #include "tensor.h"  // 复用 DType, QuantParams
 
 #include <chrono>
+#include <functional>
 #include <memory>
 #include <optional>
 #include <string>

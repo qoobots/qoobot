@@ -8,11 +8,9 @@
 
 #include "qoocore/core.h"
 
-#include <iostream>
-
 namespace qoocore {
 
-// ── ErrorCode → 可读性字符串 ──────────────────────────────────────────────
+// ── ErrorCode → 可读性字符串 ──────────────────────────────────────
 const char* error_code_to_string(ErrorCode code) noexcept {
     switch (code) {
         case ErrorCode::OK:                  return "OK";
@@ -53,13 +51,6 @@ const char* error_code_to_string(ErrorCode code) noexcept {
         case ErrorCode::INVALID_DTYPE:       return "INVALID_DTYPE";
         default:                            return "UNKNOWN_ERROR_CODE";
     }
-}
-
-// ── ErrorInfo 输出支持 ────────────────────────────────────────────────────
-std::ostream& operator<<(std::ostream& os,
-                         const Result<void>::ErrorInfo& err) {
-    return os << "[" << error_code_to_string(err.code) << "] "
-              << err.message;
 }
 
 }  // namespace qoocore

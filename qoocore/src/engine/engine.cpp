@@ -74,12 +74,16 @@ Result<void> InferenceEngine::init(const EngineConfig& config) {
                   QOOCORE_VERSION_STRING);
 
     // 探测硬件能力
-    hardware::HardwareProfile hw_profile;
-    hardware::HardwareProber::probe(hw_profile);
-    spdlog::info("Probed {} NPU(s), {} GPU(s), {} MB memory",
-                  hw_profile.npu_candidates.size(),
-                  hw_profile.gpu_candidates.size(),
-                  hw_profile.total_memory_mb);
+    auto probe_result = hardware::HardwareProber::probe();
+    if (probe_result.ok()) {
+        const auto& hw_profile = probe_result.value();
+        spdlog::info("Probed {} NPU(s), {} GPU(s), {} bytes memory",
+                      hw_profile.npu_candidates.size(),
+                      hw_profile.gpu_candidates.size(),
+                      hw_profile.total_memory_bytes);
+    } else {
+        spdlog::warn("Hardware probe failed: {}", probe_result.error().message);
+    }
 
     // TODO: 根据硬件能力自动注册后端
     // 示例：若探测到 Qualcomm NPU，注册 QNN 后端
@@ -150,7 +154,7 @@ Result<ModelHandle> InferenceEngine::load_model(
     impl_->models[handle] = std::move(model);
 
     spdlog::info("Model loaded, handle={}", handle);
-    return Ok(handle);
+    return handle;  // 隐式构造 Result<ModelHandle>
 }
 
 Result<void> InferenceEngine::unload_model(ModelHandle handle) {
@@ -193,7 +197,7 @@ Result<ModelInfo> InferenceEngine::get_model_info(ModelHandle handle) const {
         return Error<ModelInfo>(ErrorCode::MODEL_NOT_LOADED,
                                    "Model handle not found");
     }
-    return Ok(it->second.info);
+    return it->second.info;  // 隐式构造 Result<ModelInfo>
 }
 
 std::vector<ModelHandle> InferenceEngine::list_loaded_models() const {
@@ -228,9 +232,9 @@ Result<Tensor> InferenceEngine::infer(ModelHandle handle,
     // 当前返回 dummy 输出
     auto output = Tensor::create({1, 1000}, DType::FLOAT32);
     if (!output.ok()) {
-        return Error<Tensor>(ErrorCode::MEMORY_ERROR, "Failed to create output tensor");
+        return Error<Tensor>(ErrorCode::OUT_OF_MEMORY, "Failed to create output tensor");
     }
-    return Ok(std::move(*output));
+    return std::move(output).value();  // 隐式构造 Result<Tensor>
 }
 
 Result<std::vector<Tensor>> InferenceEngine::infer_multi_input(
@@ -246,7 +250,7 @@ std::future<Result<Tensor>> InferenceEngine::infer_async(
     const Tensor& input) {
     // 按值捕获 input，避免异步执行时引用失效
     return std::async(std::launch::async,
-                      [this, handle, input]() { return infer(handle, input); });
+                      [this, handle, &input]() { return infer(handle, input); });
 }
 
 // ────────────────────────────────────────────────────────────────────────────
@@ -290,7 +294,25 @@ Result<BackendPtr> InferenceEngine::get_backend(BackendType type) const {
                                     std::string("Backend ") +
                                     backend_to_string(type) + " not available");
     }
-    return Ok(it->second);
+    return it->second;  // 隐式构造 Result<BackendPtr>
+}
+
+// ────────────────────────────────────────────────────────────────────────────
+//  编译器 / 剖析器接口（stub）
+// ────────────────────────────────────────────────────────────────────────────
+ModelCompiler* InferenceEngine::compiler() {
+    // TODO: 实现运行时编译器集成
+    return nullptr;
+}
+
+std::string InferenceEngine::profiling_summary() const {
+    // TODO: 实现性能剖析器
+    return R"({"profiling": "not_implemented"})";
+}
+
+Result<std::string> InferenceEngine::export_profiling_report() const {
+    // TODO: 实现性能报告导出
+    return std::string(R"({"profiling_report": "not_implemented"})");
 }
 
 // ────────────────────────────────────────────────────────────────────────────
