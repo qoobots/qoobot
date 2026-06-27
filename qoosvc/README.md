@@ -1,5 +1,8 @@
 # qoosvc — 人形机器人系统服务
 
+> **运行位置**：机器人端（机器人计算平台），运行在 qoobrain 之上，**非云端服务**
+> **技术栈**：C++17 + Python 3.11 + CMake，通过 DDS/iceoryx2 与 qoobrain 通信
+>
 > 机器人的"Siri + MapKit + ARKit + HomeKit + HealthKit"：
 > 语音助手、导航服务、空间理解、多机互联、自诊断。
 
