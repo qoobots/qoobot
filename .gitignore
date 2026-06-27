@@ -72,3 +72,5 @@ brain_proto/gen/
 /qoobody/mechanical/.codebuddy/
 /qoobody/mechanical/.workbuddy/
 /qoobody/mechanical/mujoco/Hardware-main/
+.codebuddy/
+.workbuddy/
