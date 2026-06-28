@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.22)
 
 add_library(qoosvc_navigation SHARED
     navigation_service.cpp
+    navigation_multifloor_narrow.cpp
 )
 
 target_include_directories(qoosvc_navigation PRIVATE

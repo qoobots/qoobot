@@ -121,10 +121,69 @@ public:
 
     Result<DirectionOfArrival> estimate_direction(const AudioBuffer& audio);
 
+    // --- Real-time Translation ---
+
+    /**
+     * Translate text in real-time. Supports streaming for live caption display.
+     */
+    Result<TranslationResult> translate_text(const std::string& text,
+                                               const std::string& source_language,
+                                               const std::string& target_language);
+
+    /**
+     * Streaming translation with partial result callbacks (for live captions).
+     */
+    Result<void> translate_stream(const AudioBuffer& audio,
+                                    const std::string& source_language,
+                                    const std::string& target_language,
+                                    std::function<void(const TranslationResult&)> callback);
+
+    /**
+     * Translate speech directly: ASR + translation + TTS pipeline.
+     */
+    Result<void> translate_speech(const AudioBuffer& audio,
+                                    const std::string& source_language,
+                                    const std::string& target_language);
+
+    /**
+     * Set supported languages for translation.
+     */
+    Result<void> set_translation_languages(const std::vector<std::string>& languages);
+
+    // --- Offline Voice ---
+
+    /**
+     * Enable/disable offline voice mode.
+     * When enabled, uses local models without network dependency.
+     */
+    Result<void> set_offline_mode(bool enabled);
+
+    /**
+     * Register an offline voice command with trigger phrases.
+     */
+    Result<void> register_offline_command(const OfflineCommand& command);
+
+    /**
+     * Unregister an offline voice command.
+     */
+    Result<void> unregister_offline_command(const std::string& command_id);
+
+    /**
+     * Get all registered offline commands.
+     */
+    std::vector<OfflineCommand> get_offline_commands() const;
+
+    /**
+     * Process audio with offline-only pipeline (no network).
+     * Returns the matched offline command intent, if any.
+     */
+    Result<NLUResult> process_offline(const AudioBuffer& audio);
+
     // --- Service Lifecycle ---
 
     bool is_wake_word_active() const { return wake_word_enabled_; }
     bool is_listening() const { return listening_; }
+    bool is_offline_mode() const { return offline_mode_; }
 
 protected:
     Result<void> on_initialize() override;
@@ -137,6 +196,7 @@ private:
     VoiceConfig config_;
     bool wake_word_enabled_ = true;
     bool listening_ = false;
+    bool offline_mode_ = false;
 };
 
 } // namespace qoosvc::voice

@@ -101,6 +101,42 @@ struct Zone {
 };
 
 /**
+ * Floor level information for multi-floor navigation.
+ */
+struct FloorInfo {
+    int32_t floor_id = 0;               // Floor index (0 = ground)
+    std::string floor_name;             // Human-readable name (e.g., "1F", "B1")
+    double floor_height = 0.0;          // Height relative to ground (meters)
+    std::string map_file_path;          // Floor-specific map file
+    std::vector<Pose3D> elevator_entrances;  // Elevator entry positions
+    std::vector<Pose3D> stair_entrances;     // Stair entry positions
+};
+
+/**
+ * Elevator interaction state.
+ */
+enum class ElevatorState : uint8_t {
+    WAITING_FOR_ELEVATOR,
+    ENTERING_ELEVATOR,
+    INSIDE_ELEVATOR,
+    EXITING_ELEVATOR,
+    ELEVATOR_ERROR
+};
+
+/**
+ * Narrow passage navigation config.
+ */
+struct NarrowPassageConfig {
+    double narrow_width_threshold = 0.8;    // meters, below this is "narrow"
+    double robot_normal_width = 0.65;       // meters, robot width in normal pose
+    double robot_narrow_width = 0.45;       // meters, robot width in slim/sideways pose
+    double narrow_speed_factor = 0.3;       // Speed reduction in narrow passages
+    double side_slip_tolerance = 0.05;      // meters, lateral clearance tolerance
+    bool enable_contraction = true;         // Whether robot can contract joints
+    std::vector<double> contraction_joint_angles;  // Target joint angles for slim pose
+};
+
+/**
  * Navigation configuration.
  */
 struct NavigationConfig {
@@ -113,6 +149,10 @@ struct NavigationConfig {
     std::string global_planner = "a_star";
     std::string local_planner = "teb";
     bool use_dynamic_obstacle_avoidance = true;
+    // Multi-floor
+    bool enable_multi_floor = false;
+    std::vector<FloorInfo> floors;
+    NarrowPassageConfig narrow_passage;
 };
 
 } // namespace qoosvc::navigation

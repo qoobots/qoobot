@@ -3,6 +3,7 @@ cmake_minimum_required(VERSION 3.22)
 # Voice interaction service library
 add_library(qoosvc_voice SHARED
     voice_service.cpp
+    voice_translation.cpp
 )
 
 target_include_directories(qoosvc_voice PRIVATE

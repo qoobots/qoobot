@@ -71,6 +71,30 @@ struct SpeakerInfo {
 };
 
 /**
+ * Language translation result.
+ */
+struct TranslationResult {
+    std::string source_text;            // Original text
+    std::string translated_text;        // Translated text
+    std::string source_language;        // Source BCP 47 language tag
+    std::string target_language;        // Target BCP 47 language tag
+    float confidence = 0.0f;
+    bool is_streaming = false;          // True if partial streaming result
+    uint64_t timestamp_us = 0;
+};
+
+/**
+ * Offline voice command definition.
+ */
+struct OfflineCommand {
+    std::string command_id;             // Unique command identifier
+    std::vector<std::string> phrases;   // Trigger phrases (e.g., ["stop", "停止", "止まれ"])
+    std::string intent;                 // Mapped intent
+    std::map<std::string, std::string> slots;  // Default slot values
+    float threshold = 0.75f;            // Detection confidence threshold
+};
+
+/**
  * Voice service configuration.
  */
 struct VoiceConfig {
@@ -91,6 +115,15 @@ struct VoiceConfig {
     // TTS
     std::string tts_model_path;
     TTSConfig default_tts_config;
+
+    // Translation
+    std::string translation_model_path;
+    std::vector<std::string> supported_languages = {"zh-CN", "en-US", "ja-JP"};
+
+    // Offline voice
+    bool offline_mode = false;
+    std::string offline_asr_model_path;
+    std::string offline_commands_path;  // Path to offline command set JSON
 };
 
 } // namespace qoosvc::voice

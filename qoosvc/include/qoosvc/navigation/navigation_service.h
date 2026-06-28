@@ -124,6 +124,63 @@ public:
      */
     Result<void> stop_exploration();
 
+    // --- Multi-Floor Navigation ---
+
+    /**
+     * Register a floor with its map and access points (elevator/stair).
+     */
+    Result<void> register_floor(const FloorInfo& floor);
+
+    /**
+     * Remove a registered floor.
+     */
+    Result<void> remove_floor(int32_t floor_id);
+
+    /**
+     * Get all registered floors.
+     */
+    std::vector<FloorInfo> get_floors() const;
+
+    /**
+     * Navigate to a goal on a different floor.
+     * Plans cross-floor path: floor traversal → elevator/stair → target floor.
+     */
+    Result<void> navigate_to_floor(const NavigationGoal& goal, int32_t target_floor_id);
+
+    /**
+     * Get current floor ID based on robot position.
+     */
+    int32_t get_current_floor() const;
+
+    /**
+     * Get current elevator interaction state.
+     */
+    ElevatorState get_elevator_state() const;
+
+    // --- Narrow Passage ---
+
+    /**
+     * Configure narrow passage behavior.
+     */
+    Result<void> configure_narrow_passage(const NarrowPassageConfig& config);
+
+    /**
+     * Check if the path ahead is a narrow passage (below threshold width).
+     */
+    bool is_narrow_passage_ahead(const NavigationPath& path) const;
+
+    /**
+     * Plan a path optimized for narrow passage traversal.
+     * Uses side-slip / contraction strategies when needed.
+     */
+    Result<NavigationPath> plan_narrow_passage_path(const NavigationGoal& goal);
+
+    /**
+     * Execute narrow passage traversal with contraction.
+     * Robot adjusts joint positions for minimum width.
+     */
+    Result<void> execute_narrow_passage(const NavigationPath& path);
+
     // --- Recovery ---
 
     /**

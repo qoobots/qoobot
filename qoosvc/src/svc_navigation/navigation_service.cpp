@@ -19,6 +19,17 @@ struct NavigationService::Impl {
     std::function<void(const NavigationStatus&)> status_callback;
     bool navigating = false;
     bool exploring = false;
+
+    // Multi-floor
+    std::vector<FloorInfo> floors;
+    ElevatorState elevator_state = ElevatorState::WAITING_FOR_ELEVATOR;
+    int32_t target_floor_id = 0;
+    NavigationGoal pending_goal_on_target_floor;
+
+    // Narrow passage
+    bool in_narrow_passage = false;
+    bool robot_contracted = false;
+
     mutable std::mutex mutex;
 };
 

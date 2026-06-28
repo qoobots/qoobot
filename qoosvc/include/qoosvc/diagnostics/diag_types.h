@@ -99,6 +99,57 @@ struct MonitorSample {
 };
 
 /**
+ * Log entry from a system log source.
+ */
+struct LogEntry {
+    enum class Source : uint8_t {
+        KERNEL,         // dmesg / kernel ring buffer
+        SYSTEMD,        // journald
+        APPLICATION,    // QooBot application logs
+        ROS2,           // ROS 2 node logs
+        CRASH           // Core dump / crash reports
+    };
+
+    Source source = Source::APPLICATION;
+    DiagSeverity severity = DiagSeverity::INFO;
+    std::string component;              // Component/module name
+    std::string message;                // Log message
+    std::string file;                   // Source file (if available)
+    int line = 0;                       // Source line (if available)
+    uint64_t timestamp_us = 0;
+    int32_t pid = 0;                    // Process ID
+    std::string thread_name;
+};
+
+/**
+ * Correlated event from log analysis.
+ */
+struct CorrelatedEvent {
+    std::string event_id;               // Unique event identifier
+    std::string root_cause;             // Root cause description
+    std::vector<LogEntry> related_logs; // Logs correlated to this event
+    DiagSeverity severity = DiagSeverity::INFO;
+    double correlation_score = 0.0;     // 0.0 - 1.0 confidence of correlation
+    uint64_t first_seen_us = 0;
+    uint64_t last_seen_us = 0;
+    std::string recommendation;         // Suggested action
+};
+
+/**
+ * Log diagnostics analysis result.
+ */
+struct LogAnalysisResult {
+    uint64_t analysis_time_us = 0;
+    uint64_t log_range_start_us = 0;
+    uint64_t log_range_end_us = 0;
+    int total_logs_analyzed = 0;
+    int anomalies_found = 0;
+    std::vector<CorrelatedEvent> correlated_events;
+    std::vector<DiagCheck> issues;
+    double system_stability_score = 100.0;  // 0-100
+};
+
+/**
  * Diagnostics configuration.
  */
 struct DiagnosticsConfig {
@@ -106,7 +157,14 @@ struct DiagnosticsConfig {
     bool enable_continuous_monitoring = true;
     uint64_t monitoring_interval_us = 1'000'000;  // 1 second
     bool enable_fault_prediction = true;
+    bool enable_log_diagnostics = false;
     std::string health_report_path = "/var/lib/qoosvc/diagnostics/";
+    std::vector<std::string> log_sources = {
+        "/var/log/syslog",
+        "/var/log/qoosvc/",
+        "journald"
+    };
+    std::string crash_dump_path = "/var/crash/";
 };
 
 } // namespace qoosvc::diagnostics

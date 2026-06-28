@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.22)
 
 add_library(qoosvc_diagnostics SHARED
     diagnostics_service.cpp
+    log_diagnostics.cpp
 )
 
 target_include_directories(qoosvc_diagnostics PRIVATE

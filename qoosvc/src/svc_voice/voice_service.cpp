@@ -30,6 +30,12 @@ struct VoiceService::Impl {
     };
     std::vector<SpeakerEntry> speaker_db;
 
+    // Offline voice commands
+    std::vector<OfflineCommand> offline_commands;
+
+    // Translation state
+    std::vector<std::string> supported_translation_languages;
+
     // Thread safety
     mutable std::mutex mutex;
 

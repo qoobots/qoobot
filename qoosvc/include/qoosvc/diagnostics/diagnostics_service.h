@@ -105,6 +105,36 @@ public:
      */
     Result<void> record_calibration(const std::string& sensor_name);
 
+    // --- Log Diagnostics ---
+
+    /**
+     * Collect logs from all configured sources (kernel, systemd, app, ROS2, crash).
+     */
+    Result<std::vector<LogEntry>> collect_logs(uint64_t start_time_us,
+                                                 uint64_t end_time_us);
+
+    /**
+     * Analyze collected logs for anomalies, patterns, and root causes.
+     */
+    Result<LogAnalysisResult> analyze_logs(const std::vector<LogEntry>& logs);
+
+    /**
+     * Run full log diagnostics: collect + analyze + correlate.
+     * Searches for crash reports, kernel panics, and system event correlations.
+     */
+    Result<LogAnalysisResult> run_log_diagnostics(uint64_t start_time_us,
+                                                    uint64_t end_time_us);
+
+    /**
+     * Collect crash reports (core dumps) and extract stack traces.
+     */
+    Result<std::vector<LogEntry>> collect_crash_reports();
+
+    /**
+     * Correlate a crash with preceding system events for root cause analysis.
+     */
+    Result<CorrelatedEvent> analyze_crash(const LogEntry& crash_log);
+
     // --- Recovery ---
 
     /**
