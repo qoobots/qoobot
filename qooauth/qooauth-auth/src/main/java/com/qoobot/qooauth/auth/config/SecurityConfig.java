@@ -48,6 +48,9 @@ public class SecurityConfig {
                     "/api/v1/auth/device-certs/crl/delta",
                     "/api/v1/auth/device-certs/validate/**",
                     "/api/v1/auth/device-certs/bootstrap",
+                    // Device Activations — challenge/verify called by unauthenticated devices
+                    "/api/v1/auth/device-activations/*/challenge",
+                    "/api/v1/auth/device-activations/*/verify",
                     "/.well-known/**",
                     "/oauth2/**",
                     "/actuator/health",

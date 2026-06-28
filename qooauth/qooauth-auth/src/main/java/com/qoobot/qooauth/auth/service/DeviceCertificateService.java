@@ -347,6 +347,132 @@ public class DeviceCertificateService {
     }
 
     /**
+     * Issue a certificate using a known device public key (PEM) instead of CSR.
+     * Used during device activation when the device's public key is already known
+     * from the bootstrap certificate.
+     */
+    @Transactional
+    public IssuedCertificate issueCertificateFromPublicKey(String deviceId, String userId,
+                                                            String publicKeyPem, String subjectDn,
+                                                            String keyAlgorithm, Integer validityDays) {
+        try {
+            Security.addProvider(new BouncyCastleProvider());
+
+            DeviceCaConfig ca = getOrInitializeCa();
+            PrivateKey caPrivateKey = decryptPrivateKey(ca.getCaPrivateKeyEnc(), ca.getKeyAlgorithm());
+
+            // Parse public key from PEM
+            String pubKeyBody = publicKeyPem
+                    .replace("-----BEGIN PUBLIC KEY-----", "")
+                    .replace("-----END PUBLIC KEY-----", "")
+                    .replaceAll("\\s", "");
+            byte[] pubKeyBytes = Base64.getDecoder().decode(pubKeyBody);
+            X509EncodedKeySpec keySpec = new X509EncodedKeySpec(pubKeyBytes);
+            java.security.KeyFactory keyFactory = java.security.KeyFactory.getInstance("EC", "BC");
+            PublicKey devicePublicKey = keyFactory.generatePublic(keySpec);
+
+            // Parse subject DN
+            X500Name subjectDN = new X500Name(subjectDn);
+
+            // Build issuer DN from CA cert
+            byte[] caCertBytes = Base64.getDecoder().decode(
+                    ca.getCaCertPem()
+                            .replace("-----BEGIN CERTIFICATE-----", "")
+                            .replace("-----END CERTIFICATE-----", "")
+                            .replaceAll("\\s", ""));
+            X509CertificateHolder caCertHolder = new X509CertificateHolder(caCertBytes);
+            X500Name issuerDN = caCertHolder.getSubject();
+
+            // Allocate serial number
+            long serialNumber = ca.getSerialCounter();
+            ca.setSerialCounter(serialNumber + 1);
+
+            int actualValidityDays = Math.min(
+                    validityDays != null ? validityDays : ca.getDefaultValidityDays(),
+                    ca.getMaxValidityDays());
+
+            Instant notBefore = Instant.now();
+            Instant notAfter = notBefore.plus(actualValidityDays, ChronoUnit.DAYS);
+
+            // Build certificate
+            X509v3CertificateBuilder certBuilder = new JcaX509v3CertificateBuilder(
+                    issuerDN, BigInteger.valueOf(serialNumber),
+                    Date.from(notBefore), Date.from(notAfter),
+                    subjectDN, devicePublicKey);
+
+            certBuilder.addExtension(Extension.basicConstraints, false,
+                    new BasicConstraints(false));
+            certBuilder.addExtension(Extension.keyUsage, true,
+                    new KeyUsage(KeyUsage.digitalSignature | KeyUsage.keyEncipherment));
+
+            // Authority Key Identifier
+            byte[] caSki = new org.bouncycastle.cert.jcajce.JcaX509ExtensionUtils()
+                    .createAuthorityKeyIdentifier(caCertHolder);
+            certBuilder.addExtension(Extension.authorityKeyIdentifier, false,
+                    new AuthorityKeyIdentifier(caSki));
+
+            // Subject Key Identifier
+            byte[] ski = new org.bouncycastle.cert.jcajce.JcaX509ExtensionUtils()
+                    .createSubjectKeyIdentifier(devicePublicKey);
+            certBuilder.addExtension(Extension.subjectKeyIdentifier, false, new SubjectKeyIdentifier(ski));
+
+            // Sign
+            ContentSigner signer = new JcaContentSignerBuilder(SIGNATURE_ALGORITHM)
+                    .setProvider("BC")
+                    .build(caPrivateKey);
+
+            X509CertificateHolder certHolder = certBuilder.build(signer);
+            X509Certificate x509Cert = new JcaX509CertificateConverter()
+                    .setProvider("BC")
+                    .getCertificate(certHolder);
+
+            String certPem = pemEncode("CERTIFICATE", x509Cert.getEncoded());
+            String fingerprint = computeSha256Fingerprint(x509Cert.getEncoded());
+
+            String serialHex = BigInteger.valueOf(serialNumber).toString(16);
+            String certId = IdGenerator.generateDeviceCertId();
+
+            DeviceCertificate cert = new DeviceCertificate();
+            cert.setCertId(certId);
+            cert.setUserId(userId);
+            cert.setDeviceId(deviceId);
+            cert.setSerialNumber(serialHex);
+            cert.setSubjectDn(subjectDn);
+            cert.setIssuerDn(issuerDN.toString());
+            cert.setPublicKeyPem(pemEncode("PUBLIC KEY", devicePublicKey.getEncoded()));
+            cert.setCertPem(certPem);
+            cert.setFingerprintSha256(fingerprint);
+            cert.setKeyAlgorithm(keyAlgorithm != null ? keyAlgorithm : "ECDSA_P256");
+            cert.setNotBefore(notBefore);
+            cert.setNotAfter(notAfter);
+            cert.setState("ACTIVE");
+            cert.setAutoRenew(true);
+            cert.setRenewThresholdDays(30);
+            cert.setCreatedAt(Instant.now());
+            cert.setUpdatedAt(Instant.now());
+
+            cert = certRepo.save(cert);
+            ca.setUpdatedAt(Instant.now());
+            caConfigRepo.save(ca);
+
+            log.info("Device certificate issued from public key: certId={}, deviceId={}, serial={}",
+                    certId, deviceId, serialHex);
+
+            return new IssuedCertificate(
+                    certId, serialHex, subjectDn, issuerDN.toString(),
+                    certPem, pemEncode("PUBLIC KEY", devicePublicKey.getEncoded()),
+                    fingerprint, notBefore, notAfter, cert.getCreatedAt());
+
+        } catch (AuthException e) {
+            throw e;
+        } catch (Exception e) {
+            log.error("Failed to issue device certificate from public key", e);
+            throw new AuthException(ErrorCodes.DEVICE_CERT_ISSUE_FAILED,
+                    "Failed to issue device certificate: " + e.getMessage());
+        }
+    }
+
+    /**
      * Issue a self-signed bootstrap certificate for initial device provisioning.
      * Limited validity (7 days) and restricted to device activation flow only.
      */
@@ -787,6 +913,25 @@ public class DeviceCertificateService {
     // ========================================================================
     // DTOs
     // ========================================================================
+
+    /**
+     * Compute SHA-256 fingerprint of DER-encoded certificate.
+     */
+    private String computeSha256Fingerprint(byte[] certDer) {
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            byte[] hash = digest.digest(certDer);
+            StringBuilder hexString = new StringBuilder();
+            for (byte b : hash) {
+                String hex = Integer.toHexString(0xff & b);
+                if (hex.length() == 1) hexString.append('0');
+                hexString.append(hex);
+            }
+            return hexString.toString();
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException("SHA-256 not available", e);
+        }
+    }
 
     public record IssuedCertificate(
             String certId,

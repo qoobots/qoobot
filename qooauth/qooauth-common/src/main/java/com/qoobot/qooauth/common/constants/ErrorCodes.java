@@ -68,6 +68,15 @@ public final class ErrorCodes {
     public static final String DEVICE_CERT_NOT_YET_VALID = "DEV_6012";
     public static final String DEVICE_CSR_INVALID = "DEV_6013";
     public static final String DEVICE_KEY_ALGORITHM_INVALID = "DEV_6014";
+    public static final String DEVICE_ACTIVATION_NOT_FOUND = "DEV_6015";
+    public static final String DEVICE_ACTIVATION_IN_PROGRESS = "DEV_6016";
+    public static final String DEVICE_ACTIVATION_EXPIRED = "DEV_6017";
+    public static final String DEVICE_ACTIVATION_STATE_INVALID = "DEV_6018";
+    public static final String DEVICE_ACTIVATION_MAX_ATTEMPTS = "DEV_6019";
+    public static final String DEVICE_ACTIVATION_ALREADY_REVOKED = "DEV_6020";
+    public static final String DEVICE_CHALLENGE_NOT_FOUND = "DEV_6021";
+    public static final String DEVICE_CHALLENGE_STATE_INVALID = "DEV_6022";
+    public static final String DEVICE_CHALLENGE_EXPIRED = "DEV_6023";
 
     // === General (GEN_9xxx) ===
     public static final String INTERNAL_ERROR = "GEN_9001";

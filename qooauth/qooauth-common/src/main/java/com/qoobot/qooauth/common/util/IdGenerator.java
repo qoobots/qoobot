@@ -59,6 +59,14 @@ public final class IdGenerator {
         return "ca_" + generateRandom();
     }
 
+    public static String generateActivationId() {
+        return "act_" + generateRandom();
+    }
+
+    public static String generateActivationChallengeId() {
+        return "ach_" + generateRandom();
+    }
+
     private static String generateRandom() {
         byte[] bytes = new byte[RANDOM_BYTES];
         RANDOM.nextBytes(bytes);
