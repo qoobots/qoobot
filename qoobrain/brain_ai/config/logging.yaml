@@ -1,0 +1,95 @@
+# brain_ai/config/logging.yaml — 日志配置
+# 基于 Python logging 模块的日志配置文件。
+# 支持控制台、文件、JSON 三种输出格式。
+
+version: 1
+disable_existing_loggers: false
+
+formatters:
+  console:
+    format: "[%(asctime)s] %(levelname)-8s %(name)-25s %(message)s"
+    datefmt: "%Y-%m-%d %H:%M:%S"
+  file:
+    format: "%(asctime)s | %(levelname)-8s | %(name)-30s | %(filename)s:%(lineno)d | %(message)s"
+    datefmt: "%Y-%m-%d %H:%M:%S.%f"
+  json:
+    format: "%(message)s"
+    class: pythonjsonlogger.jsonlogger.JsonFormatter
+    datefmt: "%Y-%m-%dT%H:%M:%S.%fZ"
+
+handlers:
+  console:
+    class: logging.StreamHandler
+    level: INFO
+    formatter: console
+    stream: ext://sys.stdout
+  file_info:
+    class: logging.handlers.RotatingFileHandler
+    level: DEBUG
+    formatter: file
+    filename: logs/brain_ai.log
+    maxBytes: 10485760     # 10 MB
+    backupCount: 5
+    encoding: utf-8
+  file_error:
+    class: logging.handlers.RotatingFileHandler
+    level: WARNING
+    formatter: file
+    filename: logs/brain_ai_error.log
+    maxBytes: 10485760
+    backupCount: 3
+    encoding: utf-8
+  file_json:
+    class: logging.handlers.RotatingFileHandler
+    level: INFO
+    formatter: json
+    filename: logs/brain_ai.jsonl
+    maxBytes: 52428800     # 50 MB
+    backupCount: 10
+    encoding: utf-8
+
+loggers:
+  brain_ai:
+    level: DEBUG
+    handlers: [console, file_info, file_error]
+    propagate: false
+  brain_ai.llm_agent:
+    level: DEBUG
+    handlers: [console, file_info, file_error]
+    propagate: false
+  brain_ai.perception:
+    level: INFO
+    handlers: [console, file_info]
+    propagate: false
+  brain_ai.planner:
+    level: INFO
+    handlers: [console, file_info]
+    propagate: false
+  brain_ai.vla_agent:
+    level: DEBUG
+    handlers: [console, file_info, file_error]
+    propagate: false
+  brain_ai.model_runtime:
+    level: WARNING
+    handlers: [console, file_error]
+    propagate: false
+  brain_ai.knowledge:
+    level: INFO
+    handlers: [console, file_info]
+    propagate: false
+  brain_ai.grpc_server:
+    level: INFO
+    handlers: [console, file_info, file_error]
+    propagate: false
+  brain_ai.ws_server:
+    level: INFO
+    handlers: [console, file_info]
+    propagate: false
+  brain_ai.voice_io:
+    level: DEBUG
+    handlers: [console, file_info]
+    propagate: false
+
+root:
+  level: WARNING
+  handlers: [console]

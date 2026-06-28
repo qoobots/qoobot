@@ -1,0 +1,140 @@
+# brain_ai/config/models.yaml — AI 模型配置
+# 定义 brain_ai 引擎中所有 AI 模型的运行时参数。
+# 与 brain_models/model_registry.json 配合使用（注册表管理模型路径，此文件管理运行时参数）。
+
+# ── LLM 模型 ────────────────────────────────────────────
+llm:
+  qwen2.5-7b:
+    model_id: "Qwen/Qwen2.5-7B-Instruct"
+    backend: "tensorrt_llm"          # tensorrt_llm | vllm | llama_cpp | onnx
+    max_tokens: 2048
+    temperature: 0.1
+    top_p: 0.9
+    top_k: 40
+    repetition_penalty: 1.05
+    context_length: 32768
+    gpu_memory_fraction: 0.7
+    batch_size: 1
+
+  qwen2.5-3b:
+    model_id: "Qwen/Qwen2.5-3B-Instruct"
+    backend: "llama_cpp"
+    max_tokens: 1024
+    temperature: 0.1
+    top_p: 0.9
+    context_length: 32768
+    cpu_threads: 4
+    batch_size: 1
+
+  qwen2.5-1.5b:
+    model_id: "Qwen/Qwen2.5-1.5B-Instruct"
+    backend: "llama_cpp"
+    max_tokens: 512
+    temperature: 0.1
+    context_length: 32768
+    cpu_threads: 2
+    batch_size: 1
+
+  deepseek-v3:
+    model_id: "deepseek-chat"
+    backend: "ds3_cloud"
+    api_base_url: "https://api.deepseek.com/v1"
+    max_tokens: 4096
+    temperature: 0.1
+    timeout_sec: 60
+    max_retries: 3
+
+# ── VLA 模型 ────────────────────────────────────────────
+vla:
+  brain-vla:
+    base_model: "openvla/openvla-7b"
+    lora_path: "brain_models/vla/brain-vla-chinese-lora"
+    backend: "tensorrt_llm"
+    action_dim: 7
+    action_horizon: 16
+    action_frequency: 10              # Hz
+    chunk_size: 16
+    gpu_memory_fraction: 0.5
+    batch_size: 1
+
+# ── 感知模型 ────────────────────────────────────────────
+perception:
+  yolov11n:
+    model_id: "yolov11n"
+    backend: "onnx"
+    input_size: [640, 640]
+    confidence_threshold: 0.5
+    nms_threshold: 0.45
+    max_detections: 100
+    gpu_memory_fraction: 0.2
+
+  yolov11s:
+    model_id: "yolov11s"
+    backend: "onnx"
+    input_size: [640, 640]
+    confidence_threshold: 0.5
+    nms_threshold: 0.45
+    max_detections: 100
+    gpu_memory_fraction: 0.3
+
+  sam2:
+    model_id: "sam2_hiera_tiny"
+    backend: "onnx"
+    input_size: [1024, 1024]
+    points_per_side: 32
+    pred_iou_thresh: 0.88
+    stability_score_thresh: 0.95
+    gpu_memory_fraction: 0.3
+
+  depth_anything:
+    model_id: "depth_anything_v2_vits"
+    backend: "onnx"
+    input_size: [518, 518]
+    gpu_memory_fraction: 0.1
+
+# ── SLAM 模型 ───────────────────────────────────────────
+slam:
+  orb_slam3:
+    vocabulary_path: "brain_models/slam/orb_vocab.fbow"
+    camera_config: "config/camera/kinova_d435i.yaml"
+    enable_viewer: false
+    enable_pangolin: false
+    num_features: 1200
+    scale_factor: 1.2
+    num_levels: 8
+
+# ── 语音模型 ────────────────────────────────────────────
+voice:
+  asr:
+    model_id: "whisper-small"
+    backend: "onnx"
+    language: "zh"
+    sample_rate: 16000
+    vad_threshold: 0.5
+    silence_duration_ms: 800
+
+  tts:
+    model_id: "edge_tts"             # edge_tts | coqui_tts | azure
+    voice: "zh-CN-XiaoxiaoNeural"
+    rate: "+0%"
+    pitch: "+0Hz"
+    language: "zh-CN"
+
+  wake_word:
+    model_id: "porcupine"
+    keywords: ["嘿 大脑", "你好 大脑"]
+    sensitivity: 0.5
+    sample_rate: 16000
+
+# ── 模型运行时默认参数 ──────────────────────────────────
+runtime:
+  gpu_memory_limit_mb: 4096
+  cpu_threads: 4
+  fallback_enabled: true
+  fallback_order:
+    - "tensorrt_llm"
+    - "vllm"
+    - "llama_cpp"
+    - "onnx"
+    - "ds3_cloud"
+  health_check_interval_sec: 30

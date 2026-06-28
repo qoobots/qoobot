@@ -1,0 +1,72 @@
+# brain_ai/config/prompts.yaml — Prompt 模板配置
+# 管理所有 LLM/VLA Prompt 的系统级配置参数。
+# 具体模板文件位于 brain_ai/llm_agent/prompts/ (*.j2)。
+
+# ── 意图解析 Prompt ────────────────────────────────────
+intent_parsing:
+  template: "intent_recognition.j2"
+  max_tokens: 128
+  temperature: 0.1
+  stop_sequences: ["</intent>"]
+  system_prompt: |
+    你是一个机器人意图解析器。将用户的中文自然语言指令解析为结构化意图。
+    输出格式: JSON { "action": "...", "target": "...", "source": "...", "constraints": [...] }
+  few_shot_examples: 3
+
+# ── 任务分解 Prompt ────────────────────────────────────
+task_decomposition:
+  template: "task_decomposition.j2"
+  max_tokens: 512
+  temperature: 0.1
+  stop_sequences: ["</task>"]
+  system_prompt: |
+    你是一个机器人任务规划器。将高层意图分解为可执行的子任务序列。
+    每个子任务包含: id, intent, preconditions, expected_outcome。
+  max_subtasks: 10
+  few_shot_examples: 2
+
+# ── BT 生成 Prompt ─────────────────────────────────────
+bt_generation:
+  template: "bt_generation.j2"
+  max_tokens: 1024
+  temperature: 0.1
+  stop_sequences: ["</bt>"]
+  system_prompt: |
+    你是一个行为树生成器。将任务分解结果转化为 BehaviorTree XML。
+    使用标准行为树节点: Sequence, Fallback, Action, Condition, Decorator。
+  available_actions:
+    - NavigateTo
+    - PickObject
+    - PlaceObject
+    - DetectObject
+    - AvoidObstacle
+    - Wait
+    - Speak
+    - Observe
+    - HITLConfirm
+
+# ── 常识推理 Prompt ────────────────────────────────────
+common_sense:
+  template: "common_sense.j2"
+  max_tokens: 256
+  temperature: 0.3
+  system_prompt: |
+    你是一个家用机器人常识推理助手。基于场景信息推理物体的属性、关系和可操作性。
+
+# ── 场景理解 Prompt ────────────────────────────────────
+scene_understanding:
+  template: "scene_understanding.j2"
+  max_tokens: 512
+  temperature: 0.1
+  system_prompt: |
+    你是一个机器人场景理解器。将感知结果转化为结构化的场景语义描述。
+    识别物体关系、空间布局、可操作性区域和潜在风险。
+
+# ── 通用 LLM 参数 ──────────────────────────────────────
+general:
+  max_context_length: 8192
+  encoding: "utf-8"
+  trim_context: true
+  trim_strategy: "oldest_first"
+  cache_enabled: true
+  cache_ttl_sec: 300
