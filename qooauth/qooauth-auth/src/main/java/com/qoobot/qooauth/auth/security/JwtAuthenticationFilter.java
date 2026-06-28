@@ -38,6 +38,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             try {
                 JWTClaimsSet claims = jwtTokenProvider.verifyAccessToken(token);
                 String userId = claims.getSubject();
+                String email = claims.getStringClaim("email");
+
+                // Set request attributes for controller access
+                request.setAttribute("userId", userId);
+                if (email != null) {
+                    request.setAttribute("email", email);
+                }
 
                 List<SimpleGrantedAuthority> authorities = Collections.singletonList(
                         new SimpleGrantedAuthority("ROLE_USER"));

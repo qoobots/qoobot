@@ -45,6 +45,7 @@
         <mapstruct.version>1.5.5.Final</mapstruct.version>
         <lombok.version>1.18.32</lombok.version>
         <testcontainers.version>1.19.7</testcontainers.version>
+        <aerogear-otp.version>1.0.0</aerogear-otp.version>
     </properties>
 
     <dependencyManagement>
@@ -155,6 +156,13 @@
                 <version>${testcontainers.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+
+            <!-- AeroGear OTP (TOTP RFC 6238) -->
+            <dependency>
+                <groupId>org.jboss.aerogear</groupId>
+                <artifactId>aerogear-otp-java</artifactId>
+                <version>${aerogear-otp.version}</version>
             </dependency>
 
             <!-- Internal modules -->

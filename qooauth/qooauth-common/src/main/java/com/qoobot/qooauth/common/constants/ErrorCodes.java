@@ -14,6 +14,8 @@ public final class ErrorCodes {
     public static final String EMAIL_NOT_VERIFIED = "AUTH_1004";
     public static final String MFA_REQUIRED = "AUTH_1005";
     public static final String MFA_INVALID_CODE = "AUTH_1006";
+    public static final String MFA_ALREADY_ENABLED = "AUTH_1011";
+    public static final String MFA_METHOD_NOT_FOUND = "AUTH_1012";
     public static final String TOKEN_EXPIRED = "AUTH_1007";
     public static final String TOKEN_INVALID = "AUTH_1008";
     public static final String TOKEN_REVOKED = "AUTH_1009";

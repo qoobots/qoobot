@@ -61,6 +61,27 @@ public class TokenService {
         }
     }
 
+    /**
+     * Verify an MFA pending token and return its claims.
+     * MFA tokens are access tokens with scope "mfa_pending".
+     */
+    public JWTClaimsSet verifyMfaToken(String mfaToken) {
+        try {
+            JWTClaimsSet claims = jwtTokenProvider.verifyAccessToken(mfaToken);
+            String scope = claims.getStringClaim("scope");
+            if (scope == null || !scope.contains("mfa_pending")) {
+                throw new com.qoobot.qooauth.common.exception.AuthException(
+                        com.qoobot.qooauth.common.constants.ErrorCodes.TOKEN_INVALID,
+                        "Not a valid MFA session token");
+            }
+            return claims;
+        } catch (java.text.ParseException | com.nimbusds.jose.JOSEException e) {
+            throw new com.qoobot.qooauth.common.exception.AuthException(
+                    com.qoobot.qooauth.common.constants.ErrorCodes.TOKEN_INVALID,
+                    "Invalid MFA token: " + e.getMessage());
+        }
+    }
+
     public record TokenPair(
             String accessToken,
             String refreshToken,

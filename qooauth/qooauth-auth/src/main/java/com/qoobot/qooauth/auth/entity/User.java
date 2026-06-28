@@ -50,6 +50,12 @@ public class User {
     @Column(name = "mfa_methods", columnDefinition = "jsonb")
     private String mfaMethods;
 
+    @Column(name = "totp_secret", length = 64)
+    private String totpSecret;
+
+    @Column(name = "recovery_codes_hash", columnDefinition = "jsonb")
+    private String recoveryCodesHash;
+
     @Column(name = "created_at", nullable = false)
     private Instant createdAt;
 
@@ -107,6 +113,12 @@ public class User {
         return mfaMethods.replaceAll("[\\[\\]\"]", "").split(",");
     }
     public void setMfaMethods(String mfaMethods) { this.mfaMethods = mfaMethods; }
+
+    public String getTotpSecret() { return totpSecret; }
+    public void setTotpSecret(String totpSecret) { this.totpSecret = totpSecret; }
+
+    public String getRecoveryCodesHash() { return recoveryCodesHash; }
+    public void setRecoveryCodesHash(String recoveryCodesHash) { this.recoveryCodesHash = recoveryCodesHash; }
 
     public Instant getCreatedAt() { return createdAt; }
     public void setCreatedAt(Instant createdAt) { this.createdAt = createdAt; }
