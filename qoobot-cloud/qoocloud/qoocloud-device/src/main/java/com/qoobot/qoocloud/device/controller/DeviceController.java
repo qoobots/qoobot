@@ -1,6 +1,7 @@
 package com.qoobot.qoocloud.device.controller;
 
 import com.qoobot.qoocloud.device.entity.Device;
+import com.qoobot.qoocloud.device.service.DeviceGroupService;
 import com.qoobot.qoocloud.device.service.DeviceService;
 import com.qoobot.qoocloud.device.service.DeviceService.DiagnosticsResult;
 import org.springframework.http.ResponseEntity;
@@ -18,9 +19,11 @@ import java.util.Optional;
 public class DeviceController {
 
     private final DeviceService deviceService;
+    private final DeviceGroupService deviceGroupService;
 
-    public DeviceController(DeviceService deviceService) {
+    public DeviceController(DeviceService deviceService, DeviceGroupService deviceGroupService) {
         this.deviceService = deviceService;
+        this.deviceGroupService = deviceGroupService;
     }
 
     /**
@@ -123,5 +126,89 @@ public class DeviceController {
                 "offline", deviceService.countByState("OFFLINE"),
                 "activated", deviceService.countByState("ACTIVATED")
         ));
+    }
+
+    // ================================================================
+    // 设备分组
+    // ================================================================
+
+    /**
+     * Create a device group.
+     */
+    @PostMapping("/groups")
+    public ResponseEntity<DeviceGroupService.DeviceGroup> createGroup(
+            @RequestBody Map<String, Object> body) {
+        String name = (String) body.get("name");
+        String description = (String) body.getOrDefault("description", "").toString();
+        DeviceGroupService.GroupType type = DeviceGroupService.GroupType.valueOf(
+                (String) body.getOrDefault("type", "STATIC"));
+        @SuppressWarnings("unchecked")
+        Map<String, String> filters = (Map<String, String>) body.getOrDefault("filters", Map.of());
+        return ResponseEntity.ok(deviceGroupService.createGroup(name, description, type, filters));
+    }
+
+    /**
+     * List all groups.
+     */
+    @GetMapping("/groups")
+    public ResponseEntity<List<DeviceGroupService.DeviceGroup>> listGroups() {
+        return ResponseEntity.ok(deviceGroupService.listGroups());
+    }
+
+    /**
+     * Get group details.
+     */
+    @GetMapping("/groups/{groupId}")
+    public ResponseEntity<DeviceGroupService.DeviceGroup> getGroup(
+            @PathVariable String groupId) {
+        return deviceGroupService.getGroup(groupId)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    /**
+     * Get devices in a group.
+     */
+    @GetMapping("/groups/{groupId}/devices")
+    public ResponseEntity<List<Device>> getGroupDevices(@PathVariable String groupId) {
+        return ResponseEntity.ok(deviceGroupService.getGroupDevices(groupId));
+    }
+
+    /**
+     * Get group stats.
+     */
+    @GetMapping("/groups/{groupId}/stats")
+    public ResponseEntity<DeviceGroupService.GroupStats> getGroupStats(
+            @PathVariable String groupId) {
+        return ResponseEntity.ok(deviceGroupService.getGroupStats(groupId));
+    }
+
+    /**
+     * Add device to group.
+     */
+    @PostMapping("/groups/{groupId}/devices/{deviceId}")
+    public ResponseEntity<Void> addDeviceToGroup(
+            @PathVariable String groupId, @PathVariable String deviceId) {
+        deviceGroupService.addDeviceToGroup(groupId, deviceId);
+        return ResponseEntity.ok().build();
+    }
+
+    /**
+     * Remove device from group.
+     */
+    @DeleteMapping("/groups/{groupId}/devices/{deviceId}")
+    public ResponseEntity<Void> removeDeviceFromGroup(
+            @PathVariable String groupId, @PathVariable String deviceId) {
+        deviceGroupService.removeDeviceFromGroup(groupId, deviceId);
+        return ResponseEntity.ok().build();
+    }
+
+    /**
+     * Delete a group.
+     */
+    @DeleteMapping("/groups/{groupId}")
+    public ResponseEntity<Void> deleteGroup(@PathVariable String groupId) {
+        deviceGroupService.deleteGroup(groupId);
+        return ResponseEntity.ok().build();
     }
 }
