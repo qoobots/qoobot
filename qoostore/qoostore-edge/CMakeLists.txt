@@ -22,12 +22,13 @@ target_include_directories(qoostore_edge_common INTERFACE
     ${qoostore_EDGE_INCLUDE_DIR}
 )
 
-# 子模块（按需添加）
-# add_subdirectory(src/skill_manager)    # 技能安装/卸载/更新/启用/停用
-# add_subdirectory(src/sandbox)          # 技能沙箱隔离
-# add_subdirectory(src/permission)       # 权限管控
-# add_subdirectory(src/runtime_monitor)  # 运行时监控
-# add_subdirectory(src/skill_ipc)        # 技能间通信
+# 子模块
+add_subdirectory(src/skill_manager)    # 技能安装/卸载/更新/启用/停用
+add_subdirectory(src/sandbox)          # 技能沙箱隔离
+add_subdirectory(src/permission)       # 权限管控
+add_subdirectory(src/runtime_monitor)  # 运行时监控
+add_subdirectory(src/skill_ipc)        # 技能间通信
+add_subdirectory(src/skill_downloader) # 技能下载器
 
 enable_testing()
 # add_subdirectory(test)

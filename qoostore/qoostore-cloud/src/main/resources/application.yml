@@ -1,0 +1,69 @@
+server:
+  port: 8209
+
+spring:
+  application:
+    name: qoostore
+  datasource:
+    url: jdbc:postgresql://localhost:5432/qoostore
+    username: qoobot
+    password: ${DB_PASSWORD:qoobot}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+    baseline-on-migrate: true
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      timeout: 3000ms
+  servlet:
+    multipart:
+      max-file-size: 500MB
+      max-request-size: 500MB
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+        namespace: qoobot
+      config:
+        server-addr: localhost:8848
+        namespace: qoobot
+        file-extension: yml
+    sentinel:
+      transport:
+        dashboard: localhost:8080
+  rocketmq:
+    name-server: localhost:9876
+    producer:
+      group: qoostore-producer
+
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+
+logging:
+  level:
+    com.qoobot.qoostore: DEBUG
+    org.springframework.web: INFO
