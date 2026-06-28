@@ -3,7 +3,7 @@
 </p>
 
 <p align="center">
-  <strong>The Open-Source Brain Operating System for Humanoid Robots</strong>
+  <strong>Open Source, Open Standard, For All Robots.</strong>
 </p>
 
 <p align="center">
@@ -16,7 +16,10 @@
 
 <p align="center">
   <a href="./README.md">中文</a> |
-  <a href="#-what-is-qoobot">What</a> •
+  <a href="#-what-is-qoobot">Overview</a> •
+  <a href="#-vision--mission">Vision</a> •
+  <a href="#-why-qoobot">Why</a> •
+  <a href="#-industry-comparison">Comparison</a> •
   <a href="#-architecture">Architecture</a> •
   <a href="#-projects">Projects</a> •
   <a href="#-getting-started">Get Started</a> •
@@ -37,6 +40,29 @@ Our mission is to do for robotics what open-source operating systems did for com
 
 ---
 
+## 🔭 Vision &amp; Mission
+
+> See details: [`docs/01_战略与产品/01愿景与使命.md`](./docs/01_战略与产品/01愿景与使命.md)
+
+QooBot's grand vision — **Humanoid robots are not tools, but an extension of human civilization.**
+
+| # | Vision | Core Idea |
+|:--:|------|----------|
+| ① | **Full Job Replacement** | Humanoid robots take over all repetitive jobs — manufacturing, agriculture, logistics, construction, food service, healthcare, etc. |
+| ② | **10,000× Productivity** | Autonomous production + self-maintenance + self-replication closed loop. GDP per capita reaches $120M. Post-scarcity era. |
+| ③ | **Robot Economy** | Global GDP created by robots. Humans share wealth via UBI, skill royalties, and robot asset securitization (R-REITs). |
+| ④ | **Consciousness Upload** | BCI → motor fusion → consciousness migration → multi-body existence. Robots become humanity's second body. |
+| ⑤ | **Extreme Environments** | Deep sea 11,000m, mantle 10km+, Antarctic subglacial lakes, active volcanoes, nuclear zones — robots explore the forbidden. |
+| ⑥ | **Mars Colonization** | One million robots land first, build a city in 10 years. Humans arrive with suitcases. |
+| ⑦ | **Robot Starships** | Autonomous interstellar platforms piloted, maintained, and decided by humanoid robots — to Europa, Titan, Proxima Centauri. |
+| ⑧ | **Dyson Sphere** | A billion self-replicating robots spend 1,000 years building a solar megastructure. Humanity becomes Type II civilization. |
+| ⑨ | **Interstellar Civilization** | Von Neumann probe colonization wave. The entire Milky Way covered within 1 million years. |
+| ⑩ | **Symbiosis of All** | Humans, robots, AI, and nature in four-element harmony. Heal Earth's ecology, evolve into an interstellar species. |
+
+> **QooBot's Ultimate Mission**: Not just to build a robot, but to ignite a spark of civilization — transforming humanity from a terrestrial species into an interstellar one.
+
+---
+
 ## 🧭 Why QooBot?
 
 | Challenge | QooBot's Answer |
@@ -46,6 +72,67 @@ Our mission is to do for robotics what open-source operating systems did for com
 | 🐌 **Slow Progress** — Everyone reinvents perception, planning, and control from scratch | **Shared Foundation** — Production-grade modules for perception, cognition, motion, and more |
 | 🌍 **High Barrier** — Robotics development requires deep expertise across too many domains | **Developer First** — Rich SDK, simulator, debugger, and a global skill marketplace |
 | ⚡ **Edge to Cloud** — No unified stack for on-device + cloud intelligence | **Seamless Scale** — From on-chip inference to cloud collaboration |
+
+---
+
+## 🆚 Industry Comparison
+
+### 🌏 International Competitors
+
+| Dimension | **QooBot** | **Boston Dynamics** | **Tesla (Optimus)** | **Figure AI** | **1X Technologies** |
+|------|:---:|:---:|:---:|:---:|:---:|
+| **Positioning** | Open-source full-stack robot OS | High-dynamic motion &amp; special-purpose robots | General-purpose humanoid + automotive automation | General-purpose humanoid + warehouse logistics | Home service humanoid robots |
+| **Core Product** | qoobrain OS + full-stack open ecosystem | Atlas / Spot / Stretch | Optimus | Figure 02 | NEO / EVE |
+| **Software Strategy** | 🟢 Fully open-source (Apache 2.0) | 🔴 Fully closed | 🔴 Fully closed | 🔴 Closed commercial | 🔴 Closed commercial |
+| **Hardware Openness** | 🟢 Reference design open, any hardware | 🔴 Closed hardware | 🔴 Closed hardware | 🔴 Closed hardware | 🔴 Closed hardware |
+| **Operating System** | Self-developed qoobrain Brain OS | Proprietary internal OS | FSD + Dojo based | Self-developed Helix model | Proprietary internal system |
+| **On-device AI** | 🟢 qoocore chip-level acceleration | 🟡 Custom compute platform | 🟢 Self-developed Dojo + HW4.0 | 🟡 OpenAI cloud models | 🟡 Self-developed on-device models |
+| **Cloud Capability** | 🟢 qoocloud multi-robot orchestration | 🔴 Limited cloud support | 🟢 Dojo supercomputing cluster | 🟡 Relies on OpenAI cloud | 🟡 Basic cloud sync |
+| **Developer Ecosystem** | 🟢 IDE plugins/simulator/skill marketplace | 🔴 Internal only | 🔴 Internal only | 🔴 Internal only | 🔴 Internal only |
+| **Skill Marketplace** | 🟢 qoostore third-party skill distribution | ❌ None | ❌ None | ❌ None | ❌ None |
+| **Simulation Platform** | 🟢 Isaac Sim + MuJoCo deep integration | 🟡 Internal simulation | 🟢 Custom sim + real factory | 🟡 Internal simulation | 🟡 Internal simulation |
+| **Multi-Robot Collaboration** | 🟢 Native multi-robot framework | 🔴 Limited support | 🟡 Factory scenario collaboration | 🟡 Warehouse scenario | 🔴 Planned |
+| **Safety &amp; Compliance** | 🟢 Full compliance framework (ISO 10218/13482) | 🟢 Military-grade safety | 🟡 Automotive standards ported | 🟡 Basic safety | 🟡 Basic safety |
+| **Supply Chain** | 🟢 qoochain open manufacturing standards | 🔴 Self-controlled supply chain | 🟢 Gigafactory mass production | 🔴 Self-controlled supply chain | 🔴 Self-controlled supply chain |
+| **Hardware Blueprints** | 🟢 Fully open-source (mechanical/circuit/PCB) | 🔴 Not public | 🔴 Not public | 🔴 Not public | 🔴 Not public |
+| **Target Scenarios** | Industrial/service/home — all scenarios | Industrial inspection/military/research | Auto manufacturing/warehouse/home | Warehouse logistics/manufacturing | Home service/light industry |
+| **Business Model** | Open ecosystem + enterprise services | Hardware sales + service contracts | Self-use + future sales | Hardware sales + B2B | Hardware sales + subscription |
+| **Funding/Valuation** | Community-driven | Hyundai Motor (valued ~$11B) | Tesla internal (Optimus standalone ~$1T远期) | $675M+ raised (valued ~$2.6B) | $100M+ raised (OpenAI backed) |
+
+### 🌏 Chinese Competitors
+
+| Dimension | **QooBot** | **Unitree Robotics** | **XPeng Robotics** | **AGIBOT** |
+|------|:---:|:---:|:---:|:---:|
+| **Positioning** | Open-source full-stack robot OS | High-performance general-purpose humanoid | AI-defined cars + humanoid robots | Embodied intelligence general-purpose robots |
+| **Core Product** | qoobrain OS + full-stack open ecosystem | H1 / G1 humanoid robots | Iron humanoid robot | Yuanzheng A2 series |
+| **Software Strategy** | 🟢 Fully open-source (Apache 2.0) | 🟡 Partially open (SDK/API) | 🔴 Closed commercial | 🟡 Limited open |
+| **Hardware Openness** | 🟢 Reference design open, any hardware | 🟡 Self-developed body, third-party expansion | 🔴 Closed hardware system | 🟡 Self-developed body focused |
+| **Operating System** | Self-developed qoobrain Brain OS | Linux + ROS based | Self-developed XBrain | Self-developed GO-1 Brain |
+| **On-device AI** | 🟢 qoocore chip-level acceleration | 🟡 NVIDIA Jetson | 🟡 Self-developed chip (Turing) | 🟡 General-purpose accelerator cards |
+| **Cloud Capability** | 🟢 qoocloud multi-robot orchestration | 🔴 Limited cloud support | 🟡 XNet cloud collaboration | 🟡 Cloud training platform |
+| **Developer Ecosystem** | 🟢 IDE plugins/simulator/skill marketplace | 🟡 SDK/API | 🔴 Internal development only | 🟡 Basic SDK |
+| **Skill Marketplace** | 🟢 qoostore third-party skill distribution | ❌ None | ❌ None | ❌ None |
+| **Simulation Platform** | 🟢 Isaac Sim + MuJoCo deep integration | 🟡 Basic simulation | 🟡 Internal simulation | 🟡 Basic simulation |
+| **Multi-Robot Collaboration** | 🟢 Native multi-robot framework | 🟡 Limited support | 🔴 Planned | 🟡 Planned |
+| **Safety &amp; Compliance** | 🟢 Full compliance framework (ISO 10218/13482) | 🟡 Basic safety | 🟡 Automotive standards ported | 🟡 Basic safety |
+| **Supply Chain** | 🟢 qoochain open manufacturing standards | 🟡 Self-controlled supply chain | 🟡 Self-controlled supply chain | 🟡 Self-controlled supply chain |
+| **Hardware Blueprints** | 🟢 Fully open-source (mechanical/circuit/PCB) | 🔴 Not public | 🔴 Not public | 🔴 Not public |
+| **Target Scenarios** | Industrial/service/home — all scenarios | Research/inspection/home | Auto manufacturing/home service | Industrial manufacturing/logistics |
+| **Business Model** | Open ecosystem + enterprise services | Hardware sales | Hardware + closed ecosystem | Hardware sales + platform |
+
+### Key Differentiators Summary
+
+| Dimension | QooBot Advantage | Industry Status |
+|----------|:-----------:|:-----------:|
+| **Open-Source Depth** | Full-stack Apache 2.0, from chip to cloud | Most vendors only open SDK or API; core software fully closed |
+| **Hardware Neutrality** | Adapts to any hardware, no vendor lock-in | Software deeply bound to proprietary hardware |
+| **Ecosystem Openness** | Skill marketplace + accessory certification + community-driven | Closed ecosystems; third-party extensions extremely limited |
+| **Developer Experience** | Complete IDE toolchain + simulation + debugging | Lack of professional robot development tooling; internal tools not public |
+| **Extensibility** | Modular architecture, unified from MCU to cloud | Fragmented systems, no unified abstraction |
+| **Cost Barrier** | Zero-cost startup, open-source community driven | High hardware purchase cost (Atlas ~$150K+, Optimus pricing undisclosed) |
+| **Hardware Blueprints** | Mechanical/circuit/PCB fully open, self-manufacturable | All vendors keep hardware designs completely closed |
+
+> 💡 QooBot provides not only an **open-source brain** that powers all robots, but also a complete **hardware reference design &amp; manufacturing solution** — from mechanical drawings, circuit schematics to PCB layouts, all open-source. Anyone can build their own robot body. This "software + hardware, full-stack open" model makes QooBot the **Android + Open Hardware** of robotics. Whether Boston Dynamics, Tesla, Figure AI, 1X, Unitree, XPeng, or AGIBOT — all can build upon or adapt QooBot's full-stack ecosystem to reduce R&amp;D costs, accelerate product iteration, and break vendor lock-in.
 
 ---
 
