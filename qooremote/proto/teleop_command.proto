@@ -1,0 +1,137 @@
+// qooremote 控制指令协议
+// 操作员端 → 云端中继 → 机器人端
+
+syntax = "proto3";
+
+package qooremote.teleop;
+
+option java_package = "com.qoobot.qoocloud.teleop.proto";
+option java_multiple_files = true;
+
+// ================================================================
+// 控制指令 (下行)
+// ================================================================
+
+message TeleopCommand {
+  uint64 timestamp = 1;         // 时间戳 (ns, IEEE 802.1AS)
+  uint64 sequence = 2;          // 序列号 (丢包/乱序检测)
+  string session_id = 3;        // 会话ID
+
+  oneof command {
+    FullbodyCommand fullbody = 10;   // 全身运动指令
+    JointCommand joint = 11;         // 单关节指令
+    GripperCommand gripper = 12;     // 末端执行器
+    HeadCommand head = 13;           // 头部/云台
+    EmergencyStopCommand stop = 14;  // 紧急停止
+    ModeSwitchCommand mode_switch = 15; // 模式切换
+    HeartbeatCommand heartbeat = 16; // 心跳
+  }
+}
+
+// 全身运动指令 (动捕/VR 1:1 映射)
+message FullbodyCommand {
+  BaseCommand base = 1;             // 基座运动
+  repeated JointSetpoint joints = 2; // 关节目标
+  GripperSetpoint left_gripper = 3;  // 左末端
+  GripperSetpoint right_gripper = 4; // 右末端
+  HeadSetpoint head = 5;             // 头部姿态
+
+  ControlMode control_mode = 6;      // 控制模式
+  float speed_override = 7;          // 速度倍率 [0.0, 1.0]
+}
+
+message BaseCommand {
+  double vx = 1;        // 前进速度 (m/s)
+  double vy = 2;        // 横向速度 (m/s)
+  double omega = 3;     // 旋转速度 (rad/s)
+}
+
+message JointSetpoint {
+  string joint_name = 1;       // 关节名称
+  double position = 2;         // 目标位置 (rad)
+  double velocity = 3;         // 目标速度 (rad/s), 可选
+  double torque_ff = 4;        // 前馈力矩 (Nm), 可选
+  ControlMode control_mode = 5; // 单关节控制模式
+}
+
+message GripperSetpoint {
+  GripperType type = 1;
+  oneof command {
+    double position = 2;     // 夹爪开口宽度 (m)
+    double grasp_force = 3;  // 抓取力 (N)
+    bool suction = 4;        // 吸盘开/关
+  }
+}
+
+message HeadSetpoint {
+  double pitch = 1;     // 俯仰角 (rad)
+  double yaw = 2;       // 偏航角 (rad)
+  double roll = 3;      // 滚转角 (rad), 通常为0
+}
+
+// 单关节指令
+message JointCommand {
+  string joint_name = 1;
+  JointSetpoint setpoint = 2;
+  uint32 duration_ms = 3;  // 执行时间
+}
+
+// 末端执行器指令
+message GripperCommand {
+  GripperType type = 1;
+  GripperSetpoint setpoint = 2;
+}
+
+// 头部指令
+message HeadCommand {
+  HeadSetpoint setpoint = 1;
+  uint32 duration_ms = 2;
+}
+
+// 紧急停止
+message EmergencyStopCommand {
+  StopType stop_type = 1;
+  string reason = 2;  // 停止原因 (可选)
+}
+
+// 模式切换
+message ModeSwitchCommand {
+  RobotMode target_mode = 1;
+  string reason = 2;
+}
+
+// 心跳
+message HeartbeatCommand {
+  uint64 client_time = 1;  // 客户端时间戳
+}
+
+// ================================================================
+// 枚举定义
+// ================================================================
+
+enum ControlMode {
+  CONTROL_MODE_POSITION = 0;  // 位置控制
+  CONTROL_MODE_VELOCITY = 1;  // 速度控制
+  CONTROL_MODE_TORQUE = 2;    // 力矩控制
+  CONTROL_MODE_IMPEDANCE = 3; // 阻抗控制
+  CONTROL_MODE_ADMITTANCE = 4; // 导纳控制
+}
+
+enum RobotMode {
+  ROBOT_MODE_AUTO = 0;        // 完全自主
+  ROBOT_MODE_HYBRID = 1;      // 混合模式 (自主执行+人工监督)
+  ROBOT_MODE_TELEOP = 2;      // 完全遥控
+}
+
+enum GripperType {
+  GRIPPER_TYPE_PARALLEL = 0;  // 平行夹爪
+  GRIPPER_TYPE_THREE_FINGER = 1; // 三指夹爪
+  GRIPPER_TYPE_SUCTION = 2;   // 吸盘
+  GRIPPER_TYPE_DEXTEROUS = 3; // 灵巧手
+}
+
+enum StopType {
+  STOP_TYPE_PROTECTIVE = 0;   // 保护性停止 (可恢复)
+  STOP_TYPE_EMERGENCY = 1;    // 紧急停止 (需手动复位)
+  STOP_TYPE_STO = 2;          // 安全转矩关断
+}

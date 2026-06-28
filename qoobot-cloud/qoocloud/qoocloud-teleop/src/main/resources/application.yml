@@ -1,0 +1,57 @@
+server:
+  port: 8208
+
+spring:
+  application:
+    name: qoocloud-teleop
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/qoocloud_teleop
+    username: ${DB_USERNAME:qoobot}
+    password: ${DB_PASSWORD:qoobot}
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+
+# WebRTC / WebSocket
+webrtc:
+  ice-servers:
+    - url: stun:stun.l.google.com:19302
+  sfu:
+    max-video-tracks: 4
+    max-audio-tracks: 2
+    max-bitrate-video-kbps: 8000
+    max-bitrate-audio-kbps: 128
+
+# 遥操作配置
+teleop:
+  session:
+    heartbeat-interval-ms: 1000
+    heartbeat-timeout-ms: 3000
+    max-idle-time-ms: 600000     # 10 分钟无操作自动关闭
+    max-session-duration-ms: 14400000  # 4 小时最大时长
+  command:
+    rate-limit-per-second: 100   # 指令速率限制
+    max-latency-ms: 500          # 超时阈值
+  teaching:
+    max-duration-ms: 1800000     # 最大示教时长 30 分钟
+    storage-path: /data/teaching
+    video-codec: h264
+
+# 可观测性
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus

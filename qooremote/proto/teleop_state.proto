@@ -1,0 +1,221 @@
+// qooremote 状态上报协议
+// 机器人端 → 云端中继 → 操作员端
+
+syntax = "proto3";
+
+package qooremote.teleop;
+
+option java_package = "com.qoobot.qoocloud.teleop.proto";
+option java_multiple_files = true;
+
+// ================================================================
+// 状态上报 (上行)
+// ================================================================
+
+message TeleopState {
+  uint64 timestamp = 1;           // 时间戳 (ns)
+  uint64 sequence = 2;            // 序列号
+  string session_id = 3;
+
+  FullbodyState fullbody = 10;    // 全身状态
+  repeated JointState joints = 11; // 关节状态
+  SafetyStatus safety = 12;       // 安全状态
+  BatteryStatus battery = 13;     // 电池状态
+  SystemStatus system = 14;       // 系统状态
+  DiagnosticReport diagnostics = 15; // 诊断报告
+}
+
+// 全身运动状态
+message FullbodyState {
+  BaseState base = 1;
+  Vector3 com_position = 2;       // 质心位置 (m)
+  Vector3 com_velocity = 3;       // 质心速度 (m/s)
+  Vector3 angular_momentum = 4;   // 角动量
+  repeated ContactState contacts = 5; // 足端接触
+}
+
+message BaseState {
+  Vector3 position = 1;     // 基座位姿 (m)
+  Quaternion orientation = 2; // 基座姿态 (四元数)
+  Vector3 velocity = 3;     // 基座速度 (m/s)
+  Vector3 angular_velocity = 4; // 基座角速度 (rad/s)
+}
+
+// 关节状态
+message JointState {
+  string joint_name = 1;
+  double position = 2;      // 实际位置 (rad)
+  double velocity = 3;      // 实际速度 (rad/s)
+  double torque = 4;        // 实际力矩 (Nm)
+  double current = 5;       // 电流 (A)
+  double temperature = 6;   // 温度 (C)
+  JointStatus status = 7;   // 状态标志
+}
+
+// 安全状态
+message SafetyStatus {
+  SafetyMode current_mode = 1;
+  repeated SafetyEvent active_events = 2;
+  bool emergency_stop_engaged = 3;
+  bool protective_stop_engaged = 4;
+  uint64 last_safety_check_ns = 5;
+}
+
+// 电池状态
+message BatteryStatus {
+  float state_of_charge = 1;    // SOC [0.0, 1.0]
+  float state_of_health = 2;    // SOH [0.0, 1.0]
+  float voltage = 3;            // 总电压 (V)
+  float current = 4;            // 总电流 (A) (放电为正)
+  float temperature = 5;        // 温度 (C)
+  float time_remaining_s = 6;   // 预估剩余时间 (s)
+  ChargingState charging_state = 7;
+  repeated CellState cells = 8; // 电芯详情
+}
+
+message CellState {
+  uint32 index = 1;
+  float voltage = 2;
+  float temperature = 3;
+}
+
+// 系统状态
+message SystemStatus {
+  float cpu_usage = 1;          // CPU 使用率 [0.0, 1.0]
+  float memory_usage = 2;       // 内存使用率 [0.0, 1.0]
+  float gpu_usage = 3;          // GPU 使用率 [0.0, 1.0]
+  float cpu_temperature = 4;    // CPU 温度 (C)
+  float board_temperature = 5;  // 主板温度 (C)
+  CommunicationQuality comm_quality = 6;
+  uint32 network_latency_ms = 7; // 当前网络延迟 (ms)
+  uint32 uptime_s = 8;          // 运行时间 (s)
+}
+
+// 诊断报告
+message DiagnosticReport {
+  repeated DiagnosticEvent events = 1; // 最近事件
+  repeated SensorHealth sensors = 2;   // 传感器健康
+  repeated MotorHealth motors = 3;     // 电机健康
+}
+
+message DiagnosticEvent {
+  uint64 timestamp_ns = 1;
+  DiagnosticSeverity severity = 2;
+  string component = 3;
+  string message = 4;
+  string detail = 5;  // 详细描述
+}
+
+message SensorHealth {
+  string sensor_name = 1;
+  SensorStatus status = 2;
+  uint64 last_data_ns = 3;     // 最后数据时间
+  float data_rate_hz = 4;      // 数据频率
+}
+
+message MotorHealth {
+  string motor_name = 1;
+  MotorStatus status = 2;
+  float temperature = 3;
+  uint32 error_count = 4;      // 累计错误数
+  float total_operating_hours = 5;
+}
+
+// ================================================================
+// 枚举定义
+// ================================================================
+
+enum SafetyMode {
+  SAFETY_MODE_NORMAL = 0;
+  SAFETY_MODE_REDUCED_SPEED = 1;
+  SAFETY_MODE_PROTECTIVE_STOP = 2;
+  SAFETY_MODE_EMERGENCY_STOP = 3;
+  SAFETY_MODE_STO = 4;  // Safe Torque Off
+  SAFETY_MODE_MAINTENANCE = 5;
+}
+
+enum SafetyEvent {
+  SAFETY_EVENT_NONE = 0;
+  SAFETY_EVENT_COLLISION = 1;
+  SAFETY_EVENT_TORQUE_LIMIT = 2;
+  SAFETY_EVENT_VELOCITY_LIMIT = 3;
+  SAFETY_EVENT_JOINT_LIMIT = 4;
+  SAFETY_EVENT_COMM_LOST = 5;
+  SAFETY_EVENT_WATCHDOG = 6;
+  SAFETY_EVENT_POWER_FAULT = 7;
+  SAFETY_EVENT_OVERHEAT = 8;
+  SAFETY_EVENT_TAMPER = 9;
+  SAFETY_EVENT_OPERATOR_ESTOP = 10;
+}
+
+enum JointStatus {
+  JOINT_STATUS_OK = 0;
+  JOINT_STATUS_WARNING = 1;
+  JOINT_STATUS_ERROR = 2;
+  JOINT_STATUS_DISABLED = 3;
+}
+
+enum ChargingState {
+  CHARGING_STATE_IDLE = 0;
+  CHARGING_STATE_DOCKING = 1;
+  CHARGING_STATE_CC = 2;  // 恒流
+  CHARGING_STATE_CV = 3;  // 恒压
+  CHARGING_STATE_COMPLETE = 4;
+  CHARGING_STATE_FAULT = 5;
+}
+
+enum CommunicationQuality {
+  COMM_QUALITY_EXCELLENT = 0; // <50ms
+  COMM_QUALITY_GOOD = 1;      // 50-100ms
+  COMM_QUALITY_FAIR = 2;      // 100-200ms
+  COMM_QUALITY_POOR = 3;      // 200-500ms
+  COMM_QUALITY_LOST = 4;      // >500ms
+}
+
+enum DiagnosticSeverity {
+  DIAG_SEVERITY_INFO = 0;
+  DIAG_SEVERITY_WARNING = 1;
+  DIAG_SEVERITY_ERROR = 2;
+  DIAG_SEVERITY_CRITICAL = 3;
+  DIAG_SEVERITY_FATAL = 4;
+}
+
+enum SensorStatus {
+  SENSOR_STATUS_OK = 0;
+  SENSOR_STATUS_DEGRADED = 1;
+  SENSOR_STATUS_FAILED = 2;
+  SENSOR_STATUS_NOT_PRESENT = 3;
+}
+
+enum MotorStatus {
+  MOTOR_STATUS_OK = 0;
+  MOTOR_STATUS_WARNING = 1;
+  MOTOR_STATUS_OVERTEMP = 2;
+  MOTOR_STATUS_OVERLOAD = 3;
+  MOTOR_STATUS_COMM_ERROR = 4;
+  MOTOR_STATUS_FAILED = 5;
+}
+
+// ================================================================
+// 数学类型
+// ================================================================
+
+message Vector3 {
+  double x = 1;
+  double y = 2;
+  double z = 3;
+}
+
+message Quaternion {
+  double w = 1;
+  double x = 2;
+  double y = 3;
+  double z = 4;
+}
+
+message ContactState {
+  string foot_name = 1;
+  bool in_contact = 2;
+  Vector3 force = 3;        // 接触力 (N)
+  Vector3 position = 4;     // 接触点位置
+}

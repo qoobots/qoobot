@@ -1,0 +1,134 @@
+// qooremote 会话管理协议
+// 操作员端 ↔ 云端中继 ↔ 机器人端
+
+syntax = "proto3";
+
+package qooremote.teleop;
+
+option java_package = "com.qoobot.qoocloud.teleop.proto";
+option java_multiple_files = true;
+
+// ================================================================
+// 会话管理
+// ================================================================
+
+// 创建会话请求
+message SessionRequest {
+  string robot_id = 1;
+  string operator_id = 2;
+  string operator_name = 3;
+  RobotMode requested_mode = 4;
+  repeated MediaType media_types = 5;
+  string auth_token = 6;        // JWT token
+  map<string, string> metadata = 7; // 扩展元数据
+}
+
+// 会话响应
+message SessionResponse {
+  string session_id = 1;
+  SessionStatus status = 2;
+  string sdp_offer = 3;          // WebRTC SDP
+  repeated IceServer ice_servers = 4;
+  RobotInfo robot_info = 5;
+  string message = 6;            // 错误消息等
+  int64 created_at_ms = 7;
+}
+
+// ICE 服务器配置
+message IceServer {
+  string url = 1;
+  string username = 2;
+  string credential = 3;
+}
+
+// 机器人基本信息
+message RobotInfo {
+  string robot_id = 1;
+  string robot_name = 2;
+  string model = 3;
+  string firmware_version = 4;
+  RobotMode current_mode = 5;
+  bool is_online = 6;
+  bool is_in_session = 7;
+  string current_session_id = 8;
+}
+
+// 会话状态更新
+message SessionUpdate {
+  string session_id = 1;
+  SessionEvent event = 2;
+  string detail = 3;
+  int64 timestamp_ms = 4;
+}
+
+// 会话查询
+message SessionQuery {
+  string session_id = 1;
+  string robot_id = 2;
+  string operator_id = 3;
+  SessionStatus status_filter = 4;
+  int64 since_ms = 5;          // 起始时间
+  int32 limit = 6;             // 返回数量限制
+}
+
+// 会话列表响应
+message SessionListResponse {
+  repeated SessionInfo sessions = 1;
+  int32 total_count = 2;
+}
+
+message SessionInfo {
+  string session_id = 1;
+  string robot_id = 2;
+  string operator_id = 3;
+  string operator_name = 4;
+  RobotMode control_mode = 5;
+  SessionStatus status = 6;
+  int64 created_at_ms = 7;
+  int64 connected_at_ms = 8;
+  int64 closed_at_ms = 9;
+  int64 duration_ms = 10;
+  int64 command_count = 11;
+  int64 video_bytes_sent = 12;
+  int64 audio_bytes_sent = 13;
+  int32 avg_latency_ms = 14;
+  int32 max_latency_ms = 15;
+}
+
+// ================================================================
+// 枚举定义
+// ================================================================
+
+enum SessionStatus {
+  SESSION_STATUS_INITIATING = 0;
+  SESSION_STATUS_CONNECTING = 1;
+  SESSION_STATUS_ACTIVE = 2;
+  SESSION_STATUS_PAUSED = 3;
+  SESSION_STATUS_CLOSING = 4;
+  SESSION_STATUS_CLOSED = 5;
+  SESSION_STATUS_REJECTED = 6;
+  SESSION_STATUS_TIMEOUT = 7;
+}
+
+enum SessionEvent {
+  SESSION_EVENT_CREATED = 0;
+  SESSION_EVENT_WEBRTC_CONNECTING = 1;
+  SESSION_EVENT_WEBRTC_CONNECTED = 2;
+  SESSION_EVENT_TAKEOVER_REQUESTED = 3;
+  SESSION_EVENT_TAKEOVER_GRANTED = 4;
+  SESSION_EVENT_TAKEOVER_DENIED = 5;
+  SESSION_EVENT_HANDOVER_REQUESTED = 6;
+  SESSION_EVENT_HANDOVER_COMPLETED = 7;
+  SESSION_EVENT_HEARTBEAT_TIMEOUT = 8;
+  SESSION_EVENT_NETWORK_DEGRADED = 9;
+  SESSION_EVENT_EMERGENCY_STOP = 10;
+  SESSION_EVENT_CLOSED_BY_OPERATOR = 11;
+  SESSION_EVENT_CLOSED_BY_ROBOT = 12;
+  SESSION_EVENT_CLOSED_BY_SYSTEM = 13;
+}
+
+enum MediaType {
+  MEDIA_TYPE_VIDEO = 0;
+  MEDIA_TYPE_AUDIO = 1;
+  MEDIA_TYPE_DATA = 2;  // DataChannel
+}

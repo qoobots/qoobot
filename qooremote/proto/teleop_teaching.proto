@@ -1,0 +1,183 @@
+// qooremote 示教数据协议
+// 机器人端 → 云端存储
+
+syntax = "proto3";
+
+package qooremote.teleop;
+
+option java_package = "com.qoobot.qoocloud.teleop.proto";
+option java_multiple_files = true;
+
+// ================================================================
+// 示教录制与回放
+// ================================================================
+
+// 示教元数据
+message TeachingMetadata {
+  string record_id = 1;
+  string session_id = 2;
+  string operator_id = 3;
+  string operator_name = 4;
+  string robot_id = 5;
+
+  string name = 6;
+  string description = 7;
+  repeated string tags = 8;
+
+  int64 start_time_ms = 9;
+  int64 end_time_ms = 10;
+  int64 duration_ms = 11;
+  int32 frame_count = 12;
+  string data_format_version = 13;
+
+  float quality_score = 14;
+  bool is_verified = 15;
+  string verified_by = 16;
+}
+
+// 示教数据帧 (单帧)
+message TeachingFrame {
+  uint64 timestamp_ns = 1;
+  uint32 frame_index = 2;
+
+  // 全身运动数据
+  repeated JointTrajectoryPoint joint_points = 3;
+  BaseTrajectoryPoint base_point = 4;
+  GripperTrajectoryPoint left_gripper = 5;
+  GripperTrajectoryPoint right_gripper = 6;
+  HeadTrajectoryPoint head = 7;
+
+  // 传感器数据 (同步录制)
+  SensorSnapshot sensors = 8;
+
+  // 操作员指令 (用于学习)
+  TeleopCommand operator_command = 9;
+}
+
+// 关节轨迹点
+message JointTrajectoryPoint {
+  string joint_name = 1;
+  double position = 2;      // rad
+  double velocity = 3;      // rad/s
+  double torque = 4;        // Nm
+  double effort = 5;        // 归一化力矩 [0,1]
+}
+
+// 基座轨迹点
+message BaseTrajectoryPoint {
+  double x = 1;
+  double y = 2;
+  double theta = 3;         // 朝向 (rad)
+  double vx = 4;
+  double vy = 5;
+  double omega = 6;
+}
+
+// 末端执行器轨迹点
+message GripperTrajectoryPoint {
+  GripperType type = 1;
+  double position = 2;       // 开口宽度 (m)
+  double force = 3;          // 抓取力 (N)
+  bool contact = 4;          // 是否接触
+}
+
+// 头部轨迹点
+message HeadTrajectoryPoint {
+  double pitch = 1;
+  double yaw = 2;
+  double roll = 3;
+}
+
+// 传感器快照 (同步录制)
+message SensorSnapshot {
+  repeated CameraFrame cameras = 1;
+  LidarScan lidar = 2;
+  IMUData imu = 3;
+  repeated MicrophoneFrame microphones = 4;
+  repeated TactileFrame tactile = 5;
+}
+
+message CameraFrame {
+  string camera_name = 1;
+  int32 width = 2;
+  int32 height = 3;
+  string encoding = 4;       // "rgb8", "yuv420", "bayer_rggb8"
+  bytes data = 5;            // 帧数据 (可选，通常视频单独存储)
+  int64 frame_index = 6;     // 关联到视频文件的帧索引
+}
+
+message LidarScan {
+  int32 point_count = 1;
+  repeated float points = 2; // x1,y1,z1,i1, x2,y2,z2,i2, ...
+  float range_min = 3;
+  float range_max = 4;
+}
+
+message IMUData {
+  double accel_x = 1;
+  double accel_y = 2;
+  double accel_z = 3;
+  double gyro_x = 4;
+  double gyro_y = 5;
+  double gyro_z = 6;
+  double mag_x = 7;
+  double mag_y = 8;
+  double mag_z = 9;
+}
+
+message MicrophoneFrame {
+  int32 channel_count = 1;
+  int32 sample_rate = 2;
+  bytes data = 3;            // PCM 16-bit interleaved
+}
+
+message TactileFrame {
+  string sensor_name = 1;
+  int32 taxel_count = 2;     // 触觉点数量
+  repeated float pressures = 3;
+}
+
+// ================================================================
+// 示教记录管理
+// ================================================================
+
+message TeachingRecordRequest {
+  string robot_id = 1;
+  string operator_id = 2;
+  string name = 3;
+  string description = 4;
+  repeated string tags = 5;
+}
+
+message TeachingRecordResponse {
+  string record_id = 1;
+  TeachingMetadata metadata = 2;
+  string status = 3;
+}
+
+message TeachingListResponse {
+  repeated TeachingMetadata records = 1;
+  int32 total_count = 2;
+}
+
+message TeachingPlaybackRequest {
+  string record_id = 1;
+  float speed_override = 2;   // 回放速度倍率 [0.1, 2.0]
+  bool loop = 3;              // 是否循环
+}
+
+message TeachingPlaybackState {
+  string record_id = 1;
+  PlaybackStatus status = 2;
+  int32 current_frame = 3;
+  int32 total_frames = 4;
+  float progress = 5;         // [0.0, 1.0]
+}
+
+enum PlaybackStatus {
+  PLAYBACK_STATUS_IDLE = 0;
+  PLAYBACK_STATUS_PLAYING = 1;
+  PLAYBACK_STATUS_PAUSED = 2;
+  PLAYBACK_STATUS_COMPLETED = 3;
+  PLAYBACK_STATUS_ERROR = 4;
+}

@@ -27,6 +27,7 @@
         <module>qoocloud-twin</module>
         <module>qoocloud-observability</module>
         <module>qoocloud-infra</module>
+        <module>qoocloud-teleop</module>
     </modules>
 
     <!-- ========== 所有子模块公共依赖 ========== -->

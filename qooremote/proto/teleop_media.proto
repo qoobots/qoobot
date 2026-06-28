@@ -1,0 +1,136 @@
+// qooremote 媒体流协商协议
+// 操作员端 ↔ 云端 SFU ↔ 机器人端
+
+syntax = "proto3";
+
+package qooremote.teleop;
+
+option java_package = "com.qoobot.qoocloud.teleop.proto";
+option java_multiple_files = true;
+
+// ================================================================
+// 媒体流协商
+// ================================================================
+
+// SDP 交换消息
+message SDPMessage {
+  string session_id = 1;
+  SDPType type = 2;
+  string sdp = 3;
+}
+
+// ICE 候选交换
+message ICEMessage {
+  string session_id = 1;
+  string candidate = 2;
+  string sdp_mid = 3;
+  int32 sdp_mline_index = 4;
+}
+
+// 媒体流配置
+message MediaConfig {
+  string session_id = 1;
+  repeated VideoTrackConfig video_tracks = 2;
+  AudioTrackConfig audio_track = 3;
+}
+
+// 视频轨道配置
+message VideoTrackConfig {
+  string track_id = 1;
+  string label = 2;               // "main", "depth", "gripper", "rear"
+  VideoCodec codec = 3;
+  VideoResolution resolution = 4;
+  int32 max_fps = 5;
+  int32 max_bitrate_kbps = 6;
+  int32 keyframe_interval_s = 7;
+  bool enabled = 8;
+}
+
+// 音频轨道配置
+message AudioTrackConfig {
+  AudioCodec codec = 1;
+  int32 sample_rate = 2;          // 16000, 48000
+  int32 channels = 3;             // 1 (mono), 2 (stereo)
+  int32 max_bitrate_kbps = 4;
+  bool echo_cancellation = 5;
+  bool noise_suppression = 6;
+  bool auto_gain_control = 7;
+  bool enabled = 8;
+}
+
+// 视频分辨率
+message VideoResolution {
+  int32 width = 1;
+  int32 height = 2;
+}
+
+// ================================================================
+// SFU 流转发控制
+// ================================================================
+
+message StreamControl {
+  string session_id = 1;
+  StreamAction action = 2;
+  string track_id = 3;
+  string reason = 4;
+}
+
+message StreamStats {
+  string session_id = 1;
+  string track_id = 2;
+  StreamDirection direction = 3;
+  int64 bytes_sent = 4;
+  int64 packets_sent = 5;
+  int64 packets_lost = 6;
+  double packet_loss_rate = 7;
+  int32 current_bitrate_kbps = 8;
+  int32 current_fps = 9;
+  int32 rtt_ms = 10;
+  int32 jitter_ms = 11;
+  string codec = 12;
+  VideoResolution resolution = 13;
+}
+
+message AllStreamStats {
+  string session_id = 1;
+  repeated StreamStats streams = 2;
+  int64 total_bytes_sent = 3;
+  int64 total_bytes_received = 4;
+}
+
+// ================================================================
+// 枚举定义
+// ================================================================
+
+enum SDPType {
+  SDP_TYPE_OFFER = 0;
+  SDP_TYPE_ANSWER = 1;
+}
+
+enum VideoCodec {
+  VIDEO_CODEC_H264 = 0;
+  VIDEO_CODEC_H265 = 1;
+  VIDEO_CODEC_VP8 = 2;
+  VIDEO_CODEC_VP9 = 3;
+  VIDEO_CODEC_AV1 = 4;
+}
+
+enum AudioCodec {
+  AUDIO_CODEC_OPUS = 0;
+  AUDIO_CODEC_PCMU = 1;   // G.711 μ-law
+  AUDIO_CODEC_PCMA = 2;   // G.711 A-law
+}
+
+enum StreamAction {
+  STREAM_ACTION_PAUSE = 0;
+  STREAM_ACTION_RESUME = 1;
+  STREAM_ACTION_MUTE = 2;
+  STREAM_ACTION_UNMUTE = 3;
+  STREAM_ACTION_CHANGE_RESOLUTION = 4;
+  STREAM_ACTION_CHANGE_BITRATE = 5;
+}
+
+enum StreamDirection {
+  STREAM_DIRECTION_UPSTREAM = 0;    // Robot → Cloud
+  STREAM_DIRECTION_DOWNSTREAM = 1;  // Cloud → Operator
+}
