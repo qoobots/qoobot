@@ -43,6 +43,11 @@ public class SecurityConfig {
                     "/api/v1/auth/sso/sessions/*/validate",
                     // API Key — validation is called by API gateway / resource servers
                     "/api/v1/auth/api-keys/validate",
+                    // Device Certificates — CRL and validation are public (RFC 5280)
+                    "/api/v1/auth/device-certs/crl",
+                    "/api/v1/auth/device-certs/crl/delta",
+                    "/api/v1/auth/device-certs/validate/**",
+                    "/api/v1/auth/device-certs/bootstrap",
                     "/.well-known/**",
                     "/oauth2/**",
                     "/actuator/health",

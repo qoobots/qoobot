@@ -47,6 +47,18 @@ public final class IdGenerator {
         return "aku_" + generateRandom();
     }
 
+    public static String generateDeviceCertId() {
+        return "dc_" + generateRandom();
+    }
+
+    public static String generateCrlEntryId() {
+        return "crl_" + generateRandom();
+    }
+
+    public static String generateCaConfigId() {
+        return "ca_" + generateRandom();
+    }
+
     private static String generateRandom() {
         byte[] bytes = new byte[RANDOM_BYTES];
         RANDOM.nextBytes(bytes);

@@ -46,6 +46,7 @@
         <lombok.version>1.18.32</lombok.version>
         <testcontainers.version>1.19.7</testcontainers.version>
         <aerogear-otp.version>1.0.0</aerogear-otp.version>
+        <bouncycastle.version>1.78.1</bouncycastle.version>
     </properties>
 
     <dependencyManagement>
@@ -163,6 +164,18 @@
                 <groupId>org.jboss.aerogear</groupId>
                 <artifactId>aerogear-otp-java</artifactId>
                 <version>${aerogear-otp.version}</version>
+            </dependency>
+
+            <!-- BouncyCastle (X.509 certs, CSR, CRL) -->
+            <dependency>
+                <groupId>org.bouncycastle</groupId>
+                <artifactId>bcprov-jdk18on</artifactId>
+                <version>${bouncycastle.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.bouncycastle</groupId>
+                <artifactId>bcpkix-jdk18on</artifactId>
+                <version>${bouncycastle.version}</version>
             </dependency>
 
             <!-- Internal modules -->

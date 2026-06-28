@@ -59,6 +59,15 @@ public final class ErrorCodes {
     public static final String DEVICE_CERT_INVALID = "DEV_6003";
     public static final String DEVICE_FINGERPRINT_MISMATCH = "DEV_6004";
     public static final String DEVICE_NOT_TRUSTED = "DEV_6005";
+    public static final String DEVICE_CERT_NOT_FOUND = "DEV_6006";
+    public static final String DEVICE_CERT_REVOKED = "DEV_6007";
+    public static final String DEVICE_CERT_EXPIRED = "DEV_6008";
+    public static final String DEVICE_CERT_ISSUE_FAILED = "DEV_6009";
+    public static final String DEVICE_CERT_STATE_INVALID = "DEV_6010";
+    public static final String DEVICE_CERT_ALREADY_REVOKED = "DEV_6011";
+    public static final String DEVICE_CERT_NOT_YET_VALID = "DEV_6012";
+    public static final String DEVICE_CSR_INVALID = "DEV_6013";
+    public static final String DEVICE_KEY_ALGORITHM_INVALID = "DEV_6014";
 
     // === General (GEN_9xxx) ===
     public static final String INTERNAL_ERROR = "GEN_9001";
