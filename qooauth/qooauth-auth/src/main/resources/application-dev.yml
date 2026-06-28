@@ -1,0 +1,18 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/qooauth_dev
+    username: qooauth_dev
+    password: qooauth_dev
+
+  jpa:
+    show-sql: true
+
+  data:
+    redis:
+      host: localhost
+      port: 6379
+
+logging:
+  level:
+    com.qoobot.qooauth: TRACE
+    org.hibernate.SQL: DEBUG
