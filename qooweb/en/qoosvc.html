@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="qoosvc — System Services — Platform layer project of the QooBot ecosystem, providing foundational services including voice assistant, spatial understanding, navigation, multi-robot connectivity, and self-diagnostics for robots">
+  <title>qoosvc — System Services | QooBot Ecosystem</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="icon" type="image/svg+xml" href="../assets/qoobot-logo.svg">
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <img src="../assets/qoobot-logo.svg" alt="QooBot">
+      </a>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li class="nav-dropdown-trigger">
+          <a href="products.html" class="nav-dropdown-link">Products <span class="dropdown-arrow">▾</span></a>
+          <div class="nav-dropdown nav-dropdown-mega">
+            <div class="nav-dropdown-mega-inner">
+              <div class="nav-dropdown-group">
+                <span class="nav-dropdown-label">Robot Platforms</span>
+                <a href="products.html#max">🦾 QooBot Max</a>
+                <span class="nav-dropdown-desc">Adult Male · Industrial · 1.90m · 40+ DOF · 100 TOPS</span>
+                <a href="products.html#nova">✨ QooBot Nova</a>
+                <span class="nav-dropdown-desc">Adult Female · Service · 1.70m · 36+ DOF · 80 TOPS</span>
+              </div>
+              <div class="nav-dropdown-group">
+                <span class="nav-dropdown-label">Open Drawings</span>
+                <a href="products.html#hardware-designs">📐 Hardware Reference Designs</a>
+                <span class="nav-dropdown-desc">81 Open-Source Drawings — Waist · Chest · Head · Legs</span>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="nav-dropdown-trigger">
+          <a href="products.html#ecosystem" class="nav-dropdown-link active">Ecosystem <span class="dropdown-arrow">▾</span></a>
+          <div class="nav-dropdown nav-dropdown-mega">
+            <div class="nav-dropdown-mega-inner">
+              <div class="nav-dropdown-group">
+                <span class="nav-dropdown-label">Core Layer</span>
+                <a href="qoobrain.html">🧠 qoobrain — Brain OS</a>
+                <a href="qoocore.html">⚡ qoocore — Chip & Acceleration</a>
+                <a href="qoobody.html">🔩 qoobody — Hardware Reference</a>
+              </div>
+              <div class="nav-dropdown-group">
+                <span class="nav-dropdown-label">Platform Layer</span>
+                <a href="qoostore.html">🛒 qoostore — Skill Store</a>
+                <a href="qoocloud.html">☁️ qoocloud — Cloud Services</a>
+                <a href="qoosvc.html">🔧 qoosvc — System Services</a>
+              </div>
+              <div class="nav-dropdown-group">
+                <span class="nav-dropdown-label">Assurance Layer</span>
+                <a href="qoodev.html">💻 qoodev — Developer Toolchain</a>
+                <a href="qooauth.html">🔐 qooauth — Auth & Security</a>
+                <a href="qoocompliance.html">📋 qoocompliance — Regulatory Compliance</a>
+              </div>
+              <div class="nav-dropdown-group">
+                <span class="nav-dropdown-label">Ecosystem Layer</span>
+                <a href="qoogear.html">🔌 qoogear — Gear Ecosystem</a>
+                <a href="qoocommunity.html">👥 qoocommunity — Global Community</a>
+                <a href="qoochain.html">🏭 qoochain — Supply Chain</a>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="https://github.com/qoobots/qoobot" target="_blank" rel="noopener">GitHub</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a href="../qoosvc.html" class="nav-lang">中文</a>
+        <button class="nav-theme" id="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+        <button class="nav-toggle" id="nav-toggle" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ====== Hero ====== -->
+  <section class="product-hero">
+    <div class="section-label fade-up visible">Platform Layer · System Services</div>
+    <h1 class="section-title fade-up visible">🔧 qoosvc</h1>
+    <p class="section-desc fade-up visible" style="margin: 0 auto; max-width: 800px;">
+      Robot Foundational Service Suite — providing key system services including voice assistant, spatial understanding, navigation, multi-robot connectivity, and self-diagnostics.
+    </p>
+    <div class="mt-24 fade-up visible">
+      <span class="eco-badge status-design">Design Phase</span>
+      <span class="eco-badge status-alpha">Prototype In Development</span>
+    </div>
+  </section>
+
+  <!-- ====== Project Overview ====== -->
+  <section class="section">
+    <div class="section-inner">
+      <div class="section-label fade-up">Project Overview</div>
+      <h2 class="section-title fade-up">Robot <span class="gradient-text">Foundational Capabilities</span> as Services</h2>
+      <p class="section-desc fade-up">
+        qoosvc is the system services platform of the QooBot ecosystem, encapsulating commonly used robot foundational capabilities as standardized services for quick integration and invocation by upper-layer applications.
+      </p>
+
+      <div class="brain-grid fade-up">
+        <div class="brain-card">
+          <div class="brain-card-number">Service 01</div>
+          <div class="brain-card-icon">🗣️</div>
+          <h3>Voice Assistant Service</h3>
+          <p>Complete voice interaction capabilities including speech recognition, natural language understanding, speech synthesis, and dialogue management.</p>
+        </div>
+        <div class="brain-card">
+          <div class="brain-card-number">Service 02</div>
+          <div class="brain-card-icon">🗺️</div>
+          <h3>Spatial Understanding Service</h3>
+          <p>Intelligent environment perception capabilities including environment modeling, object recognition, scene understanding, and spatial reasoning.</p>
+        </div>
+        <div class="brain-card">
+          <div class="brain-card-number">Service 03</div>
+          <div class="brain-card-icon">🧭</div>
+          <h3>Navigation Service</h3>
+          <p>Autonomous navigation capabilities including path planning, obstacle avoidance, localization tracking, and map building.</p>
+        </div>
+        <div class="brain-card">
+          <div class="brain-card-number">Service 04</div>
+          <div class="brain-card-icon">🔗</div>
+          <h3>Multi-Robot Connectivity</h3>
+          <p>Multi-robot collaboration capabilities including inter-robot communication, task coordination, data sharing, and swarm coordination.</p>
+        </div>
+        <div class="brain-card">
+          <div class="brain-card-number">Service 05</div>
+          <div class="brain-card-icon">🔍</div>
+          <h3>Self-Diagnostics Service</h3>
+          <p>System self-healing capabilities including health monitoring, fault detection, performance analysis, and preventive maintenance.</p>
+        </div>
+        <div class="brain-card">
+          <div class="brain-card-number">Service 06</div>
+          <div class="brain-card-icon">⚙️</div>
+          <h3>System Management Service</h3>
+          <p>System operations capabilities including configuration management, log collection, performance monitoring, and resource scheduling.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== Technical Architecture ====== -->
+  <section class="section section-dark">
+    <div class="section-inner">
+      <div class="section-label fade-up">Technical Architecture</div>
+      <h2 class="section-title fade-up">Microservices Architecture, <span class="gradient-text">Services as Capabilities</span></h2>
+      <p class="section-desc fade-up">
+        qoosvc adopts a microservices architecture where each foundational capability runs as an independent service, supporting on-demand deployment and elastic scaling.
+      </p>
+
+      <div class="arch-overview fade-up">
+        <div class="arch-layer arch-layer-core">
+          <div class="arch-layer-header">
+            <span class="arch-layer-icon">🗣️</span>
+            <span class="arch-layer-name">Interaction Service Group</span>
+            <span class="arch-layer-desc">Human-Robot Interaction</span>
+          </div>
+          <div class="eco-grid">
+            <div class="eco-card">
+              <div class="eco-card-icon">🎤</div>
+              <div class="eco-card-body">
+                <h3>Speech Recognition Service</h3>
+                <p>High-accuracy speech-to-text supporting multiple languages, accents, and noisy environments.</p>
+                <div class="eco-card-tags">
+                  <span>Multi-Language</span><span>Noise Suppression</span><span>Real-time ASR</span>
+                </div>
+              </div>
+            </div>
+            <div class="eco-card">
+              <div class="eco-card-icon">🧠</div>
+              <div class="eco-card-body">
+                <h3>Natural Language Understanding</h3>
+                <p>NLU services for intent recognition, entity extraction, sentiment analysis, and context understanding.</p>
+                <div class="eco-card-tags">
+                  <span>Intent Recognition</span><span>Entity Extraction</span><span>Sentiment Analysis</span>
+                </div>
+              </div>
+            </div>
+            <div class="eco-card">
+              <div class="eco-card-icon">🔊</div>
+              <div class="eco-card-body">
+                <h3>Speech Synthesis Service</h3>
+                <p>Natural, fluent, and emotionally expressive text-to-speech with multiple voice options.</p>
+                <div class="eco-card-tags">
+                  <span>Emotive TTS</span><span>Multi-Voice</span><span>Real-time TTS</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="arch-layer arch-layer-platform">
+          <div class="arch-layer-header">
+            <span class="arch-layer-icon">🗺️</span>
+            <span class="arch-layer-name">Perception Service Group</span>
+            <span class="arch-layer-desc">Environmental Perception</span>
+          </div>
+          <div class="eco-grid">
+            <div class="eco-card">
+              <div class="eco-card-icon">👁️</div>
+              <div class="eco-card-body">
+                <h3>Visual Understanding Service</h3>
+                <p>Visual analysis services for object detection, scene segmentation, pose estimation, and behavior recognition.</p>
+                <div class="eco-card-tags">
+                  <span>Object Detection</span><span>Scene Segmentation</span><span>Pose Estimation</span>
+                </div>
+              </div>
+            </div>
+            <div class="eco-card">
+              <div class="eco-card-icon">📍</div>
+              <div class="eco-card-body">
+                <h3>Localization & Mapping</h3>
+                <p>Spatial perception services for SLAM, localization tracking, map updates, and environment modeling.</p>
+                <div class="eco-card-tags">
+                  <span>SLAM</span><span>Localization</span><span>Environment Modeling</span>
+                </div>
+              </div>
+            </div>
+            <div class="eco-card">
+              <div class="eco-card-icon">🧭</div>
+              <div class="eco-card-body">
+                <h3>Navigation Planning Service</h3>
+                <p>Navigation services for global path planning, local obstacle avoidance, dynamic re-planning, and multi-goal navigation.</p>
+                <div class="eco-card-tags">
+                  <span>Path Planning</span><span>Obstacle Avoidance</span><span>Dynamic Re-plan</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="arch-layer arch-layer-quality">
+          <div class="arch-layer-header">
+            <span class="arch-layer-icon">🔗</span>
+            <span class="arch-layer-name">Collaboration Service Group</span>
+            <span class="arch-layer-desc">Multi-Robot Collaboration</span>
+          </div>
+          <div class="eco-grid">
+            <div class="eco-card">
+              <div class="eco-card-icon">📡</div>
+              <div class="eco-card-body">
+                <h3>Inter-Robot Communication</h3>
+                <p>Low-latency, high-reliability, self-organizing direct communication service between robots.</p>
+                <div class="eco-card-tags">
+                  <span>Low Latency</span><span>High Reliability</span><span>Self-Organizing</span>
+                </div>
+              </div>
+            </div>
+            <div class="eco-card">
+              <div class="eco-card-icon">🤝</div>
+              <div class="eco-card-body">
+                <h3>Task Coordination Service</h3>
+                <p>Multi-robot collaborative operation services for task decomposition, assignment, coordination, and monitoring.</p>
+                <div class="eco-card-tags">
+                  <span>Task Decomp.</span><span>Task Assignment</span><span>Collaborative Ops</span>
+                </div>
+              </div>
+            </div>
+            <div class="eco-card">
+              <div class="eco-card-icon">📊</div>
+              <div class="eco-card-body">
+                <h3>Data Sharing Service</h3>
+                <p>Real-time sharing and synchronization services for sensor data, map information, and task state.</p>
+                <div class="eco-card-tags">
+                  <span>Data Sharing</span><span>Real-time Sync</span><span>State Sync</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== Key Features ====== -->
+  <section class="section">
+    <div class="section-inner">
+      <div class="section-label fade-up">Key Features</div>
+      <h2 class="section-title fade-up">Designed for <span class="gradient-text">Intelligent Robots</span></h2>
+      
+      <div class="feature-grid fade-up">
+        <div class="feature-card">
+          <div class="feature-card-icon">🚀</div>
+          <h3>Plug & Play</h3>
+          <p>Standardized service interfaces supporting quick integration and deployment, reducing development complexity.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-icon">🔧</div>
+          <h3>Modular Design</h3>
+          <p>Independent service deployment and upgrades, supporting on-demand composition and customized configuration.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-icon">⚡</div>
+          <h3>High Performance</h3>
+          <p>Optimized algorithms and hardware acceleration ensuring real-time response and low-latency processing.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-icon">🔒</div>
+          <h3>Secure & Reliable</h3>
+          <p>Security mechanisms including service isolation, failover, data encryption, and access control.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-icon">📈</div>
+          <h3>Elastic Scaling</h3>
+          <p>Support horizontal scaling and load balancing, adapting to deployment needs of various scales.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-icon">🌐</div>
+          <h3>Cross-Platform Compatible</h3>
+          <p>Support adaptation across multiple robot platforms, operating systems, and hardware configurations.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ====== Get Started ====== -->
+  <section class="section">
+    <div class="section-inner">
+      <div class="section-label fade-up">Get Started</div>
+      <h2 class="section-title fade-up">Integrate <span class="gradient-text">qoosvc</span> Services</h2>
+      <p class="section-desc fade-up">
+        qoosvc provides complete service APIs and integration guides, welcoming developers to integrate foundational capability services into their own robot applications.
+      </p>
+
+      <div class="feature-grid fade-up" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));">
+        <div class="feature-card">
+          <div class="feature-card-icon">📚</div>
+          <h3>API Documentation</h3>
+          <p>Detailed REST API documentation, gRPC interface definitions, and SDK usage guides.</p>
+          <a href="https://github.com/qoobots/qoobot/tree/main/qoosvc/docs" target="_blank" rel="noopener" class="eco-link mt-16">View Docs →</a>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-icon">💻</div>
+          <h3>Sample Code</h3>
+          <p>Sample code in multiple programming languages, integration demos, and best practice examples.</p>
+          <a href="https://github.com/qoobots/qoobot/tree/main/qoosvc/examples" target="_blank" rel="noopener" class="eco-link mt-16">View Examples →</a>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-icon">🤝</div>
+          <h3>Community Support</h3>
+          <p>Active developer community, technical discussion groups, and integration experience sharing sessions.</p>
+          <a href="https://discord.gg/qoobot" target="_blank" rel="noopener" class="eco-link mt-16">Join Community →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== Related Projects ====== -->
+  <section class="section section-dark">
+    <div class="section-inner">
+      <div class="section-label fade-up">Related Projects</div>
+      <h2 class="section-title fade-up">Ecosystem <span class="gradient-text">Synergy</span></h2>
+      <p class="section-desc fade-up">
+        qoosvc is tightly integrated with other QooBot ecosystem projects to jointly build a complete robot services ecosystem.
+      </p>
+
+      <div class="eco-grid fade-up">
+        <div class="eco-card">
+          <div class="eco-card-icon">🧠</div>
+          <div class="eco-card-body">
+            <h3>qoobrain</h3>
+            <p>Brain OS, building advanced intelligent applications based on foundational services provided by qoosvc.</p>
+            <a href="qoobrain.html" class="eco-link">Learn about qoobrain →</a>
+          </div>
+        </div>
+        <div class="eco-card">
+          <div class="eco-card-icon">🛒</div>
+          <div class="eco-card-body">
+            <h3>qoostore</h3>
+            <p>Skill store, developing and publishing rich robot skills based on qoosvc services.</p>
+            <a href="qoostore.html" class="eco-link">Learn about qoostore →</a>
+          </div>
+        </div>
+        <div class="eco-card">
+          <div class="eco-card-icon">☁️</div>
+          <div class="eco-card-body">
+            <h3>qoocloud</h3>
+            <p>Cloud services, providing remote computing and data synchronization capabilities for qoosvc.</p>
+            <a href="qoocloud.html" class="eco-link">Learn about qoocloud →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-col">
+        <h4>Products</h4>
+        <ul>
+          <li><a href="products.html">Products & Ecosystem</a></li>
+          <li><a href="products.html#ecosystem">Open Source Projects</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Developers</h4>
+        <ul>
+          <li><a href="https://github.com/qoobots/qoobot" target="_blank" rel="noopener">GitHub</a></li>
+          <li><a href="https://github.com/qoobots/qoobot/blob/main/LICENSE" target="_blank" rel="noopener">License</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Community</h4>
+        <ul>
+          <li><a href="https://discord.gg/qoobot" target="_blank" rel="noopener">Discord</a></li>
+          <li><a href="https://github.com/qoobots/qoobot/discussions" target="_blank" rel="noopener">GitHub Discussions</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>About</h4>
+        <ul>
+          <li><a href="about.html">Brand Story</a></li>
+          <li><a href="about.html#team">Team</a></li>
+          <li><a href="about.html#contact">Contact Us</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 QooBot. All rights reserved.</span>
+      <span>Apache 2.0 Open Source License</span>
+    </div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="qooremote — Remote Teleoperation Subsystem — One of QOS's two core subsystems. When the autonomous brain cannot handle long-tail scenarios, human operators can remotely take over the robot">
+  <title>qooremote — Remote Teleoperation | QooBot Ecosystem</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="icon" type="image/svg+xml" href="../assets/qoobot-logo.svg">
+  <style>
+    /* qooremote custom styles */
+    :root {
+      --teleop-bg: #0a0e14;
+      --teleop-panel: #131820;
+      --teleop-border: #1e2733;
+      --teleop-accent: #00d4aa;
+      --teleop-danger: #ff4757;
+      --teleop-warning: #ffa502;
+      --teleop-success: #2ed573;
+      --teleop-text: #c8d6e5;
+      --teleop-text-dim: #6c7a8d;
+    }
+
+    .teleop-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 20px;
+      font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+      color: var(--teleop-text);
+    }
+
+    .teleop-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 24px;
+      background: var(--teleop-panel);
+      border: 1px solid var(--teleop-border);
+      border-radius: 12px;
+      margin-bottom: 20px;
+    }
+
+    .teleop-header-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .teleop-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: #fff;
+    }
+
+    .teleop-badge {
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    .teleop-badge.active {
+      background: rgba(0, 212, 170, 0.15);
+      color: var(--teleop-accent);
+    }
+
+    .teleop-badge.auto {
+      background: rgba(46, 213, 115, 0.15);
+      color: var(--teleop-success);
+    }
+
+    .teleop-latency {
+      font-size: 13px;
+      color: var(--teleop-text-dim);
+      padding: 4px 12px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 8px;
+    }
+
+    .teleop-latency.low { color: var(--teleop-success); }
+    .teleop-latency.medium { color: var(--teleop-warning); }
+    .teleop-latency.high { color: var(--teleop-danger); }
+
+    .teleop-main {
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: 20px;
+    }
+
+    .teleop-video-section {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .teleop-video-main {
+      grid-column: 1 / 3;
+      grid-row: 1 / 2;
+    }
+
+    .teleop-video-panel {
+      background: var(--teleop-panel);
+      border: 1px solid var(--teleop-border);
+      border-radius: 12px;
+      overflow: hidden;
+      position: relative;
+      min-height: 240px;
+    }
+
+    .teleop-video-placeholder {
+      width: 100%;
+      height: 100%;
+      min-height: 240px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #0d1117 0%, #161b22 100%);
+      color: var(--teleop-text-dim);
+    }
+
+    .teleop-video-placeholder .icon {
+      font-size: 48px;
+      margin-bottom: 12px;
+      opacity: 0.4;
+    }
+
+    .teleop-video-label {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      padding: 4px 10px;
+      background: rgba(0, 0, 0, 0.7);
+      border-radius: 6px;
+      font-size: 11px;
+      color: #fff;
+      z-index: 2;
+    }
+
+    .teleop-video-stats {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      padding: 4px 10px;
+      background: rgba(0, 0, 0, 0.7);
+      border-radius: 6px;
+      font-size: 10px;
+      color: var(--teleop-text-dim);
+      z-index: 2;
+    }
+
+    .teleop-control-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .teleop-section {
+      background: var(--teleop-panel);
+      border: 1px solid var(--teleop-border);
+      border-radius: 12px;
+      padding: 20px;
+    }
+
+    .teleop-section-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--teleop-border);
+    }
+
+    .teleop-status-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .teleop-status-item {
+      padding: 12px;
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 8px;
+      border: 1px solid var(--teleop-border);
+    }
+
+    .teleop-status-label {
+      font-size: 11px;
+      color: var(--teleop-text-dim);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+    }
+
+    .teleop-status-value {
+      font-size: 16px;
+      font-weight: 600;
+      color: #fff;
+    }
+
+    .teleop-status-value.danger { color: var(--teleop-danger); }
+    .teleop-status-value.warning { color: var(--teleop-warning); }
+    .teleop-status-value.success { color: var(--teleop-success); }
+
+    .teleop-progress-bar {
+      height: 6px;
+      background: var(--teleop-border);
+      border-radius: 3px;
+      margin-top: 6px;
+      overflow: hidden;
+    }
+
+    .teleop-progress-fill {
+      height: 100%;
+      border-radius: 3px;
+      transition: width 0.3s ease;
+    }
+
+    .teleop-progress-fill.success { background: var(--teleop-success); }
+    .teleop-progress-fill.warning { background: var(--teleop-warning); }
+    .teleop-progress-fill.danger { background: var(--teleop-danger); }
+
+    .teleop-dpad {
+      display: grid;
+      grid-template-columns: 60px 60px 60px;
+      grid-template-rows: 60px 60px 60px;
+      gap: 4px;
+      justify-content: center;
+    }
+
+    .teleop-dpad-btn {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--teleop-border);
+      border-radius: 8px;
+      color: var(--teleop-text);
+      font-size: 20px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .teleop-dpad-btn:hover {
+      background: rgba(0, 212, 170, 0.15);
+      border-color: var(--teleop-accent);
+    }
+
+    .teleop-dpad-btn:active {
+      background: rgba(0, 212, 170, 0.25);
+      transform: scale(0.95);
+    }
+
+    .teleop-dpad-empty {
+      background: transparent;
+      border: none;
+    }
+
+    .teleop-slider-group {
+      margin-bottom: 12px;
+    }
+
+    .teleop-slider-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      margin-bottom: 6px;
+    }
+
+    .teleop-slider-label .name { color: var(--teleop-text-dim); }
+    .teleop-slider-label .value { color: var(--teleop-accent); }
+
+    .teleop-slider {
+      width: 100%;
+      height: 6px;
+      -webkit-appearance: none;
+      appearance: none;
+      background: var(--teleop-border);
+      border-radius: 3px;
+      outline: none;
+    }
+
+    .teleop-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--teleop-accent);
+      cursor: pointer;
+    }
+
+    .teleop-btn-group {
+      display: flex;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .teleop-btn {
+      flex: 1;
+      padding: 12px 16px;
+      border: 1px solid var(--teleop-border);
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      text-align: center;
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--teleop-text);
+    }
+
+    .teleop-btn:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .teleop-btn.danger {
+      background: rgba(255, 71, 87, 0.15);
+      border-color: var(--teleop-danger);
+      color: var(--teleop-danger);
+    }
+
+    .teleop-btn.danger:hover {
+      background: rgba(255, 71, 87, 0.25);
+    }
+
+    .teleop-btn.accent {
+      background: rgba(0, 212, 170, 0.15);
+      border-color: var(--teleop-accent);
+      color: var(--teleop-accent);
+    }
+
+    .teleop-btn.accent:hover {
+      background: rgba(0, 212, 170, 0.25);
+    }
+
+    .teleop-mode-indicator {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    .teleop-mode-indicator.auto {
+      background: rgba(46, 213, 115, 0.1);
+      color: var(--teleop-success);
+    }
+
+    .teleop-mode-indicator.teleop {
+      background: rgba(0, 212, 170, 0.1);
+      color: var(--teleop-accent);
+    }
+
+    @media (max-width: 1024px) {
+      .teleop-main {
+        grid-template-columns: 1fr;
+      }
+
+      .teleop-video-section {
+        grid-template-columns: 1fr;
+      }
+
+      .teleop-video-main {
+        grid-column: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <img src="../assets/qoobot-logo.svg" alt="QooBot">
+      </a>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="products.html">Products</a></li>
+        <li><a href="qoobrain.html">QOS Brain</a></li>
+        <li><a href="qoocloud.html">Cloud Services</a></li>
+        <li><a href="qoocommunity.html">Community</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a href="../qooremote.html" class="nav-lang">中文</a>
+        <button class="nav-theme" id="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+        <button class="nav-toggle" id="nav-toggle" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Header -->
+  <section class="hero" style="padding: 60px 0 40px; background: linear-gradient(135deg, #0a0e14 0%, #131820 100%);">
+    <div class="hero-inner" style="max-width: 1400px;">
+      <h1 style="font-size: 42px; margin-bottom: 16px;">
+        <span style="color: var(--teleop-accent);">qooremote</span> — Remote Human Teleoperation System
+      </h1>
+      <p style="font-size: 18px; color: var(--teleop-text-dim); max-width: 800px;">
+        One of QOS's two core subsystems (alongside qoobrain). When the autonomous brain cannot handle long-tail scenarios, human operators can remotely take over the robot's perception, decision-making, and control.
+      </p>
+      <div style="display: flex; gap: 12px; margin-top: 24px;">
+        <span class="teleop-badge auto">🖥️ onboard_core</span>
+        <span class="teleop-badge auto">☁️ cloud_service</span>
+        <span class="teleop-badge auto">🖱️ desktop_console</span>
+        <span class="teleop-badge auto">🌐 web_portal</span>
+        <span class="teleop-badge auto">📱 mobile_app</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Architecture Overview -->
+  <section style="padding: 60px 20px; background: #0d1117;">
+    <div class="teleop-container">
+      <h2 style="font-size: 28px; margin-bottom: 32px; color: #fff;">System Architecture</h2>
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 40px;">
+        <div class="teleop-section">
+          <div class="teleop-section-title">🕹️ Operator Side</div>
+          <p style="font-size: 13px; color: var(--teleop-text-dim); line-height: 1.6;">
+            Supports motion capture devices (OptiTrack/XSens), VR headsets (Meta Quest), gamepads (Xbox/DualSense),
+            keyboard & mouse, and other input devices. The operator SDK provides unified input abstraction and standardized control command output.
+          </p>
+        </div>
+        <div class="teleop-section">
+          <div class="teleop-section-title">☁️ qoocloud-teleop (:8208)</div>
+          <p style="font-size: 13px; color: var(--teleop-text-dim); line-height: 1.6;">
+            WebRTC signaling relay (SDP/ICE exchange), low-latency control command forwarding (&lt;50ms LAN),
+            video stream forwarding (SFU, up to 4 streams), teleoperation session lifecycle management, and teaching data storage.
+          </p>
+        </div>
+        <div class="teleop-section">
+          <div class="teleop-section-title">🤖 Robot-Side Agent</div>
+          <p style="font-size: 13px; color: var(--teleop-text-dim); line-height: 1.6;">
+            Multi-stream video capture with H.264/H.265 hardware encoding, control command reception and HAL execution,
+            smooth autonomous ↔ teleop switching, safety validation (range/rate/heartbeat timeout), and teaching data collection.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Teleoperation Capability Matrix -->
+  <section style="padding: 60px 20px; background: #0a0e14;">
+    <div class="teleop-container">
+      <h2 style="font-size: 28px; margin-bottom: 32px; color: #fff;">Teleoperation Capability Matrix</h2>
+      <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;">
+        <div class="teleop-section">
+          <div style="font-size: 28px; margin-bottom: 8px;">🎯</div>
+          <h3 style="font-size: 15px; color: #fff; margin-bottom: 8px;">Motion Capture Teleop</h3>
+          <p style="font-size: 12px; color: var(--teleop-text-dim);">MoCap device → robot full-body 1:1 motion mapping</p>
+        </div>
+        <div class="teleop-section">
+          <div style="font-size: 28px; margin-bottom: 8px;">🥽</div>
+          <h3 style="font-size: 15px; color: #fff; margin-bottom: 8px;">VR Immersive Teleop</h3>
+          <p style="font-size: 12px; color: var(--teleop-text-dim);">VR headset first-person view + controller operation</p>
+        </div>
+        <div class="teleop-section">
+          <div style="font-size: 28px; margin-bottom: 8px;">🎮</div>
+          <h3 style="font-size: 15px; color: #fff; margin-bottom: 8px;">Gamepad/Keyboard Teleop</h3>
+          <p style="font-size: 12px; color: var(--teleop-text-dim);">Standard input devices for debugging and emergency takeover</p>
+        </div>
+        <div class="teleop-section">
+          <div style="font-size: 28px; margin-bottom: 8px;">📹</div>
+          <h3 style="font-size: 15px; color: #fff; margin-bottom: 8px;">Remote Video Stream</h3>
+          <p style="font-size: 12px; color: var(--teleop-text-dim);">Multi-stream H.264/H.265 video real-time feedback</p>
+        </div>
+        <div class="teleop-section">
+          <div style="font-size: 28px; margin-bottom: 8px;">🎙️</div>
+          <h3 style="font-size: 15px; color: #fff; margin-bottom: 8px;">Remote Voice Intercom</h3>
+          <p style="font-size: 12px; color: var(--teleop-text-dim);">Opus-encoded bidirectional low-latency voice</p>
+        </div>
+        <div class="teleop-section">
+          <div style="font-size: 28px; margin-bottom: 8px;">🔄</div>
+          <h3 style="font-size: 15px; color: #fff; margin-bottom: 8px;">Remote Takeover</h3>
+          <p style="font-size: 12px; color: var(--teleop-text-dim);">Seamless autonomous ↔ teleop mode switching</p>
+        </div>
+        <div class="teleop-section">
+          <div style="font-size: 28px; margin-bottom: 8px;">⏺️</div>
+          <h3 style="font-size: 15px; color: #fff; margin-bottom: 8px;">Teaching Record & Replay</h3>
+          <p style="font-size: 12px; color: var(--teleop-text-dim);">Operation data collection → skill training</p>
+        </div>
+        <div class="teleop-section">
+          <div style="font-size: 28px; margin-bottom: 8px;">📡</div>
+          <h3 style="font-size: 15px; color: #fff; margin-bottom: 8px;">Control Signal Relay</h3>
+          <p style="font-size: 12px; color: var(--teleop-text-dim);">Cloud low-latency command forwarding &lt;50ms</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Web Teleop Panel Demo -->
+  <section style="padding: 60px 20px; background: #0d1117;">
+    <div class="teleop-container">
+      <h2 style="font-size: 28px; margin-bottom: 8px; color: #fff;">Web Teleoperation Panel <span style="font-size: 13px; color: var(--teleop-text-dim); font-weight: 400;">Demo</span></h2>
+      <p style="color: var(--teleop-text-dim); margin-bottom: 24px;">Based on TypeScript + Vue3 + Element Plus + WebRTC API</p>
+
+      <!-- Teleop Panel -->
+      <div class="teleop-main">
+        <!-- Video Area -->
+        <div class="teleop-video-section">
+          <div class="teleop-video-panel teleop-video-main">
+            <div class="teleop-video-label">📹 Main Camera (First-Person)</div>
+            <div class="teleop-video-placeholder">
+              <div class="icon">📷</div>
+              <div style="font-size: 14px;">Live Video Stream</div>
+              <div style="font-size: 11px; margin-top: 4px;">H.264 1080p@30fps</div>
+            </div>
+            <div class="teleop-video-stats">4200 kbps | 29.8 fps | 12ms encode</div>
+          </div>
+          <div class="teleop-video-panel">
+            <div class="teleop-video-label">📹 Depth Camera</div>
+            <div class="teleop-video-placeholder">
+              <div class="icon">🔍</div>
+              <div style="font-size: 12px;">Depth Map</div>
+            </div>
+          </div>
+          <div class="teleop-video-panel">
+            <div class="teleop-video-label">📹 Gripper Camera</div>
+            <div class="teleop-video-placeholder">
+              <div class="icon">🦾</div>
+              <div style="font-size: 12px;">End-Effector View</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Control Panel -->
+        <div class="teleop-control-panel">
+          <!-- Status -->
+          <div class="teleop-section">
+            <div class="teleop-section-title">📊 Robot Status</div>
+            <div class="teleop-status-grid">
+              <div class="teleop-status-item">
+                <div class="teleop-status-label">Control Mode</div>
+                <div class="teleop-mode-indicator teleop">
+                  <span>🎮</span> TELEOP
+                </div>
+              </div>
+              <div class="teleop-status-item">
+                <div class="teleop-status-label">Latency</div>
+                <div class="teleop-status-value success">45ms</div>
+              </div>
+              <div class="teleop-status-item">
+                <div class="teleop-status-label">Battery</div>
+                <div class="teleop-status-value success">85%</div>
+                <div class="teleop-progress-bar">
+                  <div class="teleop-progress-fill success" style="width: 85%"></div>
+                </div>
+              </div>
+              <div class="teleop-status-item">
+                <div class="teleop-status-label">CPU Temp</div>
+                <div class="teleop-status-value warning">52°C</div>
+              </div>
+              <div class="teleop-status-item">
+                <div class="teleop-status-label">E-Stop Status</div>
+                <div class="teleop-status-value success">✅ Normal</div>
+              </div>
+              <div class="teleop-status-item">
+                <div class="teleop-status-label">Comm Quality</div>
+                <div class="teleop-status-value success">🟢 Excellent</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Movement Control -->
+          <div class="teleop-section">
+            <div class="teleop-section-title">🕹️ Movement Control</div>
+            <div class="teleop-dpad">
+              <div class="teleop-dpad-empty"></div>
+              <button class="teleop-dpad-btn" title="Forward">▲</button>
+              <div class="teleop-dpad-empty"></div>
+              <button class="teleop-dpad-btn" title="Turn Left">◀</button>
+              <button class="teleop-dpad-btn" title="Stop" style="font-size: 14px; font-weight: 600;">STOP</button>
+              <button class="teleop-dpad-btn" title="Turn Right">▶</button>
+              <div class="teleop-dpad-empty"></div>
+              <button class="teleop-dpad-btn" title="Backward">▼</button>
+              <div class="teleop-dpad-empty"></div>
+            </div>
+            <div class="teleop-slider-group" style="margin-top: 16px;">
+              <div class="teleop-slider-label">
+                <span class="name">Speed Multiplier</span>
+                <span class="value">50%</span>
+              </div>
+              <input type="range" class="teleop-slider" min="0" max="100" value="50">
+            </div>
+          </div>
+
+          <!-- Arm Control -->
+          <div class="teleop-section">
+            <div class="teleop-section-title">🦾 Arm Control</div>
+            <div class="teleop-slider-group">
+              <div class="teleop-slider-label"><span class="name">Left Arm Shoulder Pitch</span><span class="value">0°</span></div>
+              <input type="range" class="teleop-slider" min="-90" max="90" value="0">
+            </div>
+            <div class="teleop-slider-group">
+              <div class="teleop-slider-label"><span class="name">Left Arm Elbow</span><span class="value">30°</span></div>
+              <input type="range" class="teleop-slider" min="0" max="150" value="30">
+            </div>
+            <div class="teleop-slider-group">
+              <div class="teleop-slider-label"><span class="name">Right Arm Shoulder Pitch</span><span class="value">0°</span></div>
+              <input type="range" class="teleop-slider" min="-90" max="90" value="0">
+            </div>
+            <div class="teleop-btn-group">
+              <button class="teleop-btn">🤚 L Gripper Open</button>
+              <button class="teleop-btn">🤚 L Gripper Close</button>
+            </div>
+            <div class="teleop-btn-group" style="margin-top: 4px;">
+              <button class="teleop-btn">🤚 R Gripper Open</button>
+              <button class="teleop-btn">🤚 R Gripper Close</button>
+            </div>
+          </div>
+
+          <!-- Emergency Operations -->
+          <div class="teleop-section">
+            <div class="teleop-section-title">⚡ Emergency Operations</div>
+            <div class="teleop-btn-group">
+              <button class="teleop-btn danger">🚨 Emergency Stop</button>
+              <button class="teleop-btn accent">🔄 Return to Auto</button>
+            </div>
+            <div class="teleop-btn-group" style="margin-top: 8px;">
+              <button class="teleop-btn">🎙️ Voice Intercom</button>
+              <button class="teleop-btn">⏺️ Record Teaching</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tech Stack -->
+  <section style="padding: 60px 20px; background: #0a0e14;">
+    <div class="teleop-container">
+      <h2 style="font-size: 28px; margin-bottom: 32px; color: #fff;">Tech Stack</h2>
+      <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;">
+        <div class="teleop-section" style="text-align: center;">
+          <div style="font-size: 14px; font-weight: 600; color: #fff; margin-bottom: 8px;">Edge C++17</div>
+          <p style="font-size: 12px; color: var(--teleop-text-dim);">
+            libdatachannel (WebRTC)<br>
+            FFmpeg (H.264/H.265 encode)<br>
+            Protobuf v3<br>
+            qoobody HAL
+          </p>
+        </div>
+        <div class="teleop-section" style="text-align: center;">
+          <div style="font-size: 14px; font-weight: 600; color: #fff; margin-bottom: 8px;">Cloud Java 17</div>
+          <p style="font-size: 12px; color: var(--teleop-text-dim);">
+            Spring Boot 3<br>
+            WebSocket (Signaling)<br>
+            PostgreSQL + Redis<br>
+            RocketMQ (Cmd Queue)
+          </p>
+        </div>
+        <div class="teleop-section" style="text-align: center;">
+          <div style="font-size: 14px; font-weight: 600; color: #fff; margin-bottom: 8px;">Frontend Vue3</div>
+          <p style="font-size: 12px; color: var(--teleop-text-dim);">
+            TypeScript<br>
+            Element Plus<br>
+            WebRTC API<br>
+            Virtual Joystick
+          </p>
+        </div>
+        <div class="teleop-section" style="text-align: center;">
+          <div style="font-size: 14px; font-weight: 600; color: #fff; margin-bottom: 8px;">Protocol Layer</div>
+          <p style="font-size: 12px; color: var(--teleop-text-dim);">
+            Protobuf v3<br>
+            WebRTC (UDP)<br>
+            DTLS-SRTP Encryption<br>
+            gPTP Time Sync
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer style="padding: 40px 20px; background: #0d1117; border-top: 1px solid var(--teleop-border);">
+    <div class="teleop-container" style="text-align: center; color: var(--teleop-text-dim); font-size: 13px;">
+      <p>qooremote — QOS Remote Human Teleoperation Subsystem | &copy; 2026 QooBot Open Source</p>
+    </div>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="qoostore — Skill Store — Platform layer project of the QooBot ecosystem, providing a complete ecosystem for robot skill discovery, publishing, and commercialization">
+  <title>qoostore — Skill Store | QooBot Ecosystem</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="icon" type="image/svg+xml" href="../assets/qoobot-logo.svg">
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <img src="../assets/qoobot-logo.svg" alt="QooBot">
+      </a>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li class="nav-dropdown-trigger">
+          <a href="products.html" class="nav-dropdown-link">Products <span class="dropdown-arrow">▾</span></a>
+          <div class="nav-dropdown nav-dropdown-mega">
+            <div class="nav-dropdown-mega-inner">
+              <div class="nav-dropdown-group">
+                <span class="nav-dropdown-label">Robot Platforms</span>
+                <a href="products.html#max">🦾 QooBot Max</a>
+                <span class="nav-dropdown-desc">Adult Male · Industrial · 1.90m · 40+ DOF · 100 TOPS</span>
+                <a href="products.html#nova">✨ QooBot Nova</a>
+                <span class="nav-dropdown-desc">Adult Female · Service · 1.70m · 36+ DOF · 80 TOPS</span>
+              </div>
+              <div class="nav-dropdown-group">
+                <span class="nav-dropdown-label">Open Drawings</span>
+                <a href="products.html#hardware-designs">📐 Hardware Reference Designs</a>
+                <span class="nav-dropdown-desc">81 Open-Source Drawings — Waist · Chest · Head · Legs</span>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="nav-dropdown-trigger">
+          <a href="products.html#ecosystem" class="nav-dropdown-link active">Ecosystem <span class="dropdown-arrow">▾</span></a>
+          <div class="nav-dropdown nav-dropdown-mega">
+            <div class="nav-dropdown-mega-inner">
+              <div class="nav-dropdown-group">
+                <span class="nav-dropdown-label">Core Layer</span>
+                <a href="qoobrain.html">🧠 qoobrain — Brain OS</a>
+                <a href="qoocore.html">⚡ qoocore — Chip & Acceleration</a>
+                <a href="qoobody.html">🔩 qoobody — Hardware Reference</a>
+              </div>
+              <div class="nav-dropdown-group">
+                <span class="nav-dropdown-label">Platform Layer</span>
+                <a href="qoostore.html">🛒 qoostore — Skill Store</a>
+                <a href="qoocloud.html">☁️ qoocloud — Cloud Services</a>
+                <a href="qoosvc.html">🔧 qoosvc — System Services</a>
+              </div>
+              <div class="nav-dropdown-group">
+                <span class="nav-dropdown-label">Assurance Layer</span>
+                <a href="qoodev.html">💻 qoodev — Developer Toolchain</a>
+                <a href="qooauth.html">🔐 qooauth — Auth & Security</a>
+                <a href="qoocompliance.html">📋 qoocompliance — Regulatory Compliance</a>
+              </div>
+              <div class="nav-dropdown-group">
+                <span class="nav-dropdown-label">Ecosystem Layer</span>
+                <a href="qoogear.html">🔌 qoogear — Gear Ecosystem</a>
+                <a href="qoocommunity.html">👥 qoocommunity — Global Community</a>
+                <a href="qoochain.html">🏭 qoochain — Supply Chain</a>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="https://github.com/qoobots/qoobot" target="_blank" rel="noopener">GitHub</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a href="../qoostore.html" class="nav-lang">中文</a>
+        <button class="nav-theme" id="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+        <button class="nav-toggle" id="nav-toggle" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ====== Hero ====== -->
+  <section class="product-hero">
+    <div class="section-label fade-up visible">Platform Layer · Skill Store</div>
+    <h1 class="section-title fade-up visible">🛒 qoostore</h1>
+    <p class="section-desc fade-up visible" style="margin: 0 auto; max-width: 800px;">
+      Robot Skill Discovery, Publishing & Commercialization Platform — connecting developers, users, and enterprises in a robot application ecosystem.
+    </p>
+    <div class="mt-24 fade-up visible">
+      <span class="eco-badge status-design">Design Phase</span>
+      <span class="eco-badge status-alpha">Prototype In Development</span>
+    </div>
+  </section>
+
+  <!-- ====== Project Overview ====== -->
+  <section class="section">
+    <div class="section-inner">
+      <div class="section-label fade-up">Project Overview</div>
+      <h2 class="section-title fade-up">The <span class="gradient-text">Digital Marketplace</span> for Robot Applications</h2>
+      <p class="section-desc fade-up">
+        qoostore is the skill marketplace platform of the QooBot ecosystem, providing a complete ecosystem for robot developers to publish skills, users to discover skills, and enterprises to commercialize services.
+      </p>
+
+      <div class="brain-grid fade-up">
+        <div class="brain-card">
+          <div class="brain-card-number">Module 01</div>
+          <div class="brain-card-icon">📦</div>
+          <h3>Skill Shop</h3>
+          <p>A digital marketplace for showcasing, searching, categorizing, rating, and downloading robot skills.</p>
+        </div>
+        <div class="brain-card">
+          <div class="brain-card-number">Module 02</div>
+          <div class="brain-card-icon">🔧</div>
+          <h3>Developer Center</h3>
+          <p>Skill development tools, SDKs, documentation, testing environments, and publishing workflow management.</p>
+        </div>
+        <div class="brain-card">
+          <div class="brain-card-number">Module 03</div>
+          <div class="brain-card-icon">💰</div>
+          <h3>Commercialization Platform</h3>
+          <p>Pricing strategies, payment systems, copyright protection, revenue sharing, and tax management.</p>
+        </div>
+        <div class="brain-card">
+          <div class="brain-card-number">Module 04</div>
+          <div class="brain-card-icon">🔄</div>
+          <h3>Skill Runtime</h3>
+          <p>A unified runtime environment for skill loading, execution, monitoring, updating, and uninstallation.</p>
+        </div>
+        <div class="brain-card">
+          <div class="brain-card-number">Module 05</div>
+          <div class="brain-card-icon">📊</div>
+          <h3>Data Analytics</h3>
+          <p>Data analysis tools for usage statistics, performance monitoring, user feedback, and market trends.</p>
+        </div>
+        <div class="brain-card">
+          <div class="brain-card-number">Module 06</div>
+          <div class="brain-card-icon">🔒</div>
+          <h3>Security Audit</h3>
+          <p>Security mechanisms including code review, security scanning, compliance checking, and quality certification.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== Technical Architecture ====== -->
+  <section class="section section-dark">
+    <div class="section-inner">
+      <div class="section-label fade-up">Technical Architecture</div>
+      <h2 class="section-title fade-up">Three-Layer Platform, <span class="gradient-text">Ecosystem Win-Win</span></h2>
+      <p class="section-desc fade-up">
+        qoostore adopts a three-layer platform architecture, from frontend user interfaces to backend service systems, providing complete technical support for the robot skill ecosystem.
+      </p>
+
+      <div class="arch-overview fade-up">
+        <div class="arch-layer arch-layer-core">
+          <div class="arch-layer-header">
+            <span class="arch-layer-icon">🌐</span>
+            <span class="arch-layer-name">Frontend Presentation Layer</span>
+            <span class="arch-layer-desc">User Interaction Interface</span>
+          </div>
+          <div class="eco-grid">
+            <div class="eco-card">
+              <div class="eco-card-icon">🖥️</div>
+              <div class="eco-card-body">
+                <h3>Web Portal</h3>
+                <p>Responsive web design supporting skill browsing, searching, purchasing, and management.</p>
+                <div class="eco-card-tags">
+                  <span>Responsive Design</span><span>Skill Browsing</span><span>Online Purchase</span>
+                </div>
+              </div>
+            </div>
+            <div class="eco-card">
+              <div class="eco-card-icon">📱</div>
+              <div class="eco-card-body">
+                <h3>Mobile Application</h3>
+                <p>Native iOS/Android applications providing mobile skill management and robot control.</p>
+                <div class="eco-card-tags">
+                  <span>iOS</span><span>Android</span><span>Mobile Control</span>
+                </div>
+              </div>
+            </div>
+            <div class="eco-card">
+              <div class="eco-card-icon">🤖</div>
+              <div class="eco-card-body">
+                <h3>Robot Interface</h3>
+                <p>Robot-side interaction interface supporting voice, touch, gesture, and other interaction methods.</p>
+                <div class="eco-card-tags">
+                  <span>Voice Interaction</span><span>Touch Interface</span><span>Gesture Control</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="arch-layer arch-layer-platform">
+          <div class="arch-layer-header">
+            <span class="arch-layer-icon">⚙️</span>
+            <span class="arch-layer-name">Business Service Layer</span>
+            <span class="arch-layer-desc">Core Business Logic</span>
+          </div>
+          <div class="eco-grid">
+            <div class="eco-card">
+              <div class="eco-card-icon">📦</div>
+              <div class="eco-card-body">
+                <h3>Skill Management</h3>
+                <p>Core services for skill uploading, version control, dependency management, and compatibility checking.</p>
+                <div class="eco-card-tags">
+                  <span>Version Control</span><span>Dependency Mgmt</span><span>Compatibility</span>
+                </div>
+              </div>
+            </div>
+            <div class="eco-card">
+              <div class="eco-card-icon">💰</div>
+              <div class="eco-card-body">
+                <h3>Transaction System</h3>
+                <p>Transaction services for pricing strategies, order processing, payment gateways, and invoice management.</p>
+                <div class="eco-card-tags">
+                  <span>Pricing Strategy</span><span>Order Processing</span><span>Payment Gateway</span>
+                </div>
+              </div>
+            </div>
+            <div class="eco-card">
+              <div class="eco-card-icon">📊</div>
+              <div class="eco-card-body">
+                <h3>Recommendation Engine</h3>
+                <p>Recommendation algorithms for personalized recommendations, trending rankings, related recommendations, and smart search.</p>
+                <div class="eco-card-tags">
+                  <span>Personalized Recs</span><span>Trending</span><span>Smart Search</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="arch-layer arch-layer-quality">
+          <div class="arch-layer-header">
+            <span class="arch-layer-icon">🔧</span>
+            <span class="arch-layer-name">Infrastructure Layer</span>
+            <span class="arch-layer-desc">Underlying Technology Support</span>
+          </div>
+          <div class="eco-grid">
+            <div class="eco-card">
+              <div class="eco-card-icon">🗄️</div>
+              <div class="eco-card-body">
+                <h3>Data Storage</h3>
+                <p>Storage infrastructure including distributed databases, object storage, caching systems, and search engines.</p>
+                <div class="eco-card-tags">
+                  <span>Distributed DB</span><span>Object Storage</span><span>Cache System</span>
+                </div>
+              </div>
+            </div>
+            <div class="eco-card">
+              <div class="eco-card-icon">🚀</div>
+              <div class="eco-card-body">
+                <h3>Compute Services</h3>
+                <p>Compute infrastructure including container orchestration, function computing, batch processing, and stream processing.</p>
+                <div class="eco-card-tags">
+                  <span>Container Orchestr.</span><span>Function Compute</span><span>Stream Processing</span>
+                </div>
+              </div>
+            </div>
+            <div class="eco-card">
+              <div class="eco-card-icon">🔒</div>
+              <div class="eco-card-body">
+                <h3>Security Services</h3>
+                <p>Security infrastructure including identity authentication, access control, data encryption, and audit logging.</p>
+                <div class="eco-card-tags">
+                  <span>Authentication</span><span>Access Control</span><span>Data Encryption</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== Key Features ====== -->
+  <section class="section">
+    <div class="section-inner">
+      <div class="section-label fade-up">Key Features</div>
+      <h2 class="section-title fade-up">Designed for the <span class="gradient-text">Skill Ecosystem</span></h2>
+      
+      <div class="feature-grid fade-up">
+        <div class="feature-card">
+          <div class="feature-card-icon">🚀</div>
+          <h3>One-Click Deploy</h3>
+          <p>Skill developers can quickly upload, test, and publish skills; users can install and use with one click.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-icon">🔧</div>
+          <h3>Cross-Platform Compatible</h3>
+          <p>Support skill adaptation and execution across different robot platforms, operating systems, and hardware configurations.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-icon">💰</div>
+          <h3>Flexible Business Models</h3>
+          <p>Support free, subscription, one-time purchase, usage-based billing, and other business models.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-icon">📊</div>
+          <h3>Data-Driven Optimization</h3>
+          <p>Continuously optimize skill recommendations and market strategies based on user behavior data and feedback.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-icon">🔒</div>
+          <h3>Copyright Protection</h3>
+          <p>IP protection mechanisms including digital rights management, code obfuscation, and license control.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-icon">🌐</div>
+          <h3>Global Support</h3>
+          <p>Global market operation capabilities with multi-language, multi-currency, and multi-region compliance.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ====== Get Started ====== -->
+  <section class="section">
+    <div class="section-inner">
+      <div class="section-label fade-up">Get Started</div>
+      <h2 class="section-title fade-up">Join the <span class="gradient-text">qoostore</span> Ecosystem</h2>
+      <p class="section-desc fade-up">
+        qoostore is an open platform, welcoming skill developers, robot users, and enterprise partners to participate in its development together.
+      </p>
+
+      <div class="feature-grid fade-up" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));">
+        <div class="feature-card">
+          <div class="feature-card-icon">👨‍💻</div>
+          <h3>Developer Guide</h3>
+          <p>Detailed skill development SDK, API documentation, publishing process, and best practice guides.</p>
+          <a href="https://github.com/qoobots/qoobot/tree/main/qoostore/docs" target="_blank" rel="noopener" class="eco-link mt-16">View Docs →</a>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-icon">🛒</div>
+          <h3>Skill Storefront</h3>
+          <p>A skill showcase platform for browsing existing skills, understanding user needs, and exploring market opportunities.</p>
+          <a href="https://github.com/qoobots/qoobot/tree/main/qoostore/marketplace" target="_blank" rel="noopener" class="eco-link mt-16">Visit Store →</a>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-icon">🤝</div>
+          <h3>Partnership</h3>
+          <p>Enterprise partnership programs, channel partner programs, and technology integration partner applications and support.</p>
+          <a href="https://discord.gg/qoobot" target="_blank" rel="noopener" class="eco-link mt-16">Contact Us →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== Related Projects ====== -->
+  <section class="section section-dark">
+    <div class="section-inner">
+      <div class="section-label fade-up">Related Projects</div>
+      <h2 class="section-title fade-up">Ecosystem <span class="gradient-text">Synergy</span></h2>
+      <p class="section-desc fade-up">
+        qoostore is tightly integrated with other QooBot ecosystem projects to jointly build a complete robot application ecosystem.
+      </p>
+
+      <div class="eco-grid fade-up">
+        <div class="eco-card">
+          <div class="eco-card-icon">🧠</div>
+          <div class="eco-card-body">
+            <h3>qoobrain</h3>
+            <p>Brain OS, providing a unified runtime environment and API interfaces for qoostore skills.</p>
+            <a href="qoobrain.html" class="eco-link">Learn about qoobrain →</a>
+          </div>
+        </div>
+        <div class="eco-card">
+          <div class="eco-card-icon">🔧</div>
+          <div class="eco-card-body">
+            <h3>qoosvc</h3>
+            <p>System services, providing foundational services such as voice, navigation, and spatial understanding for qoostore skills.</p>
+            <a href="qoosvc.html" class="eco-link">Learn about qoosvc →</a>
+          </div>
+        </div>
+        <div class="eco-card">
+          <div class="eco-card-icon">👥</div>
+          <div class="eco-card-body">
+            <h3>qoocommunity</h3>
+            <p>Global community, providing user feedback, skill testing, and community promotion support for qoostore.</p>
+            <a href="qoocommunity.html" class="eco-link">Learn about qoocommunity →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-col">
+        <h4>Products</h4>
+        <ul>
+          <li><a href="products.html">Products & Ecosystem</a></li>
+          <li><a href="products.html#ecosystem">Open Source Projects</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Developers</h4>
+        <ul>
+          <li><a href="https://github.com/qoobots/qoobot" target="_blank" rel="noopener">GitHub</a></li>
+          <li><a href="https://github.com/qoobots/qoobot/blob/main/LICENSE" target="_blank" rel="noopener">License</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Community</h4>
+        <ul>
+          <li><a href="https://discord.gg/qoobot" target="_blank" rel="noopener">Discord</a></li>
+          <li><a href="https://github.com/qoobots/qoobot/discussions" target="_blank" rel="noopener">GitHub Discussions</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>About</h4>
+        <ul>
+          <li><a href="about.html">Brand Story</a></li>
+          <li><a href="about.html#team">Team</a></li>
+          <li><a href="about.html#contact">Contact Us</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 QooBot. All rights reserved.</span>
+      <span>Apache 2.0 Open Source License</span>
+    </div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>
