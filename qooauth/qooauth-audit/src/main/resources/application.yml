@@ -1,0 +1,55 @@
+server:
+  port: 8083
+
+spring:
+  application:
+    name: qooauth-audit
+  datasource:
+    url: jdbc:postgresql://localhost:5432/qooauth?reWriteBatchedInserts=true
+    username: ${DB_USERNAME:qooauth}
+    password: ${DB_PASSWORD:qooauth_secret}
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 2
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        jdbc:
+          batch_size: 50
+        order_inserts: true
+  kafka:
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
+    consumer:
+      group-id: qooauth-audit
+      auto-offset-reset: earliest
+      enable-auto-commit: false
+      max-poll-records: 500
+    listener:
+      ack-mode: manual
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+    table: flyway_schema_history_audit
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,metrics,prometheus
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+
+logging:
+  level:
+    com.qoobot.qooauth.audit: DEBUG
+
+audit:
+  retention:
+    days: 1095
+  batch:
+    size: 200
+    flush-interval-ms: 5000
