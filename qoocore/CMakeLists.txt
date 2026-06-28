@@ -132,6 +132,7 @@ set(QOOCORE_ENGINE_SOURCES
 set(QOOCORE_COMPILER_SOURCES
     src/compiler/importer/onnx_importer.cpp
     src/compiler/optimizer/graph_optimizer.cpp
+    src/compiler/pruner/model_pruner.cpp
     src/compiler/quantizer/quantizer.cpp
     src/compiler/codegen/codegen_npu.cpp
     src/compiler/codegen/codegen_gpu.cpp
@@ -169,6 +170,7 @@ set(QOOCORE_HARDWARE_SOURCES
 set(QOOCORE_PROFILER_SOURCES
     src/profiler/latency/latency_profiler.cpp
     src/profiler/resource/resource_monitor.cpp
+    src/profiler/accuracy/accuracy_validator.cpp
 )
 
 # 专用算子库源文件

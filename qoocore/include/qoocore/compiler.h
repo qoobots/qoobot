@@ -143,6 +143,14 @@ struct CompilationConfig {
         bool structured{false};          ///< 结构化剪枝（通道剪枝）
     } pruning;
 
+    // 知识蒸馏
+    struct {
+        bool enable{false};
+        std::string teacher_model_path;  ///< 教师模型路径（大模型）
+        float temperature{3.0f};         ///< 蒸馏温度
+        float alpha{0.7f};               ///< 蒸馏损失权重（hard loss 权重 = 1 - alpha）
+    } distillation;
+
     // 输出
     std::string output_path;              ///< .qoomodel 输出路径
     bool overwrite{false};
@@ -294,5 +302,169 @@ public:
  * @param use_mlir  是否使用 MLIR 作为 IR（需要 LLVM 依赖）
  */
 std::unique_ptr<ModelCompiler> create_compiler(bool use_mlir = true);
+
+// ─────────────────────────────────────────────────────────────────────────────
+//  模型剪枝 API（公开接口）
+// ─────────────────────────────────────────────────────────────────────────────
+
+/// @brief 剪枝策略
+enum class PruningStrategy : std::uint8_t {
+    L1_NORM,          ///< L1 范数通道剪枝（结构化）
+    L2_NORM,          ///< L2 范数通道剪枝（结构化）
+    MAGNITUDE,        ///< 权重幅值剪枝（非结构化）
+    GRADIENT_BASED,   ///< 基于梯度的剪枝（需要训练反馈）
+};
+
+/// @brief 单层剪枝结果
+struct PruningLayerResult {
+    std::string node_id;
+    std::string op_type;
+    int original_channels{0};
+    int pruned_channels{0};
+    int remaining_channels{0};
+    double pruning_ratio{0.0};
+    std::vector<int> kept_channel_indices;
+};
+
+/// @brief 模型剪枝统计
+struct PruningStatistics {
+    int total_layers_examined{0};
+    int total_layers_pruned{0};
+    std::size_t original_params{0};
+    std::size_t pruned_params{0};
+    double overall_pruning_ratio{0.0};
+    std::vector<PruningLayerResult> layer_results;
+};
+
+// 前向声明
+namespace ir { class IrGraph; }
+
+/**
+ * @brief 对 IR 图执行模型剪枝（结构化或非结构化）。
+ *
+ * @param graph          IR 计算图
+ * @param config         编译配置（包含剪枝参数）
+ * @return 剪枝统计结果
+ */
+PruningStatistics prune_model(ir::IrGraph& graph,
+                               const CompilationConfig& config);
+
+/**
+ * @brief 对 IR 图执行模型剪枝（简化接口）。
+ *
+ * @param graph          IR 计算图
+ * @param pruning_ratio  剪枝比例（0.0~1.0）
+ * @param structured     是否结构化剪枝
+ * @return 剪枝统计结果或错误
+ */
+Result<PruningStatistics> prune_ir_graph(ir::IrGraph& graph,
+                                          double pruning_ratio,
+                                          bool structured);
+
+/**
+ * @brief 验证剪枝后模型的精度和结构完整性。
+ *
+ * @param original_graph  原始 IR 图
+ * @param pruned_graph    剪枝后的 IR 图
+ * @param expected_ratio  预期剪枝比例
+ * @return 验证结果
+ */
+Result<void> validate_pruning_accuracy(
+    const ir::IrGraph& original_graph,
+    const ir::IrGraph& pruned_graph,
+    double expected_ratio);
+
+/**
+ * @brief 生成剪枝报告（人类可读文本格式）。
+ *
+ * @param stats  剪枝统计
+ * @return 格式化的报告字符串
+ */
+[[nodiscard]] std::string generate_pruning_report(const PruningStatistics& stats);
+
+/**
+ * @brief 蒸馏指导压缩：剪枝 + 知识蒸馏联合优化。
+ *
+ * 使用教师模型的 logits 指导剪枝决策，
+ * 在压缩模型的同时通过蒸馏保持精度。
+ *
+ * @param student_graph      学生模型 IR 图（将被剪枝）
+ * @param compile_config     编译配置（含剪枝+蒸馏参数）
+ * @param teacher_logits     教师模型在验证集上的 logits（可选）
+ * @return 剪枝统计结果
+ */
+Result<PruningStatistics> compress_with_distillation(
+    ir::IrGraph& student_graph,
+    const CompilationConfig& compile_config,
+    const std::vector<double>& teacher_logits = {});
+
+// ─────────────────────────────────────────────────────────────────────────────
+//  精度验证 API（公开接口）
+// ─────────────────────────────────────────────────────────────────────────────
+
+/// @brief 精度验证配置
+struct AccuracyValidationConfig {
+    double max_kl_divergence{0.05};
+    double min_top1_retention{0.95};
+    double min_top5_retention{0.98};
+    double max_output_drift{0.01};
+    int num_validation_samples{100};
+    bool check_layerwise{true};
+    std::vector<std::string> critical_layers;
+};
+
+/// @brief 单层精度验证结果
+struct LayerAccuracyResult {
+    std::string layer_name;
+    double cosine_similarity{0.0};
+    double relative_l2_error{0.0};
+    double pearson_correlation{0.0};
+    double kl_divergence{0.0};
+    bool passed{false};
+    std::string failure_reason;
+};
+
+/// @brief 精度验证报告
+struct AccuracyValidationReport {
+    bool overall_passed{false};
+    double top1_retention{0.0};
+    double top5_retention{0.0};
+    double output_kl_divergence{0.0};
+    double output_l1_drift{0.0};
+    int layers_checked{0};
+    int layers_passed{0};
+    std::vector<LayerAccuracyResult> layer_results;
+    std::vector<std::string> warnings;
+    std::vector<std::string> recommendations;
+};
+
+/**
+ * @brief 完整的剪枝精度验证。
+ *
+ * @param original_outputs    原始模型在验证集上的输出（logits）
+ * @param pruned_outputs      剪枝后模型在验证集上的输出（logits）
+ * @param layer_activations   逐层激活值对比
+ * @param config              验证配置
+ * @return 精度验证报告
+ */
+[[nodiscard]] AccuracyValidationReport validate_pruning_accuracy_full(
+    const std::vector<std::vector<double>>& original_outputs,
+    const std::vector<std::vector<double>>& pruned_outputs,
+    const std::unordered_map<std::string,
+        std::pair<std::vector<double>, std::vector<double>>>& layer_activations,
+    const AccuracyValidationConfig& config);
+
+/**
+ * @brief 简化版精度验证（仅输出级别 Top-K 一致性检查）。
+ */
+[[nodiscard]] bool quick_accuracy_check(
+    const std::vector<std::vector<double>>& original_outputs,
+    const std::vector<std::vector<double>>& pruned_outputs);
+
+/**
+ * @brief 生成精度验证报告（人类可读文本格式）。
+ */
+[[nodiscard]] std::string generate_accuracy_report(
+    const AccuracyValidationReport& report);
 
 } // namespace qoocore
