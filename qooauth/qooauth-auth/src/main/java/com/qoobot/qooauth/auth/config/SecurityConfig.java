@@ -41,6 +41,8 @@ public class SecurityConfig {
                     // SSO — introspection and session validation are called by resource servers
                     "/api/v1/auth/sso/introspect",
                     "/api/v1/auth/sso/sessions/*/validate",
+                    // API Key — validation is called by API gateway / resource servers
+                    "/api/v1/auth/api-keys/validate",
                     "/.well-known/**",
                     "/oauth2/**",
                     "/actuator/health",

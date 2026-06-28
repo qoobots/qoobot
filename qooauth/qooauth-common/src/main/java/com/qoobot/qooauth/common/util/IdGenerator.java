@@ -43,6 +43,10 @@ public final class IdGenerator {
         return "td_" + generateRandom();
     }
 
+    public static String generateApiKeyUsageId() {
+        return "aku_" + generateRandom();
+    }
+
     private static String generateRandom() {
         byte[] bytes = new byte[RANDOM_BYTES];
         RANDOM.nextBytes(bytes);

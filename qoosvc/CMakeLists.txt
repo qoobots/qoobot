@@ -24,12 +24,13 @@ target_include_directories(qoosvc_common INTERFACE
     ${QOOSVC_INCLUDE_DIR}
 )
 
-# 子服务模块（按需添加，各模块独立编译为共享库）
-# add_subdirectory(src/svc_manager)
-# add_subdirectory(src/svc_voice)
-# add_subdirectory(src/svc_navigation)
+# 子服务模块（各模块独立编译为共享库）
+# Core P0 services
+add_subdirectory(src/svc_voice)
+add_subdirectory(src/svc_navigation)
+add_subdirectory(src/svc_diagnostics)
+# P1 services (to be implemented)
 # add_subdirectory(src/svc_spatial)
-# add_subdirectory(src/svc_diagnostics)
 # add_subdirectory(src/svc_hmi)
 # add_subdirectory(src/svc_charging)
 # add_subdirectory(src/svc_people)

@@ -40,6 +40,9 @@ public final class ErrorCodes {
     public static final String INVALID_API_KEY = "AUTHZ_4002";
     public static final String API_KEY_EXPIRED = "AUTHZ_4003";
     public static final String API_KEY_REVOKED = "AUTHZ_4004";
+    public static final String API_KEY_LIMIT_EXCEEDED = "AUTHZ_4005";
+    public static final String API_KEY_QUOTA_EXCEEDED = "AUTHZ_4006";
+    public static final String API_KEY_ALREADY_REVOKED = "AUTHZ_4007";
 
     // === OAuth (OAUTH_5xxx) ===
     public static final String OAUTH_INVALID_CLIENT = "OAUTH_5001";

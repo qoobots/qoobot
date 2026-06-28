@@ -1,4 +1,4 @@
-package com.qoobot.qooauth.auth.service;
+ package com.qoobot.qooauth.auth.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
