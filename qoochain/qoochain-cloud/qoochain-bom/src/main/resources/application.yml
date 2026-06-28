@@ -1,0 +1,13 @@
+server.port=8081
+spring.application.name=qoochain-bom
+spring.datasource.url=jdbc:postgresql://localhost:5432/qoochain
+spring.datasource.username=qoochain
+spring.datasource.password=qoochain_dev
+spring.jpa.hibernate.ddl-auto=validate
+spring.jpa.show-sql=false
+spring.jpa.properties.hibernate.format_sql=true
+spring.flyway.enabled=true
+spring.flyway.locations=classpath:db/migration
+spring.kafka.bootstrap-servers=localhost:9092
+spring.kafka.producer.key-serializer=org.apache.kafka.common.serialization.StringSerializer
+spring.kafka.producer.value-serializer=org.springframework.kafka.support.serializer.JsonSerializer

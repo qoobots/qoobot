@@ -1,0 +1,7 @@
+server.port=8086
+spring.application.name=qoochain-logistics
+spring.datasource.url=jdbc:postgresql://localhost:5432/qoochain
+spring.datasource.username=qoochain
+spring.datasource.password=qoochain_dev
+spring.jpa.hibernate.ddl-auto=validate
+spring.flyway.enabled=true
