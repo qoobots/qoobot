@@ -228,6 +228,294 @@ app.add_typer(docs_app, name="docs", help="Documentation site generator")
 
 
 # ---------------------------------------------------------------------------
+# v1.6+ New Subcommands
+# ---------------------------------------------------------------------------
+
+# IDE tools subcommand
+ide_app = typer.Typer(help="IDE integration tools", rich_markup_mode="rich")
+
+
+@ide_app.command("jetbrains")
+def ide_jetbrains(
+    ide: str = typer.Option("pycharm", "--ide", "-i", help="Target IDE: pycharm, clion, idea"),
+):
+    """Generate JetBrains IDE plugin configuration."""
+    from qoodev.ide import JetBrainsPlugin
+    from qoodev.ide.jetbrains_plugin import JetBrainsIDE
+
+    ide_map = {"pycharm": JetBrainsIDE.PYCHARM, "clion": JetBrainsIDE.CLION, "idea": JetBrainsIDE.IDEA}
+    target = ide_map.get(ide, JetBrainsIDE.PYCHARM)
+
+    plugin = JetBrainsPlugin(Path.cwd(), target)
+    plugin.generate_config()
+    console.print(f"[green]✓[/green] JetBrains config generated for [bold]{ide}[/bold]")
+
+
+@ide_app.command("generate")
+def ide_generate(
+    source: str = typer.Argument(..., help="Source config: sensors.yaml, tree.btree.json, model.yaml, service.yaml"),
+    output: str = typer.Option("src", "--output", "-o", help="Output directory"),
+):
+    """Generate code from sensor config, behavior tree, model, or service spec."""
+    from qoodev.ide import CodeGenerator
+
+    gen = CodeGenerator(Path(output).resolve())
+
+    ext = Path(source).suffix
+    if "sensor" in source.lower():
+        gen.from_sensor_config(source)
+    elif "btree" in source.lower() or "tree" in source.lower():
+        gen.from_behavior_tree(source)
+    elif "model" in source.lower():
+        gen.from_model_def(source)
+    elif "service" in source.lower() or "svc" in source.lower():
+        gen.from_service_spec(source)
+    else:
+        console.print(f"[red]✗[/red] Unknown source type: {source}")
+        console.print("  Supported: sensors.yaml, *.btree.json, model.yaml, service.yaml")
+
+
+@ide_app.command("manifest")
+def ide_manifest(
+    name: str = typer.Argument(..., help="Skill name"),
+    template: str = typer.Option("default", "--template", "-t", help="Template: default, perception, navigation, interaction, minimal"),
+):
+    """Create or edit a QooBot skill manifest."""
+    from qoodev.ide import SkillManifestEditor
+
+    editor = SkillManifestEditor.create_from_template(name, template)
+    editor.show()
+
+    # Interactive editing loop
+    console.print("\n[bold]Manifest Editor[/bold] — type [cyan]help[/cyan] for commands, [cyan]save[/cyan] to save, [cyan]quit[/cyan] to exit")
+    while True:
+        try:
+            cmd = input("\n[manifest] > ").strip()
+        except (EOFError, KeyboardInterrupt):
+            break
+
+        if not cmd:
+            continue
+
+        parts = cmd.split()
+        action = parts[0].lower()
+
+        if action == "quit":
+            break
+        elif action == "save":
+            editor.save()
+        elif action == "show":
+            editor.show()
+        elif action == "validate":
+            editor.validate()
+        elif action == "add-perm" and len(parts) >= 2:
+            level = parts[2] if len(parts) > 2 else "read"
+            editor.add_permission(parts[1], level)
+        elif action == "remove-perm" and len(parts) >= 2:
+            editor.remove_permission(parts[1])
+        elif action == "add-privacy" and len(parts) >= 2:
+            sensitivity = parts[2] if len(parts) > 2 else "medium"
+            editor.add_privacy_label(parts[1], "", sensitivity)
+        elif action == "help":
+            console.print("add-perm <resource> [level] | remove-perm <resource> | "
+                           "add-privacy <data_type> [sensitivity] | show | validate | save | quit")
+        else:
+            console.print(f"[red]Unknown command: {action}[/red] (type 'help')")
+
+
+app.add_typer(ide_app, name="ide", help="IDE integration (jetbrains, generate, manifest)")
+
+
+# Domain randomization subcommand
+dr_app = typer.Typer(help="Domain randomization for Sim2Real", rich_markup_mode="rich")
+
+
+@dr_app.command("init")
+def dr_init(
+    output: str = typer.Option("domain_config.yaml", "--output", "-o", help="Output config file"),
+):
+    """Create a default domain randomization config."""
+    from qoodev.domain_randomization import DomainRandomizer
+
+    dr = DomainRandomizer()
+    dr.save_config(output)
+
+
+@dr_app.command("step")
+def dr_step(
+    config: str = typer.Option("domain_config.yaml", "--config", "-c", help="Config file"),
+    num_steps: int = typer.Option(1, "--num", "-n", help="Number of steps"),
+):
+    """Run domain randomization steps."""
+    from qoodev.domain_randomization import DomainRandomizer
+
+    dr = DomainRandomizer.from_config(config)
+    for _ in range(num_steps):
+        state = dr.step()
+        console.print(f"[dim]Episode {state.episode}:[/dim] {len(state.param_values)} params randomized")
+    dr.show_state()
+
+
+@dr_app.command("curriculum")
+def dr_curriculum(
+    config: str = typer.Option("domain_config.yaml", "--config", "-c", help="Config file"),
+    episodes_per_level: int = typer.Option(100, "--per-level", "-n", help="Episodes per difficulty level"),
+    start_level: str = typer.Option("easy", "--start", "-s", help="Starting difficulty"),
+):
+    """Enable curriculum learning with progressive difficulty."""
+    from qoodev.domain_randomization import DomainRandomizer, DifficultyLevel
+
+    dr = DomainRandomizer.from_config(config)
+    level = DifficultyLevel(start_level)
+    dr.enable_curriculum(episodes_per_level, level)
+
+
+app.add_typer(dr_app, name="dr", help="Domain randomization (init, step, curriculum)")
+
+
+# Data management subcommand
+data_app = typer.Typer(help="Dataset management tools", rich_markup_mode="rich")
+
+
+@data_app.command("init")
+def data_init(
+    path: str = typer.Argument(..., help="Dataset directory path"),
+):
+    """Initialize a new dataset."""
+    from qoodev.data_management import DataManager
+
+    dm = DataManager(path, create=True)
+    dm.summary()
+
+
+@data_app.command("add")
+def data_add(
+    dataset: str = typer.Argument(..., help="Dataset directory"),
+    source: str = typer.Argument(..., help="Source directory of data files"),
+):
+    """Add samples to a dataset."""
+    from qoodev.data_management import DataManager
+
+    dm = DataManager(dataset)
+    added = dm.add_samples(source)
+    console.print(f"[green]✓[/green] Added [bold]{added}[/bold] samples")
+
+
+@data_app.command("version")
+def data_version(
+    dataset: str = typer.Argument(..., help="Dataset directory"),
+    tag: str = typer.Argument(..., help="Version tag (e.g., v1.0)"),
+    message: str = typer.Option("", "--message", "-m", help="Version message"),
+):
+    """Create a dataset version snapshot."""
+    from qoodev.data_management import DataManager
+
+    dm = DataManager(dataset)
+    dm.version(tag, message)
+
+
+@data_app.command("clean")
+def data_clean(
+    dataset: str = typer.Argument(..., help="Dataset directory"),
+    dry_run: bool = typer.Option(False, "--dry-run", help="Preview only, don't remove"),
+):
+    """Clean dataset (deduplicate, remove outliers, validate)."""
+    from qoodev.data_management import DataManager
+
+    dm = DataManager(dataset)
+    dm.clean(dry_run=dry_run)
+
+
+@data_app.command("report")
+def data_report(
+    dataset: str = typer.Argument(..., help="Dataset directory"),
+):
+    """Generate dataset quality report."""
+    from qoodev.data_management import DataManager
+
+    dm = DataManager(dataset)
+    dm.quality_report()
+
+
+@data_app.command("split")
+def data_split(
+    dataset: str = typer.Argument(..., help="Dataset directory"),
+    train: float = typer.Option(0.7, "--train", help="Train ratio"),
+    val: float = typer.Option(0.15, "--val", help="Validation ratio"),
+    test: float = typer.Option(0.15, "--test", help="Test ratio"),
+    strategy: str = typer.Option("random", "--strategy", "-s", help="Split strategy: random, stratified, temporal"),
+    seed: int = typer.Option(42, "--seed", help="Random seed"),
+):
+    """Split dataset into train/val/test sets."""
+    from qoodev.data_management import DataManager, SplitStrategy
+
+    dm = DataManager(dataset)
+    strat = {"random": SplitStrategy.RANDOM, "stratified": SplitStrategy.STRATIFIED, "temporal": SplitStrategy.TEMPORAL}.get(strategy, SplitStrategy.RANDOM)
+    dm.split(train_ratio=train, val_ratio=val, test_ratio=test, strategy=strat, seed=seed)
+
+
+@data_app.command("export")
+def data_export(
+    dataset: str = typer.Argument(..., help="Dataset directory"),
+    format: str = typer.Option("coco", "--format", "-f", help="Export format: coco, yolo"),
+    output: str = typer.Option("./export", "--output", "-o", help="Output path"),
+):
+    """Export dataset to standard format."""
+    from qoodev.data_management import DataManager
+
+    dm = DataManager(dataset)
+    if format == "coco":
+        dm.export_coco(output)
+    elif format == "yolo":
+        dm.export_yolo(output)
+    else:
+        console.print(f"[red]✗[/red] Unknown format: {format}")
+
+
+app.add_typer(data_app, name="data", help="Dataset management (init, add, version, clean, report, split, export)")
+
+
+# Behavior tree debugger subcommand
+bt_app = typer.Typer(help="Behavior tree debugging", rich_markup_mode="rich")
+
+
+@bt_app.command("debug")
+def bt_debug(
+    tree_file: str = typer.Argument(..., help="Path to behavior tree JSON file"),
+):
+    """Start interactive behavior tree debugger."""
+    from qoodev.bt_debugger import BehaviorTreeDebugger
+    import json
+
+    tree_path = Path(tree_file)
+    if not tree_path.exists():
+        console.print(f"[red]✗[/red] Tree file not found: {tree_file}")
+        raise typer.Exit(1)
+
+    tree_data = json.loads(tree_path.read_text(encoding="utf-8"))
+    tree_name = tree_data.get("name", tree_path.stem)
+
+    debugger = BehaviorTreeDebugger(tree_name)
+    debugger.register_tree(tree_data.get("root", tree_data))
+    debugger.cli_interactive()
+
+
+@bt_app.command("replay")
+def bt_replay(
+    session_file: str = typer.Argument(..., help="Path to debug session JSON"),
+    speed: float = typer.Option(1.0, "--speed", "-s", help="Replay speed multiplier"),
+):
+    """Replay a previously recorded behavior tree debug session."""
+    from qoodev.bt_debugger import BehaviorTreeDebugger
+
+    debugger = BehaviorTreeDebugger("replay")
+    debugger.replay_session(Path(session_file), speed)
+
+
+app.add_typer(bt_app, name="bt", help="Behavior tree debugging (debug, replay)")
+
+
+# ---------------------------------------------------------------------------
 # Entry Point
 # ---------------------------------------------------------------------------
 
