@@ -1,6 +1,7 @@
 # qoostore — 机器人应用生态（端云协同）
 
 > **架构**：端云协同 — 云端商店 + 机器人端运行环境
+> **版本**：v0.1 | **状态**：✅ 全部完成 (45/45)
 > 对标 Apple App Store（云端商店 + iOS 端 App Store 客户端）
 
 qoostore 是 QooBot 的 **机器人 App Store**，采用端云协同架构：

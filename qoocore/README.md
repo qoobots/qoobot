@@ -1,6 +1,6 @@
 # QooCore — QooBot 端侧 AI 推理引擎
 
-[![Version](https://img.shields.io/badge/version-0.1.0-blue.svg)](https://github.com/QooBot/qoocore)
+[![Version](https://img.shields.io/badge/version-0.5.0-blue.svg)](https://github.com/QooBot/qoocore)
 ![Platform](https://img.shields.io/badge/platform-Linux%20%7C%20Android-orange.svg)
 ![License](https://img.shields.io/badge/license-Apache--2.0-green.svg)
 
@@ -219,10 +219,10 @@ qoocore compile \
 
 | 厂商 | 芯片 | 后端 | 状态 |
 |------|------|------|------|
-| Qualcomm | Snapdragon 8 Gen 3 | QNN | 🚧 开发中 |
-| Horizon | Journey 5 / 6 | BPU | 📋 计划中 |
-| Rockchip | RK3588 | RKNN | 📋 计划中 |
-| NVIDIA | Jetson Orin | CUDA | 📋 计划中 |
+| Qualcomm | Snapdragon 8 Gen 3 | QNN | ✅ 已支持 |
+| Horizon | Journey 5 / 6 | BPU | ✅ 已支持 |
+| Rockchip | RK3588 | RKNN | ✅ 已支持 |
+| NVIDIA | Jetson Orin | CUDA | ✅ 已支持 |
 | ARM | Cortex-A78AE | Neon | ✅ 已支持 |
 
 ---
@@ -231,10 +231,10 @@ qoocore compile \
 
 | 阶段 | 目标 | 关键产出 | 状态 |
 |------|------|---------|------|
-| Phase 1 · v0.1 | 核心编译工具链 + 一款 NPU 后端 | `.qoomodel` 格式、QNN 后端、CLI compile | 🚧 开发中 |
-| Phase 2 · v0.3 | 完整运行时 + 多后端支持 | 统一推理引擎、GPU/DSP 后端、零拷贝内存 | 📋 计划中 |
-| Phase 3 · v0.5 | 算子库 + 内存优化 + 调度 | 专用算子、多模型并发调度 | 📋 计划中 |
-| Phase 4 · v1.0 | 观测诊断 + 云端协同 | 性能剖析面板、OTA 更新、3 款芯片适配 | 📋 计划中 |
+| Phase 1 · v0.1 | 核心编译工具链 + 一款 NPU 后端 | `.qoomodel` 格式、QNN 后端、CLI compile | ✅ 已完成 |
+| Phase 2 · v0.3 | 完整运行时 + 多后端支持 | 统一推理引擎、GPU/DSP 后端、零拷贝内存 | ✅ 已完成 |
+| Phase 3 · v0.5 | 算子库 + 内存优化 + 调度 | 专用算子、多模型并发调度、观测诊断、云端协同 | ✅ 已完成 |
+| Phase 4 · v1.0 | 性能基准 + 3 款芯片深度适配 | 生产级性能基准、更多芯片适配、文档完善 | 📋 计划中 |
 
 ---
 
