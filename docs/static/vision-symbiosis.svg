@@ -1,0 +1,127 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 620" width="900" height="620">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0a0a2e"/>
+      <stop offset="100%" style="stop-color:#12123a"/>
+    </linearGradient>
+    <linearGradient id="humanGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffb74d"/>
+      <stop offset="100%" style="stop-color:#e65100"/>
+    </linearGradient>
+    <linearGradient id="robotGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4fc3f7"/>
+      <stop offset="100%" style="stop-color:#1565c0"/>
+    </linearGradient>
+    <linearGradient id="aiGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ce93d8"/>
+      <stop offset="100%" style="stop-color:#6a1b9a"/>
+    </linearGradient>
+    <linearGradient id="natureGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#81c784"/>
+      <stop offset="100%" style="stop-color:#2e7d32"/>
+    </linearGradient>
+    <linearGradient id="centerGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:0.1"/>
+      <stop offset="100%" style="stop-color:#4fc3f7;stop-opacity:0.05"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="softGlow">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <rect width="900" height="620" fill="url(#bgGrad)"/>
+
+  <!-- 标题 -->
+  <text x="450" y="35" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#e0f7fa">四元共生模型</text>
+  <text x="450" y="55" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#78909c">人类 · 人形机器人 · AI · 自然 —— 共生共荣的超级文明</text>
+
+  <!-- 中心圆 -->
+  <g transform="translate(450, 310)">
+    <!-- 外层光晕 -->
+    <circle cx="0" cy="0" r="100" fill="url(#centerGrad)" filter="url(#softGlow)"/>
+
+    <!-- 中心节点 -->
+    <circle cx="0" cy="0" r="55" fill="#1a237e" stroke="#4fc3f7" stroke-width="1.5" opacity="0.8" filter="url(#glow)"/>
+    <text x="0" y="-8" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#e0f7fa">共生文明</text>
+    <text x="0" y="8" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#90a4ae">人类繁荣</text>
+    <text x="0" y="20" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#90a4ae">机器自主</text>
+    <text x="0" y="32" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#90a4ae">AI 进化 · 地球修复</text>
+
+    <!-- 连接线到四个象限 -->
+    <line x1="0" y1="-55" x2="0" y2="-180" stroke="#ffb74d" stroke-width="1.5" opacity="0.4"/>
+    <line x1="0" y1="55" x2="0" y2="180" stroke="#81c784" stroke-width="1.5" opacity="0.4"/>
+    <line x1="-55" y1="0" x2="-230" y2="0" stroke="#4fc3f7" stroke-width="1.5" opacity="0.4"/>
+    <line x1="55" y1="0" x2="230" y2="0" stroke="#ce93d8" stroke-width="1.5" opacity="0.4"/>
+
+    <!-- 环形连线 -->
+    <circle cx="0" cy="0" r="140" fill="none" stroke="#4fc3f7" stroke-width="0.8" opacity="0.15" stroke-dasharray="6,6"/>
+  </g>
+
+  <!-- 上方：人类 -->
+  <g transform="translate(450, 100)">
+    <rect x="-80" y="-45" width="160" height="90" rx="12" fill="url(#humanGrad)" fill-opacity="0.15" stroke="#ffb74d" stroke-width="1.5" filter="url(#glow)"/>
+
+    <!-- 人类图标（简化） -->
+    <circle cx="0" cy="-18" r="12" fill="#ffb74d" opacity="0.6"/>
+    <path d="M -18,10 Q 0,-5 18,10" fill="#ffb74d" opacity="0.4"/>
+    <rect x="-10" y="10" width="20" height="15" rx="4" fill="#ffb74d" opacity="0.35"/>
+
+    <text x="0" y="28" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#ffe0b2">👤 人类</text>
+    <text x="0" y="43" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#ffcc80">创造力 · 情感 · 价值观</text>
+  </g>
+
+  <!-- 下方：自然 -->
+  <g transform="translate(450, 530)">
+    <rect x="-80" y="-45" width="160" height="90" rx="12" fill="url(#natureGrad)" fill-opacity="0.15" stroke="#81c784" stroke-width="1.5" filter="url(#glow)"/>
+
+    <!-- 自然图标 -->
+    <circle cx="0" cy="-15" r="12" fill="#81c784" opacity="0.4"/>
+    <path d="M 0,-30 Q 15,-20 0,-8 Q -15,-20 0,-30" fill="#81c784" opacity="0.5"/>
+    <path d="M -8,-12 Q 0,-5 8,-12" fill="#81c784" opacity="0.3"/>
+
+    <text x="0" y="28" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#c8e6c9">🌿 自然</text>
+    <text x="0" y="43" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#a5d6a7">生命根基 · 资源循环 · 审美源泉</text>
+  </g>
+
+  <!-- 左侧：人形机器人 -->
+  <g transform="translate(200, 310)">
+    <rect x="-80" y="-45" width="160" height="90" rx="12" fill="url(#robotGrad)" fill-opacity="0.15" stroke="#4fc3f7" stroke-width="1.5" filter="url(#glow)"/>
+
+    <!-- 机器人图标 -->
+    <rect x="-10" y="-25" width="20" height="16" rx="4" fill="#4fc3f7" opacity="0.5"/>
+    <circle cx="-4" cy="-18" r="2" fill="#e0f7fa" opacity="0.7"/>
+    <circle cx="4" cy="-18" r="2" fill="#e0f7fa" opacity="0.7"/>
+    <rect x="-6" y="-9" width="12" height="12" rx="3" fill="#4fc3f7" opacity="0.4"/>
+    <rect x="-12" y="3" width="8" height="12" rx="2" fill="#4fc3f7" opacity="0.35"/>
+    <rect x="4" y="3" width="8" height="12" rx="2" fill="#4fc3f7" opacity="0.35"/>
+
+    <text x="0" y="28" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#b3e5fc">🤖 人形机器人</text>
+    <text x="0" y="43" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#81d4fa">劳动载体 · 物理存在 · 探索先驱</text>
+  </g>
+
+  <!-- 右侧：AI -->
+  <g transform="translate(700, 310)">
+    <rect x="-80" y="-45" width="160" height="90" rx="12" fill="url(#aiGrad)" fill-opacity="0.15" stroke="#ce93d8" stroke-width="1.5" filter="url(#glow)"/>
+
+    <!-- AI 图标（大脑/电路） -->
+    <circle cx="0" cy="-15" r="14" fill="#ce93d8" opacity="0.3"/>
+    <path d="M -8,-20 Q 0,-28 8,-20 Q 4,-12 0,-8 Q -4,-12 -8,-20" fill="#ce93d8" opacity="0.5"/>
+    <line x1="-8" y1="-5" x2="8" y2="-5" stroke="#ce93d8" stroke-width="1" opacity="0.4"/>
+    <line x1="-6" y1="0" x2="6" y2="0" stroke="#ce93d8" stroke-width="1" opacity="0.4"/>
+
+    <text x="0" y="28" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#e1bee7">🧠 AI</text>
+    <text x="0" y="43" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#ce93d8">智慧引擎 · 决策优化 · 知识整合</text>
+  </g>
+
+  <!-- 底部共生原则 -->
+  <g transform="translate(450, 595)">
+    <text x="0" y="0" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#546e7a">
+      人类优先 · 机器人权利 · AI 对齐 · 地球优先 · 开放共享 · 多样性保护
+    </text>
+  </g>
+</svg>

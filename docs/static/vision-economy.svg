@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 520" width="900" height="520">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0a0a2e"/>
+      <stop offset="100%" style="stop-color:#12123a"/>
+    </linearGradient>
+    <linearGradient id="layer1" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#66bb6a;stop-opacity:0.2"/>
+      <stop offset="100%" style="stop-color:#66bb6a;stop-opacity:0.05"/>
+    </linearGradient>
+    <linearGradient id="layer2" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#42a5f5;stop-opacity:0.2"/>
+      <stop offset="100%" style="stop-color:#42a5f5;stop-opacity:0.05"/>
+    </linearGradient>
+    <linearGradient id="layer3" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#ab47bc;stop-opacity:0.2"/>
+      <stop offset="100%" style="stop-color:#ab47bc;stop-opacity:0.05"/>
+    </linearGradient>
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#000000" flood-opacity="0.4"/>
+    </filter>
+  </defs>
+
+  <rect width="900" height="520" fill="url(#bgGrad)"/>
+
+  <!-- 标题 -->
+  <text x="450" y="35" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#e0f7fa">机器人经济三层模型</text>
+  <text x="450" y="55" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#78909c">Robot-Driven Economy · 机器人创造价值，人类共享繁荣</text>
+
+  <!-- 第三层：价值分配 -->
+  <g transform="translate(450, 100)">
+    <rect x="-380" y="-30" width="760" height="60" rx="10" fill="url(#layer3)" stroke="#ab47bc" stroke-width="1.5" filter="url(#shadow)"/>
+    <text x="0" y="-8" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#e1bee7">第三层 · 价值分配层</text>
+    <text x="0" y="12" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#b39ddb">UBI 全民基本收入 · 开源贡献分润 · 机器人资产证券化 (R-REITs)</text>
+  </g>
+
+  <!-- 箭头 3→2 -->
+  <g transform="translate(450, 175)">
+    <polygon points="-8,0 8,0 0,12" fill="#ab47bc" opacity="0.4"/>
+    <text x="0" y="22" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#78909c">价值回流</text>
+  </g>
+
+  <!-- 第二层：价值创造 -->
+  <g transform="translate(450, 215)">
+    <rect x="-380" y="-30" width="760" height="60" rx="10" fill="url(#layer2)" stroke="#42a5f5" stroke-width="1.5" filter="url(#shadow)"/>
+    <text x="0" y="-8" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#b3e5fc">第二层 · 价值创造层</text>
+    <text x="0" y="12" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#90caf9">机器人生产/服务/研发 · 自主运营工厂/农场/数据中心 · M2M 机器间交易</text>
+  </g>
+
+  <!-- 箭头 2→1 -->
+  <g transform="translate(450, 290)">
+    <polygon points="-8,0 8,0 0,12" fill="#42a5f5" opacity="0.4"/>
+    <text x="0" y="22" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#78909c">基础设施支撑</text>
+  </g>
+
+  <!-- 第一层：基础设施 -->
+  <g transform="translate(450, 330)">
+    <rect x="-380" y="-30" width="760" height="60" rx="10" fill="url(#layer1)" stroke="#66bb6a" stroke-width="1.5" filter="url(#shadow)"/>
+    <text x="0" y="-8" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#c8e6c9">第一层 · 基础设施层</text>
+    <text x="0" y="12" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#a5d6a7">QooBot 开源平台 · 全球机器人通信协作网络 · 法律人格与监管框架</text>
+  </g>
+
+  <!-- 右侧标注 - 各层细化 -->
+  <g transform="translate(70, 410)">
+    <g font-family="Arial, sans-serif" font-size="9">
+      <text x="0" y="0" fill="#e1bee7" font-weight="bold">▲ 分配层细化</text>
+      <text x="0" y="16" fill="#78909c">· 机器人税 → UBI 全民基本收入</text>
+      <text x="0" y="30" fill="#78909c">· 开源技能市场 → 设计者按贡献分润</text>
+      <text x="0" y="44" fill="#78909c">· 机器人资产证券化 → 全民持股</text>
+
+      <text x="250" y="0" fill="#b3e5fc" font-weight="bold">▲ 创造层细化</text>
+      <text x="250" y="16" fill="#78909c">· 制造业：24×7 无人工厂</text>
+      <text x="250" y="30" fill="#78909c">· 农业：垂直农场 · 合成生物学</text>
+      <text x="250" y="44" fill="#78909c">· 服务业：教育 · 医疗 · 养老</text>
+
+      <text x="500" y="0" fill="#c8e6c9" font-weight="bold">▲ 基础层细化</text>
+      <text x="500" y="16" fill="#78909c">· 开源硬件设计标准</text>
+      <text x="500" y="30" fill="#78909c">· 分布式机器人操作系统</text>
+      <text x="500" y="44" fill="#78909c">· 全球机器人身份与信用体系</text>
+    </g>
+  </g>
+</svg>
