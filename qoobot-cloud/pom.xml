@@ -14,7 +14,6 @@
 
     <modules>
         <module>qoobot-cloud-gateway</module>
-        <module>qooauth</module>
         <module>qoocloud</module>
         <module>qoocloud/qoocloud-common</module>
         <module>qoocloud/qoocloud-gateway</module>
@@ -161,11 +160,6 @@
             </dependency>
 
             <!-- QooBot 内部模块 -->
-            <dependency>
-                <groupId>com.qoobot</groupId>
-                <artifactId>qooauth</artifactId>
-                <version>${project.version}</version>
-            </dependency>
             <dependency>
                 <groupId>com.qoobot</groupId>
                 <artifactId>qoocloud</artifactId>
