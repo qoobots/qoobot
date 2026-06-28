@@ -13,7 +13,6 @@
     <description>QooBot 平台层微服务统一父工程 — Java 21 + Spring Cloud 2024.x</description>
 
     <modules>
-        <module>qoobot-cloud-gateway</module>
         <module>qoocloud</module>
         <module>qoocloud/qoocloud-common</module>
         <module>qoocloud/qoocloud-gateway</module>
