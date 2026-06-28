@@ -1,0 +1,76 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: qoocommunity-postgres
+    environment:
+      POSTGRES_DB: qoocommunity
+      POSTGRES_USER: qoobot
+      POSTGRES_PASSWORD: qoobot123
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  redis:
+    image: redis:7-alpine
+    container_name: qoocommunity-redis
+    command: redis-server --requirepass qoobot123
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+
+  elasticsearch:
+    image: elasticsearch:8.13.0
+    container_name: qoocommunity-es
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ports:
+      - "9200:9200"
+    volumes:
+      - es_data:/usr/share/elasticsearch/data
+
+  minio:
+    image: minio/minio:latest
+    container_name: qoocommunity-minio
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin123
+    command: server /data --console-address ":9001"
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - minio_data:/data
+
+  nacos:
+    image: nacos/nacos-server:v2.3.2
+    container_name: qoocommunity-nacos
+    environment:
+      - MODE=standalone
+      - NACOS_AUTH_ENABLE=false
+    ports:
+      - "8848:8848"
+      - "9848:9848"
+
+  rocketmq:
+    image: apache/rocketmq:5.1.4
+    container_name: qoocommunity-rocketmq
+    environment:
+      JAVA_OPT_EXT: "-Xms512m -Xmx512m -Xmn256m"
+    ports:
+      - "9876:9876"
+      - "10911:10911"
+    volumes:
+      - rocketmq_data:/home/rocketmq/store
+
+volumes:
+  postgres_data:
+  redis_data:
+  es_data:
+  minio_data:
+  rocketmq_data:

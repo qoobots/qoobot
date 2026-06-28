@@ -1,0 +1,43 @@
+server:
+  port: 8300
+
+spring:
+  application:
+    name: qoocommunity-gateway
+  cloud:
+    gateway:
+      routes:
+        - id: forum-service
+          uri: lb://qoocommunity-forum
+          predicates:
+            - Path=/api/v1/forums/**
+        - id: qa-service
+          uri: lb://qoocommunity-qa
+          predicates:
+            - Path=/api/v1/qa/**
+        - id: event-service
+          uri: lb://qoocommunity-event
+          predicates:
+            - Path=/api/v1/events/**
+        - id: academy-service
+          uri: lb://qoocommunity-academy
+          predicates:
+            - Path=/api/v1/academy/**
+        - id: contributor-service
+          uri: lb://qoocommunity-contributor
+          predicates:
+            - Path=/api/v1/contributors/**
+        - id: governance-service
+          uri: lb://qoocommunity-governance
+          predicates:
+            - Path=/api/v1/governance/**
+        - id: content-service
+          uri: lb://qoocommunity-content
+          predicates:
+            - Path=/api/v1/content/**
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedMethods: "*"
+            allowedHeaders: "*"
