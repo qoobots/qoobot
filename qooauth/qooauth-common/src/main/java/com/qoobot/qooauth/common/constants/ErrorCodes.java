@@ -78,6 +78,30 @@ public final class ErrorCodes {
     public static final String DEVICE_CHALLENGE_STATE_INVALID = "DEV_6022";
     public static final String DEVICE_CHALLENGE_EXPIRED = "DEV_6023";
 
+    // === Trust & Delegation (TRUST_7xxx) ===
+    public static final String GROUP_NOT_FOUND = "TRUST_7001";
+    public static final String GROUP_NOT_ACTIVE = "TRUST_7002";
+    public static final String GROUP_FULL = "TRUST_7003";
+    public static final String MEMBERSHIP_NOT_FOUND = "TRUST_7004";
+    public static final String DELEGATION_NOT_FOUND = "TRUST_7005";
+    public static final String DELEGATION_EXPIRED = "TRUST_7006";
+    public static final String DELEGATION_REVOKED = "TRUST_7007";
+    public static final String DELEGATION_INVALID_SIGNATURE = "TRUST_7008";
+    public static final String CAPABILITY_NOT_GRANTED = "TRUST_7009";
+    public static final String MTLES_PEER_UNTRUSTED = "TRUST_7010";
+
+    // === Developer Program (DEVPROG_8xxx) ===
+    public static final String DEVELOPER_CERT_NOT_FOUND = "DEVPROG_8001";
+    public static final String DEVELOPER_CERT_REVOKED = "DEVPROG_8002";
+    public static final String DEVELOPER_CERT_EXPIRED = "DEVPROG_8003";
+    public static final String DEVELOPER_NOT_VERIFIED = "DEVPROG_8004";
+    public static final String SKILL_SIGNATURE_INVALID = "DEVPROG_8005";
+    public static final String SKILL_SIGNATURE_EXPIRED = "DEVPROG_8006";
+    public static final String SANDBOX_VIOLATION = "DEVPROG_8007";
+    public static final String SANDBOX_LIMIT_EXCEEDED = "DEVPROG_8008";
+    public static final String PERMISSION_REVIEW_PENDING = "DEVPROG_8009";
+    public static final String PERMISSION_REVIEW_DENIED = "DEVPROG_8010";
+
     // === General (GEN_9xxx) ===
     public static final String INTERNAL_ERROR = "GEN_9001";
     public static final String VALIDATION_ERROR = "GEN_9002";

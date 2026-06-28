@@ -60,6 +60,11 @@ public class SecurityConfig {
                     "/api/v1/auth/security/threat/captcha-required",
                     // Device Fingerprint — check-known is public (called before login)
                     "/api/v1/auth/security/threat/device-fingerprint/check-known",
+                    // Robot Trust — mTLS verify and delegation validate are called by robots
+                    "/api/v1/auth/robot-trust/mtls/verify-peer",
+                    "/api/v1/auth/robot-trust/delegations/validate",
+                    // Developer — skill signature verification is public
+                    "/api/v1/auth/developer/skills/verify-signature",
                     // Privacy — labels are public (transparency)
                     "/api/v1/auth/privacy/labels",
                     "/api/v1/auth/privacy/labels/**",

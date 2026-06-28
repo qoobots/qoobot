@@ -79,6 +79,34 @@ public final class IdGenerator {
         return "ipr_" + generateRandom();
     }
 
+    public static String generateTrustGroupId() {
+        return "tgr_" + generateRandom();
+    }
+
+    public static String generateMembershipId() {
+        return "mem_" + generateRandom();
+    }
+
+    public static String generateDelegationId() {
+        return "del_" + generateRandom();
+    }
+
+    public static String generateDeveloperCertId() {
+        return "dvc_" + generateRandom();
+    }
+
+    public static String generateSkillSignatureId() {
+        return "sks_" + generateRandom();
+    }
+
+    public static String generateSandboxEnvId() {
+        return "sbx_" + generateRandom();
+    }
+
+    public static String generatePermissionReviewId() {
+        return "prv_" + generateRandom();
+    }
+
     private static String generateRandom() {
         byte[] bytes = new byte[RANDOM_BYTES];
         RANDOM.nextBytes(bytes);
