@@ -149,6 +149,8 @@ set(QOOCORE_RUNTIME_SOURCES
     src/runtime/backend/cpu_backend.cpp
     src/runtime/backend/gpu_backend.cpp
     src/runtime/pipeline/inference_pipeline.cpp
+    src/runtime/backend/dsp_backend.cpp
+    src/runtime/batch/dynamic_batcher.cpp
 )
 if(QOOCORE_ENABLE_NPU_QNN)
     list(APPEND QOOCORE_RUNTIME_SOURCES src/runtime/hal/qnn_hal.cpp)
@@ -159,6 +161,8 @@ set(QOOCORE_MEMORY_SOURCES
     src/memory/ion/ion_allocator.cpp
     src/memory/ion/ion_allocator_ext.cpp
     src/memory/pool/model_pool.cpp
+    src/memory/swapper/memory_swapper.cpp
+    src/memory/compressor/memory_compressor.cpp
 )
 
 # 硬件探测源文件
@@ -167,6 +171,9 @@ set(QOOCORE_HARDWARE_SOURCES
     src/hardware/probe/hardware_prober.cpp
     src/hardware/probe/feature_probe.cpp
     src/hardware/chip/chip_support_matrix.cpp
+    src/hardware/powermgr/power_manager.cpp
+    src/hardware/peripheral/peripheral_dataflow.cpp
+    src/hardware/secure/tee_runtime.cpp
 )
 
 # 性能剖析源文件
@@ -174,17 +181,27 @@ set(QOOCORE_PROFILER_SOURCES
     src/profiler/latency/latency_profiler.cpp
     src/profiler/resource/resource_monitor.cpp
     src/profiler/accuracy/accuracy_validator.cpp
+    src/profiler/accuracy/accuracy_monitor.cpp
+    src/profiler/power/power_measurement.cpp
+    src/profiler/diagnostic/anomaly_diagnosis.cpp
+    src/profiler/ui/visualization_panel.cpp
 )
 
 # 专用算子库源文件
 set(QOOCORE_OPERATORS_SOURCES
     src/operators/vision/vision_ops.cpp
     src/operators/lidar/lidar_ops.cpp
+    src/operators/bev/bev_ops.cpp
+    src/operators/trajectory/trajectory_ops.cpp
+    src/operators/signal/signal_ops.cpp
+    src/operators/multimodal/multimodal_ops.cpp
 )
 
 # 云端协同源文件
 set(QOOCORE_CLOUD_SOURCES
     src/cloud/cloud_sync.cpp
+    src/cloud/hybrid/hybrid_inference.cpp
+    src/cloud/federated/federated_learning.cpp
 )
 
 # # 配置管理（暂时跳过，后续实现）
