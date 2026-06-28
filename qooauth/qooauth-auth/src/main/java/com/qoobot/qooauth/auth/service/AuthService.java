@@ -29,6 +29,8 @@ public class AuthService {
     private final RateLimitService rateLimitService;
     private final AccountSecurityService accountSecurityService;
     private final SsoSessionService ssoSessionService;
+    private final AnomalyDetectionService anomalyDetectionService;
+    private final BruteForceProtectionService bruteForceProtectionService;
 
     public AuthService(UserRepository userRepository,
                        PasswordService passwordService,
@@ -36,7 +38,9 @@ public class AuthService {
                        SessionService sessionService,
                        RateLimitService rateLimitService,
                        AccountSecurityService accountSecurityService,
-                       SsoSessionService ssoSessionService) {
+                       SsoSessionService ssoSessionService,
+                       AnomalyDetectionService anomalyDetectionService,
+                       BruteForceProtectionService bruteForceProtectionService) {
         this.userRepository = userRepository;
         this.passwordService = passwordService;
         this.tokenService = tokenService;
@@ -44,6 +48,8 @@ public class AuthService {
         this.rateLimitService = rateLimitService;
         this.accountSecurityService = accountSecurityService;
         this.ssoSessionService = ssoSessionService;
+        this.anomalyDetectionService = anomalyDetectionService;
+        this.bruteForceProtectionService = bruteForceProtectionService;
     }
 
     /**
@@ -105,13 +111,31 @@ public class AuthService {
         // Rate limit check
         rateLimitService.checkLoginRateLimit(email);
 
+        // --- Brute-force protection: check before login ---
+        bruteForceProtectionService.checkBeforeLogin(email, ip);
+
+        // --- Anomaly detection: evaluate risk before proceeding ---
+        // Geo info is resolved from IP (simplified here; in production, use GeoIP service)
+        String geoCountry = null;
+        String geoCity = null;
+
         // Find user
         User user = userRepository.findByEmail(email.toLowerCase())
                 .orElseThrow(() -> {
                     rateLimitService.recordLoginFailure(email);
+                    bruteForceProtectionService.recordFailure(email, ip);
                     // Record failed login for non-existent user
                     accountSecurityService.recordLoginFailure(
                             "unknown", "USER_NOT_FOUND", ip, userAgent, deviceId, null, clientId);
+                    // Evaluate anomaly for non-existent user
+                    AnomalyDetectionService.AnomalyResult result = anomalyDetectionService.evaluate(
+                            null, ip, userAgent, deviceId, geoCountry, geoCity, false);
+                    if (result.shouldBlock()) {
+                        anomalyDetectionService.recordAnomaly(
+                                null, result, ip, userAgent, deviceId, geoCountry, geoCity);
+                        throw new AuthException(ErrorCodes.ACCOUNT_LOCKED,
+                                "Access temporarily blocked due to suspicious activity");
+                    }
                     return new InvalidCredentialsException();
                 });
 
@@ -132,11 +156,31 @@ public class AuthService {
             throw new InvalidCredentialsException();
         }
 
+        // --- Anomaly detection: evaluate risk for known user ---
+        AnomalyDetectionService.AnomalyResult anomalyResult = anomalyDetectionService.evaluate(
+                user.getUserId(), ip, userAgent, deviceId, geoCountry, geoCity, true);
+
+        if (anomalyResult.shouldBlock()) {
+            anomalyDetectionService.recordAnomaly(
+                    user.getUserId(), anomalyResult, ip, userAgent, deviceId, geoCountry, geoCity);
+            throw new AuthException(ErrorCodes.ACCOUNT_LOCKED,
+                    "Login blocked due to suspicious activity. Please contact support.");
+        }
+
+        // If high risk but not blocked, record anomaly but allow with MFA challenge
+        if (anomalyResult.isSuspicious()) {
+            anomalyDetectionService.recordAnomaly(
+                    user.getUserId(), anomalyResult, ip, userAgent, deviceId, geoCountry, geoCity);
+        }
+
         // Verify password
         if (!passwordService.verify(user.getPasswordHash(), password)) {
             rateLimitService.recordLoginFailure(email);
+            bruteForceProtectionService.recordFailure(email, ip);
             accountSecurityService.recordLoginFailure(
                     user.getUserId(), "INVALID_PASSWORD", ip, userAgent, deviceId, null, clientId);
+            // Add IP to reputation tracking
+            anomalyDetectionService.addIpReputationHit(ip);
             throw new InvalidCredentialsException();
         }
 
@@ -152,6 +196,7 @@ public class AuthService {
 
         // Clear rate limit on success
         rateLimitService.clearLoginFailures(email);
+        bruteForceProtectionService.clearFailures(email, ip);
 
         // Update last login
         Instant authTime = Instant.now();

@@ -56,6 +56,13 @@ public class SecurityConfig {
                     "/api/v1/account/recovery/verify",
                     "/api/v1/account/recovery/complete",
                     "/api/v1/account/recovery/session/**",
+                    // Threat Protection — CAPTCHA check is public (called before login)
+                    "/api/v1/auth/security/threat/captcha-required",
+                    // Device Fingerprint — check-known is public (called before login)
+                    "/api/v1/auth/security/threat/device-fingerprint/check-known",
+                    // Privacy — labels are public (transparency)
+                    "/api/v1/auth/privacy/labels",
+                    "/api/v1/auth/privacy/labels/**",
                     "/.well-known/**",
                     "/oauth2/**",
                     "/actuator/health",

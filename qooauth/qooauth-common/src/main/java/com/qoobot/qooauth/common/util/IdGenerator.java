@@ -67,6 +67,18 @@ public final class IdGenerator {
         return "ach_" + generateRandom();
     }
 
+    public static String generateAnomalyEventId() {
+        return "ano_" + generateRandom();
+    }
+
+    public static String generateDeviceFingerprintId() {
+        return "dfp_" + generateRandom();
+    }
+
+    public static String generateIpReputationId() {
+        return "ipr_" + generateRandom();
+    }
+
     private static String generateRandom() {
         byte[] bytes = new byte[RANDOM_BYTES];
         RANDOM.nextBytes(bytes);
