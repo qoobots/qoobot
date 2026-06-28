@@ -16,6 +16,16 @@
         <module>qoobot-cloud-gateway</module>
         <module>qooauth</module>
         <module>qoocloud</module>
+        <module>qoocloud/qoocloud-common</module>
+        <module>qoocloud/qoocloud-gateway</module>
+        <module>qoocloud/qoocloud-inference</module>
+        <module>qoocloud/qoocloud-device</module>
+        <module>qoocloud/qoocloud-ota</module>
+        <module>qoocloud/qoocloud-data</module>
+        <module>qoocloud/qoocloud-orchestra</module>
+        <module>qoocloud/qoocloud-twin</module>
+        <module>qoocloud/qoocloud-observability</module>
+        <module>qoocloud/qoocloud-infra</module>
         <module>../qoostore/qoostore-cloud</module>
     </modules>
 

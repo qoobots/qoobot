@@ -29,12 +29,12 @@ target_include_directories(qoosvc_common INTERFACE
 add_subdirectory(src/svc_voice)
 add_subdirectory(src/svc_navigation)
 add_subdirectory(src/svc_diagnostics)
-# P1 services (to be implemented)
-# add_subdirectory(src/svc_spatial)
-# add_subdirectory(src/svc_hmi)
-# add_subdirectory(src/svc_charging)
-# add_subdirectory(src/svc_people)
-# add_subdirectory(src/svc_multi_robot)
+# P1 services
+add_subdirectory(src/svc_spatial)
+add_subdirectory(src/svc_hmi)
+add_subdirectory(src/svc_charging)
+add_subdirectory(src/svc_people)
+add_subdirectory(src/svc_multi_robot)
 
 # 测试
 enable_testing()
