@@ -51,6 +51,11 @@ public class SecurityConfig {
                     // Device Activations — challenge/verify called by unauthenticated devices
                     "/api/v1/auth/device-activations/*/challenge",
                     "/api/v1/auth/device-activations/*/verify",
+                    // Account Recovery — public endpoints (unauthenticated users)
+                    "/api/v1/account/recovery/initiate",
+                    "/api/v1/account/recovery/verify",
+                    "/api/v1/account/recovery/complete",
+                    "/api/v1/account/recovery/session/**",
                     "/.well-known/**",
                     "/oauth2/**",
                     "/actuator/health",
