@@ -1,0 +1,695 @@
+<?xml version="1.0"?>
+<!--
+  ============================================================================
+  QooBot Standard — 双足人形机器人 URDF/Xacro 模型
+  ============================================================================
+
+  形态: 双足人形
+  自由度: 30 DOF
+    - 浮动基座: 6 DOF (自由飞行, 仿真用)
+    - 腰部: 3 DOF (pitch, roll, yaw)
+    - 头部: 2 DOF (yaw, pitch)
+    - 左臂: 7 DOF (shoulder_pitch/roll/yaw + elbow + wrist_pitch/roll/yaw)
+    - 右臂: 7 DOF (对称)
+    - 左腿: 5 DOF (hip_roll/yaw/pitch + knee_pitch + ankle_pitch/roll)
+    - 右腿: 5 DOF (对称)
+
+  硬件参考: qoobody 硬件参考设计, MuJoCo qoobot_float.xml
+  兼容性: ROS 2 Humble / Iron / Jazzy
+
+  单位: 米(m), 千克(kg), 弧度(rad)
+
+  对标准则:
+    - unitree_ros-master robots/*_description/urdf/*.xacro
+    - ROS 2 REP-120 机器人描述规范
+  ============================================================================
+-->
+<robot name="qoobot" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- ========================================================================
+       MATERIALS
+       ======================================================================== -->
+  <material name="qoobot_gray">
+    <color rgba="0.75294 0.75294 0.75294 1"/>
+  </material>
+  <material name="qoobot_silver">
+    <color rgba="0.89804 0.91765 0.92941 1"/>
+  </material>
+  <material name="qoobot_dark">
+    <color rgba="0.69804 0.69804 0.69804 1"/>
+  </material>
+  <material name="qoobot_accent">
+    <color rgba="0.77647 0.75686 0.73725 1"/>
+  </material>
+
+  <!-- ========================================================================
+       MACROS: 惯性参数 (来源: MuJoCo qoobot_float.xml)
+       ======================================================================== -->
+
+  <xacro:macro name="qoobot_head" params="prefix">
+    <!-- Head Yaw -->
+    <joint name="${prefix}_head_yaw" type="revolute">
+      <origin xyz="0.009 0 0.4064" rpy="0 0 0"/>
+      <parent link="${prefix}_base_link"/>
+      <child link="${prefix}_Link_head_yaw"/>
+      <axis xyz="0 0 1"/>
+      <limit lower="-1.5708" upper="1.5708" effort="26" velocity="109.8"/>
+      <dynamics damping="0.1" friction="0.02"/>
+    </joint>
+    <link name="${prefix}_Link_head_yaw">
+      <inertial>
+        <origin xyz="4.6974e-12 -0.0020814 0.044801" rpy="0 0 0"/>
+        <mass value="0.84249"/>
+        <inertia ixx="0.000700588" ixy="0" ixz="0" iyy="0.000629" iyz="0" izz="0.000553812"/>
+      </inertial>
+      <visual>
+        <origin xyz="0 0 0" rpy="1.57 0 0"/>
+        <geometry>
+          <mesh filename="package://qoobot_description/meshes/Link_head_yaw.stl"/>
+        </geometry>
+        <material name="qoobot_silver"/>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="1.57 0 0"/>
+        <geometry>
+          <mesh filename="package://qoobot_description/meshes/Link_head_yaw.stl"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <!-- Head Pitch -->
+    <joint name="${prefix}_head_pitch" type="revolute">
+      <origin xyz="0 -0.0346 0.0485" rpy="0 0 0"/>
+      <parent link="${prefix}_Link_head_yaw"/>
+      <child link="${prefix}_Link_head_pitch"/>
+      <axis xyz="0 -1 0"/>
+      <limit lower="-0.7854" upper="0.7854" effort="26" velocity="109.8"/>
+      <dynamics damping="0.1" friction="0.02"/>
+    </joint>
+    <link name="${prefix}_Link_head_pitch">
+      <inertial>
+        <origin xyz="0.020569 0.033004 0.125" rpy="0 0 0"/>
+        <mass value="1.3943"/>
+        <inertia ixx="0.0063814" ixy="0" ixz="0" iyy="0.00628994" iyz="0" izz="0.00448146"/>
+      </inertial>
+      <visual>
+        <origin xyz="0 0 0" rpy="1.57 0 0"/>
+        <geometry>
+          <mesh filename="package://qoobot_description/meshes/Link_head_pitch.stl"/>
+        </geometry>
+        <material name="qoobot_dark"/>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="1.57 0 0"/>
+        <geometry>
+          <mesh filename="package://qoobot_description/meshes/Link_head_pitch.stl"/>
+        </geometry>
+      </collision>
+    </link>
+  </xacro:macro>
+
+  <!-- ========================================================================
+       MACRO: 单臂 (7 DOF)
+       ======================================================================== -->
+  <xacro:macro name="qoobot_arm" params="prefix side sign">
+    <joint name="${prefix}_arm_${side}_01" type="revolute">
+      <origin xyz="0.004 ${-sign * 0.1616} 0.3922" rpy="0 0 0"/>
+      <parent link="${prefix}_base_link"/>
+      <child link="${prefix}_Link_arm_${side}_01"/>
+      <axis xyz="0 ${-sign} 0"/>
+      <limit lower="-2.96706" upper="2.96706" effort="80" velocity="3.14"/>
+      <dynamics damping="0.1" friction="0.02"/>
+    </joint>
+    <link name="${prefix}_Link_arm_${side}_01">
+      <inertial>
+        <origin xyz="${sign * 0.0044946} ${-sign * 0.038294} -1.8744e-06" rpy="0 0 0"/>
+        <mass value="0.75641"/>
+        <inertia ixx="0.00084299" ixy="0" ixz="0" iyy="0.00080305" iyz="0" izz="0.00058712"/>
+      </inertial>
+      <visual>
+        <origin xyz="0 0 0" rpy="1.57 0 0"/>
+        <geometry>
+          <mesh filename="package://qoobot_description/meshes/Link_arm_${side}_01.stl"/>
+        </geometry>
+        <material name="qoobot_dark"/>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="1.57 0 0"/>
+        <geometry>
+          <mesh filename="package://qoobot_description/meshes/Link_arm_${side}_01.stl"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <joint name="${prefix}_arm_${side}_02" type="revolute">
+      <origin xyz="${-sign * 0.042} ${-sign * 0.041} 0" rpy="0 0 0"/>
+      <parent link="${prefix}_Link_arm_${side}_01"/>
+      <child link="${prefix}_Link_arm_${side}_02"/>
+      <axis xyz="${-sign} 0 0"/>
+      <limit lower="-1.8326" upper="1.8326" effort="80" velocity="3.14"/>
+      <dynamics damping="0.1" friction="0.02"/>
+    </joint>
+    <link name="${prefix}_Link_arm_${side}_02">
+      <inertial>
+        <origin xyz="${-sign * 0.042} ${-sign * 0.0674307} 0" rpy="0 0 0"/>
+        <mass value="0.985"/>
+        <inertia ixx="0.00226269" ixy="0" ixz="0" iyy="0.00173099" iyz="0" izz="0.00115402"/>
+      </inertial>
+      <visual>
+        <origin xyz="0 0 0" rpy="1.57 0 0"/>
+        <geometry>
+          <mesh filename="package://qoobot_description/meshes/Link_arm_${side}_02.stl"/>
+        </geometry>
+        <material name="qoobot_dark"/>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="1.57 0 0"/>
+        <geometry>
+          <mesh filename="package://qoobot_description/meshes/Link_arm_${side}_02.stl"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <joint name="${prefix}_arm_${side}_03" type="revolute">
+      <origin xyz="${sign * 0.042} ${-sign * 0.1226} 0" rpy="0 0 0"/>
+      <parent link="${prefix}_Link_arm_${side}_02"/>
+      <child link="${prefix}_Link_arm_${side}_03"/>
+      <axis xyz="0 ${-sign} 0"/>
+      <limit lower="-2.96706" upper="2.96706" effort="48" velocity="3.14"/>
+      <dynamics damping="0.1" friction="0.02"/>
+    </joint>
+    <link name="${prefix}_Link_arm_${side}_03">
+      <inertial>
+        <origin xyz="${-sign * 0.00141358} ${-sign * 0.164663} 0.0207579" rpy="0 0 0"/>
+        <mass value="0.959"/>
+        <inertia ixx="0.00210134" ixy="0" ixz="0" iyy="0.00206459" iyz="0" izz="0.000754802"/>
+      </inertial>
+      <visual>
+        <origin xyz="0 0 0" rpy="1.57 0 0"/>
+        <geometry>
+          <mesh filename="package://qoobot_description/meshes/Link_arm_${side}_03.stl"/>
+        </geometry>
+        <material name="qoobot_dark"/>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="1.57 0 0"/>
+        <geometry>
+          <mesh filename="package://qoobot_description/meshes/Link_arm_${side}_03.stl"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <joint name="${prefix}_arm_${side}_04" type="revolute">
+      <origin xyz="${sign * 0.0353} ${-sign * 0.1774} 0.024" rpy="0 0 0"/>
+      <parent link="${prefix}_Link_arm_${side}_03"/>
+      <child link="${prefix}_Link_arm_${side}_04"/>
+      <axis xyz="${-sign} 0 0"/>
+      <limit lower="0" upper="2.96706" effort="48" velocity="3.14"/>
+      <dynamics damping="0.1" friction="0.02"/>
+    </joint>
+    <link name="${prefix}_Link_arm_${side}_04">
+      <inertial>
+        <origin xyz="${-sign * 0.038727} ${-sign * 0.060767} -0.021003" rpy="0 0 0"/>
+        <mass value="0.6"/>
+        <inertia ixx="0.00109261" ixy="0" ixz="0" iyy="0.000712422" iyz="0" izz="0.000645102"/>
+      </inertial>
+      <visual>
+        <origin xyz="0 0 0" rpy="1.57 0 0"/>
+        <geometry>
+          <mesh filename="package://qoobot_description/meshes/Link_arm_${side}_04.stl"/>
+        </geometry>
+        <material name="qoobot_dark"/>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="1.57 0 0"/>
+        <geometry>
+          <mesh filename="package://qoobot_description/meshes/Link_arm_${side}_04.stl"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <joint name="${prefix}_arm_${side}_05" type="revolute">
+      <origin xyz="${-sign * 0.0353} ${-sign * 0.1035} -0.024" rpy="0 0 0"/>
+      <parent link="${prefix}_Link_arm_${side}_04"/>
+      <child link="${prefix}_Link_arm_${side}_05"/>
+      <axis xyz="0 ${-sign} 0"/>
+      <limit lower="-2.96706" upper="2.96706" effort="12.4" velocity="6.28"/>
+      <dynamics damping="0.1" friction="0.02"/>
+    </joint>
+    <link name="${prefix}_Link_arm_${side}_05">
+      <inertial>
+        <origin xyz="${-sign * 3.2712e-05} ${-sign * 0.068658} -0.00011178" rpy="0 0 0"/>
+        <mass value="0.68976"/>
+        <inertia ixx="0.00252251" ixy="0" ixz="0" iyy="0.0024111" iyz="0" izz="0.000448695"/>
+      </inertial>
+      <visual>
+        <origin xyz="0 0 0" rpy="1.57 0 0"/>
+        <geometry>
+          <mesh filename="package://qoobot_description/meshes/Link_arm_${side}_05.stl"/>
+        </geometry>
+        <material name="qoobot_dark"/>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="1.57 0 0"/>
+        <geometry>
+          <mesh filename="package://qoobot_description/meshes/Link_arm_${side}_05.stl"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <joint name="${prefix}_arm_${side}_06" type="revolute">
+      <origin xyz="${-sign * 0.0265} ${-sign * 0.1965} 0" rpy="0 0 0"/>
+      <parent link="${prefix}_Link_arm_${side}_05"/>
+      <child link="${prefix}_Link_arm_${side}_06"/>
+      <axis xyz="${sign} 0 0"/>
+      <limit lower="-1.8326" upper="1.8326" effort="12.4" velocity="6.28"/>
+      <dynamics damping="0.1" friction="0.02"/>
+    </joint>
+    <link name="${prefix}_Link_arm_${side}_06">
+      <inertial>
+        <origin xyz="${sign * 0.026078} -8.9588e-07 0.0016637" rpy="0 0 0"/>
+        <mass value="0.28"/>
+        <inertia ixx="0.00015693" ixy="0" ixz="0" iyy="0.000145601" iyz="0" izz="0.000104979"/>
+      </inertial>
+      <visual>
+        <origin xyz="0 0 0" rpy="1.57 0 0"/>
+        <geometry>
+          <mesh filename="package://qoobot_description/meshes/Link_arm_${side}_06.stl"/>
+        </geometry>
+        <material name="qoobot_dark"/>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="1.57 0 0"/>
+        <geometry>
+          <mesh filename="package://qoobot_description/meshes/Link_arm_${side}_06.stl"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <joint name="${prefix}_arm_${side}_07" type="revolute">
+      <origin xyz="${sign * 0.0265} 0 0.0318" rpy="0 0 0"/>
+      <parent link="${prefix}_Link_arm_${side}_06"/>
+      <child link="${prefix}_Link_arm_${side}_07"/>
+      <axis xyz="0 0 1"/>
+      <limit lower="-1.0472" upper="1.0472" effort="12.4" velocity="6.28"/>
+      <dynamics damping="0.1" friction="0.02"/>
+    </joint>
+    <link name="${prefix}_Link_arm_${side}_07">
+      <inertial>
+        <origin xyz="-0.007859 ${-sign * 0.15817} -0.027736" rpy="0 0 0"/>
+        <mass value="0.61354"/>
+        <inertia ixx="0.00303761" ixy="0" ixz="0" iyy="0.00257091" iyz="0" izz="0.000729379"/>
+      </inertial>
+      <visual>
+        <origin xyz="0 0 0" rpy="1.57 0 0"/>
+        <geometry>
+          <mesh filename="package://qoobot_description/meshes/Link_arm_${side}_07.stl"/>
+        </geometry>
+        <material name="qoobot_accent"/>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="1.57 0 0"/>
+        <geometry>
+          <mesh filename="package://qoobot_description/meshes/Link_arm_${side}_07.stl"/>
+        </geometry>
+      </collision>
+    </link>
+  </xacro:macro>
+
+  <!-- ========================================================================
+       MACRO: 单腿 (5 DOF)
+       ======================================================================== -->
+  <xacro:macro name="qoobot_leg" params="prefix side sign">
+    <joint name="${prefix}_hip_${side}_roll" type="revolute">
+      <origin xyz="0 ${-sign * 0.06525} 0" rpy="0 0 0"/>
+      <parent link="${prefix}_Link_waist_yaw"/>
+      <child link="${prefix}_Link_hip_${side}_roll"/>
+      <axis xyz="1 0 0"/>
+      <limit lower="${-sign * 0.17453}" upper="${sign * 0.43633}" effort="320" velocity="20.94"/>
+      <dynamics damping="0.1" friction="0.02"/>
+    </joint>
+    <link name="${prefix}_Link_hip_${side}_roll">
+      <inertial>
+        <origin xyz="0 ${-sign * 0.0383} 0" rpy="0 0 0"/>
+        <mass value="1.2"/>
+        <inertia ixx="0.002" ixy="0" ixz="0" iyy="0.002" iyz="0" izz="0.0015"/>
+      </inertial>
+      <visual>
+        <origin xyz="0 0 0" rpy="1.57 0 0"/>
+        <geometry>
+          <mesh filename="package://qoobot_description/meshes/Link_hip_${side}_roll.stl"/>
+        </geometry>
+        <material name="qoobot_dark"/>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="1.57 0 0"/>
+        <geometry>
+          <mesh filename="package://qoobot_description/meshes/Link_hip_${side}_roll.stl"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <joint name="${prefix}_hip_${side}_yaw" type="revolute">
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <parent link="${prefix}_Link_hip_${side}_roll"/>
+      <child link="${prefix}_Link_hip_${side}_yaw"/>
+      <axis xyz="0 0 1"/>
+      <limit lower="-0.69813" upper="0.69813" effort="160" velocity="19.63"/>
+      <dynamics damping="0.1" friction="0.02"/>
+    </joint>
+    <link name="${prefix}_Link_hip_${side}_yaw">
+      <inertial>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <mass value="1.5"/>
+        <inertia ixx="0.003" ixy="0" ixz="0" iyy="0.003" iyz="0" izz="0.002"/>
+      </inertial>
+      <visual>
+        <origin xyz="0 0 0" rpy="1.57 0 0"/>
+        <geometry>
+          <mesh filename="package://qoobot_description/meshes/Link_hip_${side}_yaw.stl"/>
+        </geometry>
+        <material name="qoobot_dark"/>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="1.57 0 0"/>
+        <geometry>
+          <mesh filename="package://qoobot_description/meshes/Link_hip_${side}_yaw.stl"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <joint name="${prefix}_hip_${side}_pitch" type="revolute">
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <parent link="${prefix}_Link_hip_${side}_yaw"/>
+      <child link="${prefix}_Link_hip_${side}_pitch"/>
+      <axis xyz="0 -1 0"/>
+      <limit lower="-0.7854" upper="1.8326" effort="396" velocity="19.16"/>
+      <dynamics damping="0.1" friction="0.02"/>
+    </joint>
+    <link name="${prefix}_Link_hip_${side}_pitch">
+      <inertial>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <mass value="2.0"/>
+        <inertia ixx="0.005" ixy="0" ixz="0" iyy="0.005" iyz="0" izz="0.003"/>
+      </inertial>
+      <visual>
+        <origin xyz="0 0 0" rpy="1.57 0 0"/>
+        <geometry>
+          <mesh filename="package://qoobot_description/meshes/Link_hip_${side}_pitch.stl"/>
+        </geometry>
+        <material name="qoobot_dark"/>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="1.57 0 0"/>
+        <geometry>
+          <mesh filename="package://qoobot_description/meshes/Link_hip_${side}_pitch.stl"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <joint name="${prefix}_knee_${side}_pitch" type="revolute">
+      <origin xyz="0 0 -0.35" rpy="0 0 0"/>
+      <parent link="${prefix}_Link_hip_${side}_pitch"/>
+      <child link="${prefix}_Link_knee_${side}_pitch"/>
+      <axis xyz="0 -1 0"/>
+      <limit lower="-2.35619" upper="0.08727" effort="396" velocity="19.16"/>
+      <dynamics damping="0.1" friction="0.02"/>
+    </joint>
+    <link name="${prefix}_Link_knee_${side}_pitch">
+      <inertial>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <mass value="2.0"/>
+        <inertia ixx="0.005" ixy="0" ixz="0" iyy="0.005" iyz="0" izz="0.003"/>
+      </inertial>
+      <visual>
+        <origin xyz="0 0 0" rpy="1.57 0 0"/>
+        <geometry>
+          <mesh filename="package://qoobot_description/meshes/Link_knee_${side}_pitch.stl"/>
+        </geometry>
+        <material name="qoobot_dark"/>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="1.57 0 0"/>
+        <geometry>
+          <mesh filename="package://qoobot_description/meshes/Link_knee_${side}_pitch.stl"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <joint name="${prefix}_ankle_${side}_pitch" type="revolute">
+      <origin xyz="0 0 -0.35" rpy="0 0 0"/>
+      <parent link="${prefix}_Link_knee_${side}_pitch"/>
+      <child link="${prefix}_Link_ankle_${side}_pitch"/>
+      <axis xyz="0 -1 0"/>
+      <limit lower="-0.43644" upper="0.61087" effort="58.5" velocity="48.8"/>
+      <dynamics damping="0.1" friction="0.02"/>
+    </joint>
+    <link name="${prefix}_Link_ankle_${side}_pitch">
+      <inertial>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <mass value="0.5"/>
+        <inertia ixx="0.0008" ixy="0" ixz="0" iyy="0.0008" iyz="0" izz="0.0005"/>
+      </inertial>
+      <visual>
+        <origin xyz="0 0 0" rpy="1.57 0 0"/>
+        <geometry>
+          <mesh filename="package://qoobot_description/meshes/Link_ankle_${side}_pitch.stl"/>
+        </geometry>
+        <material name="qoobot_dark"/>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="1.57 0 0"/>
+        <geometry>
+          <mesh filename="package://qoobot_description/meshes/Link_ankle_${side}_pitch.stl"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <joint name="${prefix}_ankle_${side}_roll" type="revolute">
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <parent link="${prefix}_Link_ankle_${side}_pitch"/>
+      <child link="${prefix}_Link_ankle_${side}_roll"/>
+      <axis xyz="1 0 0"/>
+      <limit lower="-0.43633" upper="0.43633" effort="58.5" velocity="48.8"/>
+      <dynamics damping="0.1" friction="0.02"/>
+    </joint>
+    <link name="${prefix}_Link_ankle_${side}_roll">
+      <inertial>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <mass value="0.3"/>
+        <inertia ixx="0.0003" ixy="0" ixz="0" iyy="0.0003" iyz="0" izz="0.0002"/>
+      </inertial>
+      <visual>
+        <origin xyz="0 0 0" rpy="1.57 0 0"/>
+        <geometry>
+          <mesh filename="package://qoobot_description/meshes/Link_ankle_${side}_roll.stl"/>
+        </geometry>
+        <material name="qoobot_dark"/>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="1.57 0 0"/>
+        <geometry>
+          <mesh filename="package://qoobot_description/meshes/Link_ankle_${side}_roll.stl"/>
+        </geometry>
+      </collision>
+    </link>
+  </xacro:macro>
+
+  <!-- ========================================================================
+       ROBOT ASSEMBLY
+       ======================================================================== -->
+
+  <!-- Base Link (躯干) -->
+  <link name="base_link">
+    <inertial>
+      <origin xyz="-0.0056641 -0.0013367 0.23829" rpy="0 0 0"/>
+      <mass value="22.447"/>
+      <inertia ixx="0.3742" ixy="0.0009471" ixz="0.004646"
+               iyy="0.27691" iyz="0.0040142"
+               izz="0.22104"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="1.57 0 0"/>
+      <geometry>
+        <mesh filename="package://qoobot_description/meshes/base_link.stl"/>
+      </geometry>
+      <material name="qoobot_gray"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="1.57 0 0"/>
+      <geometry>
+        <mesh filename="package://qoobot_description/meshes/base_link.stl"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- Waist (3 DOF) -->
+  <joint name="waist_pitch" type="revolute">
+    <origin xyz="0 -0.06525 0" rpy="0 0 0"/>
+    <parent link="base_link"/>
+    <child link="Link_waist_pitch"/>
+    <axis xyz="0 -1 0"/>
+    <limit lower="-0.29671" upper="0.7854" effort="315" velocity="3.72"/>
+    <dynamics damping="0.1" friction="0.02"/>
+  </joint>
+  <link name="Link_waist_pitch">
+    <inertial>
+      <origin xyz="-0.00073496 0.049925 -2.9695e-05" rpy="0 0 0"/>
+      <mass value="2.6964"/>
+      <inertia ixx="0.00619062" ixy="0" ixz="0" iyy="0.00520125" iyz="0" izz="0.00473712"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="1.57 0 0"/>
+      <geometry>
+        <mesh filename="package://qoobot_description/meshes/Link_waist_pitch.stl"/>
+      </geometry>
+      <material name="qoobot_dark"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="1.57 0 0"/>
+      <geometry>
+        <mesh filename="package://qoobot_description/meshes/Link_waist_pitch.stl"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="waist_roll" type="revolute">
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <parent link="Link_waist_pitch"/>
+    <child link="Link_waist_roll"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-0.69813" upper="0.69813" effort="315" velocity="3.72"/>
+    <dynamics damping="0.1" friction="0.02"/>
+  </joint>
+  <link name="Link_waist_roll">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="2.6964"/>
+      <inertia ixx="0.005" ixy="0" ixz="0" iyy="0.005" iyz="0" izz="0.003"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="1.57 0 0"/>
+      <geometry>
+        <mesh filename="package://qoobot_description/meshes/Link_waist_roll.stl"/>
+      </geometry>
+      <material name="qoobot_dark"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="1.57 0 0"/>
+      <geometry>
+        <mesh filename="package://qoobot_description/meshes/Link_waist_roll.stl"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="waist_yaw" type="revolute">
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <parent link="Link_waist_roll"/>
+    <child link="Link_waist_yaw"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="-0.7854" upper="0.7854" effort="121" velocity="5.92"/>
+    <dynamics damping="0.1" friction="0.02"/>
+  </joint>
+  <link name="Link_waist_yaw">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="2.6964"/>
+      <inertia ixx="0.005" ixy="0" ixz="0" iyy="0.005" iyz="0" izz="0.003"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="1.57 0 0"/>
+      <geometry>
+        <mesh filename="package://qoobot_description/meshes/Link_waist_yaw.stl"/>
+      </geometry>
+      <material name="qoobot_dark"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="1.57 0 0"/>
+      <geometry>
+        <mesh filename="package://qoobot_description/meshes/Link_waist_yaw.stl"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- Head -->
+  <xacro:qoobot_head prefix=""/>
+
+  <!-- Arms -->
+  <xacro:qoobot_arm prefix="" side="r" sign="1"/>
+  <xacro:qoobot_arm prefix="" side="l" sign="-1"/>
+
+  <!-- Legs (attached to waist_yaw) -->
+  <xacro:qoobot_leg prefix="" side="r" sign="1"/>
+  <xacro:qoobot_leg prefix="" side="l" sign="-1"/>
+
+  <!-- IMU Sensor -->
+  <gazebo reference="base_link">
+    <sensor type="imu" name="imu_sensor">
+      <always_on>true</always_on>
+      <update_rate>200</update_rate>
+      <imu>
+        <angular_velocity>
+          <x>
+            <noise type="gaussian">
+              <mean>0.0</mean>
+              <stddev>2e-4</stddev>
+            </noise>
+          </x>
+          <y>
+            <noise type="gaussian">
+              <mean>0.0</mean>
+              <stddev>2e-4</stddev>
+            </noise>
+          </y>
+          <z>
+            <noise type="gaussian">
+              <mean>0.0</mean>
+              <stddev>2e-4</stddev>
+            </noise>
+          </z>
+        </angular_velocity>
+        <linear_acceleration>
+          <x>
+            <noise type="gaussian">
+              <mean>0.0</mean>
+              <stddev>1e-3</stddev>
+            </noise>
+          </x>
+          <y>
+            <noise type="gaussian">
+              <mean>0.0</mean>
+              <stddev>1e-3</stddev>
+            </noise>
+          </y>
+          <z>
+            <noise type="gaussian">
+              <mean>0.0</mean>
+              <stddev>1e-3</stddev>
+            </noise>
+          </z>
+        </linear_acceleration>
+      </imu>
+    </sensor>
+  </gazebo>
+
+  <!-- Foot Contact Sensors -->
+  <gazebo reference="Link_ankle_r_roll">
+    <sensor type="contact" name="right_foot_contact">
+      <always_on>true</always_on>
+      <update_rate>100</update_rate>
+      <contact>
+        <collision>Link_ankle_r_roll</collision>
+      </contact>
+    </sensor>
+  </gazebo>
+  <gazebo reference="Link_ankle_l_roll">
+    <sensor type="contact" name="left_foot_contact">
+      <always_on>true</always_on>
+      <update_rate>100</update_rate>
+      <contact>
+        <collision>Link_ankle_l_roll</collision>
+      </contact>
+    </sensor>
+  </gazebo>
+
+</robot>

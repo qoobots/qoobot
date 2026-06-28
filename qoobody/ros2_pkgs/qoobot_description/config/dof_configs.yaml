@@ -1,0 +1,109 @@
+# ============================================================================
+# QooBot 参数化 DOF 配置 (对标 G1 多模式)
+#
+# 支持多种 DOF 配置, 类似 unitree G1 的 7 种模式 (mode_machine 10-16)
+# 通过 launch 参数选择: ros2 launch qoobot_description display.launch.py dof_mode:=29
+# ============================================================================
+
+modes:
+  # === Standard (30 DOF) — 全功能 ===
+  standard_30dof:
+    description: "标准 30 DOF: 全身 + 头部 + 双臂7 + 双腿5"
+    total_dof: 30
+    base: true              # 躯干 (含 IMU)
+    head: true              # 头部 2 DOF (yaw + pitch)
+    waist: true             # 腰部 3 DOF (pitch + roll + yaw)
+    arms:
+      enabled: true
+      dof: 7                # 双臂各 7 DOF
+      hand: none            # 无手
+    legs:
+      enabled: true
+      dof: 5                # 双腿各 5 DOF
+    mass_kg: 55.0
+    height_mm: 1400
+
+  # === Lite (23 DOF) — 无头部 + 简臂 ===
+  lite_23dof:
+    description: "精简 23 DOF: 躯干 + 腰部 + 双臂5 + 双腿5, 无头部"
+    total_dof: 23
+    base: true
+    head: false
+    waist: true
+    arms:
+      enabled: true
+      dof: 5                # 双臂各 5 DOF (无 wrist_roll/yaw)
+      hand: none
+    legs:
+      enabled: true
+      dof: 5
+    mass_kg: 50.0
+    height_mm: 1400
+
+  # === Dual Arm Only (17 DOF) — 固定基座 + 双臂 ===
+  dual_arm_17dof:
+    description: "双机械臂 17 DOF: 固定基座 + 腰部3 + 双臂7, 无腿"
+    total_dof: 17
+    base: true
+    head: false
+    waist: true
+    arms:
+      enabled: true
+      dof: 7
+      hand: none
+    legs:
+      enabled: false
+    mass_kg: 35.0
+    height_mm: 900
+
+  # === Mobile Manipulator (23 DOF) — 轮式底盘 + 躯干 + 双臂 ===
+  mobile_manipulator_23dof:
+    description: "移动操作 23 DOF: 轮式底盘 + 躯干 + 头部 + 腰部 + 双臂7"
+    total_dof: 23
+    base: wheeled           # 轮式底盘
+    head: true
+    waist: true
+    arms:
+      enabled: true
+      dof: 7
+      hand: gripper         # 夹爪
+    legs:
+      enabled: false
+    mass_kg: 45.0
+    height_mm: 1600
+
+  # === Full with Dexterous Hand (44 DOF) — 全功能 + 灵巧手 ===
+  full_dexterous_44dof:
+    description: "全功能 44 DOF: 30 DOF 全身 + 2×7 DOF 灵巧手"
+    total_dof: 44
+    base: true
+    head: true
+    waist: true
+    arms:
+      enabled: true
+      dof: 7
+      hand: dexterous_7dof  # Dex3-1 灵巧手, 每手 7 DOF
+    legs:
+      enabled: true
+      dof: 5
+    mass_kg: 58.0
+    height_mm: 1400
+
+# ============================================================================
+# 关节限位配置 (不同模式的限位可能不同)
+# ============================================================================
+joint_limits:
+  standard:
+    waist_pitch:    { lower: -0.29671, upper: 0.7854 }
+    waist_roll:     { lower: -0.69813, upper: 0.69813 }
+    waist_yaw:      { lower: -0.7854,  upper: 0.7854 }
+    arm_shoulder:   { lower: -2.96706, upper: 2.96706 }
+    arm_elbow:      { lower: 0,        upper: 2.96706 }
+    hip_pitch:      { lower: -0.7854,  upper: 1.8326 }
+    knee_pitch:     { lower: -2.35619, upper: 0.08727 }
+
+  # 锁腰模式: 腰部关节限位设为 0
+  waist_locked:
+    waist_pitch:    { lower: 0, upper: 0 }
+    waist_roll:     { lower: 0, upper: 0 }
+    waist_yaw:      { lower: 0, upper: 0 }

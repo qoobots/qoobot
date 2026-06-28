@@ -1,0 +1,144 @@
+<?xml version="1.0"?>
+<!--
+  ============================================================================
+  QooBot Arm6 — 6 轴协作机械臂 URDF/Xacro 参考模型
+  ============================================================================
+
+  形态: 6 轴协作机械臂
+  自由度: 6 DOF
+    关节1: base_rotation (绕Z)
+    关节2: shoulder_pitch (绕Y)
+    关节3: elbow_pitch (绕Y)
+    关节4: wrist_roll (绕X)
+    关节5: wrist_pitch (绕Y)
+    关节6: wrist_rotation (绕Z)
+
+  对标: unitree_ros-master robots/z1_description (Z1 机械臂)
+  兼容: qoobody HAL 关节电机规范, ISO 9409-1 法兰标准
+  ============================================================================
+-->
+<robot name="qoobot_arm6" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <material name="arm_gray">
+    <color rgba="0.6 0.6 0.6 1"/>
+  </material>
+  <material name="arm_dark">
+    <color rgba="0.3 0.3 0.3 1"/>
+  </material>
+  <material name="flange_accent">
+    <color rgba="0.8 0.6 0.2 1"/>
+  </material>
+
+  <!-- 关节参数 (对标 QJ 系列关节模组) -->
+  <xacro:property name="link1_length" value="0.15"/>
+  <xacro:property name="link2_length" value="0.35"/>
+  <xacro:property name="link3_length" value="0.30"/>
+  <xacro:property name="link4_length" value="0.12"/>
+  <xacro:property name="link5_length" value="0.10"/>
+  <xacro:property name="link6_length" value="0.08"/>
+
+  <!-- ========================================================================
+       MACRO: 旋转关节 + 连杆
+       ======================================================================== -->
+  <xacro:macro name="revolute_link" params="name parent axis xyz length mass effort vel lower upper color">
+    <joint name="${name}" type="revolute">
+      <origin xyz="${xyz}" rpy="0 0 0"/>
+      <parent link="${parent}"/>
+      <child link="${name}_link"/>
+      <axis xyz="${axis}"/>
+      <limit lower="${lower}" upper="${upper}" effort="${effort}" velocity="${vel}"/>
+    </joint>
+    <link name="${name}_link">
+      <inertial>
+        <origin xyz="0 0 ${length/2}" rpy="0 0 0"/>
+        <mass value="${mass}"/>
+        <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.0005"/>
+      </inertial>
+      <visual>
+        <origin xyz="0 0 ${length/2}" rpy="0 0 0"/>
+        <geometry>
+          <cylinder radius="0.04" length="${length}"/>
+        </geometry>
+        <material name="${color}"/>
+      </visual>
+      <collision>
+        <origin xyz="0 0 ${length/2}" rpy="0 0 0"/>
+        <geometry>
+          <cylinder radius="0.04" length="${length}"/>
+        </geometry>
+      </collision>
+    </link>
+  </xacro:macro>
+
+  <!-- ========================================================================
+       ASSEMBLY
+       ======================================================================== -->
+
+  <!-- Base -->
+  <link name="base_link">
+    <inertial>
+      <mass value="2.0"/>
+      <inertia ixx="0.01" ixy="0" ixz="0" iyy="0.01" iyz="0" izz="0.01"/>
+    </inertial>
+    <visual>
+      <geometry><cylinder radius="0.08" length="0.1"/></geometry>
+      <material name="arm_dark"/>
+    </visual>
+  </link>
+
+  <!-- Joint 1: Base Rotation (Z) -->
+  <xacro:revolute_link
+    name="joint1" parent="base_link"
+    axis="0 0 1" xyz="0 0 0.1" length="${link1_length}"
+    mass="1.5" effort="80" vel="3.14"
+    lower="-2.967" upper="2.967" color="arm_gray"/>
+
+  <!-- Joint 2: Shoulder Pitch (Y) -->
+  <xacro:revolute_link
+    name="joint2" parent="joint1_link"
+    axis="0 1 0" xyz="0 0 ${link1_length}" length="${link2_length}"
+    mass="2.0" effort="80" vel="3.14"
+    lower="-1.833" upper="1.833" color="arm_gray"/>
+
+  <!-- Joint 3: Elbow Pitch (Y) -->
+  <xacro:revolute_link
+    name="joint3" parent="joint2_link"
+    axis="0 1 0" xyz="0 0 ${link2_length}" length="${link3_length}"
+    mass="1.5" effort="48" vel="3.14"
+    lower="-2.967" upper="2.967" color="arm_gray"/>
+
+  <!-- Joint 4: Wrist Roll (X) -->
+  <xacro:revolute_link
+    name="joint4" parent="joint3_link"
+    axis="1 0 0" xyz="0 0 ${link3_length}" length="${link4_length}"
+    mass="0.8" effort="28" vel="6.28"
+    lower="-2.967" upper="2.967" color="arm_dark"/>
+
+  <!-- Joint 5: Wrist Pitch (Y) -->
+  <xacro:revolute_link
+    name="joint5" parent="joint4_link"
+    axis="0 1 0" xyz="0 0 ${link4_length}" length="${link5_length}"
+    mass="0.5" effort="12" vel="6.28"
+    lower="-2.967" upper="2.967" color="arm_dark"/>
+
+  <!-- Joint 6: Wrist Rotation (Z) -->
+  <xacro:revolute_link
+    name="joint6" parent="joint5_link"
+    axis="0 0 1" xyz="0 0 ${link5_length}" length="${link6_length}"
+    mass="0.3" effort="12" vel="6.28"
+    lower="-1.047" upper="1.047" color="flange_accent"/>
+
+  <!-- Tool Flange (ISO 9409-1 Φ60) -->
+  <link name="tool_flange">
+    <inertial>
+      <mass value="0.1"/>
+      <inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.0001" iyz="0" izz="0.0001"/>
+    </inertial>
+  </link>
+  <joint name="flange_fixed" type="fixed">
+    <origin xyz="0 0 ${link6_length}" rpy="0 0 0"/>
+    <parent link="joint6_link"/>
+    <child link="tool_flange"/>
+  </joint>
+
+</robot>

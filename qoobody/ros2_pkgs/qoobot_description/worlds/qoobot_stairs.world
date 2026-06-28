@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<!--
+  ============================================================================
+  QooBot Stairs World — Gazebo 仿真世界 (楼梯环境)
+  对标: unitree_ros-master unitree_gazebo/worlds/stairs.world
+  ============================================================================
+-->
+<sdf version="1.6">
+  <world name="qoobot_stairs">
+
+    <physics type="ode">
+      <max_step_size>0.001</max_step_size>
+      <real_time_factor>1.0</real_time_factor>
+      <real_time_update_rate>1000</real_time_update_rate>
+      <gravity>0 0 -9.81</gravity>
+    </physics>
+
+    <light name="sun" type="directional">
+      <pose>5 5 10 0 0 0</pose>
+      <diffuse>0.8 0.8 0.8 1</diffuse>
+      <direction>-0.5 -0.5 -1</direction>
+      <cast_shadows>true</cast_shadows>
+    </light>
+
+    <model name="ground_plane">
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <plane><normal>0 0 1</normal><size>20 20</size></plane>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <plane><normal>0 0 1</normal><size>20 20</size></plane>
+          </geometry>
+          <material><ambient>0.8 0.8 0.8 1</ambient></material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- Stairs: 10 steps, each 0.3m wide, 0.15m high, 0.25m deep -->
+    <xacro:macro name="stair_step" params="index x z">
+      <model name="stair_${index}">
+        <static>true</static>
+        <pose>${x} 0 ${z} 0 0 0</pose>
+        <link name="link">
+          <collision name="collision">
+            <geometry><box><size>1.0 0.25 0.15</size></box></geometry>
+          </collision>
+          <visual name="visual">
+            <geometry><box><size>1.0 0.25 0.15</size></box></geometry>
+            <material><ambient>0.6 0.6 0.7 1</ambient></material>
+          </visual>
+        </link>
+      </model>
+    </xacro:macro>
+
+    <!-- Manual stair steps (10 steps) -->
+    <model name="stair_0"><static>true</static><pose>1.0 0 0.075 0 0 0</pose><link name="link"><collision name="collision"><geometry><box><size>1.0 0.25 0.15</size></box></geometry></collision><visual name="visual"><geometry><box><size>1.0 0.25 0.15</size></box></geometry><material><ambient>0.6 0.6 0.7 1</ambient></material></visual></link></model>
+    <model name="stair_1"><static>true</static><pose>1.25 0 0.225 0 0 0</pose><link name="link"><collision name="collision"><geometry><box><size>1.0 0.25 0.15</size></box></geometry></collision><visual name="visual"><geometry><box><size>1.0 0.25 0.15</size></box></geometry><material><ambient>0.6 0.6 0.7 1</ambient></material></visual></link></model>
+    <model name="stair_2"><static>true</static><pose>1.5 0 0.375 0 0 0</pose><link name="link"><collision name="collision"><geometry><box><size>1.0 0.25 0.15</size></box></geometry></collision><visual name="visual"><geometry><box><size>1.0 0.25 0.15</size></box></geometry><material><ambient>0.6 0.6 0.7 1</ambient></material></visual></link></model>
+    <model name="stair_3"><static>true</static><pose>1.75 0 0.525 0 0 0</pose><link name="link"><collision name="collision"><geometry><box><size>1.0 0.25 0.15</size></box></geometry></collision><visual name="visual"><geometry><box><size>1.0 0.25 0.15</size></box></geometry><material><ambient>0.6 0.6 0.7 1</ambient></material></visual></link></model>
+    <model name="stair_4"><static>true</static><pose>2.0 0 0.675 0 0 0</pose><link name="link"><collision name="collision"><geometry><box><size>1.0 0.25 0.15</size></box></geometry></collision><visual name="visual"><geometry><box><size>1.0 0.25 0.15</size></box></geometry><material><ambient>0.6 0.6 0.7 1</ambient></material></visual></link></model>
+
+  </world>
+</sdf>

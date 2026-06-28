@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>qoobot_description</name>
+  <version>0.1.0</version>
+  <description>
+    QooBot humanoid robot URDF/Xacro model description.
+    Dual-leg humanoid: 30 DOF (6 floating base + 3 waist + 2 head + 2x7 arm + 2x5 leg).
+    Compliant with qoobody HAL interface specification.
+  </description>
+  <maintainer email="dev@qoobot.org">QooBot Team</maintainer>
+  <license>Apache-2.0</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <depend>urdf</depend>
+  <depend>xacro</depend>
+  <depend>robot_state_publisher</depend>
+  <depend>joint_state_publisher</depend>
+  <depend>joint_state_publisher_gui</depend>
+  <depend>rviz2</depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>

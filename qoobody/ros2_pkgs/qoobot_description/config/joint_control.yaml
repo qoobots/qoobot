@@ -1,0 +1,125 @@
+# ============================================================================
+# QooBot 关节控制器配置 (ros2_control)
+# 来源: qoobody/mechanical/mujoco/joint_ctrl_config.json
+# ============================================================================
+controller_manager:
+  ros__parameters:
+    update_rate: 1000  # Hz
+    joint_state_broadcaster:
+      type: joint_state_broadcaster/JointStateBroadcaster
+    joint_trajectory_controller:
+      type: joint_trajectory_controller/JointTrajectoryController
+
+joint_state_broadcaster:
+  ros__parameters:
+    joints:
+      - waist_pitch
+      - waist_roll
+      - waist_yaw
+      - head_yaw
+      - head_pitch
+      - arm_r_01
+      - arm_r_02
+      - arm_r_03
+      - arm_r_04
+      - arm_r_05
+      - arm_r_06
+      - arm_r_07
+      - arm_l_01
+      - arm_l_02
+      - arm_l_03
+      - arm_l_04
+      - arm_l_05
+      - arm_l_06
+      - arm_l_07
+      - hip_r_roll
+      - hip_r_yaw
+      - hip_r_pitch
+      - knee_r_pitch
+      - ankle_r_pitch
+      - ankle_r_roll
+      - hip_l_roll
+      - hip_l_yaw
+      - hip_l_pitch
+      - knee_l_pitch
+      - ankle_l_pitch
+      - ankle_l_roll
+
+joint_trajectory_controller:
+  ros__parameters:
+    joints:
+      - waist_pitch
+      - waist_roll
+      - waist_yaw
+      - head_yaw
+      - head_pitch
+      - arm_r_01
+      - arm_r_02
+      - arm_r_03
+      - arm_r_04
+      - arm_r_05
+      - arm_r_06
+      - arm_r_07
+      - arm_l_01
+      - arm_l_02
+      - arm_l_03
+      - arm_l_04
+      - arm_l_05
+      - arm_l_06
+      - arm_l_07
+      - hip_r_roll
+      - hip_r_yaw
+      - hip_r_pitch
+      - knee_r_pitch
+      - ankle_r_pitch
+      - ankle_r_roll
+      - hip_l_roll
+      - hip_l_yaw
+      - hip_l_pitch
+      - knee_l_pitch
+      - ankle_l_pitch
+      - ankle_l_roll
+    command_interfaces:
+      - position
+    state_interfaces:
+      - position
+      - velocity
+    state_publish_rate: 200.0
+    action_monitor_rate: 20.0
+    allow_partial_joints_goal: false
+    open_loop_control: false
+    allow_integration_in_goal_trajectories: true
+
+# PID Gains (from joint_ctrl_config.json)
+joint_pid_gains:
+  waist_pitch:     { kp: 5000.0, kd: 800.0, ki: 0.0, i_clamp: 1.0 }
+  waist_roll:      { kp: 5000.0, kd: 800.0, ki: 0.0, i_clamp: 1.0 }
+  waist_yaw:       { kp: 5000.0, kd: 800.0, ki: 0.0, i_clamp: 1.0 }
+  head_yaw:        { kp: 100.0,  kd: 6.0,   ki: 0.0, i_clamp: 0.5 }
+  head_pitch:      { kp: 100.0,  kd: 6.0,   ki: 0.0, i_clamp: 0.5 }
+  arm_r_01:        { kp: 800.0,  kd: 40.0,  ki: 0.0, i_clamp: 1.0 }
+  arm_r_02:        { kp: 800.0,  kd: 40.0,  ki: 0.0, i_clamp: 1.0 }
+  arm_r_03:        { kp: 400.0,  kd: 8.0,   ki: 0.0, i_clamp: 1.0 }
+  arm_r_04:        { kp: 600.0,  kd: 60.0,  ki: 0.0, i_clamp: 1.0 }
+  arm_r_05:        { kp: 200.0,  kd: 10.0,  ki: 0.0, i_clamp: 0.5 }
+  arm_r_06:        { kp: 100.0,  kd: 6.0,   ki: 0.0, i_clamp: 0.5 }
+  arm_r_07:        { kp: 300.0,  kd: 6.0,   ki: 0.0, i_clamp: 0.5 }
+  arm_l_01:        { kp: 800.0,  kd: 40.0,  ki: 0.0, i_clamp: 1.0 }
+  arm_l_02:        { kp: 800.0,  kd: 40.0,  ki: 0.0, i_clamp: 1.0 }
+  arm_l_03:        { kp: 400.0,  kd: 8.0,   ki: 0.0, i_clamp: 1.0 }
+  arm_l_04:        { kp: 600.0,  kd: 60.0,  ki: 0.0, i_clamp: 1.0 }
+  arm_l_05:        { kp: 200.0,  kd: 10.0,  ki: 0.0, i_clamp: 0.5 }
+  arm_l_06:        { kp: 100.0,  kd: 6.0,   ki: 0.0, i_clamp: 0.5 }
+  arm_l_07:        { kp: 300.0,  kd: 6.0,   ki: 0.0, i_clamp: 0.5 }
+  hip_r_roll:      { kp: 800.0,  kd: 100.0, ki: 0.0, i_clamp: 2.0 }
+  hip_r_yaw:       { kp: 800.0,  kd: 100.0, ki: 0.0, i_clamp: 2.0 }
+  hip_r_pitch:     { kp: 800.0,  kd: 100.0, ki: 0.0, i_clamp: 2.0 }
+  knee_r_pitch:    { kp: 2000.0, kd: 200.0, ki: 0.0, i_clamp: 2.0 }
+  ankle_r_pitch:   { kp: 1000.0, kd: 160.0, ki: 0.0, i_clamp: 1.0 }
+  ankle_r_roll:    { kp: 600.0,  kd: 100.0, ki: 0.0, i_clamp: 1.0 }
+  hip_l_roll:      { kp: 800.0,  kd: 100.0, ki: 0.0, i_clamp: 2.0 }
+  hip_l_yaw:       { kp: 800.0,  kd: 100.0, ki: 0.0, i_clamp: 2.0 }
+  hip_l_pitch:     { kp: 800.0,  kd: 100.0, ki: 0.0, i_clamp: 2.0 }
+  knee_l_pitch:    { kp: 2000.0, kd: 200.0, ki: 0.0, i_clamp: 2.0 }
+  ankle_l_pitch:   { kp: 1000.0, kd: 160.0, ki: 0.0, i_clamp: 1.0 }
+  ankle_l_roll:    { kp: 600.0,  kd: 100.0, ki: 0.0, i_clamp: 1.0 }
