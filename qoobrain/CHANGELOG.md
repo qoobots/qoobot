@@ -4,7 +4,7 @@ All notable changes to Brain OS will be documented in this file.
 
 ---
 
-## [1.0.0-alpha] — 2026-06-24
+## [1.0.0-alpha] — 2025-11-19
 
 ### Phase 1 原型验证完整发布
 

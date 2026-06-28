@@ -1,6 +1,6 @@
 # Brain OS --dry-run Release Notes
 
-> 2026-06-24 | Phase 1 原型验证发布
+> 2025-11-18 | Phase 1 原型验证发布
 
 ## Overview
 

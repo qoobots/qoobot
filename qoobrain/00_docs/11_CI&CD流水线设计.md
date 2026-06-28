@@ -213,7 +213,7 @@ Git Push / MR
 
 ```yaml
 # .gitlab-ci.yml — Brain OS CI/CD Pipeline
-# 版本: 1.0 | 最后更新: 2026-06-24
+# 版本: 1.0 | 最后更新: 2025-11-16
 
 stages:
   - pre-check
