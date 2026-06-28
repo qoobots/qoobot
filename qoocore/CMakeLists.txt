@@ -146,6 +146,9 @@ set(QOOCORE_RUNTIME_SOURCES
     src/hal/npu_hal_loader.cpp
     src/hal/mock_npu_hal.cpp
     src/runtime/scheduler/realtime_scheduler.cpp
+    src/runtime/backend/cpu_backend.cpp
+    src/runtime/backend/gpu_backend.cpp
+    src/runtime/pipeline/inference_pipeline.cpp
 )
 if(QOOCORE_ENABLE_NPU_QNN)
     list(APPEND QOOCORE_RUNTIME_SOURCES src/runtime/hal/qnn_hal.cpp)
@@ -179,6 +182,11 @@ set(QOOCORE_OPERATORS_SOURCES
     src/operators/lidar/lidar_ops.cpp
 )
 
+# 云端协同源文件
+set(QOOCORE_CLOUD_SOURCES
+    src/cloud/cloud_sync.cpp
+)
+
 # # 配置管理（暂时跳过，后续实现）
 # set(QOOCORE_CONFIG_SOURCES
 #     src/config/config_manager.cpp
@@ -194,6 +202,7 @@ set(QOOCORE_ALL_SOURCES
     ${QOOCORE_HARDWARE_SOURCES}
     ${QOOCORE_PROFILER_SOURCES}
     ${QOOCORE_OPERATORS_SOURCES}
+    ${QOOCORE_CLOUD_SOURCES}
     ${QOOCORE_CONFIG_SOURCES}
 )
 
