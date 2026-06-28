@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initMobileNav();
   initScrollReveal();
   initHeroParticles();
+  initVisionStars();
 });
 
 /* --- Theme Toggle --- */
@@ -242,4 +243,25 @@ function initHeroParticles() {
   });
 
   animate();
+}
+
+/* --- Vision Stars --- */
+function initVisionStars() {
+  const container = document.querySelector('.vision-stars');
+  if (!container) return;
+
+  const STAR_COUNT = 60;
+  const fragment = document.createDocumentFragment();
+
+  for (let i = 0; i < STAR_COUNT; i++) {
+    const star = document.createElement('span');
+    star.className = 'vision-star';
+    star.style.left = Math.random() * 100 + '%';
+    star.style.top = Math.random() * 100 + '%';
+    star.style.setProperty('--star-duration', (Math.random() * 4 + 2) + 's');
+    star.style.setProperty('--star-delay', (Math.random() * 5) + 's');
+    fragment.appendChild(star);
+  }
+
+  container.appendChild(fragment);
 }
