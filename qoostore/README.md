@@ -1,20 +1,20 @@
-# qooeco — 机器人应用生态（端云协同）
+# qoostore — 机器人应用生态（端云协同）
 
 > **架构**：端云协同 — 云端商店 + 机器人端运行环境
 > 对标 Apple App Store（云端商店 + iOS 端 App Store 客户端）
 
-qooeco 是 QooBot 的 **机器人 App Store**，采用端云协同架构：
-- **qooeco-cloud**：云端技能商店后端（发布/审核/计费/分发/运营）
-- **qooeco-edge**：机器人端技能运行环境（安装/沙箱/权限/监控）
+qoostore 是 QooBot 的 **机器人 App Store**，采用端云协同架构：
+- **qoostore-cloud**：云端技能商店后端（发布/审核/计费/分发/运营）
+- **qoostore-edge**：机器人端技能运行环境（安装/沙箱/权限/监控）
 
 ## 项目结构
 
 ```
-qooeco/
-├── qooeco-cloud/          # 云端 — Spring Boot 微服务
+qoostore/
+├── qoostore-cloud/          # 云端 — Spring Boot 微服务
 │   ├── pom.xml            # Maven 构建（Java 21 + Spring Cloud）
 │   └── ...
-├── qooeco-edge/           # 机器人端 — C++17 + Python 3.11
+├── qoostore-edge/           # 机器人端 — C++17 + Python 3.11
 │   ├── CMakeLists.txt     # CMake 构建入口
 │   └── ...
 ├── docs/                  # 共享设计文档
@@ -25,8 +25,8 @@ qooeco/
 
 | 模块 | 运行位置 | 职责 | 技术栈 |
 |------|---------|------|--------|
-| qooeco-cloud | 云端 | 技能商店/发布审核/计费/分发/运营分析 | Java 21 + Spring Cloud |
-| qooeco-edge | 机器人端 | 技能安装/沙箱隔离/权限管控/运行时监控 | C++17 + Python 3.11 |
+| qoostore-cloud | 云端 | 技能商店/发布审核/计费/分发/运营分析 | Java 21 + Spring Cloud |
+| qoostore-edge | 机器人端 | 技能安装/沙箱隔离/权限管控/运行时监控 | C++17 + Python 3.11 |
 
 ## 技能分类
 

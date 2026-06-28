@@ -1,4 +1,4 @@
-﻿"""依赖管理 — 声明、解析、冲突检测。
+"""依赖管理 — 声明、解析、冲突检测。
 
 类似 pip 的依赖图算法，支持：
 - 语义化版本约束 (>=1.0.0, ^1.2.3, ~1.2.3, ==1.0.0)
@@ -206,7 +206,7 @@ class DependencyGraph:
 class DependencyResolver:
     """依赖解析器 — 从声明到解析后的依赖图"""
 
-    # 模拟注册表 (实际使用时应对接 qooeco 市场 API)
+    # 模拟注册表 (实际使用时应对接 qoostore 市场 API)
     REGISTRY: Dict[str, Dict[str, Dict]] = {
         "qoobot-sdk": {
             "1.0.0": {"deps": [], "python": ["numpy>=1.21"]},

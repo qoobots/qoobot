@@ -1,4 +1,4 @@
-﻿"""
+"""
 qoodev CLI Entry Point.
 
 Usage:
@@ -12,7 +12,7 @@ Usage:
     qoo record                  Record and replay data
     qoo debug                   Remote debugging
     qoo ci                      CI/CD integration
-    qoo eco                     QooEco marketplace
+    qoo eco                     qoostore marketplace
     qoo docs                    Generate documentation
     qoo profile                 Performance profiling and analysis
     qoo compile                 Model compilation and cross-compilation
@@ -126,21 +126,21 @@ app.add_typer(annotate_cmd.app, name="annotate", help="Data annotation and label
 # v1.0 New Subcommands
 # ---------------------------------------------------------------------------
 
-# QooEco marketplace subcommand
-eco_app = typer.Typer(help="QooEco marketplace integration", rich_markup_mode="rich")
+# qoostore marketplace subcommand
+eco_app = typer.Typer(help="qoostore marketplace integration", rich_markup_mode="rich")
 
 
 @eco_app.command("submit")
 def eco_submit(
     package: str = typer.Argument(..., help="Path to .qooskills package"),
-    api_key: Optional[str] = typer.Option(None, "--api-key", help="QooEco API key"),
+    api_key: Optional[str] = typer.Option(None, "--api-key", help="qoostore API key"),
     changelog: str = typer.Option("", "--changelog", help="Version changelog"),
 ):
-    """Submit a skill to the QooEco marketplace."""
-    from qoodev.qooeco import create_qooeco_client
+    """Submit a skill to the qoostore marketplace."""
+    from qoodev.qoostore import create_qoostore_client
 
     with ErrorBoundary("eco submit", suggestion="Check your API key and package path"):
-        client = create_qooeco_client(api_key=api_key)
+        client = create_qoostore_client(api_key=api_key)
         client.authenticate()
         result = client.submit_skill(Path(package), changelog=changelog)
         if result.success:
@@ -157,12 +157,12 @@ def eco_submit(
 @eco_app.command("status")
 def eco_status(
     submission_id: str = typer.Argument(..., help="Submission ID"),
-    api_key: Optional[str] = typer.Option(None, "--api-key", help="QooEco API key"),
+    api_key: Optional[str] = typer.Option(None, "--api-key", help="qoostore API key"),
 ):
     """Check submission review status."""
-    from qoodev.qooeco import create_qooeco_client
+    from qoodev.qoostore import create_qoostore_client
 
-    client = create_qooeco_client(api_key=api_key)
+    client = create_qoostore_client(api_key=api_key)
     client.authenticate()
     result = client.get_submission_status(submission_id)
     console.print(f"  ID: [bold]{result.submission_id}[/bold]")
@@ -175,10 +175,10 @@ def eco_search(
     category: Optional[str] = typer.Option(None, "--category", "-c", help="Filter by category"),
     limit: int = typer.Option(20, "--limit", "-n", help="Max results"),
 ):
-    """Search skills on QooEco marketplace."""
-    from qoodev.qooeco import create_qooeco_client, SkillCategory
+    """Search skills on qoostore marketplace."""
+    from qoodev.qoostore import create_qoostore_client, SkillCategory
 
-    client = create_qooeco_client()
+    client = create_qoostore_client()
     cat = SkillCategory(category) if category else None
     results = client.search_skills(query=query, category=cat, limit=limit)
 
@@ -186,7 +186,7 @@ def eco_search(
         console.print("[dim]No skills found.[/dim]")
         return
 
-    table = Table(title=f"QooEco Skills: '{query}'")
+    table = Table(title=f"qoostore Skills: '{query}'")
     table.add_column("Name", style="cyan")
     table.add_column("Author", style="dim")
     table.add_column("Version")
@@ -202,7 +202,7 @@ def eco_search(
     console.print(table)
 
 
-app.add_typer(eco_app, name="eco", help="QooEco marketplace (submit, search, install)")
+app.add_typer(eco_app, name="eco", help="qoostore marketplace (submit, search, install)")
 
 
 # Documentation generator subcommand

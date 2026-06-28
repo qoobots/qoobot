@@ -1,4 +1,4 @@
-﻿"""
+"""
 Input validation for all CLI inputs and configuration.
 
 Provides reusable validation functions to ensure data integrity
@@ -101,7 +101,7 @@ def validate_project_name(name: str) -> None:
 
 
 _RESERVED_NAMES = {
-    "qoo", "qoobot", "qoodev", "qoocore", "qoobrain", "qooeco", "qooauth",
+    "qoo", "qoobot", "qoodev", "qoocore", "qoobrain", "qoostore", "qooauth",
     "skill", "service", "model", "test", "build", "src", "lib", "bin",
     "import", "class", "def", "if", "for", "while", "return", "yield",
     "none", "true", "false", "and", "or", "not", "is", "in",

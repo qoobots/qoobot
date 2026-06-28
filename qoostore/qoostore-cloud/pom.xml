@@ -11,11 +11,11 @@
         <relativePath>../../qoobot-cloud/pom.xml</relativePath>
     </parent>
 
-    <artifactId>qooeco-cloud</artifactId>
+    <artifactId>qoostore-cloud</artifactId>
     <packaging>jar</packaging>
 
-    <name>QooEco Cloud</name>
-    <description>qooeco 云端部分 — 技能商店后端 / 发布审核 / 计费 / 分发 / 运营分析</description>
+    <name>qoostore Cloud</name>
+    <description>qoostore 云端部分 — 技能商店后端 / 发布审核 / 计费 / 分发 / 运营分析</description>
 
     <dependencies>
         <!-- Spring Boot Web -->

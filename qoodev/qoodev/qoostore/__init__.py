@@ -1,7 +1,7 @@
 """
-QooEco Market Integration — Skill submission and discovery API client.
+qoostore Market Integration — Skill submission and discovery API client.
 
-Provides an interface for submitting skills to the QooEco marketplace,
+Provides an interface for submitting skills to the qoostore marketplace,
 managing metadata, and handling the review workflow.
 """
 
@@ -52,7 +52,7 @@ class PrivacyLevel(enum.Enum):
 
 @dataclass
 class SkillMetadata:
-    """Metadata for a skill submission to qooeco."""
+    """Metadata for a skill submission to qoostore."""
 
     name: str
     version: str
@@ -108,7 +108,7 @@ class SkillMetadata:
 
 @dataclass
 class SubmissionResult:
-    """Result of a skill submission to qooeco."""
+    """Result of a skill submission to qoostore."""
 
     success: bool
     submission_id: str = ""
@@ -120,7 +120,7 @@ class SubmissionResult:
 
 @dataclass
 class MarketSkill:
-    """A skill listed on the qooeco marketplace."""
+    """A skill listed on the qoostore marketplace."""
 
     skill_id: str
     name: str
@@ -136,21 +136,21 @@ class MarketSkill:
 
 
 # ---------------------------------------------------------------------------
-# QooEco Client
+# qoostore Client
 # ---------------------------------------------------------------------------
 
-class QooEcoClient:
-    """Client for interacting with the QooEco marketplace.
+class qoostoreClient:
+    """Client for interacting with the qoostore marketplace.
 
     Provides skill submission, search, and management APIs.
 
     Usage:
-        client = QooEcoClient(api_key="qea_xxx")
+        client = qoostoreClient(api_key="qea_xxx")
         client.authenticate()
         result = client.submit_skill("dist/my-skill-1.0.0.qooskills")
     """
 
-    BASE_URL = "https://api.qooeco.qoobot.ai/v1"
+    BASE_URL = "https://api.qoostore.qoobot.ai/v1"
 
     def __init__(
         self,
@@ -167,7 +167,7 @@ class QooEcoClient:
     # ------------------------------------------------------------------
 
     def authenticate(self) -> bool:
-        """Authenticate with the qooeco API."""
+        """Authenticate with the qoostore API."""
         if not self.api_key:
             return False
         # In production: POST /auth/token
@@ -224,7 +224,7 @@ class QooEcoClient:
             submission_id=submission_id,
             status=ReviewStatus.SUBMITTED,
             message="Skill submitted for review",
-            review_url=f"https://qooeco.qoobot.ai/skills/{submission_id}/review",
+            review_url=f"https://qoostore.qoobot.ai/skills/{submission_id}/review",
         )
 
     def get_submission_status(self, submission_id: str) -> SubmissionResult:
@@ -356,35 +356,35 @@ class QooEcoClient:
 # CLI Integration Helper
 # ---------------------------------------------------------------------------
 
-def create_qooeco_client(
+def create_qoostore_client(
     api_key: Optional[str] = None,
     config_path: Optional[Path] = None,
-) -> QooEcoClient:
-    """Create a QooEcoClient from config or environment.
+) -> qoostoreClient:
+    """Create a qoostoreClient from config or environment.
 
     Priority:
     1. Explicit api_key parameter
-    2. QOOECO_API_KEY environment variable
+    2. qoostore_API_KEY environment variable
     3. qoo.toml project config
     """
     import os
 
     if api_key:
-        return QooEcoClient(api_key=api_key)
+        return qoostoreClient(api_key=api_key)
 
-    env_key = os.environ.get("QOOECO_API_KEY")
+    env_key = os.environ.get("qoostore_API_KEY")
     if env_key:
-        return QooEcoClient(api_key=env_key)
+        return qoostoreClient(api_key=env_key)
 
     # Try config file
     if config_path and config_path.exists():
         try:
             import tomllib
             config = tomllib.loads(config_path.read_text())
-            eco_config = config.get("qooeco", {})
+            eco_config = config.get("qoostore", {})
             if "api_key" in eco_config:
-                return QooEcoClient(api_key=eco_config["api_key"])
+                return qoostoreClient(api_key=eco_config["api_key"])
         except Exception:
             pass
 
-    return QooEcoClient()
+    return qoostoreClient()

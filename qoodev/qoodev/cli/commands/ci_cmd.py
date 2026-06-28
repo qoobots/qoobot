@@ -1,4 +1,4 @@
-﻿# qoodev CI 初始化命令
+# qoodev CI 初始化命令
 
 from pathlib import Path
 from typer import Typer, Option
@@ -45,7 +45,7 @@ def init_ci(
     print("   1. Review and customize .github/workflows/ci.yml")
     print("   2. Add secrets in GitHub Settings > Secrets:")
     print("      - QOO_SIGNING_KEY (for code signing)")
-    print("      - QOOECO_API_KEY (for market publishing)")
+    print("      - qoostore_API_KEY (for market publishing)")
 
 
 def _write_ci_template(path: Path):

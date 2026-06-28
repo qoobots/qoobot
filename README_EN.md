@@ -1,4 +1,4 @@
-﻿<p align="center">
+<p align="center">
   <img src="./docs/static/qoobot-logo.svg" alt="QooBot" width="600">
 </p>
 
@@ -73,7 +73,7 @@ Projects that connect robots to developers and users:
 
 | Project | Description |
 |---------|-------------|
-| **[qooeco](./qooeco/)** | **Skill Marketplace** — Discover, publish, and monetize robot skills. Third-party algorithm integration and distribution. |
+| **[qoostore](./qoostore/)** | **Skill Marketplace** — Discover, publish, and monetize robot skills. Third-party algorithm integration and distribution. |
 | **[qoocloud](./qoocloud/)** | **Cloud Services** — Remote inference, fleet management, OTA updates, data synchronization, multi-robot orchestration. |
 | **[qoosvc](./qoosvc/)** | **System Services** — Voice assistant, spatial understanding, navigation, multi-robot connectivity, self-diagnostics. |
 
@@ -85,7 +85,7 @@ Projects that ensure reliability and compliance:
 |---------|-------------|
 | **[qoodev](./qoodev/)** | **Developer Toolchain** — IDE plugins, robot simulator, behavior debugger, performance profiler, data labeling tools. |
 | **[qooauth](./qooauth/)** | **Identity &amp; Security** — Unified robot/user identity, authentication, authorization, privacy framework. |
-| **[qooregs](./qooregs/)** | **Regulatory Compliance** — Safety standards (ISO 10218, ISO 13482), wireless certifications, export controls, regional privacy laws. |
+| **[qoocompliance](./qoocompliance/)** | **Regulatory Compliance** — Safety standards (ISO 10218, ISO 13482), wireless certifications, export controls, regional privacy laws. |
 
 ### 🌍 Ecosystem — Industry &amp; Community
 
@@ -151,7 +151,7 @@ class PickAndPlace(Skill):
 | 1 | **qoobrain** | 🟢 **Alpha** | Python 313/315 tests passing · TS 15/21 |
 | 2 | qoobody | 📋 Design | Hardware interface specification |
 | 3 | qoocore | 📋 Design | Inference runtime architecture |
-| 4 | qooeco | 📋 Design | Skill marketplace design |
+| 4 | qoostore | 📋 Design | Skill marketplace design |
 | 5 | qoocloud | 📋 Design | Cloud architecture |
 | 6 | qoosvc | 📋 Design | System services design |
 | 7 | qoodev | 📋 Design | Toolchain design |
@@ -159,7 +159,7 @@ class PickAndPlace(Skill):
 | 9 | qoogear | 📋 Design | Accessory certification |
 | 10 | qoocommunity | 📋 Design | Community operations |
 | 11 | qoochain | 📋 Design | Supply chain standards |
-| 12 | qooregs | 📋 Design | Compliance framework |
+| 12 | qoocompliance | 📋 Design | Compliance framework |
 
 ---
 

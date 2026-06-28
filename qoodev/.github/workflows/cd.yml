@@ -1,6 +1,6 @@
-﻿# qoodev CD — 发布流水线
+# qoodev CD — 发布流水线
 #
-# 当推送版本标签 (v*) 时自动发布到 qooeco 市场
+# 当推送版本标签 (v*) 时自动发布到 qoostore 市场
 
 name: qoodev CD
 
@@ -98,14 +98,14 @@ jobs:
           name: signed-packages
           path: dist/
 
-      - name: Publish to qooeco market
+      - name: Publish to qoostore market
         env:
-          QOOECO_API_KEY: ${{ secrets.QOOECO_API_KEY }}
-          QOOECO_API_URL: ${{ vars.QOOECO_API_URL }}
+          qoostore_API_KEY: ${{ secrets.qoostore_API_KEY }}
+          qoostore_API_URL: ${{ vars.qoostore_API_URL }}
         run: |
-          echo "Publishing packages to qooeco market..."
-          # curl -X POST "$QOOECO_API_URL/skills/upload" \
-          #   -H "Authorization: Bearer $QOOECO_API_KEY" \
+          echo "Publishing packages to qoostore market..."
+          # curl -X POST "$qoostore_API_URL/skills/upload" \
+          #   -H "Authorization: Bearer $qoostore_API_KEY" \
           #   -F "package=@dist/*.qooskills"
           echo "  (Market API integration pending)"
 

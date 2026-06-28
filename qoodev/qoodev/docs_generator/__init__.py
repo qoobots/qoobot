@@ -1,4 +1,4 @@
-﻿"""
+"""
 qoodev Documentation Site Generator.
 
 Generates a complete documentation site using MkDocs with Material theme,
@@ -140,7 +140,7 @@ From project scaffolding to production deployment, qoodev provides everything yo
 ## Architecture
 
 ```
-qoo init  →  qoo build  →  qoo sim  →  qoo run  →  qoo test  →  qoo package  →  qooeco
+qoo init  →  qoo build  →  qoo sim  →  qoo run  →  qoo test  →  qoo package  →  qoostore
    |            |            |           |            |              |
   项目创建     代码构建     仿真环境    运行调试     单元测试      技能打包      市场发布
 ```
