@@ -28,6 +28,8 @@ public final class ErrorCodes {
     public static final String WEAK_PASSWORD = "REG_2004";
     public static final String NICKNAME_TOO_LONG = "REG_2005";
     public static final String TOS_NOT_ACCEPTED = "REG_2006";
+    public static final String PASSWORD_REUSED = "REG_2007";
+    public static final String PASSWORD_SAME_AS_CURRENT = "REG_2008";
 
     // === Rate Limiting (RATE_3xxx) ===
     public static final String RATE_LIMITED = "RATE_3001";
@@ -53,6 +55,7 @@ public final class ErrorCodes {
     public static final String DEVICE_ALREADY_BOUND = "DEV_6002";
     public static final String DEVICE_CERT_INVALID = "DEV_6003";
     public static final String DEVICE_FINGERPRINT_MISMATCH = "DEV_6004";
+    public static final String DEVICE_NOT_TRUSTED = "DEV_6005";
 
     // === General (GEN_9xxx) ===
     public static final String INTERNAL_ERROR = "GEN_9001";

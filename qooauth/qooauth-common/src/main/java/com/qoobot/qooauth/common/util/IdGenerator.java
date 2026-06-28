@@ -35,6 +35,14 @@ public final class IdGenerator {
         return "oc_" + generateRandom();
     }
 
+    public static String generateLoginHistoryId() {
+        return "lh_" + generateRandom();
+    }
+
+    public static String generateTrustedDeviceId() {
+        return "td_" + generateRandom();
+    }
+
     private static String generateRandom() {
         byte[] bytes = new byte[RANDOM_BYTES];
         RANDOM.nextBytes(bytes);

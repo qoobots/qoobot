@@ -56,6 +56,12 @@ public class User {
     @Column(name = "recovery_codes_hash", columnDefinition = "jsonb")
     private String recoveryCodesHash;
 
+    @Column(name = "password_changed_at")
+    private Instant passwordChangedAt;
+
+    @Column(name = "password_history", columnDefinition = "jsonb")
+    private String passwordHistory;
+
     @Column(name = "created_at", nullable = false)
     private Instant createdAt;
 
@@ -119,6 +125,12 @@ public class User {
 
     public String getRecoveryCodesHash() { return recoveryCodesHash; }
     public void setRecoveryCodesHash(String recoveryCodesHash) { this.recoveryCodesHash = recoveryCodesHash; }
+
+    public Instant getPasswordChangedAt() { return passwordChangedAt; }
+    public void setPasswordChangedAt(Instant passwordChangedAt) { this.passwordChangedAt = passwordChangedAt; }
+
+    public String getPasswordHistory() { return passwordHistory; }
+    public void setPasswordHistory(String passwordHistory) { this.passwordHistory = passwordHistory; }
 
     public Instant getCreatedAt() { return createdAt; }
     public void setCreatedAt(Instant createdAt) { this.createdAt = createdAt; }

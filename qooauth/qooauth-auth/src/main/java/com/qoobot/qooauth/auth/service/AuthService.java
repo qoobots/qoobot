@@ -27,17 +27,20 @@ public class AuthService {
     private final TokenService tokenService;
     private final SessionService sessionService;
     private final RateLimitService rateLimitService;
+    private final AccountSecurityService accountSecurityService;
 
     public AuthService(UserRepository userRepository,
                        PasswordService passwordService,
                        TokenService tokenService,
                        SessionService sessionService,
-                       RateLimitService rateLimitService) {
+                       RateLimitService rateLimitService,
+                       AccountSecurityService accountSecurityService) {
         this.userRepository = userRepository;
         this.passwordService = passwordService;
         this.tokenService = tokenService;
         this.sessionService = sessionService;
         this.rateLimitService = rateLimitService;
+        this.accountSecurityService = accountSecurityService;
     }
 
     /**
@@ -103,23 +106,34 @@ public class AuthService {
         User user = userRepository.findByEmail(email.toLowerCase())
                 .orElseThrow(() -> {
                     rateLimitService.recordLoginFailure(email);
+                    // Record failed login for non-existent user
+                    accountSecurityService.recordLoginFailure(
+                            "unknown", "USER_NOT_FOUND", ip, userAgent, deviceId, null, clientId);
                     return new InvalidCredentialsException();
                 });
 
         // Check account state
         if ("LOCKED".equals(user.getState())) {
+            accountSecurityService.recordLoginFailure(
+                    user.getUserId(), "ACCOUNT_LOCKED", ip, userAgent, deviceId, null, clientId);
             throw new AccountLockedException(user.getUpdatedAt().plus(15, ChronoUnit.MINUTES));
         }
         if ("SUSPENDED".equals(user.getState())) {
+            accountSecurityService.recordLoginFailure(
+                    user.getUserId(), "ACCOUNT_SUSPENDED", ip, userAgent, deviceId, null, clientId);
             throw new AuthException(ErrorCodes.ACCOUNT_DISABLED, "Account has been suspended");
         }
         if ("DELETED".equals(user.getState())) {
+            accountSecurityService.recordLoginFailure(
+                    user.getUserId(), "ACCOUNT_DELETED", ip, userAgent, deviceId, null, clientId);
             throw new InvalidCredentialsException();
         }
 
         // Verify password
         if (!passwordService.verify(user.getPasswordHash(), password)) {
             rateLimitService.recordLoginFailure(email);
+            accountSecurityService.recordLoginFailure(
+                    user.getUserId(), "INVALID_PASSWORD", ip, userAgent, deviceId, null, clientId);
             throw new InvalidCredentialsException();
         }
 
@@ -144,6 +158,19 @@ public class AuthService {
         // Create session
         String sessionId = sessionService.createSession(
                 user.getUserId(), deviceId, clientId, ip, userAgent);
+
+        // Record trusted device
+        if (deviceId != null && !deviceId.isEmpty()) {
+            accountSecurityService.recordTrustedDevice(
+                    user.getUserId(), deviceId, null, "unknown",
+                    null, null, null, null, null,
+                    deviceId, ip, userAgent);
+        }
+
+        // Record successful login in history
+        accountSecurityService.recordLoginSuccess(
+                user.getUserId(), ip, userAgent, deviceId,
+                null, clientId, false, null, sessionId);
 
         // Issue tokens
         TokenPair tokens = tokenService.issueTokens(
