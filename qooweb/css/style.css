@@ -1823,16 +1823,255 @@ a:hover {
   padding: 4px 0;
 }
 
-/* --- Vision Section --- */
+/* --- Vision & Mission Section --- */
 .vision-section {
   padding: 120px 24px;
 }
 
 .vision-content {
-  max-width: 800px;
+  max-width: 1100px;
   margin: 0 auto;
 }
 
+/* Vision Banner */
+.vision-banner-visual {
+  margin: 40px 0 32px;
+  text-align: center;
+}
+
+.vision-banner-img {
+  width: 100%;
+  max-width: 900px;
+  border-radius: var(--radius-lg);
+  margin: 0 auto;
+}
+
+/* Vision Overview */
+.vision-overview-visual {
+  margin: 32px 0;
+  text-align: center;
+}
+
+.vision-overview-img {
+  width: 100%;
+  max-width: 1000px;
+  border-radius: var(--radius-lg);
+  margin: 0 auto;
+}
+
+/* Vision Cards Grid */
+.vision-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  margin-top: 48px;
+}
+
+.vision-card {
+  display: flex;
+  gap: 16px;
+  padding: 24px;
+  border-radius: var(--radius-md);
+  background: var(--color-card-bg);
+  border: 1px solid var(--color-border);
+  transition: transform var(--transition-smooth), box-shadow var(--transition-smooth), border-color var(--transition-smooth);
+}
+
+.vision-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-elevated);
+  border-color: var(--color-accent);
+}
+
+.vision-card-num {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--color-accent), #7c3aed);
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 700;
+  font-family: var(--font-display);
+}
+
+.vision-card-content h3 {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  margin-bottom: 6px;
+}
+
+.vision-card-content p {
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+  line-height: 1.55;
+}
+
+/* Vision Roadmap */
+.vision-roadmap {
+  margin-top: 64px;
+  padding: 40px 0;
+}
+
+.vision-roadmap-title {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.vision-roadmap-visual {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 0;
+  overflow-x: auto;
+  padding: 20px 0 32px;
+  position: relative;
+}
+
+.roadmap-phase {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  min-width: 110px;
+  position: relative;
+}
+
+.roadmap-year {
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--color-accent);
+  letter-spacing: -0.01em;
+}
+
+.roadmap-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  border: 3px solid var(--color-bg);
+  box-shadow: 0 0 0 2px var(--color-accent);
+  z-index: 1;
+}
+
+.roadmap-dot-glow {
+  background: #7c3aed;
+  box-shadow: 0 0 0 2px #7c3aed, 0 0 20px rgba(124, 58, 237, 0.5);
+}
+
+.roadmap-line {
+  flex: 1;
+  height: 2px;
+  min-width: 40px;
+  background: linear-gradient(90deg, var(--color-accent), #7c3aed);
+  margin-top: 28px;
+  align-self: flex-start;
+}
+
+.roadmap-label {
+  font-size: 0.78rem;
+  color: var(--color-text-secondary);
+  text-align: center;
+  line-height: 1.5;
+}
+
+/* Why Open Source Grid */
+.vision-open-source {
+  margin-top: 56px;
+}
+
+.vision-open-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.vision-open-item {
+  text-align: center;
+  padding: 24px 16px;
+  border-radius: var(--radius-md);
+  background: var(--color-card-bg);
+  border: 1px solid var(--color-border);
+  transition: transform var(--transition-smooth), box-shadow var(--transition-smooth);
+}
+
+.vision-open-item:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-card);
+}
+
+.vision-open-icon {
+  font-size: 1.6rem;
+  display: block;
+  margin-bottom: 12px;
+}
+
+.vision-open-item strong {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin-bottom: 6px;
+}
+
+.vision-open-item p {
+  font-size: 0.75rem;
+  color: var(--color-text-secondary);
+  line-height: 1.45;
+}
+
+/* Vision Mission Quote */
+.vision-mission-quote {
+  margin-top: 48px;
+  padding: 40px 32px;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(135deg,
+    rgba(0, 113, 227, 0.06) 0%,
+    rgba(124, 58, 237, 0.06) 100%);
+  border: 1px solid var(--color-border);
+  text-align: center;
+}
+
+[data-theme="dark"] .vision-mission-quote {
+  background: linear-gradient(135deg,
+    rgba(41, 151, 255, 0.08) 0%,
+    rgba(124, 58, 237, 0.08) 100%);
+}
+
+.vision-mission-quote blockquote {
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+.vision-mission-quote blockquote p {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.6;
+  color: var(--color-text);
+  margin: 0;
+}
+
+.vision-mission-quote blockquote p strong {
+  color: var(--color-accent);
+  font-weight: 700;
+}
+
+/* Old vision values (kept for backward compatibility) */
 .vision-values {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -1872,6 +2111,41 @@ a:hover {
   font-size: 0.82rem;
   color: var(--color-text-secondary);
   line-height: 1.5;
+}
+
+/* Responsive for Vision */
+@media (max-width: 768px) {
+  .vision-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .vision-open-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .vision-roadmap-visual {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 24px;
+  }
+
+  .roadmap-line {
+    display: none;
+  }
+
+  .vision-mission-quote {
+    padding: 28px 20px;
+  }
+
+  .vision-mission-quote blockquote p {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .vision-open-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* --- CTA Section --- */
