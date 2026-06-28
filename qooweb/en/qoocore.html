@@ -1,0 +1,234 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="qoocore — Chip & Acceleration — Core layer project of the QooBot ecosystem, providing high-performance inference runtime and hardware abstraction layer for robots">
+  <title>qoocore — Chip & Acceleration | QooBot Ecosystem</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="icon" type="image/svg+xml" href="/assets/qoobot-logo.svg">
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <img src="/assets/qoobot-logo.svg" alt="QooBot">
+      </a>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li class="nav-dropdown-trigger">
+          <a href="products.html" class="nav-dropdown-link">Products <span class="dropdown-arrow">▾</span></a>
+          <div class="nav-dropdown nav-dropdown-mega">
+            <div class="nav-dropdown-mega-inner">
+              <div class="nav-dropdown-group">
+                <span class="nav-dropdown-label">Robot Platforms</span>
+                <a href="products.html#max">🦾 QooBot Max</a>
+                <span class="nav-dropdown-desc">Adult Male · Industrial · 1.90m · 40+ DOF · 100 TOPS</span>
+                <a href="products.html#nova">✨ QooBot Nova</a>
+                <span class="nav-dropdown-desc">Adult Female · Service · 1.70m · 36+ DOF · 80 TOPS</span>
+              </div>
+              <div class="nav-dropdown-group">
+                <span class="nav-dropdown-label">Open Drawings</span>
+                <a href="products.html#hardware-designs">📐 Hardware Reference Designs</a>
+                <span class="nav-dropdown-desc">81 Open-Source Drawings — Waist · Chest · Head · Legs</span>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="nav-dropdown-trigger">
+          <a href="products.html#ecosystem" class="nav-dropdown-link active">Ecosystem <span class="dropdown-arrow">▾</span></a>
+          <div class="nav-dropdown nav-dropdown-mega">
+            <div class="nav-dropdown-mega-inner">
+              <div class="nav-dropdown-group">
+                <span class="nav-dropdown-label">Core Layer</span>
+                <a href="qoobrain.html">🧠 qoobrain — Brain OS</a>
+                <a href="qoocore.html">⚡ qoocore — Chip & Acceleration</a>
+                <a href="qoobody.html">🔩 qoobody — Hardware Reference</a>
+              </div>
+              <div class="nav-dropdown-group">
+                <span class="nav-dropdown-label">Platform Layer</span>
+                <a href="qoostore.html">🛒 qoostore — Skill Marketplace</a>
+                <a href="qoocloud.html">☁️ qoocloud — Cloud Services</a>
+                <a href="qoosvc.html">🔧 qoosvc — System Services</a>
+              </div>
+              <div class="nav-dropdown-group">
+                <span class="nav-dropdown-label">Quality Layer</span>
+                <a href="qoodev.html">💻 qoodev — Developer Toolchain</a>
+                <a href="qooauth.html">🔐 qooauth — Account & Security</a>
+                <a href="qoocompliance.html">📋 qoocompliance — Regulatory Compliance</a>
+              </div>
+              <div class="nav-dropdown-group">
+                <span class="nav-dropdown-label">Ecosystem Layer</span>
+                <a href="qoogear.html">🔌 qoogear — Accessory Ecosystem</a>
+                <a href="qoocommunity.html">👥 qoocommunity — Global Community</a>
+                <a href="qoochain.html">🏭 qoochain — Supply Chain</a>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="https://github.com/qoobots/qoobot" target="_blank" rel="noopener">GitHub</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a href="/qoocore.html" class="nav-lang">中文</a>
+        <button class="nav-theme" id="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+        <button class="nav-toggle" id="nav-toggle" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <section class="product-hero">
+    <div class="section-label fade-up visible">Core Layer · Chip & Acceleration</div>
+    <h1 class="section-title fade-up visible">⚡ qoocore</h1>
+    <p class="section-desc fade-up visible" style="margin: 0 auto; max-width: 800px;">
+      High-performance inference runtime and hardware abstraction layer — unifying NPU, GPU, DSP, and other heterogeneous computing resources to deliver extreme compute power for robot AI.
+    </p>
+    <div class="mt-24 fade-up visible">
+      <span class="eco-badge status-alpha">Alpha Stage</span>
+      <span class="eco-badge status-design">Architecture Complete</span>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-inner">
+      <div class="section-label fade-up">Project Overview</div>
+      <h2 class="section-title fade-up"><span class="gradient-text">Unified Abstraction</span> for Heterogeneous Computing</h2>
+      <p class="section-desc fade-up">
+        qoocore is the compute acceleration core of the QooBot ecosystem, managing and abstracting various heterogeneous computing hardware to provide a unified acceleration interface for upper-layer applications.
+      </p>
+      <div class="brain-grid fade-up">
+        <div class="brain-card">
+          <div class="brain-card-number">Core 01</div>
+          <div class="brain-card-icon">🧮</div>
+          <h3>Hardware Abstraction Layer (HAL)</h3>
+          <p>Unified programming interfaces and resource management for NPU, GPU, DSP, FPGA, and other heterogeneous hardware.</p>
+        </div>
+        <div class="brain-card">
+          <div class="brain-card-number">Core 02</div>
+          <div class="brain-card-icon">📦</div>
+          <h3>Model Compilation & Optimization</h3>
+          <p>Model conversion and performance optimization for TensorFlow, PyTorch, ONNX, and other mainstream frameworks.</p>
+        </div>
+        <div class="brain-card">
+          <div class="brain-card-number">Core 03</div>
+          <div class="brain-card-icon">🚀</div>
+          <h3>High-Performance Inference Runtime</h3>
+          <p>Low-latency, high-throughput inference engine supporting batching, pipelining, and dynamic scheduling.</p>
+        </div>
+        <div class="brain-card">
+          <div class="brain-card-number">Core 04</div>
+          <div class="brain-card-icon">⚡</div>
+          <h3>Real-time Compute Scheduling</h3>
+          <p>Priority-based scheduling for hard real-time tasks, ensuring instant response for critical computations.</p>
+        </div>
+        <div class="brain-card">
+          <div class="brain-card-number">Core 05</div>
+          <div class="brain-card-icon">🔌</div>
+          <h3>Pluggable Backend Support</h3>
+          <p>Extensible backend architecture supporting CUDA, OpenCL, Vulkan, Metal, and other compute APIs.</p>
+        </div>
+        <div class="brain-card">
+          <div class="brain-card-number">Core 06</div>
+          <div class="brain-card-icon">📊</div>
+          <h3>Performance Monitoring & Tuning</h3>
+          <p>Real-time performance monitoring, power analysis, auto-tuning, and bottleneck diagnosis tools.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-dark">
+    <div class="section-inner">
+      <div class="section-label fade-up">Technical Architecture</div>
+      <h2 class="section-title fade-up">Three Layers, <span class="gradient-text">Extreme Performance</span></h2>
+      <p class="section-desc fade-up">qoocore uses a three-layer architecture, from low-level hardware drivers to high-level application interfaces, each optimized for performance and portability.</p>
+      <div class="arch-overview fade-up">
+        <div class="arch-layer arch-layer-core">
+          <div class="arch-layer-header">
+            <span class="arch-layer-icon">🔌</span>
+            <span class="arch-layer-name">Hardware Driver Layer</span>
+            <span class="arch-layer-desc">Native hardware support</span>
+          </div>
+          <div class="eco-grid">
+            <div class="eco-card"><div class="eco-card-icon">🖥️</div><div class="eco-card-body"><h3>GPU Backend</h3><p>Support for NVIDIA CUDA, AMD ROCm, Intel oneAPI, and other mainstream GPU compute platforms.</p><div class="eco-card-tags"><span>CUDA</span><span>ROCm</span><span>oneAPI</span></div></div></div>
+            <div class="eco-card"><div class="eco-card-icon">🧠</div><div class="eco-card-body"><h3>NPU Backend</h3><p>Inference acceleration for Huawei Ascend, Cambricon, Horizon, and other mainstream NPU chips.</p><div class="eco-card-tags"><span>Ascend</span><span>Cambricon</span><span>Horizon</span></div></div></div>
+            <div class="eco-card"><div class="eco-card-icon">⚡</div><div class="eco-card-body"><h3>DSP/FPGA Backend</h3><p>Support for Qualcomm Hexagon, Intel FPGA, Xilinx Vitis, and other specialized accelerators.</p><div class="eco-card-tags"><span>Hexagon</span><span>FPGA</span><span>Vitis</span></div></div></div>
+          </div>
+        </div>
+        <div class="arch-layer arch-layer-platform">
+          <div class="arch-layer-header"><span class="arch-layer-icon">🧩</span><span class="arch-layer-name">Runtime Layer</span><span class="arch-layer-desc">Unified compute abstraction</span></div>
+          <div class="eco-grid">
+            <div class="eco-card"><div class="eco-card-icon">📦</div><div class="eco-card-body"><h3>Model Compiler</h3><p>Cross-framework model conversion, graph optimization, operator fusion, quantization, and compression.</p><div class="eco-card-tags"><span>Model Conversion</span><span>Graph Optimization</span><span>Operator Fusion</span></div></div></div>
+            <div class="eco-card"><div class="eco-card-icon">🚀</div><div class="eco-card-body"><h3>Inference Engine</h3><p>Memory optimization, batching, pipeline parallelism, and dynamic shape support for high-performance inference.</p><div class="eco-card-tags"><span>Memory Optimization</span><span>Batching</span><span>Pipeline</span></div></div></div>
+            <div class="eco-card"><div class="eco-card-icon">⚙️</div><div class="eco-card-body"><h3>Scheduler</h3><p>Task scheduling, resource allocation, priority management, and real-time guarantees.</p><div class="eco-card-tags"><span>Task Scheduling</span><span>Resource Allocation</span><span>Real-time</span></div></div></div>
+          </div>
+        </div>
+        <div class="arch-layer arch-layer-quality">
+          <div class="arch-layer-header"><span class="arch-layer-icon">🔧</span><span class="arch-layer-name">Application Interface Layer</span><span class="arch-layer-desc">Developer-friendly</span></div>
+          <div class="eco-grid">
+            <div class="eco-card"><div class="eco-card-icon">📚</div><div class="eco-card-body"><h3>C++ API</h3><p>High-performance native C++ interfaces providing fine-grained control and extreme performance.</p><div class="eco-card-tags"><span>High Performance</span><span>Fine-Grained</span><span>Native API</span></div></div></div>
+            <div class="eco-card"><div class="eco-card-icon">🐍</div><div class="eco-card-body"><h3>Python Binding</h3><p>Python-friendly interfaces with NumPy integration and PyTorch/TensorFlow interoperability.</p><div class="eco-card-tags"><span>Python</span><span>NumPy</span><span>Interop</span></div></div></div>
+            <div class="eco-card"><div class="eco-card-icon">🌐</div><div class="eco-card-body"><h3>REST/gRPC Services</h3><p>Remote inference service interfaces supporting cloud deployment and distributed computing.</p><div class="eco-card-tags"><span>REST</span><span>gRPC</span><span>Cloud Deploy</span></div></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-inner">
+      <div class="section-label fade-up">Key Features</div>
+      <h2 class="section-title fade-up">Designed for <span class="gradient-text">Extreme Performance</span></h2>
+      <div class="feature-grid fade-up">
+        <div class="feature-card"><div class="feature-card-icon">🚀</div><h3>Cross-Platform Performance</h3><p>Near-native inference acceleration across diverse hardware platforms, maximizing hardware utilization.</p></div>
+        <div class="feature-card"><div class="feature-card-icon">🔧</div><h3>Hardware-Agnostic Abstraction</h3><p>Unified programming model so applications need not care about underlying hardware details.</p></div>
+        <div class="feature-card"><div class="feature-card-icon">⚡</div><h3>Low-Latency Inference</h3><p>Optimized for real-time robotics scenarios, delivering millisecond-level inference latency.</p></div>
+        <div class="feature-card"><div class="feature-card-icon">📊</div><h3>Dynamic Power Management</h3><p>Dynamically adjusts power based on load, balancing performance and energy efficiency to extend robot runtime.</p></div>
+        <div class="feature-card"><div class="feature-card-icon">🔌</div><h3>Hot-Swap Support</h3><p>Runtime hardware detection and dynamic loading — switch compute backends without restart.</p></div>
+        <div class="feature-card"><div class="feature-card-icon">🧪</div><h3>Comprehensive Testing</h3><p>Complete test suite covering unit, integration, performance, and compatibility testing.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-inner">
+      <div class="section-label fade-up">Get Started</div>
+      <h2 class="section-title fade-up">Join <span class="gradient-text">qoocore</span> Development</h2>
+      <p class="section-desc fade-up">qoocore is a fully open-source project welcoming hardware engineers, AI researchers, and system developers to contribute.</p>
+      <div class="feature-grid fade-up" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));">
+        <div class="feature-card"><div class="feature-card-icon">📚</div><h3>Documentation & Tutorials</h3><p>Detailed API docs, hardware integration guides, performance optimization manuals, and best practices.</p><a href="https://github.com/qoobots/qoobot/tree/main/qoocore/docs" target="_blank" rel="noopener" class="eco-link mt-16">View Docs →</a></div>
+        <div class="feature-card"><div class="feature-card-icon">💻</div><h3>Source Code</h3><p>Complete source code, hardware drivers, test frameworks, and build systems.</p><a href="https://github.com/qoobots/qoobot/tree/main/qoocore" target="_blank" rel="noopener" class="eco-link mt-16">Visit GitHub →</a></div>
+        <div class="feature-card"><div class="feature-card-icon">🤝</div><h3>Community Support</h3><p>Active Discord community, hardware discussion groups, and regular tech sharing sessions.</p><a href="https://discord.gg/qoobot" target="_blank" rel="noopener" class="eco-link mt-16">Join Community →</a></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-dark">
+    <div class="section-inner">
+      <div class="section-label fade-up">Related Projects</div>
+      <h2 class="section-title fade-up">Ecosystem <span class="gradient-text">Synergy</span></h2>
+      <p class="section-desc fade-up">qoocore integrates tightly with other QooBot ecosystem projects to build a complete robotics compute stack.</p>
+      <div class="eco-grid fade-up">
+        <div class="eco-card"><div class="eco-card-icon">🧠</div><div class="eco-card-body"><h3>qoobrain</h3><p>Brain OS, using qoocore as its compute backend for unified AI inference capabilities.</p><a href="qoobrain.html" class="eco-link">Learn about qoobrain →</a></div></div>
+        <div class="eco-card"><div class="eco-card-icon">🔩</div><div class="eco-card-body"><h3>qoobody</h3><p>Hardware reference design, collaborating with qoocore to define compute module hardware interface standards.</p><a href="qoobody.html" class="eco-link">Learn about qoobody →</a></div></div>
+        <div class="eco-card"><div class="eco-card-icon">☁️</div><div class="eco-card-body"><h3>qoocloud</h3><p>Cloud services, providing remote model deployment and distributed computing capabilities for qoocore.</p><a href="qoocloud.html" class="eco-link">Learn about qoocloud →</a></div></div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-col"><h4>Products</h4><ul><li><a href="products.html">Products & Ecosystem</a></li><li><a href="products.html#ecosystem">Open Source Sub-Projects</a></li></ul></div>
+      <div class="footer-col"><h4>Developers</h4><ul><li><a href="https://github.com/qoobots/qoobot" target="_blank" rel="noopener">GitHub</a></li><li><a href="https://github.com/qoobots/qoobot/blob/main/LICENSE" target="_blank" rel="noopener">License</a></li></ul></div>
+      <div class="footer-col"><h4>Community</h4><ul><li><a href="https://discord.gg/qoobot" target="_blank" rel="noopener">Discord</a></li><li><a href="https://github.com/qoobots/qoobot/discussions" target="_blank" rel="noopener">Discussions</a></li></ul></div>
+      <div class="footer-col"><h4>About</h4><ul><li><a href="about.html">Our Story</a></li><li><a href="about.html#team">Team</a></li><li><a href="about.html#contact">Contact</a></li></ul></div>
+    </div>
+    <div class="footer-bottom"><span>&copy; 2026 QooBot. All rights reserved.</span><span>Apache 2.0 Licensed</span></div>
+  </footer>
+
+  <script src="/js/main.js"></script>
+</body>
+</html>
