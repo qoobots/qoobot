@@ -6,6 +6,7 @@ import com.qoobot.qooauth.auth.security.JwtTokenProvider;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
+import java.time.Instant;
 
 /**
  * Token lifecycle management service.
@@ -24,9 +25,17 @@ public class TokenService {
      * Issue a new token pair (access + refresh + id) for a user.
      */
     public TokenPair issueTokens(String userId, String email, String nickname, String avatarUrl, String scope) {
-        String accessToken = jwtTokenProvider.issueAccessToken(userId, scope);
+        return issueTokens(userId, email, nickname, avatarUrl, scope, null, null);
+    }
+
+    /**
+     * Issue a new token pair with SSO session context.
+     */
+    public TokenPair issueTokens(String userId, String email, String nickname, String avatarUrl,
+                                  String scope, String sessionId, Instant authTime) {
+        String accessToken = jwtTokenProvider.issueAccessToken(userId, scope, sessionId, authTime);
         String refreshToken = jwtTokenProvider.issueRefreshToken(userId);
-        String idToken = jwtTokenProvider.issueIdToken(userId, email, nickname, avatarUrl);
+        String idToken = jwtTokenProvider.issueIdToken(userId, email, nickname, avatarUrl, authTime);
 
         return new TokenPair(accessToken, refreshToken, idToken, "Bearer", 3600);
     }

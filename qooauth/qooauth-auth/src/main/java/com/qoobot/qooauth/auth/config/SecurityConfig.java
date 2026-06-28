@@ -38,6 +38,9 @@ public class SecurityConfig {
                     "/api/v1/auth/mfa/fido2/login/start",
                     "/api/v1/auth/mfa/fido2/login/complete",
                     "/api/v1/auth/mfa/recovery/login",
+                    // SSO — introspection and session validation are called by resource servers
+                    "/api/v1/auth/sso/introspect",
+                    "/api/v1/auth/sso/sessions/*/validate",
                     "/.well-known/**",
                     "/oauth2/**",
                     "/actuator/health",

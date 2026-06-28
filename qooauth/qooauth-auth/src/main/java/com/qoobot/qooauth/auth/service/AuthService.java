@@ -28,19 +28,22 @@ public class AuthService {
     private final SessionService sessionService;
     private final RateLimitService rateLimitService;
     private final AccountSecurityService accountSecurityService;
+    private final SsoSessionService ssoSessionService;
 
     public AuthService(UserRepository userRepository,
                        PasswordService passwordService,
                        TokenService tokenService,
                        SessionService sessionService,
                        RateLimitService rateLimitService,
-                       AccountSecurityService accountSecurityService) {
+                       AccountSecurityService accountSecurityService,
+                       SsoSessionService ssoSessionService) {
         this.userRepository = userRepository;
         this.passwordService = passwordService;
         this.tokenService = tokenService;
         this.sessionService = sessionService;
         this.rateLimitService = rateLimitService;
         this.accountSecurityService = accountSecurityService;
+        this.ssoSessionService = ssoSessionService;
     }
 
     /**
@@ -151,11 +154,16 @@ public class AuthService {
         rateLimitService.clearLoginFailures(email);
 
         // Update last login
-        user.setLastLoginAt(Instant.now());
-        user.setUpdatedAt(Instant.now());
+        Instant authTime = Instant.now();
+        user.setLastLoginAt(authTime);
+        user.setUpdatedAt(authTime);
         userRepository.save(user);
 
-        // Create session
+        // Create SSO session (global cross-service session)
+        SsoSessionService.SsoSession ssoSession = ssoSessionService.createSession(
+                user.getUserId(), user.getEmail(), clientId, ip, userAgent);
+
+        // Create local session (device-level)
         String sessionId = sessionService.createSession(
                 user.getUserId(), deviceId, clientId, ip, userAgent);
 
@@ -172,11 +180,11 @@ public class AuthService {
                 user.getUserId(), ip, userAgent, deviceId,
                 null, clientId, false, null, sessionId);
 
-        // Issue tokens
+        // Issue tokens with SSO session context
         TokenPair tokens = tokenService.issueTokens(
                 user.getUserId(), user.getEmail(),
                 user.getNickname(), getAvatarUrl(user),
-                "openid profile email");
+                "openid profile email", ssoSession.sessionId(), authTime);
 
         return LoginResult.success(tokens, toUserInfo(user));
     }

@@ -54,25 +54,41 @@ public class JwtTokenProvider {
      * Issue an access token for a user.
      */
     public String issueAccessToken(String userId, String scope) {
+        return issueAccessToken(userId, scope, null, null);
+    }
+
+    /**
+     * Issue an access token with SSO claims (session_id and auth_time).
+     */
+    public String issueAccessToken(String userId, String scope, String sessionId, Instant authTime) {
         try {
             Instant now = Instant.now();
             Instant expires = now.plus(ACCESS_TOKEN_TTL);
 
-            JWTClaimsSet claims = new JWTClaimsSet.Builder()
+            JWTClaimsSet.Builder builder = new JWTClaimsSet.Builder()
                     .subject(userId)
                     .issuer("https://id.qoobot.com")
                     .issueTime(Date.from(now))
                     .expirationTime(Date.from(expires))
                     .jwtID(UUID.randomUUID().toString())
                     .claim("type", TokenType.ACCESS.name())
-                    .claim("scope", scope)
-                    .build();
+                    .claim("scope", scope);
+
+            // SSO claims
+            if (sessionId != null) {
+                builder.claim("sid", sessionId);
+            }
+            if (authTime != null) {
+                builder.claim("auth_time", authTime.getEpochSecond());
+            } else {
+                builder.claim("auth_time", now.getEpochSecond());
+            }
 
             SignedJWT jwt = new SignedJWT(
                     new JWSHeader.Builder(JWSAlgorithm.EdDSA)
                             .keyID(ed25519Key.getKeyID())
                             .build(),
-                    claims);
+                    builder.build());
             jwt.sign(ed25519Signer);
             return jwt.serialize();
         } catch (JOSEException e) {
@@ -94,11 +110,18 @@ public class JwtTokenProvider {
      * Issue an ID token (OIDC).
      */
     public String issueIdToken(String userId, String email, String nickname, String avatarUrl) {
+        return issueIdToken(userId, email, nickname, avatarUrl, null);
+    }
+
+    /**
+     * Issue an ID token (OIDC) with auth_time for SSO.
+     */
+    public String issueIdToken(String userId, String email, String nickname, String avatarUrl, Instant authTime) {
         try {
             Instant now = Instant.now();
             Instant expires = now.plus(ID_TOKEN_TTL);
 
-            JWTClaimsSet claims = new JWTClaimsSet.Builder()
+            JWTClaimsSet.Builder builder = new JWTClaimsSet.Builder()
                     .subject(userId)
                     .issuer("https://id.qoobot.com")
                     .audience("qoobot")
@@ -108,13 +131,13 @@ public class JwtTokenProvider {
                     .claim("email", email)
                     .claim("name", nickname)
                     .claim("picture", avatarUrl)
-                    .build();
+                    .claim("auth_time", authTime != null ? authTime.getEpochSecond() : now.getEpochSecond());
 
             SignedJWT jwt = new SignedJWT(
                     new JWSHeader.Builder(JWSAlgorithm.EdDSA)
                             .keyID(ed25519Key.getKeyID())
                             .build(),
-                    claims);
+                    builder.build());
             jwt.sign(ed25519Signer);
             return jwt.serialize();
         } catch (JOSEException e) {
