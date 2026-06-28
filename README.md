@@ -301,7 +301,7 @@ QooBot 由全球机器人社区共同构建。
 
 ```bash
 # Fork 并克隆
-git clone https://github.com/YOUR_USERNAME/qoobot.git
+git clone https://github.com/qoobots/qoobot.git
 
 # 创建分支
 git checkout -b feat/your-feature
