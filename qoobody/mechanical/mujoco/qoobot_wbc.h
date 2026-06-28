@@ -52,10 +52,7 @@ public:
 private:
     void copyEigenToRealT(qpOASES::real_t* target, const Eigen::MatrixXd& source, int nRows, int nCols);
     void copyEigenToRealT(qpOASES::real_t* target, const Eigen::VectorXd& source, int nRows);
-    // 辅助读取
-    Eigen::Vector3d dataBusReadRpy() const;
-    Eigen::Vector3d dataBusReadPos() const;
-    Eigen::Vector3d dataBusReadSwingFePos() const;
+
     void buildTaskForWalk();   // 行走模式任务
     void buildTaskForStand(); // 站立模式任务
 
@@ -86,10 +83,14 @@ private:
     Eigen::MatrixXd m_Jcom;
     Eigen::Vector3d m_pCoMCur;
     
+    // 当前状态 (从 DataBus 读取)
+    Eigen::Vector3d m_baseRpyCur, m_basePosCur;
+    Eigen::Vector3d m_swingFePosCur, m_stanceFePosCur;
+
     // 任务目标
     Eigen::VectorXd m_desDdq, m_desDq, m_desDeltaQ, m_desQ;
     Eigen::Vector3d m_baseRpyDes, m_basePosDes;
-    Eigen::Vector3d m_swingFePosDes, m_stanceFePosCur;
+    Eigen::Vector3d m_swingFePosDes;
     Eigen::Matrix3d m_swingFeRotDes, m_stanceFeRotCur;
     
     // 前馈力

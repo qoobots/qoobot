@@ -97,11 +97,21 @@ void PVT_Ctr::calMotorsPVT()
             continue;
         }
 
-        // PD control: tau = Kp * (q_des - q_cur) + Kd * (dq_des - dq_cur) + tau_ff
-        double pos_err = motor_pos_des[i] - motor_pos_cur[i];
-        double vel_err = motor_vel_des[i] - motor_vel[i];
+        double tau;
 
-        double tau = pvt_Kp[i] * pos_err + pvt_Kd[i] * vel_err + motor_tor_des[i];
+        if (m_torqueFFMode) {
+            // 力矩前馈模式: WBC 力矩作为主控制, PD 仅提供阻尼稳定
+            double pos_err = motor_pos_des[i] - motor_pos_cur[i];
+            double vel_err = motor_vel_des[i] - motor_vel[i];
+            // 减小位置增益, 保留速度阻尼
+            double dampKp = pvt_Kp[i] * 0.1;
+            tau = dampKp * pos_err + pvt_Kd[i] * vel_err + motor_tor_des[i];
+        } else {
+            // 标准 PD + 力矩前馈模式
+            double pos_err = motor_pos_des[i] - motor_pos_cur[i];
+            double vel_err = motor_vel_des[i] - motor_vel[i];
+            tau = pvt_Kp[i] * pos_err + pvt_Kd[i] * vel_err + motor_tor_des[i];
+        }
 
         // Torque limiting
         tau = std::max(-maxTor[i], std::min(maxTor[i], tau));
@@ -167,6 +177,10 @@ void PVT_Ctr::dataBusWrite(DataBus &busIn) {
     for (int i = 0; i < jointNum; i++) {
         busIn.motors_tor_out[i] = motor_tor_out_link[i];
     }
+}
+
+void PVT_Ctr::setTorqueFeedforwardMode(bool enable) {
+    m_torqueFFMode = enable;
 }
 
 double PVT_Ctr::sign(double in) {

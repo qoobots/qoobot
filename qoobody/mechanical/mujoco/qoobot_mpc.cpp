@@ -72,23 +72,22 @@ QooBot_MPC::QooBot_MPC(double dtIn)
 
 void QooBot_MPC::setWeight(double u_weight, const Eigen::MatrixXd& L_diag, const Eigen::MatrixXd& K_diag)
 {
-    Eigen::MatrixXd L_diag_N = Eigen::MatrixXd::Zero(1, QOO_MPC_NX * QOO_MPC_N);
-    Eigen::MatrixXd K_diag_N = Eigen::MatrixXd::Zero(1, QOO_MPC_NU * QOO_MPC_CH);
-
     m_alpha = u_weight;
+
+    // 构造块对角权重矩阵
+    m_L.setZero();
+    m_K.setZero();
+
     for (int i = 0; i < QOO_MPC_N; i++) {
-        L_diag_N.block<1, QOO_MPC_NX>(0, i * QOO_MPC_NX) = L_diag;
-    }
-    for (int i = 0; i < QOO_MPC_CH; i++) {
-        K_diag_N.block<1, QOO_MPC_NU>(0, i * QOO_MPC_NU) = K_diag;
-    }
-    for (int i = 0; i < QOO_MPC_NX * QOO_MPC_N; i++) {
-        m_L(i, i) = L_diag_N(0, i);
+        for (int j = 0; j < QOO_MPC_NX; j++) {
+            m_L(i * QOO_MPC_NX + j, i * QOO_MPC_NX + j) = L_diag(0, j);
+        }
     }
     for (int i = 0; i < QOO_MPC_NU * QOO_MPC_CH; i++) {
-        m_K(i, i) = K_diag_N(0, i);
+        m_K(i, i) = K_diag(0, i);
     }
-    // 旋转权重到机体坐标系
+
+    // 旋转位置/速度权重到机体坐标系 (仅偏航)
     for (int i = 0; i < QOO_MPC_N; i++) {
         m_L.block<3, 3>(i * QOO_MPC_NX + 3, i * QOO_MPC_NX + 3) =
             m_Rcurz[i] * m_L.block<3, 3>(i * QOO_MPC_NX + 3, i * QOO_MPC_NX + 3) * m_Rcurz[i].transpose();

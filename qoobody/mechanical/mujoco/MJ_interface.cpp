@@ -133,6 +133,26 @@ void MJ_Interface::updateSensorValues()
         f3d[2][1] = mj_data->sensordata[adr + 2];
     }
 
+    // Read foot-end positions in world frame
+    int lfBodyId = mj_name2id(mj_model, mjOBJ_BODY, "Link_ankle_l_pitch");
+    int rfBodyId = mj_name2id(mj_model, mjOBJ_BODY, "Link_ankle_r_pitch");
+
+    if (lfBodyId >= 0) {
+        feLPosW[0] = mj_data->xpos[3 * lfBodyId];
+        feLPosW[1] = mj_data->xpos[3 * lfBodyId + 1];
+        feLPosW[2] = mj_data->xpos[3 * lfBodyId + 2];
+        // Rotation matrix (row-major, 3x3)
+        for (int i = 0; i < 9; i++)
+            feLRotW[i] = mj_data->xmat[9 * lfBodyId + i];
+    }
+    if (rfBodyId >= 0) {
+        feRPosW[0] = mj_data->xpos[3 * rfBodyId];
+        feRPosW[1] = mj_data->xpos[3 * rfBodyId + 1];
+        feRPosW[2] = mj_data->xpos[3 * rfBodyId + 2];
+        for (int i = 0; i < 9; i++)
+            feRRotW[i] = mj_data->xmat[9 * rfBodyId + i];
+    }
+
     if (!isIni) {
         for (int i = 0; i < jointNum; i++) {
             motor_pos_Old[i] = motor_pos[i];
@@ -177,6 +197,14 @@ void MJ_Interface::dataBusWrite(DataBus &busIn)
     busIn.fR[0] = f3d[0][1];
     busIn.fR[1] = f3d[1][1];
     busIn.fR[2] = f3d[2][1];
+
+    // Write foot-end positions in world frame
+    busIn.fe_l_pos_W = Eigen::Vector3d(feLPosW[0], feLPosW[1], feLPosW[2]);
+    busIn.fe_r_pos_W = Eigen::Vector3d(feRPosW[0], feRPosW[1], feRPosW[2]);
+
+    // Write foot-end rotation matrices (world frame)
+    busIn.fe_l_rot_W = Eigen::Map<Eigen::Matrix<double, 3, 3, Eigen::RowMajor>>(feLRotW);
+    busIn.fe_r_rot_W = Eigen::Map<Eigen::Matrix<double, 3, 3, Eigen::RowMajor>>(feRRotW);
 
     for (int i = 0; i < jointNum; i++) {
         busIn.motors_pos_cur[i] = motor_pos[i];

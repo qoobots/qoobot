@@ -65,12 +65,14 @@ public:
     void enablePV(int jtId);
     void disablePV(int jtId);
     void setJointPD(double kp, double kd, const char *jointName);
+    void setTorqueFeedforwardMode(bool enable);  // 力矩前馈模式: PD 仅阻尼, 主控制信号来自 WBC 力矩
     void dataBusRead(DataBus &busIn);
     void dataBusWrite(DataBus &busIn);
 
 private:
     std::vector<LPF_Fst> tau_out_lpf;
     std::vector<int> PV_enable;
+    bool m_torqueFFMode{false};   // 力矩前馈模式
     double sign(double in);
 
     // QooBot joint names matching qoobot_float.xml

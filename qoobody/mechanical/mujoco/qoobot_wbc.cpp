@@ -77,6 +77,18 @@ void QooBot_WBC::dataBusRead(const DataBus& data)
     // 读取前馈力
     m_FrFf = data.Fr_ff;
 
+    // === 读取当前状态 (从 DataBus 传感器数据) ===
+    m_baseRpyCur = data.base_rpy;
+    m_basePosCur = data.base_pos;
+
+    // 读取摆动脚当前位置
+    if (m_legStateCur == DataBus::LSt)
+        m_swingFePosCur = data.fe_r_pos_W;
+    else if (m_legStateCur == DataBus::RSt)
+        m_swingFePosCur = data.fe_l_pos_W;
+    else
+        m_swingFePosCur = data.fe_l_pos_W;  // DSt: 用左脚近似
+
     // 读取任务目标
     m_baseRpyDes = data.base_rpy_des;
     m_basePosDes = data.base_pos_des;
@@ -84,14 +96,14 @@ void QooBot_WBC::dataBusRead(const DataBus& data)
     m_desDq = data.des_dq;
     m_desDeltaQ = data.des_delta_q;
 
-    // 足部目标 (简化: 从 joystick 生成, 目前用零)
-    m_swingFePosDes = (m_legStateCur == DataBus::LSt) ? data.fe_r_pos_W : data.fe_l_pos_W;
+    // 足部目标
+    m_swingFePosDes = data.swing_fe_pos_des_W;
     m_swingFeRotDes = Eigen::Matrix3d::Identity();
 }
 
 void QooBot_WBC::computeDesAcc()
 {
-    // === 任务优先级分解 (简化为 PD 控制) ===
+    // === 任务优先级分解 (PD 控制) ===
     // 层级 1: 接触约束 (最高优先级, 由 QP 保证)
     // 层级 2: 基座姿态/位置跟踪
     // 层级 3: 摆动脚轨迹跟踪
@@ -99,8 +111,9 @@ void QooBot_WBC::computeDesAcc()
     m_ddqFinal = Eigen::VectorXd::Zero(m_modelNv);
 
     // --- 基座任务: 姿态 + 位置 ---
-    Eigen::Vector3d errRpy = m_baseRpyDes - dataBusReadRpy();
-    Eigen::Vector3d errPos = m_basePosDes - dataBusReadPos();
+    // 使用从 DataBus 读取的当前状态
+    Eigen::Vector3d errRpy = m_baseRpyDes - m_baseRpyCur;
+    Eigen::Vector3d errPos = m_basePosDes - m_basePosCur;
 
     // 基座 PD 增益
     double kpBase = 500.0, kdBase = 50.0;
@@ -113,12 +126,12 @@ void QooBot_WBC::computeDesAcc()
 
     // --- 摆动脚任务 ---
     if (m_motionStateCur == DataBus::Walk) {
-        Eigen::Vector3d errSwing = m_swingFePosDes - dataBusReadSwingFePos();
+        Eigen::Vector3d errSwing = m_swingFePosDes - m_swingFePosCur;
         double kpSwing = 500.0, kdSwing = 50.0;
         Eigen::VectorXd accSwing = Eigen::VectorXd::Zero(6);
         accSwing.block<3, 1>(0, 0) = kpSwing * errSwing - kdSwing * Eigen::Vector3d::Zero();
-        // 摆动脚加速度映射到关节空间 (简化: 直接用雅可比伪逆)
-        Eigen::MatrixXd Jsw_pinv = m_Jsw.transpose() * (m_Jsw * m_Jsw.transpose()).inverse();
+        // 摆动脚加速度映射到关节空间 (雅可比伪逆)
+        Eigen::MatrixXd Jsw_pinv = m_Jsw.transpose() * (m_Jsw * m_Jsw.transpose() + 1e-6 * Eigen::MatrixXd::Identity(6, 6)).inverse();
         m_ddqFinal += Jsw_pinv * accSwing;
     }
 
@@ -268,23 +281,6 @@ void QooBot_WBC::dataBusWrite(DataBus& data)
 }
 
 // === 辅助函数 ===
-Eigen::Vector3d QooBot_WBC::dataBusReadRpy() const
-{
-    // 从 DataBus 读取当前基座姿态 (通过 qoobot_controller 传入)
-    // 简化: 返回零, 实际应由 controller 通过成员变量传入
-    return Eigen::Vector3d::Zero();
-}
-
-Eigen::Vector3d QooBot_WBC::dataBusReadPos() const
-{
-    return Eigen::Vector3d::Zero();
-}
-
-Eigen::Vector3d QooBot_WBC::dataBusReadSwingFePos() const
-{
-    return m_swingFePosDes;
-}
-
 void QooBot_WBC::copyEigenToRealT(qpOASES::real_t* target, const Eigen::MatrixXd& source, int nRows, int nCols)
 {
     int count = 0;

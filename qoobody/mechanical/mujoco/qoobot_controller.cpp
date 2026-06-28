@@ -79,6 +79,7 @@ void QooBotController::init()
 
     // PVT: feed current positions to avoid jump
     pvtCtr->dataBusRead(*dataBus);
+    pvtCtr->setTorqueFeedforwardMode(true);  // 启用力矩前馈模式, WBC 力矩为主控制信号
 
     // Gait parameters
     dataBus->tSwing = tSwing;

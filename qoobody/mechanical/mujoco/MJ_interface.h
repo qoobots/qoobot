@@ -29,6 +29,10 @@ public:
     double baseAcc[3]{0};       // base_link acceleration in body frame
     double baseAngVel[3]{0};    // base_link angular velocity in body frame
     double baseLinVel[3]{0};    // base_link linear velocity in body frame
+    double feLPosW[3]{0};       // left foot-end position in world frame
+    double feRPosW[3]{0};       // right foot-end position in world frame
+    double feLRotW[9]{0};       // left foot-end rotation matrix (row-major)
+    double feRRotW[9]{0};       // right foot-end rotation matrix (row-major)
 
     // QooBot joint names (matching qoobot_float.xml)
     const std::vector<std::string> JointName = {
