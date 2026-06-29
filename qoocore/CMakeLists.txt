@@ -120,6 +120,7 @@ set(QOOCORE_CORE_SOURCES
     src/core/result.cpp
     src/core/dtype.cpp
     src/core/tensor.cpp
+    src/core/config_manager.cpp
 )
 
 # 引擎源文件
@@ -204,10 +205,7 @@ set(QOOCORE_CLOUD_SOURCES
     src/cloud/federated/federated_learning.cpp
 )
 
-# # 配置管理（暂时跳过，后续实现）
-# set(QOOCORE_CONFIG_SOURCES
-#     src/config/config_manager.cpp
-# )
+# 配置管理（已包含在 CORE_SOURCES 中）
 
 # 所有源文件合并
 set(QOOCORE_ALL_SOURCES
@@ -220,7 +218,6 @@ set(QOOCORE_ALL_SOURCES
     ${QOOCORE_PROFILER_SOURCES}
     ${QOOCORE_OPERATORS_SOURCES}
     ${QOOCORE_CLOUD_SOURCES}
-    ${QOOCORE_CONFIG_SOURCES}
 )
 
 # ── 核心库 ────────────────────────────────────────────────────────────
@@ -360,6 +357,9 @@ if(QOOCORE_BUILD_TESTS)
 
     set(QOOCORE_TEST_SOURCES
         tests/unit/test_core.cpp
+        tests/unit/test_tensor.cpp
+        tests/unit/test_config.cpp
+        tests/unit/test_compiler.cpp
     )
     add_executable(qoocore-test ${QOOCORE_TEST_SOURCES})
     target_link_libraries(qoocore-test

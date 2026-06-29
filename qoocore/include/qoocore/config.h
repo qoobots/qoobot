@@ -19,9 +19,12 @@
 
 #include "core.h"  // 复用 ErrorCode, Result
 
+#include <functional>
+#include <memory>
 #include <string>
 #include <unordered_map>
 #include <optional>
+#include <vector>
 
 namespace qoocore {
 
