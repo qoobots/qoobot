@@ -3,13 +3,13 @@ requires = ["setuptools>=68", "wheel"]
 build-backend = "setuptools.backends.legacy:build"
 
 [project]
-name = "brain-os"
+name = "qoobot-brain"
 version = "0.1.0"
-description = "Brain OS — Humanoid Robot Operating System (Python Components)"
+description = "QooBot Brain — Humanoid Robot Operating System (Python Components)"
 readme = "README.md"
 requires-python = ">=3.11"
 license = { text = "Apache-2.0" }
-keywords = ["robotics", "humanoid-robot", "brain-os", "grpc", "ros2"]
+keywords = ["robotics", "humanoid-robot", "qoobot", "brain", "grpc", "ros2"]
 classifiers = [
     "Development Status :: 3 - Alpha",
     "Programming Language :: Python :: 3.11",
@@ -61,7 +61,7 @@ select = ["E", "F", "I", "N", "W", "UP"]
 ignore = ["E501"]
 
 [tool.ruff.isort]
-known-first-party = ["brain_ai", "brain_os"]
+known-first-party = ["brain_ai", "brain_os", "qoobot_brain"]
 
 [tool.mypy]
 python_version = "3.11"

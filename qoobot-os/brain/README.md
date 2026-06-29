@@ -11,7 +11,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/brain-os/brain-os/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-Apache%202.0-blue.svg" alt="License"></a>
+  <a href="https://github.com/qoobots/qoobot/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-Apache%202.0-blue.svg" alt="License"></a>
   <a href="#"><img src="https://img.shields.io/badge/python-3.11+-blue.svg" alt="Python"></a>
   <a href="#"><img src="https://img.shields.io/badge/C++-17-blue.svg" alt="C++"></a>
   <a href="#"><img src="https://img.shields.io/badge/version-1.0.0--alpha-orange.svg" alt="Version"></a>
@@ -46,11 +46,11 @@
 
 ## Overview
 
-Brain OS is a robot operating system purpose-built for **humanoid robots**. It unifies large language models (LLM), computer vision, motion planning, and real-time control into a single end-to-end pipeline — enabling robots to **understand natural language, perceive their environment, plan actions, and execute safely**.
+QooBot Brain is the core operating system module for **humanoid robots**, part of the QooBot open-source ecosystem. It unifies large language models (LLM), computer vision, motion planning, and real-time control into a single end-to-end pipeline — enabling robots to **understand natural language, perceive their environment, plan actions, and execute safely**.
 
-### Why Brain OS?
+### Why QooBot Brain?
 
-|  | Traditional Robot Frameworks | Brain OS |
+|  | Traditional Robot Frameworks | QooBot Brain |
 |------|-------------|----------|
 | **Interaction** | Programming / Teach pendant | Natural language conversation |
 | **Task Understanding** | Predefined scripts | LLM semantic understanding + task decomposition |
@@ -163,7 +163,7 @@ Powered by **Qwen2.5-7B** for Chinese semantic understanding:
 ## Project Structure
 
 ```
-brain-os/
+qoobot-os/brain/
 ├── brain_proto/         Protobuf       gRPC service & message definitions (13 .proto)
 ├── brain_core/          C++17          Real-time engine — ROS 2 bridge, behavior trees, safety, motion
 ├── brain_ai/            Python 3.11    AI engine — LLM agent, perception pipeline, task planning, gRPC
@@ -195,8 +195,8 @@ brain-os/
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/brain-os/brain-os.git
-cd brain-os
+git clone https://github.com/qoobots/qoobot.git
+cd qoobot/qoobot-os/brain
 
 # 2. Install Python dependencies
 pip install -e brain_ai/ -e brain_sdk/
@@ -423,18 +423,18 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for full details.
 
 ## Community & Support
 
-- 📖 [Documentation](https://brain-os.readthedocs.io/)
-- 🐛 [Issue Tracker](https://github.com/brain-os/brain-os/issues)
-- 💬 [Discussions](https://github.com/brain-os/brain-os/discussions)
-- 📧 [Mailing List](mailto:dev@brain-os.org)
+- 📖 [QooBot Documentation](https://docs.qoobot.dev)
+- 🐛 [Issue Tracker](https://github.com/qoobots/qoobot/issues)
+- 💬 [Discussions](https://github.com/qoobots/qoobot/discussions)
+- 📧 [Email](mailto:dev@qoobot.dev)
 
 ---
 
 ## License
 
-Brain OS is licensed under the [Apache License 2.0](LICENSE).
+QooBot Brain is licensed under the [Apache License 2.0](LICENSE).
 
-Copyright 2026 Brain OS Contributors
+Copyright 2024-2026 The QooBot Authors
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -444,7 +444,7 @@ You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2
 
 ## Acknowledgments
 
-Brain OS builds upon the outstanding work of these open-source projects:
+QooBot Brain builds upon the outstanding work of these open-source projects:
 
 - [ROS 2](https://ros.org/) — Robot Operating System
 - [BehaviorTree.CPP](https://www.behaviortree.dev/) — Behavior tree engine
@@ -459,5 +459,5 @@ Brain OS builds upon the outstanding work of these open-source projects:
 ---
 
 <p align="center">
-  <sub>Built with ❤️ by the Brain OS Team</sub>
+  <sub>Built with ❤️ by the QooBot Team</sub>
 </p>

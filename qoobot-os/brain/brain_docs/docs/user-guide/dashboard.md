@@ -1,6 +1,6 @@
-# Dashboard 指南
+﻿# Dashboard 指南
 
-Brain OS Dashboard 是一个基于 Web 的 3D 可视化界面，用于实时监控机器人状态、交互控制和人在回路决策。
+QooBot Brain Dashboard 是一个基于 Web 的 3D 可视化界面，用于实时监控机器人状态、交互控制和人在回路决策。
 
 ---
 

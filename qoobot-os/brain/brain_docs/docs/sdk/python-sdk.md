@@ -1,6 +1,6 @@
-# Python SDK 概览
+﻿# Python SDK 概览
 
-Brain OS Python SDK 提供简洁的编程接口，让你通过 Python 代码控制机器人。
+QooBot Brain Python SDK 提供简洁的编程接口，让你通过 Python 代码控制机器人。
 
 ---
 

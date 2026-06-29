@@ -1,6 +1,6 @@
-# Protobuf 服务定义
+﻿# Protobuf 服务定义
 
-Brain OS 使用 gRPC + Protobuf 作为服务间通信协议。以下为 6 个核心 gRPC 服务的完整接口定义。
+QooBot Brain 使用 gRPC + Protobuf 作为服务间通信协议。以下为 6 个核心 gRPC 服务的完整接口定义。
 
 ---
 

@@ -1,6 +1,6 @@
-# 07 API 设计文档
+﻿# 07 API 设计文档
 
-Brain OS API 设计——Python SDK、gRPC服务、ROS2接口规范。
+QooBot Brain API 设计——Python SDK、gRPC服务、ROS2接口规范。
 
 ---
 

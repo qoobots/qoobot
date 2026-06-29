@@ -1,6 +1,6 @@
-# SDK 示例代码
+﻿# SDK 示例代码
 
-以下示例演示 Brain OS Python SDK 的常见使用场景。
+以下示例演示 QooBot Brain Python SDK 的常见使用场景。
 
 ---
 

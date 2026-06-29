@@ -1,13 +1,13 @@
-Package: brain-os-core
+Package: qoobot-brain-core
 Version: 1.0.0
 Section: robotics
 Priority: optional
 Architecture: arm64
 Depends: ros-humble-ros-base, libprotobuf-dev, libgrpc++-dev, protobuf-compiler-grpc, libfcl-dev, libeigen3-dev
-Maintainer: Brain OS Team <dev@brain-os.local>
-Homepage: https://github.com/brain-os/brain-os
-Description: Brain OS Core — Real-time robotics control engine
- Brain OS is a humanoid robot operating system that translates
+Maintainer: QooBot Team <dev@qoobot.dev>
+Homepage: https://github.com/qoobots/qoobot
+Description: QooBot Brain Core — Real-time robotics control engine
+ QooBot Brain is a humanoid robot operating system module that translates
  natural language instructions into robot execution.
  .
  This package provides the C++17 real-time control engine including:

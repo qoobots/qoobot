@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to Brain OS will be documented in this file.
+All notable changes to QooBot Brain will be documented in this file.
 
 ---
 

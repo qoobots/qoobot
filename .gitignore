@@ -57,21 +57,26 @@ coverage.xml
 .pytest_cache/
 
 # Protobuf generated
-brain_proto/gen/
+**/proto_gen/
 
 # Env
 .env
 .env.local
-/qoobrain/.workbuddy/
-/qoobody/mechanical/mujoco/qpOASES-releases-3.2.1/
-/qoobody/mechanical/mujoco/glfw-3.4.bin.WIN64/
-/qoobody/mechanical/mujoco/OpenLoongHardware-main/
+
+# Third-party dependencies (vendored)
+/qoobot-os/hal/mechanical/mujoco/qpOASES-releases-3.2.1/
+/qoobot-os/hal/mechanical/mujoco/glfw-3.4.bin.WIN64/
+/qoobot-os/hal/mechanical/mujoco/OpenLoongHardware-main/
+/qoobot-os/hal/mechanical/mujoco/Hardware-main/
+
+# IDE tool caches
 /.codebuddy/
 /.workbuddy/
-/qoobody/.workbuddy/
-/qoobody/mechanical/.codebuddy/
-/qoobody/mechanical/.workbuddy/
-/qoobody/mechanical/mujoco/Hardware-main/
+/qoobot-os/brain/.workbuddy/
+/qoobot-os/hal/.codebuddy/
+/qoobot-os/hal/.workbuddy/
+/qoobot-os/hal/mechanical/.codebuddy/
+/qoobot-os/hal/mechanical/.workbuddy/
 .codebuddy/
 .workbuddy/
 /unitree_ros-master/

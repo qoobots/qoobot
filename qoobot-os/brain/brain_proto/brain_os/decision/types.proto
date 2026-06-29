@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package brain_os.decision;
 
-option go_package = "github.com/brain-os/brain_proto/brain_os/decision";
+option go_package = "github.com/qoobots/qoobot/qoobot-os/brain/brain_proto/brain_os/decision";
 
 import "brain_os/common/types.proto";
 

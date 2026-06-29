@@ -11,7 +11,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/brain-os/brain-os/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-Apache%202.0-blue.svg" alt="License"></a>
+  <a href="https://github.com/qoobots/qoobot/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-Apache%202.0-blue.svg" alt="License"></a>
   <a href="#"><img src="https://img.shields.io/badge/python-3.11+-blue.svg" alt="Python"></a>
   <a href="#"><img src="https://img.shields.io/badge/C++-17-blue.svg" alt="C++"></a>
   <a href="#"><img src="https://img.shields.io/badge/version-1.0.0--alpha-orange.svg" alt="Version"></a>
@@ -42,11 +42,11 @@
 
 ## 概述
 
-Brain OS 是一个面向 **仿生人** 的操作系统。它将大语言模型 (LLM)、计算机视觉、运动规划与实时控制统一于一条完整的执行链路，让机器人能够**听懂中文自然语言指令，自主感知环境、规划动作并安全执行**。
+QooBot Brain 是面向 **仿生人** 的核心操作系统模块，属于 QooBot 开源生态的一部分。它将大语言模型 (LLM)、计算机视觉、运动规划与实时控制统一于一条完整的执行链路，让机器人能够**听懂中文自然语言指令，自主感知环境、规划动作并安全执行**。
 
-### 为什么选择 Brain OS？
+### 为什么选择 QooBot Brain？
 
-|  | 传统机器人框架 | Brain OS |
+|  | 传统机器人框架 | QooBot Brain |
 |------|-------------|----------|
 | **交互方式** | 编程/示教器 | 自然语言对话 |
 | **任务理解** | 预定义脚本 | LLM 语义理解 + 任务分解 |
@@ -192,8 +192,8 @@ brain-os/
 
 ```bash
 # 1. 克隆仓库
-git clone https://github.com/brain-os/brain-os.git
-cd brain-os
+git clone https://github.com/qoobots/qoobot.git
+cd qoobot/qoobot-os/brain
 
 # 2. 安装 Python 依赖
 pip install -e brain_ai/ -e brain_sdk/
@@ -420,18 +420,18 @@ pytest brain_ai/tests/ brain_sdk/tests/ -v
 
 ## 社区与支持
 
-- 📖 [文档](https://brain-os.readthedocs.io/)
-- 🐛 [Issue Tracker](https://github.com/brain-os/brain-os/issues)
-- 💬 [Discussions](https://github.com/brain-os/brain-os/discussions)
-- 📧 [邮件列表](mailto:dev@brain-os.org)
+- 📖 [QooBot 文档](https://docs.qoobot.dev)
+- 🐛 [Issue Tracker](https://github.com/qoobots/qoobot/issues)
+- 💬 [Discussions](https://github.com/qoobots/qoobot/discussions)
+- 📧 [电子邮件](mailto:dev@qoobot.dev)
 
 ---
 
 ## 许可证
 
-Brain OS 使用 [Apache License 2.0](LICENSE)。
+QooBot Brain 使用 [Apache License 2.0](LICENSE)。
 
-Copyright 2026 Brain OS Contributors
+Copyright 2024-2026 The QooBot Authors
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -441,7 +441,7 @@ You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2
 
 ## 致谢
 
-Brain OS 基于以下开源项目的杰出工作：
+QooBot Brain 基于以下开源项目的杰出工作：
 
 - [ROS 2](https://ros.org/) — 机器人操作系统
 - [BehaviorTree.CPP](https://www.behaviortree.dev/) — 行为树引擎
@@ -456,5 +456,5 @@ Brain OS 基于以下开源项目的杰出工作：
 ---
 
 <p align="center">
-  <sub>Built with ❤️ by the Brain OS Team</sub>
+  <sub>Built with ❤️ by the QooBot Team</sub>
 </p>

@@ -226,7 +226,7 @@ pytest tests/ -v
 ### Build Your First Skill
 
 ```python
-from qoobrain import Skill, Perception, Action
+from qoobot_brain import Skill, Perception, Action
 
 class PickAndPlace(Skill):
     """A simple pick-and-place skill."""

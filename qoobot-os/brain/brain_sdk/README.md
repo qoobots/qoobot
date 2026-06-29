@@ -1,10 +1,10 @@
-﻿# Brain OS Python SDK
+﻿# QooBot Brain Python SDK
 
 **仿生人操作系统 Python SDK** — 自然语言到机器人执行的完整工具链。
 
 [![Python 3.11+](https://img.shields.io/badge/Python-3.11+-blue.svg)](https://python.org)
 [![License](https://img.shields.io/badge/License-Apache%202.0-green.svg)](LICENSE)
-[![Phase](https://img.shields.io/badge/Phase-1%20原型验证-brightgreen.svg)](https://github.com/brain-os/brain_os)
+[![Phase](https://img.shields.io/badge/Phase-1%20原型验证-brightgreen.svg)](https://github.com/qoobots/qoobot)
 
 ---
 

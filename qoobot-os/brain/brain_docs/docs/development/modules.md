@@ -1,6 +1,6 @@
-# 模块说明
+﻿# 模块说明
 
-Brain OS 由 9 个子项目组成，每个子项目负责独立的领域。
+QooBot Brain 由 9 个子项目组成，每个子项目负责独立的领域。
 
 ---
 
@@ -127,7 +127,7 @@ ctest --output-on-failure
 
 ## Jetson Orin 部署
 
-Brain OS 支持 NVIDIA Jetson Orin 平台部署：
+QooBot Brain 支持 NVIDIA Jetson Orin 平台部署：
 
 | 组件 | 部署位置 |
 |------|---------|

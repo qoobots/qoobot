@@ -231,7 +231,7 @@ pytest tests/ -v
 ### 编写你的第一个技能
 
 ```python
-from qoobrain import Skill, Perception, Action
+from qoobot_brain import Skill, Perception, Action
 
 class PickAndPlace(Skill):
     """一个简单的抓取放置技能。"""

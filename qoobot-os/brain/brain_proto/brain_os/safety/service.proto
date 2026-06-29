@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package brain_os.safety;
 
-option go_package = "github.com/brain-os/brain_proto/brain_os/safety";
+option go_package = "github.com/qoobots/qoobot/qoobot-os/brain/brain_proto/brain_os/safety";
 
 import "brain_os/safety/types.proto";
 import "brain_os/common/types.proto";

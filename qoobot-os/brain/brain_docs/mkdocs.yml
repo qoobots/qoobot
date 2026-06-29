@@ -1,9 +1,9 @@
-﻿site_name: Brain OS 文档
-site_description: Brain OS — 仿生人操作系统
-site_author: Brain OS Team
-site_url: https://brain-os.github.io/brain_docs
-repo_url: https://github.com/brain-os/brain_os
-repo_name: brain-os/brain_os
+﻿site_name: QooBot Brain 文档
+site_description: QooBot Brain — 仿生人操作系统
+site_author: QooBot Team
+site_url: https://docs.qoobot.dev
+repo_url: https://github.com/qoobots/qoobot
+repo_name: qoobots/qoobot
 edit_uri: edit/main/brain_docs/docs/
 
 docs_dir: docs
@@ -91,8 +91,8 @@ nav:
 extra:
   social:
     - icon: fontawesome/brands/github
-      link: https://github.com/brain-os/brain_os
+      link: https://github.com/qoobots/qoobot
   version:
     provider: mike
 
-copyright: "Copyright &copy; 2024-2026 Brain OS Team — Apache 2.0 License"
+copyright: "Copyright &copy; 2024-2026 QooBot Team — Apache 2.0 License"

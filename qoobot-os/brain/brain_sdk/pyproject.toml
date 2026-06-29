@@ -3,13 +3,13 @@ requires = ["setuptools>=68", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "brain-os-sdk"
+name = "qoobot-brain-sdk"
 version = "0.1.0"
-description = "Brain OS Python SDK — 机器人操作系统客户端库"
+description = "QooBot Brain Python SDK — 机器人操作系统客户端库"
 readme = "README.md"
 requires-python = ">=3.11"
 license = { text = "Apache-2.0" }
-keywords = ["robotics", "brain-os", "grpc", "humanoid-robot"]
+keywords = ["robotics", "qoobot", "brain", "grpc", "humanoid-robot"]
 classifiers = [
     "Development Status :: 3 - Alpha",
     "Intended Audience :: Developers",
@@ -40,8 +40,8 @@ dev = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/brain-os/brain_os"
-Documentation = "https://brain-os.github.io/brain_docs"
+Homepage = "https://github.com/qoobots/qoobot"
+Documentation = "https://docs.qoobot.dev"
 
 [tool.setuptools.packages.find]
 where = ["."]

@@ -8,12 +8,12 @@ version = "0.1.0"
 description = "Brain OS AI Engine — LLM/VLA/Perception/Planning runtime"
 readme = "README.md"
 requires-python = ">=3.11"
-license = {text = "MIT"}
-authors = [{name = "Brain OS Team", email = "dev@brain-os.org"}]
+license = {text = "Apache-2.0"}
+authors = [{name = "QooBot Team", email = "dev@qoobot.dev"}]
 classifiers = [
     "Development Status :: 3 - Alpha",
     "Intended Audience :: Developers",
-    "License :: OSI Approved :: MIT License",
+    "License :: OSI Approved :: Apache Software License",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
 ]

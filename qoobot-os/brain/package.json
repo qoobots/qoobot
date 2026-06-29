@@ -1,7 +1,7 @@
 {
-  "name": "brain-os-viz",
+  "name": "qoobot-brain-viz",
   "version": "0.1.0",
-  "description": "Brain OS Dashboard — Next.js + Three.js visualization",
+  "description": "QooBot Brain Dashboard — Next.js + Three.js visualization",
   "private": true,
   "scripts": {
     "dev": "cd brain_viz && next dev",

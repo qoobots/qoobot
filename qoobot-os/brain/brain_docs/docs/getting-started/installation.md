@@ -1,6 +1,6 @@
-# 安装指南
+﻿# 安装指南
 
-本指南将帮助你在本地环境中安装 Brain OS 的全部组件。
+本指南将帮助你在本地环境中安装 QooBot Brain 的全部组件。
 
 ---
 
@@ -17,7 +17,7 @@
 | **Node.js** | 18+ | 22 LTS |
 
 !!! note "Jetson Orin 支持"
-    Brain OS 也支持 NVIDIA Jetson Orin 平台。请参考 [Jetson 部署指南](../development/modules.md#jetson-orin-部署)。
+    QooBot Brain 也支持 NVIDIA Jetson Orin 平台。请参考 [Jetson 部署指南](../development/modules.md#jetson-orin-部署)。
 
 ---
 
@@ -164,4 +164,4 @@ python brain_sim/demo/e2e_demo.py --scenario pick_cup
 ```
 
 !!! success "安装完成"
-    如果上述所有步骤均无报错，说明 Brain OS 已成功安装。下一步请阅读 [快速上手](quickstart.md)。
+    如果上述所有步骤均无报错，说明 QooBot Brain 已成功安装。下一步请阅读 [快速上手](quickstart.md)。

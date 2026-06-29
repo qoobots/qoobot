@@ -1,6 +1,6 @@
-# SDK API 参考
+﻿# SDK API 参考
 
-本文档列出 Brain OS Python SDK 的全部公开 API。
+本文档列出 QooBot Brain Python SDK 的全部公开 API。
 
 ---
 
