@@ -1,0 +1,37 @@
+{
+  "nav": {
+    "home": "Home",
+    "products": "Products",
+    "ecosystem": "Ecosystem",
+    "vision": "Vision",
+    "about": "About",
+    "github": "GitHub",
+    "langSwitch": "中文"
+  },
+  "hero": {
+    "tagline": "Full-Stack · Fully Open Source",
+    "subtitle": "From mechanical drawings and circuit designs to operating systems and AI algorithms — everything open source. Build your own humanoid robot.",
+    "ctaProducts": "Explore QooBot Max",
+    "ctaGitHub": "Explore Open Source",
+    "scrollHint": "Scroll to explore"
+  },
+  "stats": {
+    "projects": "Sub-Projects",
+    "modules": "Feature Modules",
+    "drawings": "Open Drawings",
+    "license": "Open Source License"
+  },
+  "footer": {
+    "productsHeading": "Products",
+    "ecosystemHeading": "Ecosystem",
+    "developersHeading": "Developers",
+    "communityHeading": "Community",
+    "aboutHeading": "About",
+    "license": "Apache 2.0 Licensed",
+    "copyright": "© 2026 QooBot. All rights reserved."
+  },
+  "theme": {
+    "switchDark": "Switch to dark mode",
+    "switchLight": "Switch to light mode"
+  }
+}

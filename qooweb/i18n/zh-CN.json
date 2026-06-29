@@ -1,0 +1,37 @@
+{
+  "nav": {
+    "home": "首页",
+    "products": "产品",
+    "ecosystem": "生态",
+    "vision": "愿景",
+    "about": "关于",
+    "github": "GitHub",
+    "langSwitch": "EN"
+  },
+  "hero": {
+    "tagline": "软硬一体 · 全栈开源",
+    "subtitle": "从机械图纸、电路设计到操作系统、AI 算法——全部开源，自由制造。打造属于你自己的双足仿生人。",
+    "ctaProducts": "了解 QooBot Max",
+    "ctaGitHub": "探索开源项目",
+    "scrollHint": "向下滚动探索"
+  },
+  "stats": {
+    "projects": "子项目",
+    "modules": "功能模块",
+    "drawings": "工程图纸开源",
+    "license": "完全开源协议"
+  },
+  "footer": {
+    "productsHeading": "产品",
+    "ecosystemHeading": "生态",
+    "developersHeading": "开发者",
+    "communityHeading": "社区",
+    "aboutHeading": "关于",
+    "license": "Apache 2.0 开源协议",
+    "copyright": "© 2026 QooBot. 保留所有权利。"
+  },
+  "theme": {
+    "switchDark": "切换深色模式",
+    "switchLight": "切换浅色模式"
+  }
+}

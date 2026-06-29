@@ -1,0 +1,19 @@
+{
+  "name": "QooBot — Open Source Robot Ecosystem",
+  "short_name": "QooBot",
+  "description": "软硬一体、全栈开源的仿生人生态。从机械图纸到云端大脑，全部开源，自由制造。",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#0071e3",
+  "orientation": "any",
+  "lang": "zh-CN",
+  "icons": [
+    {
+      "src": "assets/qoobot-logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

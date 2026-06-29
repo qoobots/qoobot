@@ -2835,3 +2835,43 @@ a:hover {
     grid-template-columns: 1fr;
   }
 }
+
+/* ============================================================
+   Accessibility: prefers-reduced-motion
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .hero-glow {
+    animation: none;
+    opacity: 0.4;
+  }
+
+  .hero-gradient-anim {
+    animation: none;
+  }
+
+  .hero-logo {
+    animation: none;
+  }
+
+  .particle {
+    display: none;
+  }
+
+  .vision-star {
+    animation: none;
+  }
+
+  .roadmap-dot-glow {
+    animation: none;
+    box-shadow: 0 0 12px rgba(175, 82, 222, 0.5);
+  }
+}

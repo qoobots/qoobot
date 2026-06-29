@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initScrollReveal();
   initHeroParticles();
   initVisionStars();
+  registerServiceWorker();
 });
 
 /* --- Theme Toggle --- */
@@ -264,4 +265,22 @@ function initVisionStars() {
   }
 
   container.appendChild(fragment);
+}
+
+/* --- Service Worker Registration (PWA) --- */
+function registerServiceWorker() {
+  if ("serviceWorker" in navigator) {
+    // Determine the correct SW path based on page location
+    const swPath = window.location.pathname.includes("/en/")
+      ? "../sw.js"
+      : "sw.js";
+    navigator.serviceWorker
+      .register(swPath)
+      .then((reg) => {
+        console.log("[QooBot SW] Registered:", reg.scope);
+      })
+      .catch((err) => {
+        console.warn("[QooBot SW] Registration failed:", err);
+      });
+  }
 }
