@@ -38,7 +38,7 @@
 
   <!-- 标题 -->
   <text x="450" y="35" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#e0f7fa">四元共生模型</text>
-  <text x="450" y="55" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#78909c">人类 · 人形机器人 · AI · 自然 —— 共生共荣的超级文明</text>
+  <text x="450" y="55" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#78909c">人类 · 仿生人 · AI · 自然 —— 共生共荣的超级文明</text>
 
   <!-- 中心圆 -->
   <g transform="translate(450, 310)">
@@ -88,7 +88,7 @@
     <text x="0" y="43" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#a5d6a7">生命根基 · 资源循环 · 审美源泉</text>
   </g>
 
-  <!-- 左侧：人形机器人 -->
+  <!-- 左侧：仿生人 -->
   <g transform="translate(200, 310)">
     <rect x="-80" y="-45" width="160" height="90" rx="12" fill="url(#robotGrad)" fill-opacity="0.15" stroke="#4fc3f7" stroke-width="1.5" filter="url(#glow)"/>
 
@@ -100,7 +100,7 @@
     <rect x="-12" y="3" width="8" height="12" rx="2" fill="#4fc3f7" opacity="0.35"/>
     <rect x="4" y="3" width="8" height="12" rx="2" fill="#4fc3f7" opacity="0.35"/>
 
-    <text x="0" y="28" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#b3e5fc">🤖 人形机器人</text>
+    <text x="0" y="28" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#b3e5fc">🤖 仿生人</text>
     <text x="0" y="43" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#81d4fa">劳动载体 · 物理存在 · 探索先驱</text>
   </g>
 
