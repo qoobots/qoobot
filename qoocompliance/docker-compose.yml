@@ -1,0 +1,54 @@
+version: "3.9"
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: qoocompliance-db
+    environment:
+      POSTGRES_DB: qoocompliance
+      POSTGRES_USER: qoobot
+      POSTGRES_PASSWORD: qoobot
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U qoobot -d qoocompliance"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - qoocompliance-net
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: qoocompliance-app
+    ports:
+      - "8086:8086"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/qoocompliance
+      SPRING_DATASOURCE_USERNAME: qoobot
+      SPRING_DATASOURCE_PASSWORD: qoobot
+      JAVA_OPTS: "-Xmx512m -Xms256m"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:8086/actuator/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    restart: unless-stopped
+    networks:
+      - qoocompliance-net
+
+volumes:
+  pgdata:
+    driver: local
+
+networks:
+  qoocompliance-net:
+    driver: bridge
