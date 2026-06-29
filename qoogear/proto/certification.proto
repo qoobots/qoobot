@@ -1,0 +1,303 @@
+syntax = "proto3";
+
+package qoogear.certification;
+
+option java_package = "com.qoobot.qoogear.proto.certification";
+option java_outer_classname = "CertificationProto";
+option csharp_namespace = "QooBot.QooGear.Certification";
+
+// ============================================================================
+// MFQ 认证数据交换协议
+// 用于认证申请、测试报告、证书等数据的结构化序列化
+// ============================================================================
+
+// ---- MFQ 认证等级 ----
+
+enum MfqLevel {
+  MFQ_LEVEL_UNSPECIFIED = 0;
+  MFQ_BASIC = 1;           // 基础兼容 — 物理/电气/通信接口兼容
+  MFQ_PREMIUM = 2;         // 深度集成 — 通过所有功能/安全测试
+  MFQ_PRO = 3;             // 专业级 — 通过冗余安全审计+FMEA+实地验证
+}
+
+// ---- 认证申请状态 ----
+
+enum ApplicationStatus {
+  APP_STATUS_UNSPECIFIED = 0;
+  DRAFT = 1;               // 草稿
+  SUBMITTED = 2;           // 已提交
+  UNDER_REVIEW = 3;        // 审核中
+  LAB_ASSIGNED = 4;        // 已分配实验室
+  LAB_TESTING = 5;         // 实验室测试中
+  LAB_PASSED = 6;          // 实验室测试通过
+  LAB_FAILED = 7;          // 实验室测试未通过
+  SECURITY_REVIEW = 8;     // 安全审查中
+  APPROVED = 9;            // 已批准
+  REJECTED = 10;           // 已驳回
+  CERTIFICATE_ISSUED = 11; // 证书已颁发
+  REVOKED = 12;            // 已吊销
+  EXPIRED = 13;            // 已过期
+}
+
+// ---- 认证申请 ----
+
+message CertificationApplication {
+  string application_id = 1;           // 申请编号 (如 MFQ-2026-0001)
+  DeveloperInfo developer = 2;         // 开发者信息
+  ProductInfo product = 3;             // 产品信息
+  MfqLevel target_level = 4;           // 目标认证等级
+  repeated string standard_ids = 5;    // 适用标准ID列表
+  TechnicalSpecs technical = 6;        // 技术规格
+  ApplicationStatus status = 7;        // 当前状态
+  string submitted_at = 8;             // 提交时间 (ISO 8601)
+  string reviewed_by = 9;              // 审核人
+  string review_comment = 10;          // 审核意见
+  string assigned_lab_id = 11;         // 分配实验室
+  repeated Attachment attachments = 12; // 附件列表
+  string created_at = 13;
+  string updated_at = 14;
+}
+
+// ---- 开发者信息 ----
+
+message DeveloperInfo {
+  uint64 developer_id = 1;
+  string company_name = 2;
+  string contact_name = 3;
+  string contact_email = 4;
+  string contact_phone = 5;
+  string website = 6;
+  string country = 7;
+  string business_license_url = 8;     // 营业执照
+}
+
+// ---- 产品信息 ----
+
+message ProductInfo {
+  string name = 1;                     // 产品名称
+  string model_number = 2;             // 型号
+  string description = 3;              // 产品描述
+  ProductCategory category = 4;        // 产品类别
+  string firmware_version = 5;         // 固件版本
+  string hardware_version = 6;         // 硬件版本
+}
+
+enum ProductCategory {
+  CATEGORY_UNSPECIFIED = 0;
+  GRIPPER = 1;           // 末端执行器
+  SENSOR_MODULE = 2;     // 传感器模组
+  WEARABLE = 3;          // 可穿戴设备
+  POWER = 4;             // 电源配件
+  MOBILITY = 5;          // 移动平台配件
+  TOOL = 6;              // 工具配件
+}
+
+// ---- 技术规格 ----
+
+message TechnicalSpecs {
+  MechanicalSpec mechanical = 1;
+  ElectricalSpec electrical = 2;
+  CommunicationSpec communication = 3;
+  SafetySpec safety = 4;
+}
+
+message MechanicalSpec {
+  float weight_kg = 1;
+  float width_mm = 2;
+  float height_mm = 3;
+  float depth_mm = 4;
+  string flange_type = 5;
+  string material = 6;
+  string ip_rating = 7;
+  float max_payload_kg = 8;
+  string cad_file_url = 9;             // 3D 模型文件
+  string mechanical_drawing_url = 10;  // 机械图纸
+}
+
+message ElectricalSpec {
+  float nominal_voltage_v = 1;
+  float max_current_a = 2;
+  float peak_power_w = 3;
+  float standby_power_w = 4;
+  bool supports_hotplug = 5;
+  string connector_type = 6;
+  string pinout_diagram_url = 7;
+  string electrical_schematic_url = 8;
+}
+
+message CommunicationSpec {
+  repeated string protocols = 1;       // CAN-FD, RS-485, EtherCAT, etc.
+  uint32 max_bandwidth_mbps = 2;
+  uint32 max_latency_us = 3;
+  string protocol_document_url = 4;
+  bool supports_time_sync = 5;         // 是否支持 IEEE 1588 时间同步
+}
+
+message SafetySpec {
+  bool has_emergency_stop = 1;
+  bool has_isolation_circuit = 2;
+  bool has_overcurrent_protection = 3;
+  bool has_overtemp_protection = 4;
+  string safety_datasheet_url = 5;
+  repeated string safety_certifications = 6; // CE, FCC, RoHS, etc.
+}
+
+// ---- 附件 ----
+
+message Attachment {
+  string file_name = 1;
+  string file_url = 2;                 // MinIO 存储URL
+  string content_type = 3;
+  uint64 file_size_bytes = 4;
+  AttachmentType type = 5;
+  string uploaded_at = 6;
+}
+
+enum AttachmentType {
+  ATTACH_UNSPECIFIED = 0;
+  PRODUCT_PHOTO = 1;
+  USER_MANUAL = 2;
+  SAFETY_DATASHEET = 3;
+  TEST_REPORT = 4;
+  FIRMWARE_SOURCE = 5;
+  CERTIFICATION_DOC = 6;
+}
+
+// ---- 测试报告 ----
+
+message TestReport {
+  string report_id = 1;
+  string application_id = 2;
+  string lab_id = 3;
+  string lab_name = 4;
+  string tester_name = 5;
+  TestResult result = 6;
+  repeated TestItem items = 7;
+  string summary = 8;
+  string submitted_at = 9;
+}
+
+enum TestResult {
+  TEST_RESULT_UNSPECIFIED = 0;
+  PASS = 1;
+  CONDITIONAL_PASS = 2;
+  FAIL = 3;
+  NOT_APPLICABLE = 4;
+}
+
+message TestItem {
+  string test_id = 1;
+  string test_name = 2;
+  string category = 3;                 // mechanical/electrical/protocol/safety
+  TestResult result = 4;
+  string measurement_data_json = 5;    // 测试数据 (JSON)
+  string comment = 6;
+  repeated string evidence_urls = 7;   // 证据照片/视频
+}
+
+// ---- MFQ 证书 ----
+
+message MfqCertificate {
+  string certificate_id = 1;
+  string cert_number = 2;              // 证书编号 (MFQ-2026-PREMIUM-00001)
+  string application_id = 3;
+  DeveloperInfo developer = 4;
+  ProductInfo product = 5;
+  MfqLevel level = 6;
+  string issued_at = 7;                // 颁发时间
+  string expires_at = 8;              // 过期时间 (Basic: 1年, Premium: 2年, Pro: 3年)
+  string revoked_at = 9;              // 吊销时间 (空=有效)
+  string public_key_pem = 10;         // 公钥 (PEM 格式)
+  string signature = 11;              // QooBot CA 签名
+  string cert_hash = 12;              // 证书哈希
+  repeated string authorized_chip_ids = 13; // 已授权认证芯片ID列表
+}
+
+// ---- 安全审计 ----
+
+message SecurityAudit {
+  string audit_id = 1;
+  string application_id = 2;
+  RiskLevel risk_level = 3;
+  string auditor = 4;
+  repeated Finding findings = 5;
+  FmeaAnalysis fmea = 6;
+  string conclusion = 7;
+  string created_at = 8;
+}
+
+enum RiskLevel {
+  RISK_UNSPECIFIED = 0;
+  LOW = 1;
+  MEDIUM = 2;
+  HIGH = 3;
+  CRITICAL = 4;
+}
+
+message Finding {
+  string finding_id = 1;
+  string description = 2;
+  RiskLevel severity = 3;
+  string recommendation = 4;
+  FindingStatus status = 5;
+}
+
+enum FindingStatus {
+  FINDING_UNSPECIFIED = 0;
+  OPEN = 1;
+  MITIGATED = 2;
+  ACCEPTED = 3;
+  CLOSED = 4;
+}
+
+message FmeaAnalysis {
+  repeated FmeaItem items = 1;
+  string summary = 2;
+}
+
+message FmeaItem {
+  string function = 1;
+  string failure_mode = 2;
+  string failure_effect = 3;
+  string failure_cause = 4;
+  uint32 severity = 5;                 // S: 1-10
+  uint32 occurrence = 6;              // O: 1-10
+  uint32 detection = 7;              // D: 1-10
+  uint32 rpn = 8;                    // RPN = S × O × D
+  string recommended_action = 9;
+}
+
+// ---- 认证芯片 ----
+
+message AuthChip {
+  string chip_id = 1;
+  string certificate_id = 2;
+  string chip_serial = 3;              // 芯片硬件序列号
+  string batch_number = 4;             // 生产批次
+  string burned_at = 5;                // 烧录时间
+  string burned_by = 6;                // 烧录操作人
+  ChipStatus status = 7;
+}
+
+enum ChipStatus {
+  CHIP_STATUS_UNSPECIFIED = 0;
+  BLANK = 1;             // 空白芯片
+  PROVISIONED = 2;       // 已烧录
+  ACTIVE = 3;            // 已激活
+  REVOKED = 4;           // 已吊销
+  EXPIRED = 5;           // 已过期
+}
+
+// ---- 审计日志 ----
+
+message AuditLogEntry {
+  string log_id = 1;
+  string actor = 2;                    // 操作人
+  string action = 3;                   // 操作 (APPLICATION_SUBMIT, CERT_ISSUE, etc.)
+  string resource_type = 4;            // 资源类型 (application/certificate/lab)
+  string resource_id = 5;              // 资源ID
+  string details_json = 6;            // 操作详情
+  string ip_address = 7;
+  string user_agent = 8;
+  string created_at = 9;
+}

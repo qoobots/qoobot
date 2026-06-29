@@ -1,0 +1,217 @@
+syntax = "proto3";
+
+package qoogear.standard;
+
+option java_package = "com.qoobot.qoogear.proto.standard";
+option java_outer_classname = "StandardProto";
+option csharp_namespace = "QooBot.QooGear.Standard";
+
+// ============================================================================
+// MFQ 接口标准结构化定义
+// 用于定义和版本管理各类型配件的兼容性标准
+// ============================================================================
+
+// ---- 标准类别 ----
+
+message StandardCategory {
+  string category_id = 1;
+  string name = 2;                     // 类别名称
+  string slug = 3;                     // URL slug
+  string description = 4;              // 描述
+  string icon_url = 5;                 // 图标
+  string parent_id = 6;                // 父类别ID (支持树形结构)
+  int32 sort_order = 7;                // 排序
+  repeated StandardCategory children = 8;
+}
+
+// ---- 接口规范 ----
+
+message StandardSpec {
+  string spec_id = 1;
+  string spec_number = 2;              // 规范编号 (MFQ-SPEC-0001)
+  string category_id = 3;              // 所属类别
+  string title = 4;                    // 标题
+  string description = 5;              // 描述
+  string version = 6;                  // 版本 (semver: 1.0.0)
+  SpecStatus status = 7;               // 状态
+  repeated string applies_to = 8;      // 适用配件类型
+  MechanicalInterface mechanical = 9;  // 机械接口要求
+  ElectricalInterface electrical = 10; // 电气接口要求
+  CommunicationProtocol communication = 11; // 通信协议要求
+  SafetyRequirements safety = 12;      // 安全要求
+  repeated TestChecklistItem test_items = 13; // 测试项
+  string spec_doc_url = 14;            // 规范文档全文
+  string published_at = 15;            // 发布日期
+  string deprecated_at = 16;           // 废弃日期
+  string changelog = 17;               // 变更日志
+}
+
+enum SpecStatus {
+  SPEC_STATUS_UNSPECIFIED = 0;
+  DRAFT = 1;             // 草案
+  REVIEW = 2;            // 评审中
+  PUBLISHED = 3;         // 已发布
+  DEPRECATED = 4;        // 已废弃
+  SUPERSEDED = 5;        // 已被替代
+}
+
+// ---- 机械接口要求 ----
+
+message MechanicalInterface {
+  string flange_type = 1;              // 法兰类型 (ISO 9409-1-50-4-M6 等)
+  float flange_diameter_mm = 2;        // 法兰直径
+  int32 bolt_count = 3;                // 螺栓数量
+  string bolt_spec = 4;                // 螺栓规格 (M4x0.7 等)
+  float bolt_circle_diameter_mm = 5;   // 螺栓圆直径
+  repeated string alignment_pins = 6;  // 定位销规格
+  float max_weight_kg = 7;             // 最大允许重量
+  float max_overhang_mm = 8;           // 最大悬臂距离
+  string cad_template_url = 9;         // CAD 模板文件
+  repeated string compatible_flanges = 10; // 兼容法兰列表
+}
+
+// ---- 电气接口要求 ----
+
+message ElectricalInterface {
+  float supply_voltage_v = 1;          // 供电电压
+  float voltage_tolerance_percent = 2; // 电压容差
+  float max_continuous_current_a = 3;  // 最大持续电流
+  float max_peak_current_a = 4;        // 最大峰值电流
+  float max_power_w = 5;               // 最大功率
+  string connector_type = 6;           // 连接器型号
+  repeated PinDefinition pins = 7;     // 引脚定义
+  bool requires_isolation = 8;         // 是否需要电气隔离
+  float isolation_voltage_v = 9;       // 隔离电压
+}
+
+message PinDefinition {
+  int32 pin_number = 1;
+  string pin_name = 2;
+  string function = 3;                 // VCC/GND/CAN_H/CAN_L/SIGNAL/etc.
+  float voltage_v = 4;                 // 额定电压
+  float max_current_a = 5;             // 最大电流
+  string wire_color = 6;               // 推荐线色
+  string notes = 7;
+}
+
+// ---- 通信协议要求 ----
+
+message CommunicationProtocol {
+  repeated string required_protocols = 1;  // 必须支持的协议
+  repeated string optional_protocols = 2;  // 可选支持的协议
+  uint32 min_baud_rate = 3;                // 最低波特率 (CAN)
+  uint32 max_latency_us = 4;               // 最大通信延迟
+  uint32 min_update_rate_hz = 5;           // 最低更新率
+  bool requires_time_sync = 6;             // 是否需要时间同步
+  string device_description_format = 7;    // 设备描述格式 (EDS/ESI/DDL)
+  string device_description_template_url = 8;
+  repeated MessageDefinition messages = 9; // 必须实现的消息
+}
+
+message MessageDefinition {
+  string message_name = 1;
+  uint32 message_id = 2;               // CAN ID / EtherCAT PDO index
+  Direction direction = 3;             // 方向
+  uint32 cycle_time_us = 4;            // 周期
+  repeated SignalDefinition signals = 5;
+}
+
+enum Direction {
+  DIR_UNSPECIFIED = 0;
+  ACCESSORY_TO_ROBOT = 1;    // 配件→机器人
+  ROBOT_TO_ACCESSORY = 2;    // 机器人→配件
+  BIDIRECTIONAL = 3;
+}
+
+message SignalDefinition {
+  string name = 1;
+  uint32 start_bit = 2;
+  uint32 length_bits = 3;
+  string data_type = 4;                // uint8/int16/float32/etc.
+  float scale = 5;
+  float offset = 6;
+  string unit = 7;
+  float min_value = 8;
+  float max_value = 9;
+  string description = 10;
+}
+
+// ---- 安全要求 ----
+
+message SafetyRequirements {
+  bool requires_emergency_stop = 1;     // 需要急停联动
+  uint32 max_estop_response_ms = 2;     // 急停响应最大延迟
+  bool requires_safety_rated_monitoring = 3; // 需要安全等级监控
+  string safety_integrity_level = 4;    // SIL 1/2/3
+  string performance_level = 5;         // PL a/b/c/d/e (ISO 13849)
+  bool requires_redundant_channel = 6;  // 需要冗余通道
+  bool requires_failure_detection = 7;  // 需要故障检测
+  repeated string required_certifications = 8; // CE/FCC/UL/etc.
+  repeated SafetyCheckItem checks = 9;  // 安全检查项
+}
+
+message SafetyCheckItem {
+  string check_id = 1;
+  string description = 2;
+  string test_method = 3;
+  string acceptance_criteria = 4;
+  bool is_mandatory = 5;
+}
+
+// ---- 测试检查清单 ----
+
+message TestChecklistItem {
+  string item_id = 1;
+  string category = 2;                 // mechanical/electrical/protocol/safety/functional
+  string test_name = 3;
+  string test_description = 4;
+  string test_procedure = 5;
+  string acceptance_criteria = 6;
+  bool required = 7;                   // 是否必测
+  string equipment_needed = 8;         // 所需测试设备
+  uint32 estimated_duration_minutes = 9;
+  string test_script_url = 10;         // 自动化测试脚本
+}
+
+// ---- 兼容性矩阵 ----
+
+message CompatibilityMatrix {
+  string matrix_id = 1;
+  string name = 2;
+  string description = 3;
+  repeated string robot_models = 4;    // QooBot 型号列表
+  repeated string accessory_categories = 5; // 配件类别
+  repeated CompatibilityEntry entries = 6;
+}
+
+message CompatibilityEntry {
+  string robot_model = 1;
+  string accessory_type = 2;
+  CompatibilityStatus status = 3;
+  string notes = 4;
+  string min_firmware_version = 5;
+  string min_hardware_version = 6;
+}
+
+enum CompatibilityStatus {
+  COMPAT_UNSPECIFIED = 0;
+  FULLY_COMPATIBLE = 1;
+  LIMITED_COMPATIBLE = 2;
+  NOT_COMPATIBLE = 3;
+  NOT_TESTED = 4;
+}
+
+// ---- 规范版本历史 ----
+
+message SpecVersionHistory {
+  string spec_id = 1;
+  repeated SpecVersion versions = 2;
+}
+
+message SpecVersion {
+  string version = 1;                  // semver
+  SpecStatus status = 2;
+  string published_at = 3;
+  string changelog = 4;
+  string spec_doc_url = 5;
+}

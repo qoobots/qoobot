@@ -1,0 +1,375 @@
+syntax = "proto3";
+
+package qoogear.peripheral;
+
+option java_package = "com.qoobot.qoogear.proto.peripheral";
+option java_outer_classname = "PeripheralProto";
+option csharp_namespace = "QooBot.QooGear.Peripheral";
+
+// ============================================================================
+// 配件识别与能力注册协议
+// 用于 QooBot 机器人端自动发现和注册第三方配件
+// ============================================================================
+
+// ---- 配件标识 ----
+
+message AccessoryId {
+  uint32 vendor_id = 1;    // MFQ 分配的厂商ID
+  uint32 product_id = 2;   // 厂商自定义产品ID
+  uint32 serial_number = 3;// 配件序列号
+  uint32 hardware_version = 4; // 硬件版本
+}
+
+// ---- 配件类型 ----
+
+enum AccessoryType {
+  ACCESSORY_TYPE_UNSPECIFIED = 0;
+  END_EFFECTOR = 1;        // 末端执行器 (夹具/吸盘/焊枪等)
+  SENSOR = 2;              // 传感器模组 (视觉/力觉/触觉等)
+  WEARABLE = 3;            // 可穿戴设备 (手套/眼镜/外骨骼)
+  POWER = 4;               // 电源配件 (电池/充电底座)
+  MOBILITY = 5;            // 移动平台配件 (底盘/悬挂)
+  COMMUNICATION = 6;       // 通信配件 (UWB/BLE模块)
+  TOOL = 7;                // 工具配件 (3D打印头/激光雕刻)
+}
+
+// ---- 物理接口 ----
+
+enum PhysicalInterface {
+  PHYSICAL_UNKNOWN = 0;
+  CAN_FD = 1;              // CAN-FD 总线
+  RS485 = 2;               // RS-485 串行总线
+  ETHERNET = 3;            // 以太网
+  USB_3 = 4;               // USB 3.0
+  I2C = 5;                 // I2C 总线
+  SPI = 6;                 // SPI 总线
+  BLUETOOTH_LE = 7;        // BLE 无线
+  WIFI_DIRECT = 8;         // WiFi Direct
+  MAGSAFE = 9;             // 磁吸供电+数据接口
+}
+
+// ---- MFQ 认证等级 ----
+
+enum MfqCertLevel {
+  MFQ_LEVEL_UNSPECIFIED = 0;
+  MFQ_BASIC = 1;           // 基础兼容认证
+  MFQ_PREMIUM = 2;         // 深度集成认证
+  MFQ_PRO = 3;             // 专业级认证
+}
+
+// ---- 配件能力声明 (配件→本体，插入时发送) ----
+
+message CapabilityAnnouncement {
+  AccessoryId id = 1;
+  string name = 2;                   // 配件名称
+  string vendor_name = 3;            // 厂商名称
+  string model = 4;                  // 型号
+  string firmware_version = 5;       // 固件版本
+  AccessoryType type = 6;            // 配件类型
+  PhysicalInterface phy_interface = 7; // 物理接口类型
+  string mfq_cert_hash = 8;         // MFQ 证书哈希 (SHA-256)
+  MfqCertLevel mfq_level = 9;       // MFQ 认证等级
+  repeated Capability capabilities = 10; // 能力列表
+  ElectricalSpec electrical = 11;    // 电气规格
+  MechanicalSpec mechanical = 12;    // 机械规格
+}
+
+// ---- 单项能力定义 ----
+
+message Capability {
+  string capability_id = 1;          // 能力唯一ID (如 "grip_force")
+  string name = 2;                   // 人类可读名称
+  string description = 3;            // 功能描述
+  CapabilityType type = 4;           // 能力类型
+  repeated Parameter parameters = 5; // 参数定义
+  string unit = 6;                   // 单位 (N, mm, deg, etc.)
+  float min_value = 7;               // 最小值
+  float max_value = 8;               // 最大值
+  float default_value = 9;           // 默认值
+}
+
+enum CapabilityType {
+  CAP_TYPE_UNSPECIFIED = 0;
+  CAP_ACTUATOR = 1;        // 执行器 (可控制)
+  CAP_SENSOR = 2;          // 传感器 (只读)
+  CAP_CONFIG = 3;          // 配置参数
+  CAP_STREAM = 4;          // 数据流
+}
+
+message Parameter {
+  string key = 1;
+  string value = 2;        // JSON encoded value
+}
+
+// ---- 电气规格 ----
+
+message ElectricalSpec {
+  float nominal_voltage = 1;         // 额定电压 (V)
+  float max_current = 2;             // 最大电流 (A)
+  float peak_power = 3;              // 峰值功率 (W)
+  float standby_power = 4;           // 待机功耗 (W)
+  bool supports_hotplug = 5;         // 是否支持热插拔
+  float max_cable_length_m = 6;      // 最大线缆长度 (m)
+}
+
+// ---- 机械规格 ----
+
+message MechanicalSpec {
+  float weight_kg = 1;               // 重量 (kg)
+  float width_mm = 2;                // 宽度 (mm)
+  float height_mm = 3;               // 高度 (mm)
+  float depth_mm = 4;                // 深度 (mm)
+  string flange_type = 5;            // 法兰类型
+  float max_payload_kg = 6;          // 最大负载 (kg)
+  string material = 7;               // 主体材料
+  string ip_rating = 8;              // 防护等级
+}
+
+// ---- 配件状态上报 (配件→本体，周期性) ----
+
+message StatusReport {
+  AccessoryId id = 1;
+  AccessoryState state = 2;
+  map<string, float> metrics = 3;    // 指标: temperature_C, current_A, position_mm, etc.
+  repeated string active_errors = 4; // 活跃错误列表
+  uint32 uptime_seconds = 5;         // 运行时长
+  uint64 timestamp_ms = 6;           // 时间戳 (ms since epoch)
+  float cpu_usage_percent = 7;       // CPU 使用率
+  float memory_usage_kb = 8;         // 内存使用 (KB)
+}
+
+enum AccessoryState {
+  STATE_UNKNOWN = 0;
+  DISCONNECTED = 1;
+  CONNECTING = 2;
+  CONNECTED = 3;
+  READY = 4;
+  ACTIVE = 5;
+  ERROR = 6;
+  EMERGENCY_STOP = 7;
+  FIRMWARE_UPDATE = 8;
+}
+
+// ---- 控制指令 (本体→配件) ----
+
+message ControlCommand {
+  uint32 sequence_number = 1;        // 指令序列号 (递增)
+  AccessoryId target_id = 2;         // 目标配件ID
+  uint64 timestamp_ms = 3;           // 发送时间戳
+  uint32 timeout_ms = 4;             // 超时时间
+
+  oneof command {
+    GripperCommand gripper = 10;
+    MotorCommand motor = 11;
+    SensorCommand sensor = 12;
+    ToolCommand tool = 13;
+    PowerCommand power = 14;
+    GenericCommand generic = 15;
+  }
+}
+
+// ---- 具体指令类型 ----
+
+message GripperCommand {
+  oneof action {
+    GraspAction grasp = 1;           // 抓取
+    ReleaseAction release = 2;       // 释放
+    MoveAction move = 3;             // 移动到指定位置
+    StopAction stop = 4;             // 停止
+    CalibrateAction calibrate = 5;   // 校准
+  }
+}
+
+message GraspAction {
+  float force_n = 1;                 // 抓取力 (N)
+  float speed_percent = 2;           // 速度百分比 (0-100)
+  float position_mm = 3;             // 目标位置 (mm)，0=自适应
+}
+
+message ReleaseAction {
+  float speed_percent = 1;           // 释放速度百分比
+  float open_position_mm = 2;        // 张开位置 (mm)
+}
+
+message MoveAction {
+  float position_mm = 1;             // 目标位置
+  float speed_percent = 2;           // 移动速度
+  float force_limit_n = 3;           // 力限制
+}
+
+message StopAction {
+  bool emergency = 1;                // 是否紧急停止
+}
+
+message CalibrateAction {
+  CalibrationType type = 1;
+}
+
+enum CalibrationType {
+  CALIB_UNSPECIFIED = 0;
+  CALIB_FULL = 1;                    // 全量校准
+  CALIB_POSITION = 2;                // 位置校准
+  CALIB_FORCE = 3;                   // 力传感器校准
+}
+
+message MotorCommand {
+  float target_velocity_rpm = 1;
+  float target_torque_nm = 2;
+  float acceleration_rpm_s = 3;
+  ControlMode mode = 4;
+}
+
+enum ControlMode {
+  CTRL_MODE_UNSPECIFIED = 0;
+  POSITION = 1;
+  VELOCITY = 2;
+  TORQUE = 3;
+  IMPEDANCE = 4;
+}
+
+message SensorCommand {
+  uint32 sample_rate_hz = 1;         // 采样率
+  bool enable_streaming = 2;         // 启用数据流
+  repeated string active_channels = 3; // 激活通道
+  map<string, string> config = 4;    // 传感器特定配置
+}
+
+message ToolCommand {
+  string tool_type = 1;              // 工具类型
+  map<string, float> parameters = 2; // 工具参数
+}
+
+message PowerCommand {
+  oneof action {
+    PowerModeSwitch mode_switch = 1;
+    ChargeControl charge = 2;
+  }
+}
+
+message PowerModeSwitch {
+  PowerMode mode = 1;
+}
+
+enum PowerMode {
+  POWER_MODE_UNSPECIFIED = 0;
+  NORMAL = 1;
+  LOW_POWER = 2;
+  SLEEP = 3;
+  SHUTDOWN = 4;
+}
+
+message ChargeControl {
+  bool enable_charging = 1;
+  float max_charge_current_a = 2;
+  float target_soc_percent = 3;      // 目标电量百分比
+}
+
+message GenericCommand {
+  string command_name = 1;
+  bytes payload = 2;                 // 自定义二进制负载
+}
+
+// ---- 指令响应 (配件→本体) ----
+
+message CommandResponse {
+  uint32 sequence_number = 1;        // 对应指令序列号
+  ResponseCode code = 2;
+  string message = 3;                // 错误/状态信息
+  map<string, float> result = 4;     // 返回数据
+  uint64 completed_at_ms = 5;        // 完成时间戳
+}
+
+enum ResponseCode {
+  RESP_OK = 0;
+  RESP_INVALID_COMMAND = 1;
+  RESP_TIMEOUT = 2;
+  RESP_OUT_OF_RANGE = 3;
+  RESP_SAFETY_TRIP = 4;
+  RESP_NOT_CALIBRATED = 5;
+  RESP_BUSY = 6;
+  RESP_HARDWARE_FAULT = 7;
+  RESP_NOT_SUPPORTED = 8;
+}
+
+// ---- 配件事件 (配件→本体，异步) ----
+
+message AccessoryEvent {
+  AccessoryId id = 1;
+  EventType type = 2;
+  string description = 3;
+  uint64 timestamp_ms = 4;
+  map<string, string> metadata = 5;
+
+  oneof event_data {
+    ErrorEvent error = 10;
+    WarningEvent warning = 11;
+    StateChangeEvent state_change = 12;
+    ThresholdEvent threshold = 13;
+  }
+}
+
+enum EventType {
+  EVENT_UNSPECIFIED = 0;
+  EVENT_CONNECTED = 1;
+  EVENT_DISCONNECTED = 2;
+  EVENT_ERROR = 3;
+  EVENT_WARNING = 4;
+  EVENT_STATE_CHANGE = 5;
+  EVENT_THRESHOLD = 6;
+  EVENT_HEARTBEAT = 7;
+  EVENT_FW_UPDATE_AVAILABLE = 8;
+}
+
+message ErrorEvent {
+  uint32 error_code = 1;
+  string error_message = 2;
+  ErrorSeverity severity = 3;
+  bool requires_reset = 4;
+}
+
+enum ErrorSeverity {
+  SEVERITY_UNSPECIFIED = 0;
+  INFO = 1;
+  WARNING = 2;
+  CRITICAL = 3;
+  FATAL = 4;
+}
+
+message WarningEvent {
+  uint32 warning_code = 1;
+  string warning_message = 2;
+  float threshold_value = 3;
+  float current_value = 4;
+}
+
+message StateChangeEvent {
+  AccessoryState previous_state = 1;
+  AccessoryState new_state = 2;
+  string reason = 3;
+}
+
+message ThresholdEvent {
+  string metric_name = 1;
+  float threshold = 2;
+  float current_value = 3;
+  ThresholdDirection direction = 4;
+}
+
+enum ThresholdDirection {
+  THRESH_UNSPECIFIED = 0;
+  ABOVE = 1;
+  BELOW = 2;
+}
+
+// ---- 配件发现服务 ----
+
+message DiscoveryRequest {
+  PhysicalInterface interface_type = 1; // 在哪个总线上扫描
+  uint32 timeout_ms = 2;                // 扫描超时
+}
+
+message DiscoveryResponse {
+  repeated CapabilityAnnouncement accessories = 1;
+  uint32 scan_duration_ms = 2;
+  uint32 found_count = 3;
+}

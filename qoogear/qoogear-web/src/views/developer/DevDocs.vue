@@ -1,0 +1,2 @@
+<template><div><h2>开发文档</h2><el-card><el-tree :data="docs" node-key="id" default-expand-all><template #default="{ data }"><span>{{ data.label }}</span></template></el-tree></el-card></div></template>
+<script setup lang="ts">const docs=[{id:'1',label:'快速入门',children:[{id:'1-1',label:'环境搭建'},{id:'1-2',label:'第一个配件驱动'},{id:'1-3',label:'运行认证自检'}]},{id:'2',label:'配件开发',children:[{id:'2-1',label:'末端执行器开发'},{id:'2-2',label:'传感器模组开发'},{id:'2-3',label:'电源配件开发'}]},{id:'3',label:'认证指南',children:[{id:'3-1',label:'MFQ认证流程'},{id:'3-2',label:'认证自查清单'},{id:'3-3',label:'常见问题'}]}]</script>
