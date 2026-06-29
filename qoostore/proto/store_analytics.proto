@@ -1,0 +1,219 @@
+// qoostore — 分析数据 Protobuf 定义
+// 版本：v0.1 | 跨端共享协议
+syntax = "proto3";
+
+package qoostore;
+
+option java_package = "com.qoobot.qoostore.proto";
+option java_multiple_files = true;
+
+import "store_skill.proto";
+import "store_order.proto";
+
+// ── 时间粒度 ──
+enum TimeGranularity {
+  GRANULARITY_HOURLY = 0;
+  GRANULARITY_DAILY = 1;
+  GRANULARITY_WEEKLY = 2;
+  GRANULARITY_MONTHLY = 3;
+}
+
+// ── 开发者仪表板 ──
+message DeveloperDashboard {
+  string developer_id = 1;
+  int64 period_start = 2;         // 统计周期开始
+  int64 period_end = 3;           // 统计周期结束
+
+  // 下载数据
+  int64 total_downloads = 4;
+  int64 new_downloads = 5;        // 本期新增
+  double download_growth = 6;     // 增长率
+
+  // 收入数据
+  double total_revenue = 7;
+  double period_revenue = 8;      // 本期收入
+  double revenue_growth = 9;      // 收入增长率
+
+  // 用户数据
+  int64 active_users = 10;
+  int64 new_users = 11;
+  double user_growth = 12;
+
+  // 质量数据
+  double avg_rating = 13;
+  int64 review_count = 14;
+  double crash_rate = 15;         // 崩溃率 (0.0 - 1.0)
+  double crash_rate_change = 16;  // 崩溃率变化
+
+  // 趋势数据
+  repeated DataPoint downloads_trend = 17;
+  repeated DataPoint revenue_trend = 18;
+  repeated DataPoint active_users_trend = 19;
+  repeated DataPoint crash_rate_trend = 20;
+}
+
+// ── 数据点 ──
+message DataPoint {
+  int64 timestamp = 1;            // epoch millis
+  double value = 2;
+  string label = 3;               // 可读标签
+}
+
+// ── 平台运营总览 ──
+message PlatformOverview {
+  // 商店数据
+  int64 total_skills = 1;
+  int64 published_skills = 2;
+  int64 pending_reviews = 3;
+
+  // 开发者数据
+  int64 total_developers = 4;
+  int64 active_developers = 5;
+
+  // 用户数据
+  int64 total_users = 6;
+  int64 active_users = 7;
+  int64 new_users_today = 8;
+
+  // 交易数据
+  double total_revenue = 9;
+  double today_revenue = 10;
+  int64 total_orders = 11;
+  int64 today_orders = 12;
+  double payment_success_rate = 13; // 支付成功率
+
+  // 趋势
+  repeated DataPoint revenue_trend = 14;
+  repeated DataPoint orders_trend = 15;
+  repeated DataPoint new_skills_trend = 16;
+}
+
+// ── 转化漏斗 ──
+message ConversionFunnel {
+  int64 period_start = 1;
+  int64 period_end = 2;
+
+  int64 store_visits = 3;         // 商店访问量
+  int64 skill_views = 4;          // 技能详情页浏览
+  int64 add_to_cart = 5;          // 加入购物车/开始购买
+  int64 orders_created = 6;       // 创建订单
+  int64 orders_paid = 7;          // 支付成功
+  int64 installs = 8;             // 完成安装
+
+  // 转化率
+  double view_rate = 9;           // 浏览率 (skill_views / store_visits)
+  double cart_rate = 10;          // 购物车率
+  double payment_rate = 11;       // 支付成功率
+  double install_rate = 12;       // 安装完成率
+
+  repeated DataPoint daily_funnel = 13; // 每日漏斗
+}
+
+// ── 趋势洞察 ──
+message TrendInsight {
+  message TrendingCategory {
+    SkillCategory category = 1;
+    int64 skill_count = 2;
+    int64 download_growth = 3;     // 下载增长
+    double revenue_growth = 4;     // 收入增长
+    repeated string hot_tags = 5;  // 热门标签
+  }
+
+  message TrendingSearch {
+    string query = 1;
+    int64 search_count = 2;
+    double growth = 3;             // 搜索量增长
+  }
+
+  repeated TrendingCategory categories = 1;
+  repeated TrendingSearch top_searches = 2;
+  repeated Skill top_new_skills = 3;       // 新品飙升
+  repeated Skill top_growing_skills = 4;   // 增长最快
+  int64 period_start = 5;
+  int64 period_end = 6;
+}
+
+// ── 排行榜 ──
+message RankingBoard {
+  string board_type = 1;          // free/paid/top_grossing/new
+  string category_slug = 2;       // 分类过滤 (all 表示全部)
+  repeated RankingEntry entries = 3;
+  int64 generated_at = 4;         // 生成时间
+}
+
+// ── 技能分析详情 ──
+message SkillAnalytics {
+  string skill_id = 1;
+  int64 period_start = 2;
+  int64 period_end = 3;
+
+  // 安装漏斗
+  int64 page_views = 4;
+  int64 install_starts = 5;
+  int64 install_completes = 6;
+  double install_conversion_rate = 7;
+
+  // 使用数据
+  int64 total_sessions = 8;
+  int64 avg_session_duration_sec = 9;
+  double avg_cpu_usage = 10;
+  double avg_memory_mb = 11;
+
+  // 版本分布
+  message VersionDistribution {
+    string version = 1;
+    int64 user_count = 2;
+    double percentage = 3;
+  }
+  repeated VersionDistribution version_distribution = 12;
+
+  // 评价分析
+  double avg_rating = 13;
+  int64 review_count = 14;
+  map<int32, int64> rating_distribution = 15; // 星级 -> 数量
+
+  // 趋势
+  repeated DataPoint installs_trend = 16;
+  repeated DataPoint sessions_trend = 17;
+  repeated DataPoint rating_trend = 18;
+}
+
+// ── A/B 测试配置 ──
+message ABTestConfig {
+  string test_id = 1;
+  string skill_id = 2;
+  string name = 3;                // 测试名称
+  string description = 4;
+  string target_metric = 5;       // 目标指标 (conversion/engagement)
+
+  message Variant {
+    string variant_id = 1;
+    string name = 2;
+    int32 traffic_percent = 3;    // 流量百分比
+    map<string, string> params = 4; // 变体参数
+  }
+  repeated Variant variants = 6;
+
+  string status = 7;              // draft/running/completed
+  int64 start_time = 8;
+  int64 end_time = 9;
+}
+
+// ── A/B 测试结果 ──
+message ABTestResult {
+  string test_id = 1;
+  string skill_id = 2;
+
+  message VariantResult {
+    string variant_id = 1;
+    int64 impressions = 2;        // 曝光量
+    int64 conversions = 3;        // 转化量
+    double conversion_rate = 4;   // 转化率
+    double confidence = 5;        // 置信度
+    bool is_winner = 6;           // 是否胜出
+  }
+  repeated VariantResult results = 3;
+
+  string recommendation = 4;      // 推荐结论
+  int64 generated_at = 5;
+}

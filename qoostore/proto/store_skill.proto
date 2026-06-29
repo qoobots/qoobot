@@ -1,0 +1,158 @@
+// qoostore — 技能元数据 Protobuf 定义
+// 版本：v0.1 | 跨端共享协议（云端 + 机器人端）
+syntax = "proto3";
+
+package qoostore;
+
+option java_package = "com.qoobot.qoostore.proto";
+option java_multiple_files = true;
+
+// ── 技能状态 ──
+enum SkillStatus {
+  SKILL_DRAFT = 0;       // 草稿
+  SKILL_PUBLISHED = 1;   // 已发布
+  SKILL_SUSPENDED = 2;   // 已暂停
+  SKILL_REMOVED = 3;     // 已下架
+}
+
+// ── 定价模型 ──
+enum PricingModel {
+  PRICING_FREE = 0;           // 免费
+  PRICING_ONE_TIME = 1;       // 一次性购买
+  PRICING_SUBSCRIPTION = 2;   // 订阅制
+  PRICING_USAGE_BASED = 3;    // 按使用付费
+}
+
+// ── 权限级别 ──
+enum PermissionLevel {
+  PERMISSION_NORMAL = 0;     // 自动授予
+  PERMISSION_DANGEROUS = 1;  // 需用户确认
+  PERMISSION_SIGNATURE = 2;  // 仅系统签名技能
+}
+
+// ── 沙箱级别 ──
+enum SandboxLevel {
+  SANDBOX_UNRESTRICTED = 0;  // 出厂技能
+  SANDBOX_RESTRICTED = 1;    // 第三方默认
+  SANDBOX_ISOLATED = 2;      // 高隔离
+}
+
+// ── 技能类别 ──
+enum SkillCategory {
+  CATEGORY_UNSPECIFIED = 0;
+  CATEGORY_HOME = 1;        // 家庭
+  CATEGORY_INDUSTRIAL = 2;  // 工业
+  CATEGORY_MEDICAL = 3;     // 医疗
+  CATEGORY_RETAIL = 4;      // 零售
+  CATEGORY_AGRICULTURE = 5; // 农业
+  CATEGORY_ENTERTAINMENT = 6; // 娱乐
+  CATEGORY_EDUCATION = 7;   // 教育
+  CATEGORY_SECURITY = 8;    // 安防
+  CATEGORY_COMPANION = 9;   // 陪伴
+}
+
+// ── 技能清单 (manifest) ──
+message SkillManifest {
+  string skill_id = 1;            // com.example.cleaning
+  string name = 2;                // 技能名称
+  string version = 3;             // 语义版本 1.2.3
+  string min_qos_version = 4;     // 最低 QOS 版本
+  SkillCategory category = 5;     // 技能分类
+  string entry_point = 6;         // 入口文件
+  string runtime = 7;             // 运行时 python3.11 / node20
+  repeated string permissions = 8; // 权限声明数组
+  SandboxLevel sandbox_level = 9; // 沙箱级别
+  int32 max_memory_mb = 10;       // 最大内存 (MB)，默认 512
+  int32 max_cpu_percent = 11;     // 最大 CPU 百分比，默认 30
+  repeated string supported_models = 12; // 支持机器人型号 QS/QL/QP
+  string description = 13;        // 功能描述
+  string author = 14;             // 作者
+  string license_type = 15;       // 许可类型
+  map<string, string> metadata = 16; // 扩展元数据
+}
+
+// ── 技能详情 ──
+message Skill {
+  string skill_id = 1;
+  string name = 2;
+  string developer_id = 3;        // 开发者 ID
+  string developer_name = 4;      // 开发者名称
+  SkillCategory category = 5;
+  string tagline = 6;             // 一句话简介
+  string description = 7;         // 详细描述
+  string icon_url = 8;            // 图标 URL
+  repeated string screenshot_urls = 9; // 截图 URL 列表
+  string video_url = 10;          // 演示视频 URL
+  SkillStatus status = 11;
+  PricingModel pricing_model = 12;
+  double price = 13;              // 价格
+  string currency = 14;           // 币种
+  int32 trial_days = 15;          // 试用天数
+  double avg_rating = 16;         // 平均评分
+  int64 review_count = 17;        // 评价数量
+  int64 download_count = 18;      // 下载量
+  string latest_version = 19;     // 最新版本号
+  int64 created_at = 20;          // 创建时间 (epoch millis)
+  int64 published_at = 21;        // 发布时间 (epoch millis)
+  string privacy_level = 22;      // 隐私标签等级
+  repeated string tags = 23;      // 标签列表
+}
+
+// ── 技能版本 ──
+message SkillVersion {
+  string version_id = 1;
+  string skill_id = 2;
+  string version = 3;             // 语义版本
+  string changelog = 4;           // 更新日志
+  string package_url = 5;         // 技能包下载 URL
+  int64 package_size = 6;         // 包大小 (字节)
+  string package_hash = 7;        // SHA-256
+  string min_qos_version = 8;     // 最低 QOS 版本
+  repeated string permissions = 9; // 权限声明
+  string status = 10;             // pending/reviewing/approved/rejected
+  int64 created_at = 11;          // 创建时间
+  SkillManifest manifest = 12;    // 清单内容
+}
+
+// ── 技能评价 ──
+message SkillReview {
+  string review_id = 1;
+  string skill_id = 2;
+  string user_id = 3;
+  string user_name = 4;
+  int32 rating = 5;               // 1-5 星
+  string title = 6;
+  string content = 7;
+  int32 helpful_count = 8;
+  string status = 9;              // published/hidden/removed
+  int64 created_at = 10;
+}
+
+// ── 分类 ──
+message Category {
+  int64 category_id = 1;
+  string name = 2;
+  string slug = 3;
+  string description = 4;
+  string icon = 5;
+  int64 parent_id = 6;
+  int32 sort_order = 7;
+  repeated Category children = 8;  // 子分类
+}
+
+// ── 搜索结果 ──
+message SkillSearchResult {
+  repeated Skill skills = 1;
+  int64 total_count = 2;
+  int32 page = 3;
+  int32 page_size = 4;
+  repeated string suggestions = 5; // 搜索建议
+}
+
+// ── 技能排行条目 ──
+message RankingEntry {
+  int32 rank = 1;
+  Skill skill = 2;
+  int64 score = 3;                // 排行分数
+  string change = 4;              // 排名变化 up/down/new/same
+}

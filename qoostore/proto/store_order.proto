@@ -1,0 +1,157 @@
+// qoostore — 订单与支付 Protobuf 定义
+// 版本：v0.1 | 跨端共享协议
+syntax = "proto3";
+
+package qoostore;
+
+option java_package = "com.qoobot.qoostore.proto";
+option java_multiple_files = true;
+
+// ── 订单状态 ──
+enum OrderStatus {
+  ORDER_PENDING = 0;      // 待支付
+  ORDER_PAID = 1;         // 已支付
+  ORDER_COMPLETED = 2;    // 已完成
+  ORDER_REFUNDED = 3;     // 已退款
+  ORDER_CANCELLED = 4;    // 已取消
+  ORDER_FAILED = 5;       // 支付失败
+}
+
+// ── 支付方式 ──
+enum PaymentMethod {
+  PAYMENT_UNSPECIFIED = 0;
+  PAYMENT_STRIPE = 1;       // 国际信用卡
+  PAYMENT_ALIPAY = 2;       // 支付宝
+  PAYMENT_WECHAT = 3;       // 微信支付
+  PAYMENT_APPLE_PAY = 4;    // Apple Pay
+  PAYMENT_GOOGLE_PAY = 5;   // Google Pay
+}
+
+// ── License 类型 ──
+enum LicenseType {
+  LICENSE_PERPETUAL = 0;    // 永久
+  LICENSE_SUBSCRIPTION = 1; // 订阅
+  LICENSE_TRIAL = 2;        // 试用
+}
+
+// ── License 状态 ──
+enum LicenseStatus {
+  LICENSE_ACTIVE = 0;       // 有效
+  LICENSE_EXPIRED = 1;      // 已过期
+  LICENSE_REVOKED = 2;      // 已撤销
+}
+
+// ── 分成状态 ──
+enum PayoutStatus {
+  PAYOUT_PENDING = 0;       // 待处理
+  PAYOUT_PROCESSING = 1;    // 处理中
+  PAYOUT_COMPLETED = 2;     // 已完成
+  PAYOUT_FAILED = 3;        // 失败
+}
+
+// ── 订单 ──
+message Order {
+  string order_id = 1;
+  string order_no = 2;            // 订单号
+  string user_id = 3;             // 用户 ID
+  string skill_id = 4;            // 技能 ID
+  string skill_name = 5;          // 技能名称
+  string version_id = 6;          // 版本 ID
+  double amount = 7;              // 原始金额
+  string currency = 8;            // 币种
+  double discount_amount = 9;     // 折扣金额
+  double tax_amount = 10;         // 税额
+  double total_amount = 11;       // 实付金额
+  OrderStatus status = 12;
+  PaymentMethod payment_method = 13;
+  string payment_id = 14;         // 支付网关交易 ID
+  string coupon_code = 15;        // 优惠券码
+  int64 paid_at = 16;             // 支付时间 (epoch millis)
+  int64 completed_at = 17;        // 完成时间
+  int64 created_at = 18;          // 创建时间
+}
+
+// ── 订单创建请求 ──
+message CreateOrderRequest {
+  string skill_id = 1;
+  string version_id = 2;          // 可选，默认最新版本
+  string coupon_code = 3;         // 可选优惠券
+  PaymentMethod payment_method = 4;
+  string device_id = 5;           // 目标机器人设备 ID
+}
+
+// ── 支付回调 ──
+message PaymentCallback {
+  string order_id = 1;
+  string transaction_id = 2;      // 支付网关交易 ID
+  string status = 3;              // success/failure
+  double amount = 4;
+  string currency = 5;
+  int64 paid_at = 6;              // 支付时间 (epoch millis)
+  string signature = 7;           // 支付平台签名
+  map<string, string> metadata = 8;
+}
+
+// ── License ──
+message License {
+  string license_id = 1;
+  string user_id = 2;
+  string skill_id = 3;
+  string version_id = 4;
+  string order_id = 5;
+  string device_id = 6;           // 绑定的机器人设备 ID
+  string license_key = 7;         // 许可证密钥
+  LicenseType type = 8;
+  LicenseStatus status = 9;
+  int64 starts_at = 10;           // 生效时间
+  int64 expires_at = 11;          // 过期时间 (0 = 永久)
+  int64 created_at = 12;
+}
+
+// ── 购买历史 ──
+message PurchaseHistory {
+  repeated Order orders = 1;
+  int64 total_count = 2;
+  int32 page = 3;
+  int32 page_size = 4;
+}
+
+// ── 开发者收益 ──
+message DeveloperRevenue {
+  string revenue_id = 1;
+  string developer_id = 2;
+  string order_id = 3;
+  string skill_id = 4;
+  double gross_amount = 5;        // 用户支付金额
+  double platform_fee = 6;        // 平台分成
+  double developer_share = 7;     // 开发者分成
+  double share_rate = 8;          // 分成比例 (0.70 = 70%)
+  string currency = 9;
+  int64 created_at = 10;
+}
+
+// ── 开发者结算 ──
+message DeveloperPayout {
+  string payout_id = 1;
+  string developer_id = 2;
+  double amount = 3;
+  string currency = 4;
+  string period_start = 5;        // 结算周期开始 (YYYY-MM-DD)
+  string period_end = 6;          // 结算周期结束 (YYYY-MM-DD)
+  PayoutStatus status = 7;
+  string payout_method = 8;       // stripe/alipay/bank
+  string transaction_id = 9;      // 打款交易 ID
+  int64 paid_at = 10;             // 打款时间
+  int64 created_at = 11;
+}
+
+// ── 收益汇总 ──
+message RevenueSummary {
+  string developer_id = 1;
+  double total_revenue = 2;       // 总收入
+  double available_balance = 3;   // 可提现余额
+  double pending_balance = 4;     // 待结算余额
+  double last_payout_amount = 5;  // 上次结算金额
+  int64 last_payout_at = 6;       // 上次结算时间
+  string currency = 7;
+}

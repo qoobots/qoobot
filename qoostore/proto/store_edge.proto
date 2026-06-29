@@ -1,0 +1,195 @@
+// qoostore — 端侧同步协议 Protobuf 定义
+// 版本：v0.1 | 跨端通信协议（云端 ↔ 机器人端）
+syntax = "proto3";
+
+package qoostore;
+
+option java_package = "com.qoobot.qoostore.proto";
+option java_multiple_files = true;
+
+import "store_skill.proto";
+import "store_order.proto";
+
+// ── 安装状态 ──
+enum InstallStatus {
+  INSTALL_INSTALLING = 0;   // 安装中
+  INSTALL_ACTIVE = 1;       // 已激活
+  INSTALL_UPDATING = 2;     // 更新中
+  INSTALL_UNINSTALLING = 3; // 卸载中
+  INSTALL_REMOVED = 4;      // 已移除
+  INSTALL_DISABLED = 5;     // 已禁用
+  INSTALL_ERROR = 6;        // 错误
+}
+
+// ── 更新类型 ──
+enum UpdateType {
+  UPDATE_FULL = 0;          // 全量更新
+  UPDATE_DELTA = 1;         // 增量更新
+}
+
+// ── 安装请求 ──
+message InstallRequest {
+  string robot_id = 1;          // 机器人设备 ID
+  string skill_id = 2;          // 技能 ID
+  string version = 3;           // 版本号（可选，默认最新）
+  string license_key = 4;       // 许可证密钥
+  string download_url = 5;      // 技能包下载 URL (CDN)
+  string package_hash = 6;      // SHA-256 哈希
+  int64 package_size = 7;       // 包大小 (字节)
+}
+
+// ── 安装响应 ──
+message InstallResponse {
+  string skill_id = 1;
+  InstallStatus status = 2;
+  string message = 3;           // 状态消息
+  string install_path = 4;      // 安装路径
+  int64 started_at = 5;         // 开始时间
+  int64 completed_at = 6;       // 完成时间
+}
+
+// ── 卸载请求 ──
+message UninstallRequest {
+  string robot_id = 1;
+  string skill_id = 2;
+  bool keep_data = 3;           // 是否保留用户数据
+}
+
+// ── 更新请求 ──
+message UpdateRequest {
+  string robot_id = 1;
+  string skill_id = 2;
+  string target_version = 3;    // 目标版本
+  UpdateType update_type = 4;   // 全量/增量
+  string download_url = 5;      // CDN 下载 URL
+  string package_hash = 6;      // SHA-256
+  int64 package_size = 7;       // 包大小
+}
+
+// ── 更新检查请求 ──
+message CheckUpdateRequest {
+  string robot_id = 1;
+  repeated string skill_ids = 2; // 要检查的技能 ID 列表
+}
+
+// ── 更新检查响应 ──
+message CheckUpdateResponse {
+  message SkillUpdate {
+    string skill_id = 1;
+    string current_version = 2;
+    string latest_version = 3;
+    bool has_update = 4;
+    string changelog = 5;
+    UpdateType update_type = 6;
+    int64 package_size = 7;
+    string download_url = 8;
+    string package_hash = 9;
+    bool is_mandatory = 10;     // 是否强制更新
+  }
+  repeated SkillUpdate updates = 1;
+}
+
+// ── 设备技能 ──
+message DeviceSkill {
+  string skill_id = 1;
+  string skill_name = 2;
+  string version = 3;
+  InstallStatus status = 4;
+  string license_key = 5;
+  string install_path = 6;
+  int64 installed_at = 7;
+  int64 updated_at = 8;
+}
+
+// ── 设备技能列表 ──
+message DeviceSkillList {
+  string robot_id = 1;
+  repeated DeviceSkill skills = 2;
+  int64 total_size_mb = 3;      // 已用存储 (MB)
+  int64 storage_limit_mb = 4;   // 存储上限 (MB)
+}
+
+// ── 使用统计上报 ──
+message SkillStatsReport {
+  string robot_id = 1;
+  string skill_id = 2;
+  string version = 3;
+  int64 session_start = 4;      // 会话开始时间 (epoch millis)
+  int64 session_end = 5;        // 会话结束时间
+  int32 duration_seconds = 6;   // 使用时长 (秒)
+  double avg_cpu_percent = 7;   // 平均 CPU 使用率
+  double avg_memory_mb = 8;     // 平均内存使用 (MB)
+  int64 network_rx_bytes = 9;   // 网络接收字节
+  int64 network_tx_bytes = 10;  // 网络发送字节
+  int32 error_count = 11;       // 错误次数
+  string robot_model = 12;      // 机器人型号
+  string qos_version = 13;      // QOS 版本
+}
+
+// ── 崩溃报告 ──
+message CrashReport {
+  string robot_id = 1;
+  string skill_id = 2;
+  string version = 3;
+  int32 signal = 4;             // 崩溃信号
+  string backtrace = 5;         // 堆栈回溯
+  string error_message = 6;     // 错误信息
+  int64 crashed_at = 7;         // 崩溃时间 (epoch millis)
+  string robot_model = 8;
+  string qos_version = 9;
+  map<string, string> context = 10; // 崩溃上下文
+}
+
+// ── 统计上报批量 ──
+message StatsReportBatch {
+  string robot_id = 1;
+  repeated SkillStatsReport stats = 2;
+  repeated CrashReport crashes = 3;
+  int64 report_time = 4;        // 上报时间
+}
+
+// ── 沙箱事件 ──
+message SandboxEvent {
+  enum EventType {
+    UNKNOWN = 0;
+    SANDBOX_CREATED = 1;       // 沙箱创建
+    SANDBOX_DESTROYED = 2;     // 沙箱销毁
+    RESOURCE_THRESHOLD = 3;    // 资源阈值告警
+    SECURITY_VIOLATION = 4;    // 安全违规
+    SKILL_TERMINATED = 5;      // 技能被终止
+  }
+  string robot_id = 1;
+  string skill_id = 2;
+  string version = 3;
+  EventType event_type = 4;
+  string message = 5;
+  map<string, string> details = 6;
+  int64 timestamp = 7;
+}
+
+// ── gRPC 服务定义 ──
+service EdgeStoreService {
+  // 技能安装
+  rpc Install(InstallRequest) returns (InstallResponse);
+  
+  // 技能卸载
+  rpc Uninstall(UninstallRequest) returns (InstallResponse);
+  
+  // 技能更新
+  rpc Update(UpdateRequest) returns (InstallResponse);
+  
+  // 列出已安装技能
+  rpc ListInstalled(CheckUpdateRequest) returns (DeviceSkillList);
+  
+  // 检查更新
+  rpc CheckUpdates(CheckUpdateRequest) returns (CheckUpdateResponse);
+  
+  // 获取技能状态
+  rpc GetSkillStatus(InstallRequest) returns (InstallResponse);
+  
+  // 上报使用统计 (stream)
+  rpc ReportStats(stream StatsReportBatch) returns (InstallResponse);
+  
+  // 上报沙箱事件 (stream)
+  rpc ReportSandboxEvents(stream SandboxEvent) returns (InstallResponse);
+}
