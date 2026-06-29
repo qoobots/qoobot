@@ -1,0 +1,82 @@
+# ===== Java / Maven =====
+target/
+!.mvn/wrapper/maven-wrapper.jar
+*.class
+*.jar
+*.war
+*.ear
+*.log
+
+# ===== IDE =====
+.idea/
+*.iml
+*.iws
+*.ipr
+.vscode/
+.settings/
+.project
+.classpath
+.factorypath
+.springBeans
+
+# ===== OS =====
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# ===== Build =====
+build/
+out/
+dist/
+*.tgz
+*.tar.gz
+
+# ===== Python (qoochain-cli) =====
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.eggs/
+dist/
+*.egg
+.venv/
+venv/
+
+# ===== Node.js (qoochain-web) =====
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.tsbuildinfo
+.vite/
+
+# ===== Environment =====
+.env
+.env.local
+.env.*.local
+*.local
+
+# ===== Docker =====
+docker-compose.override.yml
+
+# ===== Coverage =====
+jacoco.exec
+coverage/
+*.cover
+*.py,cover
+.coverage*
+htmlcov/
+
+# ===== Logs =====
+logs/
+*.log
+*.log.*
+
+# ===== MinIO data =====
+minio-data/
+
+# ===== Temporary =====
+*.tmp
+*.bak
+*.swp
+*~

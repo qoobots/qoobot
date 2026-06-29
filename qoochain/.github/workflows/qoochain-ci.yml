@@ -1,0 +1,165 @@
+name: QooChain CI
+
+on:
+  push:
+    branches: [main, develop]
+    paths:
+      - 'qoochain/**'
+      - '.github/workflows/qoochain-ci.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'qoochain/**'
+
+defaults:
+  run:
+    working-directory: qoochain/qoochain-cloud
+
+jobs:
+  # ============================================================
+  # 1. 代码风格检查
+  # ============================================================
+  checkstyle:
+    name: CheckStyle
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: editorconfig-checker
+        uses: editorconfig-checker/action-editorconfig-checker@main
+
+      - name: Maven Validate
+        run: mvn validate -B
+
+  # ============================================================
+  # 2. 编译与单元测试
+  # ============================================================
+  build-and-test:
+    name: Build & Unit Tests
+    needs: checkstyle
+    runs-on: ubuntu-24.04
+    services:
+      postgres:
+        image: postgres:15-alpine
+        env:
+          POSTGRES_DB: qoochain_test
+          POSTGRES_USER: qoochain
+          POSTGRES_PASSWORD: qoochain_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U qoochain"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Build & Test
+        run: mvn clean verify -B
+        env:
+          SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5432/qoochain_test
+          SPRING_DATASOURCE_USERNAME: qoochain
+          SPRING_DATASOURCE_PASSWORD: qoochain_test
+
+      - name: Upload Test Results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: |
+            qoochain/qoochain-cloud/**/target/surefire-reports/
+            qoochain/qoochain-cloud/**/target/failsafe-reports/
+
+  # ============================================================
+  # 3. Docker Compose 集成测试
+  # ============================================================
+  integration-test:
+    name: Integration Tests
+    needs: build-and-test
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Build JARs (skip tests)
+        run: mvn clean package -DskipTests -B -q
+
+      - name: Setup Docker Compose CI
+        run: |
+          cp ../../docker-compose.ci.yml ../../
+          docker compose -f ../../docker-compose.ci.yml up -d --wait
+
+      - name: Smoke Test — Gateway Health
+        run: |
+          for i in $(seq 1 30); do
+            if curl -sf http://localhost:8080/actuator/health > /dev/null 2>&1; then
+              echo "Gateway healthy!"
+              exit 0
+            fi
+            echo "Waiting for gateway... ($i/30)"
+            sleep 2
+          done
+          echo "Gateway did not become healthy"
+          docker compose -f ../../docker-compose.ci.yml logs
+          exit 1
+
+      - name: Smoke Test — Services Health
+        run: |
+          chmod +x ../../scripts/ci/smoke_test.sh
+          ../../scripts/ci/smoke_test.sh
+
+      - name: Docker Compose Logs (on failure)
+        if: failure()
+        run: docker compose -f ../../docker-compose.ci.yml logs
+
+      - name: Tear Down
+        if: always()
+        run: docker compose -f ../../docker-compose.ci.yml down -v
+
+  # ============================================================
+  # 4. CI 汇总
+  # ============================================================
+  ci-summary:
+    name: CI Summary
+    needs: [checkstyle, build-and-test, integration-test]
+    runs-on: ubuntu-24.04
+    if: always()
+    steps:
+      - name: Check Results
+        run: |
+          echo "## QooChain CI Pipeline Summary" >> $GITHUB_STEP_SUMMARY
+          echo "| Job | Status |" >> $GITHUB_STEP_SUMMARY
+          echo "|-----|--------|" >> $GITHUB_STEP_SUMMARY
+          echo "| checkstyle | ${{ needs.checkstyle.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| build-and-test | ${{ needs.build-and-test.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| integration-test | ${{ needs.integration-test.result }} |" >> $GITHUB_STEP_SUMMARY
+
+          if [[ "${{ needs.checkstyle.result }}" != "success" ]] || \
+             [[ "${{ needs.build-and-test.result }}" != "success" ]] || \
+             [[ "${{ needs.integration-test.result }}" != "success" ]]; then
+            echo "❌ CI Pipeline Failed"
+            exit 1
+          fi
+          echo "✅ CI Pipeline Passed"

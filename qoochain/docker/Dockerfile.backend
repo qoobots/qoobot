@@ -1,0 +1,72 @@
+# ============================================================
+# QooChain Backend — 多模块 Spring Boot JAR 构建与运行镜像
+# 构建: docker build -f docker/Dockerfile.backend -t qoochain-backend .
+# 运行: docker run -p 8081-8087:8081-8087 --network qoochain-net qoochain-backend
+# ============================================================
+
+# --- Stage 1: Maven 编译 ---
+FROM maven:3.9-eclipse-temurin-17-alpine AS builder
+
+WORKDIR /workspace
+
+# 先复制 POM 层级（利用 Docker 层缓存加速依赖下载）
+COPY qoochain-cloud/pom.xml .
+COPY qoochain-cloud/qoochain-common/pom.xml    qoochain-common/
+COPY qoochain-cloud/qoochain-gateway/pom.xml   qoochain-gateway/
+COPY qoochain-cloud/qoochain-bom/pom.xml       qoochain-bom/
+COPY qoochain-cloud/qoochain-line/pom.xml      qoochain-line/
+COPY qoochain-cloud/qoochain-calibration/pom.xml qoochain-calibration/
+COPY qoochain-cloud/qoochain-quality/pom.xml   qoochain-quality/
+COPY qoochain-cloud/qoochain-trace/pom.xml     qoochain-trace/
+COPY qoochain-cloud/qoochain-logistics/pom.xml qoochain-logistics/
+COPY qoochain-cloud/qoochain-aftermarket/pom.xml qoochain-aftermarket/
+
+# 下载依赖（这会创建 layer cache）
+RUN mvn dependency:go-offline -B -q
+
+# 复制源码
+COPY qoochain-cloud/ .
+
+# 编译打包（跳过测试以加快 CI 构建）
+RUN mvn clean package -DskipTests -B -q
+
+# --- Stage 2: 运行时镜像 ---
+FROM eclipse-temurin:17-jre-alpine AS runtime
+
+# 安全加固：创建非 root 用户
+RUN addgroup -S qoochain && adduser -S qoochain -G qoochain
+
+WORKDIR /app
+
+# 各模块 JAR 复制（从 builder stage）
+COPY --from=builder --chown=qoochain:qoochain \
+    /workspace/qoochain-gateway/target/qoochain-gateway-*.jar \
+    gateway.jar
+COPY --from=builder --chown=qoochain:qoochain \
+    /workspace/qoochain-bom/target/qoochain-bom-*.jar \
+    bom.jar
+COPY --from=builder --chown=qoochain:qoochain \
+    /workspace/qoochain-line/target/qoochain-line-*.jar \
+    line.jar
+COPY --from=builder --chown=qoochain:qoochain \
+    /workspace/qoochain-calibration/target/qoochain-calibration-*.jar \
+    calibration.jar
+COPY --from=builder --chown=qoochain:qoochain \
+    /workspace/qoochain-quality/target/qoochain-quality-*.jar \
+    quality.jar
+COPY --from=builder --chown=qoochain:qoochain \
+    /workspace/qoochain-trace/target/qoochain-trace-*.jar \
+    trace.jar
+COPY --from=builder --chown=qoochain:qoochain \
+    /workspace/qoochain-logistics/target/qoochain-logistics-*.jar \
+    logistics.jar
+COPY --from=builder --chown=qoochain:qoochain \
+    /workspace/qoochain-aftermarket/target/qoochain-aftermarket-*.jar \
+    aftermarket.jar
+
+USER qoochain
+
+EXPOSE 8081 8082 8083 8084 8085 8086 8087
+
+# 默认启动 gateway（若单独部署某服务可通过 CMD 覆盖）
+CMD ["java", "-jar", "gateway.jar"]

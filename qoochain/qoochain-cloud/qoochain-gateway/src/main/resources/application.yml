@@ -1,0 +1,83 @@
+spring:
+  application:
+    name: qoochain-gateway
+  cloud:
+    nacos:
+      discovery:
+        server-addr: ${NACOS_ADDR:localhost:8848}
+        namespace: ${NACOS_NAMESPACE:}
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+      routes:
+        # BOM 服务
+        - id: qoochain-bom
+          uri: lb://qoochain-bom
+          predicates:
+            - Path=/api/bom/**
+          filters:
+            - StripPrefix=0
+        # 产线设计服务
+        - id: qoochain-line
+          uri: lb://qoochain-line
+          predicates:
+            - Path=/api/line/**
+          filters:
+            - StripPrefix=0
+        # 出厂标定服务
+        - id: qoochain-calibration
+          uri: lb://qoochain-calibration
+          predicates:
+            - Path=/api/calibration/**
+          filters:
+            - StripPrefix=0
+        # 质量检测服务
+        - id: qoochain-quality
+          uri: lb://qoochain-quality
+          predicates:
+            - Path=/api/quality/**
+          filters:
+            - StripPrefix=0
+        # 生产追溯服务
+        - id: qoochain-trace
+          uri: lb://qoochain-trace
+          predicates:
+            - Path=/api/trace/**
+          filters:
+            - StripPrefix=0
+        # 包装物流服务
+        - id: qoochain-logistics
+          uri: lb://qoochain-logistics
+          predicates:
+            - Path=/api/logistics/**
+          filters:
+            - StripPrefix=0
+        # 售后维修服务
+        - id: qoochain-aftermarket
+          uri: lb://qoochain-aftermarket
+          predicates:
+            - Path=/api/aftermarket/**
+          filters:
+            - StripPrefix=0
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowed-origin-patterns: "*"
+            allowed-methods: "*"
+            allowed-headers: "*"
+            allow-credentials: true
+            max-age: 3600
+
+server:
+  port: 8080
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,gateway
+  endpoint:
+    gateway:
+      enabled: true
