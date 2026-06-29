@@ -66,6 +66,24 @@ const routes: RouteRecordRaw[] = [
     meta: { title: '课程详情' }
   },
   {
+    path: '/academy/courses/:courseId/lessons/:lessonId',
+    name: 'LessonView',
+    component: () => import('@/views/academy/LessonView.vue'),
+    meta: { title: '课时学习' }
+  },
+  {
+    path: '/academy/learning-paths',
+    name: 'LearningPathIndex',
+    component: () => import('@/views/academy/LearningPathIndex.vue'),
+    meta: { title: '学习路径' }
+  },
+  {
+    path: '/academy/learning-paths/:slug',
+    name: 'LearningPathDetail',
+    component: () => import('@/views/academy/LearningPathDetail.vue'),
+    meta: { title: '学习路径详情' }
+  },
+  {
     path: '/academy/cert',
     name: 'CertCenter',
     component: () => import('@/views/academy/CertCenter.vue'),
@@ -77,12 +95,42 @@ const routes: RouteRecordRaw[] = [
     component: () => import('@/views/academy/CertDetail.vue'),
     meta: { title: '认证详情' }
   },
+  {
+    path: '/academy/learning-paths',
+    name: 'LearningPathIndex',
+    component: () => import('@/views/academy/LearningPathIndex.vue'),
+    meta: { title: '学习路径' }
+  },
+  {
+    path: '/academy/learning-paths/:slug',
+    name: 'LearningPathDetail',
+    component: () => import('@/views/academy/LearningPathDetail.vue'),
+    meta: { title: '学习路径详情' }
+  },
+  {
+    path: '/academy/courses/:courseId/lessons/:lessonId',
+    name: 'LessonView',
+    component: () => import('@/views/academy/LessonView.vue'),
+    meta: { title: '课时学习' }
+  },
   // 贡献者
   {
     path: '/contributors',
     name: 'ContributorWall',
     component: () => import('@/views/contributors/ContributorWall.vue'),
     meta: { title: '贡献者墙' }
+  },
+  {
+    path: '/contributors/cla',
+    name: 'ClaSign',
+    component: () => import('@/views/contributors/ClaSignView.vue'),
+    meta: { title: 'CLA 签署' }
+  },
+  {
+    path: '/contributors/levels',
+    name: 'LevelGuide',
+    component: () => import('@/views/contributors/LevelGuide.vue'),
+    meta: { title: '贡献者等级' }
   },
   {
     path: '/contributors/:id',
@@ -119,6 +167,12 @@ const routes: RouteRecordRaw[] = [
     name: 'RoadmapView',
     component: () => import('@/views/governance/RoadmapView.vue'),
     meta: { title: '路线图' }
+  },
+  {
+    path: '/governance/tsc-sig',
+    name: 'TscSig',
+    component: () => import('../views/governance/TscSigView.vue'),
+    meta: { title: '治理结构' }
   },
   // 内容
   {

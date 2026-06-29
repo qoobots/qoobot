@@ -3,12 +3,14 @@ package com.qoobot.qoocommunity.event.controller;
 import com.qoobot.qoocommunity.common.dto.ApiResponse;
 import com.qoobot.qoocommunity.common.dto.PageResponse;
 import com.qoobot.qoocommunity.event.domain.*;
+import com.qoobot.qoocommunity.event.dto.request.EventCreateRequest;
+import com.qoobot.qoocommunity.event.dto.request.RegistrationRequest;
 import com.qoobot.qoocommunity.event.service.EventService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1/events")
@@ -51,13 +53,15 @@ public class EventController {
     @PostMapping
     public ApiResponse<Event> createEvent(
             @RequestHeader("X-User-Id") String userId,
-            @RequestBody Map<String, Object> body) {
+            @Valid @RequestBody EventCreateRequest body) {
         return ApiResponse.success(eventService.createEvent(userId,
-                (String) body.get("title"), (String) body.get("type"),
-                (String) body.get("description"), (String) body.get("location"),
-                java.time.LocalDateTime.parse((String) body.get("startTime")),
-                java.time.LocalDateTime.parse((String) body.get("endTime")),
-                body.get("maxAttendees") != null ? Integer.valueOf(body.get("maxAttendees").toString()) : null));
+                body.getTitle(),
+                body.getType() != null ? body.getType().name() : null,
+                body.getDescription(),
+                body.getLocation(),
+                body.getStartTime(),
+                body.getEndTime(),
+                body.getMaxAttendees()));
     }
 
     @PutMapping("/{id}/publish")
@@ -65,13 +69,18 @@ public class EventController {
         return ApiResponse.success(eventService.publishEvent(id));
     }
 
+    @PutMapping("/{id}/cancel")
+    public ApiResponse<Event> cancelEvent(@PathVariable Long id) {
+        return ApiResponse.success(eventService.cancelEvent(id));
+    }
+
     @PostMapping("/{id}/register")
     public ApiResponse<Registration> register(
             @PathVariable Long id,
             @RequestHeader("X-User-Id") String userId,
-            @RequestBody Map<String, String> body) {
+            @Valid @RequestBody RegistrationRequest body) {
         return ApiResponse.success(eventService.register(id, userId,
-                body.get("name"), body.get("company"), body.get("email")));
+                body.getName(), body.getCompany(), body.getEmail()));
     }
 
     @DeleteMapping("/{id}/register")

@@ -23,6 +23,7 @@ public class EventService {
     private final RegistrationRepository registrationRepository;
     private final AgendaItemRepository agendaItemRepository;
     private final EventMaterialRepository materialRepository;
+    private final EventNotificationService notificationService;
 
     public PageResponse<Event> listEvents(String status, int page, int size) {
         Page<Event> result = eventRepository.findByStatusOrderByStartTimeAsc(status, PageRequest.of(page, size));
@@ -73,7 +74,26 @@ public class EventService {
                 .orElseThrow(() -> QooCommunityException.notFound("Event not found"));
         event.setStatus("PUBLISHED");
         event.setUpdatedAt(LocalDateTime.now());
-        return eventRepository.save(event);
+        Event saved = eventRepository.save(event);
+
+        // 通过 RocketMQ 发送活动发布通知
+        notificationService.notifyEventPublished(saved);
+
+        return saved;
+    }
+
+    @Transactional
+    public Event cancelEvent(Long eventId) {
+        Event event = eventRepository.findById(eventId)
+                .orElseThrow(() -> QooCommunityException.notFound("Event not found"));
+        event.setStatus("CANCELLED");
+        event.setUpdatedAt(LocalDateTime.now());
+        Event saved = eventRepository.save(event);
+
+        // 通过 RocketMQ 发送活动取消通知给所有已报名用户
+        notificationService.notifyEventCancelled(saved);
+
+        return saved;
     }
 
     @Transactional
@@ -100,6 +120,9 @@ public class EventService {
 
         event.setCurrentAttendees((int) registrationRepository.countByEventId(eventId));
         eventRepository.save(event);
+
+        // 通过 RocketMQ 发送报名确认通知
+        notificationService.notifyRegistrationConfirmed(event, saved);
 
         return saved;
     }

@@ -3,12 +3,14 @@ package com.qoobot.qoocommunity.academy.controller;
 import com.qoobot.qoocommunity.common.dto.ApiResponse;
 import com.qoobot.qoocommunity.common.dto.PageResponse;
 import com.qoobot.qoocommunity.academy.domain.*;
+import com.qoobot.qoocommunity.academy.dto.request.ExamSubmitRequest;
+import com.qoobot.qoocommunity.academy.dto.request.ProgressUpdateRequest;
 import com.qoobot.qoocommunity.academy.service.CourseService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1/academy")
@@ -55,8 +57,8 @@ public class AcademyController {
     public ApiResponse<Void> updateProgress(
             @PathVariable Long courseId,
             @RequestHeader("X-User-Id") String userId,
-            @RequestBody Map<String, Integer> body) {
-        courseService.updateProgress(userId, courseId, body.get("progressPct"));
+            @Valid @RequestBody ProgressUpdateRequest body) {
+        courseService.updateProgress(userId, courseId, body.getProgressPct());
         return ApiResponse.success("Updated", null);
     }
 
@@ -76,8 +78,8 @@ public class AcademyController {
     public ApiResponse<UserCertification> takeExam(
             @PathVariable Long id,
             @RequestHeader("X-User-Id") String userId,
-            @RequestBody Map<String, Integer> body) {
-        return ApiResponse.success(courseService.takeExam(userId, id, body.get("score")));
+            @Valid @RequestBody ExamSubmitRequest body) {
+        return ApiResponse.success(courseService.takeExam(userId, id, body.getScore()));
     }
 
     @GetMapping("/certifications/my")

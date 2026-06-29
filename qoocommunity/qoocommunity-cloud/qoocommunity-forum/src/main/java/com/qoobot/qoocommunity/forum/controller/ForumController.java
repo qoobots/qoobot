@@ -3,13 +3,16 @@ package com.qoobot.qoocommunity.forum.controller;
 import com.qoobot.qoocommunity.common.dto.ApiResponse;
 import com.qoobot.qoocommunity.common.dto.PageResponse;
 import com.qoobot.qoocommunity.forum.domain.*;
+import com.qoobot.qoocommunity.forum.dto.request.ReplyCreateRequest;
+import com.qoobot.qoocommunity.forum.dto.request.TopicCreateRequest;
+import com.qoobot.qoocommunity.forum.dto.request.UpdateTopicRequest;
 import com.qoobot.qoocommunity.forum.service.CategoryService;
 import com.qoobot.qoocommunity.forum.service.TopicService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1/forums")
@@ -56,22 +59,22 @@ public class ForumController {
     @PostMapping("/topics")
     public ApiResponse<Topic> createTopic(
             @RequestHeader("X-User-Id") String userId,
-            @RequestBody Map<String, Object> body) {
+            @Valid @RequestBody TopicCreateRequest body) {
         return ApiResponse.success(topicService.createTopic(
                 userId,
-                Long.valueOf(body.get("categoryId").toString()),
-                (String) body.get("title"),
-                (String) body.get("content"),
-                (String) body.get("contentHtml")));
+                body.getCategoryId(),
+                body.getTitle(),
+                body.getContent(),
+                body.getContentHtml()));
     }
 
     @PutMapping("/topics/{id}")
     public ApiResponse<Topic> updateTopic(
             @PathVariable Long id,
             @RequestHeader("X-User-Id") String userId,
-            @RequestBody Map<String, Object> body) {
+            @Valid @RequestBody UpdateTopicRequest body) {
         return ApiResponse.success(topicService.updateTopic(id, userId,
-                (String) body.get("title"), (String) body.get("content"), (String) body.get("contentHtml")));
+                body.getTitle(), body.getContent(), body.getContentHtml()));
     }
 
     @DeleteMapping("/topics/{id}")
@@ -92,10 +95,9 @@ public class ForumController {
     public ApiResponse<Reply> createReply(
             @PathVariable Long id,
             @RequestHeader("X-User-Id") String userId,
-            @RequestBody Map<String, Object> body) {
-        Long parentId = body.get("parentId") != null ? Long.valueOf(body.get("parentId").toString()) : null;
-        return ApiResponse.success(topicService.createReply(id, userId, parentId,
-                (String) body.get("content"), (String) body.get("contentHtml")));
+            @Valid @RequestBody ReplyCreateRequest body) {
+        return ApiResponse.success(topicService.createReply(id, userId, body.getParentId(),
+                body.getContent(), body.getContentHtml()));
     }
 
     // ---- Likes ----

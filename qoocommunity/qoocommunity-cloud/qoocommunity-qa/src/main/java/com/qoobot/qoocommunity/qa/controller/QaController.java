@@ -4,7 +4,11 @@ import com.qoobot.qoocommunity.common.dto.ApiResponse;
 import com.qoobot.qoocommunity.common.dto.PageResponse;
 import com.qoobot.qoocommunity.qa.domain.Answer;
 import com.qoobot.qoocommunity.qa.domain.Question;
+import com.qoobot.qoocommunity.qa.dto.request.AcceptAnswerRequest;
+import com.qoobot.qoocommunity.qa.dto.request.AnswerCreateRequest;
+import com.qoobot.qoocommunity.qa.dto.request.QuestionCreateRequest;
 import com.qoobot.qoocommunity.qa.service.QuestionService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,9 +41,9 @@ public class QaController {
     @PostMapping("/questions")
     public ApiResponse<Question> createQuestion(
             @RequestHeader("X-User-Id") String userId,
-            @RequestBody Map<String, Object> body) {
+            @Valid @RequestBody QuestionCreateRequest body) {
         return ApiResponse.success(questionService.createQuestion(userId,
-                (String) body.get("title"), (String) body.get("content"), (String) body.get("contentHtml")));
+                body.getTitle(), body.getContent(), body.getContentHtml()));
     }
 
     @GetMapping("/questions/{id}/answers")
@@ -51,18 +55,17 @@ public class QaController {
     public ApiResponse<Answer> createAnswer(
             @PathVariable Long id,
             @RequestHeader("X-User-Id") String userId,
-            @RequestBody Map<String, Object> body) {
+            @Valid @RequestBody AnswerCreateRequest body) {
         return ApiResponse.success(questionService.createAnswer(id, userId,
-                (String) body.get("content"), (String) body.get("contentHtml")));
+                body.getContent(), body.getContentHtml()));
     }
 
     @PostMapping("/answers/{answerId}/accept")
     public ApiResponse<Void> acceptAnswer(
             @PathVariable Long answerId,
             @RequestHeader("X-User-Id") String userId,
-            @RequestBody Map<String, Object> body) {
-        questionService.acceptAnswer(
-                Long.valueOf(body.get("questionId").toString()), answerId, userId);
+            @Valid @RequestBody AcceptAnswerRequest body) {
+        questionService.acceptAnswer(body.getQuestionId(), answerId, userId);
         return ApiResponse.success("Accepted", null);
     }
 

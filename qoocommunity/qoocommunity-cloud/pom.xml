@@ -25,6 +25,7 @@
         <mybatis-plus.version>3.5.5</mybatis-plus.version>
         <knife4j.version>4.5.0</knife4j.version>
         <hutool.version>5.8.27</hutool.version>
+        <rocketmq-spring.version>2.3.0</rocketmq-spring.version>
     </properties>
 
     <modules>
@@ -69,6 +70,11 @@
                 <groupId>cn.hutool</groupId>
                 <artifactId>hutool-all</artifactId>
                 <version>${hutool.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.rocketmq</groupId>
+                <artifactId>rocketmq-spring-boot-starter</artifactId>
+                <version>${rocketmq-spring.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

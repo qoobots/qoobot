@@ -24,6 +24,7 @@ public class CourseService {
     private final EnrollmentRepository enrollmentRepository;
     private final CertificationRepository certificationRepository;
     private final UserCertificationRepository userCertificationRepository;
+    private final LessonProgressRepository lessonProgressRepository;
 
     public PageResponse<Course> listCourses(int page, int size) {
         Page<Course> result = courseRepository.findByIsPublishedTrueOrderByCreatedAtDesc(PageRequest.of(page, size));
@@ -80,6 +81,25 @@ public class CourseService {
             enrollment.setCompletedAt(LocalDateTime.now());
         }
         enrollmentRepository.save(enrollment);
+    }
+
+    @Transactional
+    public void updateProgress(String userId, Long courseId, Long lessonId, int progressPct, boolean isCompleted) {
+        updateProgress(userId, courseId, progressPct);
+
+        if (lessonId != null) {
+            LessonProgress progress = lessonProgressRepository
+                    .findByUserIdAndLessonId(userId, lessonId)
+                    .orElse(new LessonProgress());
+            progress.setUserId(userId);
+            progress.setLessonId(lessonId);
+            progress.setIsCompleted(isCompleted);
+            if (isCompleted) {
+                progress.setCompletedAt(LocalDateTime.now());
+            }
+            lessonProgressRepository.save(progress);
+            log.info("User {} lesson {} progress: {}%, completed={}", userId, lessonId, progressPct, isCompleted);
+        }
     }
 
     public List<Enrollment> getMyCourses(String userId) {
