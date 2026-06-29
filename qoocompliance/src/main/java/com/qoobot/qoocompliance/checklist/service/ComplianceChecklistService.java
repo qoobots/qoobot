@@ -1,8 +1,15 @@
 package com.qoobot.qoocompliance.checklist.service;
 
+import com.qoobot.qoocompliance.domain.ComplianceChecklist;
+import com.qoobot.qoocompliance.domain.ComplianceItem;
+import com.qoobot.qoocompliance.repository.ComplianceChecklistRepository;
+import com.qoobot.qoocompliance.repository.ComplianceItemRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -10,11 +17,16 @@ import java.util.stream.Collectors;
  * Compliance checklist engine.
  * Generates market-specific compliance checklists based on target regions,
  * tracks certification progress, and identifies gaps.
+ *
+ * Persistence layer: Spring Data JPA via ComplianceChecklistRepository and ComplianceItemRepository.
  */
 @Service
 public class ComplianceChecklistService {
 
-    // Predefined compliance checklists per market and category
+    private final ComplianceChecklistRepository checklistRepo;
+    private final ComplianceItemRepository itemRepo;
+
+    // Predefined compliance checklists per market and category (reference templates, not persisted)
     private static final Map<String, List<ComplianceItem>> STANDARD_CHECKLISTS = Map.of(
         "CN", buildChinaChecklist(),
         "EU", buildEuChecklist(),
@@ -22,84 +34,93 @@ public class ComplianceChecklistService {
         "JP", buildJapanChecklist()
     );
 
-    // Project compliance status
-    private final Map<String, ComplianceProject> projects = new HashMap<>();
-    private final Map<String, List<ComplianceItem>> projectItems = new HashMap<>();
+    public ComplianceChecklistService(ComplianceChecklistRepository checklistRepo,
+                                       ComplianceItemRepository itemRepo) {
+        this.checklistRepo = checklistRepo;
+        this.itemRepo = itemRepo;
+    }
 
     /**
-     * Generate a compliance checklist for a target market.
+     * Generate a compliance checklist for target markets.
+     * Creates a ComplianceChecklist entity and copies template items as persisted entities.
      */
+    @Transactional
     public ComplianceProject generateChecklist(String projectName, List<String> targetMarkets) {
-        String projectId = UUID.randomUUID().toString();
-        ComplianceProject project = new ComplianceProject(
-                projectId, projectName, targetMarkets, "DRAFT", Instant.now()
-        );
-        projects.put(projectId, project);
+        String checklistId = UUID.randomUUID().toString();
+
+        ComplianceChecklist checklist = new ComplianceChecklist();
+        checklist.setChecklistId(checklistId);
+        checklist.setProjectId(checklistId); // projectId equals checklistId for simplicity
+        checklist.setProjectName(projectName);
+        checklist.setTargetMarkets(String.join(",", targetMarkets));
+        checklist.setStatus("DRAFT");
+        checklistRepo.save(checklist);
 
         List<ComplianceItem> items = new ArrayList<>();
         for (String market : targetMarkets) {
             List<ComplianceItem> marketItems = STANDARD_CHECKLISTS.getOrDefault(
                     market, Collections.emptyList());
-            items.addAll(marketItems);
+            for (ComplianceItem dto : marketItems) {
+                items.add(toEntity(dto, checklistId));
+            }
         }
-        projectItems.put(projectId, items);
+        itemRepo.saveAll(items);
 
-        return project;
+        return toDto(checklist);
     }
 
     /**
-     * Get all items for a project with filtering options.
+     * Get all items for a project with optional category/status filtering.
      */
     public List<ComplianceItem> getItems(String projectId, String category, String status) {
-        List<ComplianceItem> items = projectItems.getOrDefault(projectId, Collections.emptyList());
+        List<ComplianceItem> entities = itemRepo.findByChecklistId(projectId);
 
-        return items.stream()
-                .filter(item -> category == null || item.getCategory().equals(category))
-                .filter(item -> status == null || item.getStatus().equals(status))
+        return entities.stream()
+                .filter(entity -> category == null || category.equals(entity.getCategory()))
+                .filter(entity -> status == null || status.equals(entity.getStatus()))
+                .map(this::toDto)
                 .collect(Collectors.toList());
     }
 
     /**
-     * Update item status.
+     * Update item status, evidence, and notes.
      */
+    @Transactional
     public ComplianceItem updateItemStatus(String projectId, String itemId, String status,
                                             String evidence, String notes) {
-        List<ComplianceItem> items = projectItems.get(projectId);
-        if (items == null) return null;
+        ComplianceItem entity = itemRepo.findByItemId(itemId).orElse(null);
+        if (entity == null) return null;
 
-        for (ComplianceItem item : items) {
-            if (item.getItemId().equals(itemId)) {
-                item.setStatus(status);
-                item.setEvidence(evidence);
-                item.setNotes(notes);
-                item.setLastUpdated(Instant.now());
-                return item;
-            }
-        }
-        return null;
+        entity.setStatus(status);
+        entity.setEvidence(evidence);
+        entity.setNotes(notes);
+        // updatedAt is handled by @PreUpdate
+        itemRepo.save(entity);
+
+        return toDto(entity);
     }
 
     /**
      * Get project progress summary.
      */
     public ProjectProgress getProgress(String projectId) {
-        List<ComplianceItem> items = projectItems.getOrDefault(projectId, Collections.emptyList());
+        List<ComplianceItem> entities = itemRepo.findByChecklistId(projectId);
 
-        long total = items.size();
-        long compliant = items.stream().filter(i -> "COMPLIANT".equals(i.getStatus())).count();
-        long inProgress = items.stream().filter(i -> "IN_PROGRESS".equals(i.getStatus())).count();
-        long nonCompliant = items.stream().filter(i -> "NON_COMPLIANT".equals(i.getStatus())).count();
-        long notStarted = items.stream().filter(i -> "NOT_STARTED".equals(i.getStatus())).count();
+        long total = entities.size();
+        long compliant = entities.stream().filter(i -> "COMPLIANT".equals(i.getStatus())).count();
+        long inProgress = entities.stream().filter(i -> "IN_PROGRESS".equals(i.getStatus())).count();
+        long nonCompliant = entities.stream().filter(i -> "NON_COMPLIANT".equals(i.getStatus())).count();
+        long notStarted = entities.stream().filter(i -> "NOT_STARTED".equals(i.getStatus())).count();
 
         double progress = total > 0 ? (double) compliant / total * 100 : 0;
 
         // Category breakdown
         Map<String, CategoryProgress> byCategory = new HashMap<>();
-        for (ComplianceItem item : items) {
-            CategoryProgress cp = byCategory.computeIfAbsent(item.getCategory(),
+        for (ComplianceItem entity : entities) {
+            CategoryProgress cp = byCategory.computeIfAbsent(entity.getCategory(),
                     k -> new CategoryProgress(k, 0, 0));
             cp.total++;
-            if ("COMPLIANT".equals(item.getStatus())) cp.compliant++;
+            if ("COMPLIANT".equals(entity.getStatus())) cp.compliant++;
         }
 
         return new ProjectProgress(projectId, total, compliant, inProgress,
@@ -110,12 +131,13 @@ public class ComplianceChecklistService {
      * Identify compliance gaps — items that are blocking market entry.
      */
     public List<ComplianceItem> identifyGaps(String projectId, String targetMarket) {
-        List<ComplianceItem> items = projectItems.getOrDefault(projectId, Collections.emptyList());
+        List<ComplianceItem> entities = itemRepo.findByChecklistId(projectId);
 
-        return items.stream()
-                .filter(item -> item.getMarket().equals(targetMarket))
-                .filter(item -> !"COMPLIANT".equals(item.getStatus()))
-                .filter(item -> "P0".equals(item.getPriority()) || "P1".equals(item.getPriority()))
+        return entities.stream()
+                .filter(entity -> "ALL".equals(targetMarket) || targetMarket.equals(entity.getMarket()))
+                .filter(entity -> !"COMPLIANT".equals(entity.getStatus()))
+                .filter(entity -> "P0".equals(entity.getPriority()) || "P1".equals(entity.getPriority()))
+                .map(this::toDto)
                 .collect(Collectors.toList());
     }
 
@@ -123,7 +145,10 @@ public class ComplianceChecklistService {
      * Generate a compliance report for a project.
      */
     public ComplianceReport generateReport(String projectId) {
-        ComplianceProject project = projects.get(projectId);
+        ComplianceChecklist checklist = checklistRepo.findByChecklistId(projectId).orElse(null);
+        if (checklist == null) return null;
+
+        ComplianceProject project = toDto(checklist);
         ProjectProgress progress = getProgress(projectId);
 
         return new ComplianceReport(
@@ -132,6 +157,57 @@ public class ComplianceChecklistService {
                 identifyGaps(projectId, "ALL"),
                 Instant.now()
         );
+    }
+
+    // --- Helper conversion methods ---
+
+    private ComplianceItem toDto(ComplianceItem entity) {
+        ComplianceItem dto = new ComplianceItem(
+                entity.getItemId(),
+                entity.getMarket(),
+                entity.getCategory(),
+                entity.getPriority(),
+                entity.getTitle(),
+                entity.getDescription(),
+                entity.getStatus()
+        );
+        dto.setEvidence(entity.getEvidence());
+        dto.setNotes(entity.getNotes());
+        dto.setLastUpdated(toInstant(entity.getUpdatedAt()));
+        return dto;
+    }
+
+    private ComplianceItem toEntity(ComplianceItem dto, String checklistId) {
+        ComplianceItem entity = new ComplianceItem();
+        entity.setItemId(dto.getItemId());
+        entity.setChecklistId(checklistId);
+        entity.setProjectId(checklistId);
+        entity.setMarket(dto.getMarket());
+        entity.setCategory(dto.getCategory());
+        entity.setTitle(dto.getTitle());
+        entity.setDescription(dto.getDescription());
+        entity.setPriority(dto.getPriority());
+        entity.setStatus(dto.getStatus());
+        entity.setEvidence(dto.getEvidence());
+        entity.setNotes(dto.getNotes());
+        return entity;
+    }
+
+    private ComplianceProject toDto(ComplianceChecklist entity) {
+        List<String> markets = entity.getTargetMarkets() != null && !entity.getTargetMarkets().isEmpty()
+                ? Arrays.asList(entity.getTargetMarkets().split(","))
+                : Collections.emptyList();
+        return new ComplianceProject(
+                entity.getChecklistId(),
+                entity.getProjectName(),
+                markets,
+                entity.getStatus(),
+                toInstant(entity.getCreatedAt())
+        );
+    }
+
+    private static Instant toInstant(LocalDateTime ldt) {
+        return ldt != null ? ldt.toInstant(ZoneOffset.UTC) : null;
     }
 
     // --- Checklist builders ---
@@ -306,8 +382,6 @@ public class ComplianceChecklistService {
         private String evidence;
         private String notes;
         private Instant lastUpdated;
-
-        public ComplianceItem() {}
 
         public ComplianceItem(String itemId, String market, String category,
                               String priority, String title, String description, String status) {

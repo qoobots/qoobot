@@ -1,9 +1,18 @@
 package com.qoobot.qoocompliance.management.service;
 
+import com.qoobot.qoocompliance.domain.CertificationProgress;
+import com.qoobot.qoocompliance.domain.ComplianceReview;
+import com.qoobot.qoocompliance.repository.CertificationProgressRepository;
+import com.qoobot.qoocompliance.repository.ComplianceReviewRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Compliance Management supplement service.
@@ -15,6 +24,15 @@ import java.util.*;
  */
 @Service
 public class ComplianceManagementService {
+
+    private final CertificationProgressRepository certRepo;
+    private final ComplianceReviewRepository reviewRepo;
+
+    public ComplianceManagementService(CertificationProgressRepository certRepo,
+                                        ComplianceReviewRepository reviewRepo) {
+        this.certRepo = certRepo;
+        this.reviewRepo = reviewRepo;
+    }
 
     // ===================================================================
     // Technical Documentation Templates
@@ -82,103 +100,152 @@ public class ComplianceManagementService {
     // Certification Progress Tracking
     // ===================================================================
 
-    private final Map<String, CertProgress> progressStore = new HashMap<>();
-
+    @Transactional
     public CertProgress createCertProgress(String productId, CertProgressRequest request) {
-        CertProgress progress = new CertProgress(
-                UUID.randomUUID().toString(), productId, request.certificationName(),
+        CertificationProgress entity = new CertificationProgress();
+        entity.setProductId(productId);
+        entity.setCertType(request.certificationName());
+        entity.setMarket(request.targetMarket());
+        entity.setStatus("INITIATED");
+        entity.setNotes("{\"targetDate\":\"" + request.targetDate() + "\",\"milestones\":[]}");
+
+        CertificationProgress saved = certRepo.save(entity);
+        return new CertProgress(
+                saved.getId().toString(), productId, request.certificationName(),
                 request.targetMarket(), request.targetDate(),
                 "INITIATED", 0, 0, Instant.now()
         );
-        progressStore.put(progress.trackingId(), progress);
-        return progress;
     }
 
+    @Transactional
     public CertProgress updateCertMilestone(String trackingId, MilestoneUpdate update) {
-        CertProgress progress = progressStore.get(trackingId);
-        if (progress == null) return null;
+        Long id = Long.parseLong(trackingId);
+        Optional<CertificationProgress> opt = certRepo.findById(id);
+        if (opt.isEmpty()) return null;
 
-        List<CertProgress.Milestone> updatedMilestones = new ArrayList<>(progress.milestones());
-        updatedMilestones.add(new CertProgress.Milestone(
-                update.name(), update.description(), update.targetDate(),
-                update.completedDate(), update.status()
-        ));
+        CertificationProgress entity = opt.get();
 
-        int completed = (int) updatedMilestones.stream().filter(m -> "COMPLETED".equals(m.status())).count();
+        // Update status if the update contains a different status
+        if (update.status() != null && !update.status().isEmpty()) {
+            entity.setStatus(update.status());
+        }
 
-        CertProgress updated = new CertProgress(
-                progress.trackingId(), progress.productId(), progress.certificationName(),
-                progress.targetMarket(), progress.targetDate(),
-                completed == updatedMilestones.size() ? "COMPLETED" : "IN_PROGRESS",
-                completed, updatedMilestones.size(), Instant.now()
+        // Append milestone info to notes as JSON
+        String notes = entity.getNotes();
+        if (notes == null) notes = "{\"milestones\":[]}";
+
+        // Simple JSON manipulation: append milestone to the milestones array
+        String milestoneJson = String.format(
+                "{\"name\":\"%s\",\"description\":\"%s\",\"targetDate\":\"%s\",\"completedDate\":\"%s\",\"status\":\"%s\"}",
+                escapeJson(update.name()), escapeJson(update.description()),
+                escapeJson(update.targetDate()), escapeJson(update.completedDate()),
+                escapeJson(update.status())
         );
 
-        progressStore.put(trackingId, updated);
-        return updated;
+        if (notes.contains("\"milestones\":[")) {
+            int insertPos = notes.indexOf("\"milestones\":[") + "\"milestones\":[".length();
+            String prefix = notes.substring(0, insertPos);
+            String suffix = notes.substring(insertPos);
+            String comma = suffix.trim().startsWith("]") ? "" : ",";
+            notes = prefix + comma + milestoneJson + suffix;
+        } else {
+            notes = "{\"milestones\":[" + milestoneJson + "]}";
+        }
+        entity.setNotes(notes);
+
+        CertificationProgress saved = certRepo.save(entity);
+
+        // Parse milestone count from notes for the DTO
+        int totalMilestones = countJsonArrayElements(saved.getNotes(), "milestones");
+        int completedMilestones = countCompletedMilestones(saved.getNotes());
+
+        return new CertProgress(
+                saved.getId().toString(), saved.getProductId(),
+                saved.getCertType(), saved.getMarket(),
+                extractTargetDate(saved.getNotes()),
+                saved.getStatus(), completedMilestones, totalMilestones,
+                toInstant(saved.getUpdatedAt())
+        );
     }
 
     public List<CertProgress> getProductCertifications(String productId) {
-        return progressStore.values().stream()
-                .filter(p -> p.productId().equals(productId))
+        return certRepo.findByProductId(productId).stream()
+                .map(this::toDto)
                 .toList();
     }
 
     public CertProgress getCertProgress(String trackingId) {
-        return progressStore.get(trackingId);
+        Long id = Long.parseLong(trackingId);
+        return certRepo.findById(id).map(this::toDto).orElse(null);
     }
 
     // ===================================================================
     // Compliance Review Records
     // ===================================================================
 
-    private final Map<String, List<ReviewRecord>> reviewStore = new HashMap<>();
-
+    @Transactional
     public ReviewRecord createReview(String productId, ReviewRequest request) {
-        ReviewRecord record = new ReviewRecord(
-                UUID.randomUUID().toString(), productId, request.reviewType(),
-                request.reviewer(), request.findings(), request.recommendations(),
-                request.severity(), request.status(), Instant.now()
+        ComplianceReview entity = new ComplianceReview();
+        entity.setProductId(productId);
+        entity.setReviewType(request.reviewType());
+        entity.setReviewerName(request.reviewer());
+        entity.setStatus(request.status());
+
+        // Store severity as prefix in findings, append recommendations
+        String combinedFindings = "[" + request.severity() + "] " + request.findings();
+        if (request.recommendations() != null && !request.recommendations().isEmpty()) {
+            combinedFindings += " | Recommendations: " + request.recommendations();
+        }
+        entity.setFindings(combinedFindings);
+
+        ComplianceReview saved = reviewRepo.save(entity);
+        return new ReviewRecord(
+                saved.getId().toString(), saved.getProductId(), saved.getReviewType(),
+                saved.getReviewerName(), request.findings(), request.recommendations(),
+                request.severity(), saved.getStatus(),
+                toInstant(saved.getCreatedAt())
         );
-        reviewStore.computeIfAbsent(productId, k -> new ArrayList<>()).add(record);
-        return record;
     }
 
     public List<ReviewRecord> getProductReviews(String productId, String status) {
-        List<ReviewRecord> records = reviewStore.getOrDefault(productId, List.of());
-        if (status != null) {
-            records = records.stream().filter(r -> r.status().equals(status)).toList();
+        List<ComplianceReview> entities;
+        if (status != null && !status.isEmpty()) {
+            entities = reviewRepo.findByProductIdAndStatus(productId, status);
+        } else {
+            entities = reviewRepo.findByProductId(productId);
         }
-        return records;
+        return entities.stream().map(this::toDto).toList();
     }
 
+    @Transactional
     public ReviewRecord updateReviewStatus(String productId, String reviewId, String status) {
-        List<ReviewRecord> records = reviewStore.get(productId);
-        if (records == null) return null;
+        Long id = Long.parseLong(reviewId);
+        Optional<ComplianceReview> opt = reviewRepo.findById(id);
+        if (opt.isEmpty()) return null;
 
-        for (int i = 0; i < records.size(); i++) {
-            if (records.get(i).reviewId().equals(reviewId)) {
-                ReviewRecord old = records.get(i);
-                ReviewRecord updated = new ReviewRecord(
-                        old.reviewId(), old.productId(), old.reviewType(),
-                        old.reviewer(), old.findings(), old.recommendations(),
-                        old.severity(), status, Instant.now()
-                );
-                records.set(i, updated);
-                return updated;
-            }
-        }
-        return null;
+        ComplianceReview entity = opt.get();
+        // Verify productId matches
+        if (!entity.getProductId().equals(productId)) return null;
+
+        entity.setStatus(status);
+        ComplianceReview saved = reviewRepo.save(entity);
+        return toDto(saved);
     }
 
     public ReviewSummary getReviewSummary(String productId) {
-        List<ReviewRecord> records = reviewStore.getOrDefault(productId, List.of());
+        List<ComplianceReview> reviews = reviewRepo.findByProductId(productId);
+        long totalReviews = reviews.size();
+        long openReviews = reviews.stream().filter(r -> "OPEN".equals(r.getStatus())).count();
+        long resolvedReviews = reviews.stream().filter(r -> "RESOLVED".equals(r.getStatus())).count();
+        long criticalOpen = reviews.stream()
+                .filter(r -> "OPEN".equals(r.getStatus())
+                        && r.getFindings() != null
+                        && r.getFindings().startsWith("[CRITICAL]"))
+                .count();
+
         return new ReviewSummary(
-                productId,
-                records.size(),
-                records.stream().filter(r -> "OPEN".equals(r.status())).count(),
-                records.stream().filter(r -> "RESOLVED".equals(r.status())).count(),
-                records.stream().filter(r -> "CRITICAL".equals(r.severity()) && "OPEN".equals(r.status())).count(),
-                Instant.now()
+                productId, (int) totalReviews, openReviews,
+                resolvedReviews, criticalOpen, Instant.now()
         );
     }
 
@@ -191,10 +258,10 @@ public class ComplianceManagementService {
         dashboard.setProductId(productId);
         dashboard.setTemplatesAvailable(getTemplates(null).size());
 
-        List<CertProgress> certs = getProductCertifications(productId);
+        List<CertificationProgress> certs = certRepo.findByProductId(productId);
         dashboard.setActiveCertifications(certs.size());
         dashboard.setCompletedCertifications(
-                (int) certs.stream().filter(c -> "COMPLETED".equals(c.status())).count());
+                (int) certs.stream().filter(c -> "COMPLETED".equals(c.getStatus())).count());
 
         ReviewSummary summary = getReviewSummary(productId);
         dashboard.setOpenReviews(summary.openReviews());
@@ -202,6 +269,120 @@ public class ComplianceManagementService {
 
         dashboard.setLastUpdated(Instant.now());
         return dashboard;
+    }
+
+    // ===================================================================
+    // Entity → DTO Conversion
+    // ===================================================================
+
+    private CertProgress toDto(CertificationProgress entity) {
+        int totalMilestones = countJsonArrayElements(entity.getNotes(), "milestones");
+        int completedMilestones = countCompletedMilestones(entity.getNotes());
+        String targetDate = extractTargetDate(entity.getNotes());
+
+        return new CertProgress(
+                entity.getId().toString(),
+                entity.getProductId(),
+                entity.getCertType(),
+                entity.getMarket(),
+                targetDate,
+                entity.getStatus(),
+                completedMilestones,
+                totalMilestones,
+                toInstant(entity.getUpdatedAt())
+        );
+    }
+
+    private ReviewRecord toDto(ComplianceReview entity) {
+        // Parse severity from findings prefix like "[CRITICAL] actual findings | Recommendations: ..."
+        String severity = "MEDIUM";
+        String actualFindings = entity.getFindings();
+        String recommendations = "";
+
+        if (entity.getFindings() != null) {
+            Pattern severityPattern = Pattern.compile("^\\[(\\w+)\\]\\s*(.*)");
+            Matcher matcher = severityPattern.matcher(entity.getFindings());
+            if (matcher.find()) {
+                severity = matcher.group(1);
+                String remaining = matcher.group(2);
+                // Split findings from recommendations
+                int recIndex = remaining.indexOf(" | Recommendations: ");
+                if (recIndex >= 0) {
+                    actualFindings = remaining.substring(0, recIndex);
+                    recommendations = remaining.substring(recIndex + " | Recommendations: ".length());
+                } else {
+                    actualFindings = remaining;
+                }
+            }
+        }
+
+        return new ReviewRecord(
+                entity.getId().toString(),
+                entity.getProductId(),
+                entity.getReviewType(),
+                entity.getReviewerName(),
+                actualFindings,
+                recommendations,
+                severity,
+                entity.getStatus(),
+                toInstant(entity.getCreatedAt())
+        );
+    }
+
+    // ===================================================================
+    // Helper methods
+    // ===================================================================
+
+    private static Instant toInstant(LocalDateTime ldt) {
+        return ldt != null ? ldt.toInstant(ZoneOffset.UTC) : Instant.now();
+    }
+
+    private static String escapeJson(String s) {
+        if (s == null) return "";
+        return s.replace("\\", "\\\\").replace("\"", "\\\"");
+    }
+
+    private static int countJsonArrayElements(String json, String arrayKey) {
+        if (json == null) return 0;
+        String searchKey = "\"" + arrayKey + "\":[";
+        int startIdx = json.indexOf(searchKey);
+        if (startIdx < 0) return 0;
+
+        String sub = json.substring(startIdx + searchKey.length());
+        int bracketIdx = sub.indexOf("]");
+        if (bracketIdx < 0) return 0;
+
+        String arrayContent = sub.substring(0, bracketIdx).trim();
+        if (arrayContent.isEmpty()) return 0;
+
+        // Count by "name" occurrences (each milestone has a "name" field)
+        int count = 0;
+        int idx = 0;
+        while ((idx = arrayContent.indexOf("\"name\"", idx)) >= 0) {
+            count++;
+            idx += "\"name\"".length();
+        }
+        return count;
+    }
+
+    private static int countCompletedMilestones(String json) {
+        if (json == null) return 0;
+        int count = 0;
+        int idx = 0;
+        while ((idx = json.indexOf("\"status\":\"COMPLETED\"", idx)) >= 0) {
+            count++;
+            idx += "\"status\":\"COMPLETED\"".length();
+        }
+        return count;
+    }
+
+    private static String extractTargetDate(String json) {
+        if (json == null) return null;
+        int idx = json.indexOf("\"targetDate\":\"");
+        if (idx < 0) return null;
+        int start = idx + "\"targetDate\":\"".length();
+        int end = json.indexOf("\"", start);
+        return end > start ? json.substring(start, end) : null;
     }
 
     // ===================================================================

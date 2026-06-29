@@ -1,9 +1,16 @@
 package com.qoobot.qoocompliance.monitor.service;
 
+import com.qoobot.qoocompliance.domain.RegulationChange;
+import com.qoobot.qoocompliance.domain.Regulation;
+import com.qoobot.qoocompliance.repository.RegulationChangeRepository;
+import com.qoobot.qoocompliance.repository.RegulationRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
-import java.util.*;
+import java.time.ZoneOffset;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Regulation change monitoring service.
@@ -13,84 +20,93 @@ import java.util.*;
 @Service
 public class RegulationMonitorService {
 
-    private final Map<String, List<Regulation>> regulations = new HashMap<>();
-    private final Map<String, List<RegulationChange>> changeLog = new HashMap<>();
+    private final RegulationRepository regulationRepo;
+    private final RegulationChangeRepository changeRepo;
 
-    public RegulationMonitorService() {
-        initializeRegulations();
+    public RegulationMonitorService(RegulationRepository regulationRepo,
+                                     RegulationChangeRepository changeRepo) {
+        this.regulationRepo = regulationRepo;
+        this.changeRepo = changeRepo;
     }
 
     /**
      * Get all tracked regulations for a market.
      */
     public List<Regulation> getRegulations(String market) {
-        return regulations.getOrDefault(market, Collections.emptyList());
+        return regulationRepo.findByMarket(market).stream()
+                .map(this::toDto)
+                .toList();
     }
 
     /**
      * Get regulation change history.
      */
     public List<RegulationChange> getChangeHistory(String market) {
-        return changeLog.getOrDefault(market, Collections.emptyList());
+        // Find all changes, filter by checking each regulation's market
+        List<com.qoobot.qoocompliance.domain.RegulationChange> allChanges = changeRepo.findAll();
+        return allChanges.stream()
+                .filter(change -> {
+                    Regulation reg = regulationRepo.findByRegulationId(change.getRegulationId()).orElse(null);
+                    return reg != null && market.equals(reg.getMarket());
+                })
+                .map(this::toDto)
+                .toList();
     }
 
     /**
      * Record a regulation change.
      */
+    @Transactional
     public void recordChange(String market, String regulationId, String changeDescription,
                               String severity) {
-        RegulationChange change = new RegulationChange(
-                UUID.randomUUID().toString(), market, regulationId,
-                changeDescription, severity, Instant.now()
-        );
-
-        changeLog.computeIfAbsent(market, k -> new ArrayList<>()).add(change);
+        com.qoobot.qoocompliance.domain.RegulationChange entity =
+                new com.qoobot.qoocompliance.domain.RegulationChange();
+        entity.setRegulationId(regulationId);
+        entity.setMarket(market);
+        entity.setChangeType("UPDATE");
+        entity.setDescription(changeDescription);
+        entity.setImpactLevel(severity);
+        entity.setNotified(false);
+        changeRepo.save(entity);
     }
 
     /**
      * Get upcoming regulation changes (effective in the future).
      */
     public List<Regulation> getUpcomingChanges(String market) {
-        return regulations.getOrDefault(market, Collections.emptyList()).stream()
-                .filter(r -> r.getNextUpdateDate() != null &&
-                        r.getNextUpdateDate().isAfter(Instant.now()))
+        return regulationRepo.findByMarket(market).stream()
+                .filter(r -> "UPCOMING".equals(r.getStatus()))
+                .map(this::toDto)
                 .toList();
     }
 
-    private void initializeRegulations() {
-        // China regulations
-        List<Regulation> cn = new ArrayList<>();
-        cn.add(new Regulation("CN-PIPL", "个人信息保护法", "PIPL",
-                Instant.parse("2021-11-01T00:00:00Z"), null, "ACTIVE", "HIGH"));
-        cn.add(new Regulation("CN-DSL", "数据安全法", "DSL",
-                Instant.parse("2021-09-01T00:00:00Z"), null, "ACTIVE", "HIGH"));
-        cn.add(new Regulation("CN-GENAI", "生成式AI服务管理规定",
-                "AI Regulation",
-                Instant.parse("2023-08-15T00:00:00Z"), null, "ACTIVE", "MEDIUM"));
-        regulations.put("CN", cn);
+    // --- Conversion methods ---
 
-        // EU regulations
-        List<Regulation> eu = new ArrayList<>();
-        eu.add(new Regulation("EU-GDPR", "通用数据保护条例", "GDPR",
-                Instant.parse("2018-05-25T00:00:00Z"), null, "ACTIVE", "HIGH"));
-        eu.add(new Regulation("EU-AI-ACT", "人工智能法案", "EU AI Act",
-                Instant.parse("2024-08-01T00:00:00Z"),
-                Instant.parse("2026-08-02T00:00:00Z"), "ACTIVE", "CRITICAL"));
-        eu.add(new Regulation("EU-MDR", "机械法规", "EU 2023/1230",
-                Instant.parse("2027-01-20T00:00:00Z"), null, "UPCOMING", "HIGH"));
-        regulations.put("EU", eu);
+    private Regulation toDto(com.qoobot.qoocompliance.domain.Regulation entity) {
+        Regulation dto = new Regulation();
+        dto.setId(entity.getRegulationId());
+        dto.setName(entity.getTitle());
+        dto.setCategory(entity.getShortName());
+        dto.setEffectiveDate(entity.getEffectiveDate() != null
+                ? entity.getEffectiveDate().atStartOfDay().toInstant(ZoneOffset.UTC)
+                : null);
+        dto.setNextUpdateDate(null);
+        dto.setStatus(entity.getStatus());
+        dto.setImpactLevel(entity.getImpactLevel());
+        return dto;
+    }
 
-        // US regulations
-        List<Regulation> us = new ArrayList<>();
-        us.add(new Regulation("US-CCPA", "加州消费者隐私法案", "CCPA/CPRA",
-                Instant.parse("2020-01-01T00:00:00Z"), null, "ACTIVE", "MEDIUM"));
-        regulations.put("US", us);
-
-        // Japan regulations
-        List<Regulation> jp = new ArrayList<>();
-        jp.add(new Regulation("JP-APPI", "个人信息保护法", "APPI",
-                Instant.parse("2022-04-01T00:00:00Z"), null, "ACTIVE", "MEDIUM"));
-        regulations.put("JP", jp);
+    private RegulationChange toDto(com.qoobot.qoocompliance.domain.RegulationChange entity) {
+        return new RegulationChange(
+                entity.getId().toString(),
+                entity.getMarket(),
+                entity.getRegulationId(),
+                entity.getDescription(),
+                entity.getImpactLevel(),
+                entity.getCreatedAt() != null
+                        ? entity.getCreatedAt().toInstant(ZoneOffset.UTC)
+                        : null
+        );
     }
 
     // --- DTOs ---

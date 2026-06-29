@@ -20,6 +20,9 @@ public class RegulationChange {
     @Column(nullable = false, length = 64)
     private String regulationId;
 
+    @Column(length = 8)
+    private String market;
+
     @Column(length = 32)
     private String changeType;
 
@@ -63,6 +66,14 @@ public class RegulationChange {
 
     public void setRegulationId(String regulationId) {
         this.regulationId = regulationId;
+    }
+
+    public String getMarket() {
+        return market;
+    }
+
+    public void setMarket(String market) {
+        this.market = market;
     }
 
     public String getChangeType() {

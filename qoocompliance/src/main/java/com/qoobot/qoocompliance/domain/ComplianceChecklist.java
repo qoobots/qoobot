@@ -28,6 +28,9 @@ public class ComplianceChecklist {
     @Column(length = 8)
     private String market;
 
+    @Column(length = 128)
+    private String targetMarkets;
+
     @Column(length = 32)
     private String status;
 
@@ -86,6 +89,14 @@ public class ComplianceChecklist {
 
     public void setMarket(String market) {
         this.market = market;
+    }
+
+    public String getTargetMarkets() {
+        return targetMarkets;
+    }
+
+    public void setTargetMarkets(String targetMarkets) {
+        this.targetMarkets = targetMarkets;
     }
 
     public String getStatus() {

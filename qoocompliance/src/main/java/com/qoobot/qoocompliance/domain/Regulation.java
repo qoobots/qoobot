@@ -41,6 +41,9 @@ public class Regulation {
     @Column(length = 32)
     private String status;
 
+    @Column(length = 32)
+    private String impactLevel;
+
     private LocalDate effectiveDate;
 
     private LocalDateTime createdAt;
@@ -130,6 +133,14 @@ public class Regulation {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getImpactLevel() {
+        return impactLevel;
+    }
+
+    public void setImpactLevel(String impactLevel) {
+        this.impactLevel = impactLevel;
     }
 
     public LocalDate getEffectiveDate() {

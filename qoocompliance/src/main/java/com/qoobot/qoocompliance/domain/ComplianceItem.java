@@ -37,6 +37,9 @@ public class ComplianceItem {
     private String description;
 
     @Column(length = 8)
+    private String market;
+
+    @Column(length = 8)
     private String priority;
 
     @Column(length = 32)
@@ -124,6 +127,14 @@ public class ComplianceItem {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getMarket() {
+        return market;
+    }
+
+    public void setMarket(String market) {
+        this.market = market;
     }
 
     public String getPriority() {
