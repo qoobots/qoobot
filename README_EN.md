@@ -142,47 +142,63 @@ QooBot's grand vision — **Humanoid robots are not tools, but an extension of h
   <img src="./docs/static/architecture.svg" alt="QooBot Architecture" width="100%">
 </p>
 
-QooBot is organized into **four layers** across **12 projects**:
+QooBot is organized by **deployment platform** into **7 platform directories**:
 
-### 🧬 Core — The Robot Stack
+### 🤖 qoobot-os — Humanoid Robot OS
 
-Projects that run directly on the robot:
+The complete operating system running on robot hardware:
 
-| Project | Description |
+| Module | Description |
 |---------|-------------|
-| **[qoobrain](./qoobrain/)** | **Brain OS** — Perception, cognition, decision-making, motion planning, real-time communication. The central nervous system. |
-| **[qoocore](./qoocore/)** | **Compute &amp; Acceleration** — On-device inference runtime, model compilation, hardware abstraction for NPU/GPU/DSP. |
-| **[qoobody](./qoobody/)** | **Hardware Reference** — Sensor interfaces, actuator drivers, compute platform specs, mechanical &amp; energy reference designs. |
+| **[hal](./qoobot-os/hal/)** | **Hardware Abstraction Layer** — Sensor interfaces, actuator drivers, compute platform specs, mechanical &amp; energy reference designs. |
+| **[ai-engine](./qoobot-os/ai-engine/)** | **AI Inference Engine** — On-device model compilation, NPU/GPU/DSP multi-backend dispatch, chip-level acceleration. |
+| **[brain](./qoobot-os/brain/)** | **Brain Core** — Perception, cognition, decision-making, motion planning, real-time control. The central nervous system. |
+| **[services](./qoobot-os/services/)** | **System Services** — Voice assistant, spatial understanding, navigation, self-diagnostics, multi-robot connectivity. |
+| **[edge](./qoobot-os/edge/)** | **Edge Modules** — On-device SDKs (auth/accessory/skill runtime). |
 
-### 🔌 Platform — Developer &amp; User Services
+### 🌐 qoobot-web — Browser Web Apps
 
-Projects that connect robots to developers and users:
-
-| Project | Description |
+| Module | Description |
 |---------|-------------|
-| **[qoostore](./qoostore/)** | **Skill Marketplace** — Discover, publish, and monetize robot skills. Third-party algorithm integration and distribution. |
-| **[qoocloud](./qoocloud/)** | **Cloud Services** — Remote inference, fleet management, OTA updates, data synchronization, multi-robot orchestration. |
-| **[qoosvc](./qoosvc/)** | **System Services** — Voice assistant, spatial understanding, navigation, multi-robot connectivity, self-diagnostics. |
+| **[portal](./qoobot-web/portal/)** | **Brand Site** — Product showcase, PWA. |
+| **[admin](./qoobot-web/admin/)** | **Admin Console** — Account, device, security management. |
+| **[community](./qoobot-web/community/)** | **Global Community** — Forums, academy, events, contributor network. |
+| **[gear](./qoobot-web/gear/)** | **Accessory Portal** — MFQ certification, developer center, standards. |
+| **[remote](./qoobot-web/remote/)** | **Teleoperation Panel** — WebRTC remote control, teaching records. |
+| **[dev-dashboard](./qoobot-web/dev-dashboard/)** | **Developer Dashboard** — Simulation monitoring, performance analysis. |
 
-### 🛡️ Foundation — Quality &amp; Trust
+### 🖥️ qoobot-desktop — Desktop Software
 
-Projects that ensure reliability and compliance:
-
-| Project | Description |
+| Module | Description |
 |---------|-------------|
-| **[qoodev](./qoodev/)** | **Developer Toolchain** — IDE plugins, robot simulator, behavior debugger, performance profiler, data labeling tools. |
-| **[qooauth](./qooauth/)** | **Identity &amp; Security** — Unified robot/user identity, authentication, authorization, privacy framework. |
-| **[qoocompliance](./qoocompliance/)** | **Regulatory Compliance** — Safety standards (ISO 10218, ISO 13482), wireless certifications, export controls, regional privacy laws. |
+| **[cli](./qoobot-desktop/cli/)** | **CLI Toolchain** — Project init, compile, debug, package, deploy. |
+| **[lsp](./qoobot-desktop/lsp/)** | **LSP Server** — Code completion, diagnostics, navigation. |
+| **[vscode-plugin](./qoobot-desktop/vscode-plugin/)** | **VS Code Plugin** — Integrated development environment. |
+| **[python-sdk](./qoobot-desktop/python-sdk/)** | **Python SDK** — Robot application development. |
 
-### 🌍 Ecosystem — Industry &amp; Community
+### ☁️ qoobot-service — Cloud Microservices
 
-Projects that build the global robotics community:
-
-| Project | Description |
+| Module | Description |
 |---------|-------------|
-| **[qoogear](./qoogear/)** | **Accessory Ecosystem** — Third-party peripheral certification, end-effectors, wearable devices, connectivity standards. |
-| **[qoocommunity](./qoocommunity/)** | **Global Community** — Contributor network, annual developer conference, university partnerships, ambassador program. |
-| **[qoochain](./qoochain/)** | **Supply Chain** — Manufacturing standards, factory calibration, quality assurance, BOM reference designs. |
+| **[auth](./qoobot-service/auth/)** | **Identity &amp; Auth** — Unified identity, OAuth, API Key, device trust. |
+| **[community](./qoobot-service/community/)** | **Community Services** — Forums, content, governance. |
+| **[cloud](./qoobot-service/cloud/)** | **Cloud Platform** — Remote inference, fleet mgmt, OTA, digital twin, observability. |
+| **[chain](./qoobot-service/chain/)** | **Supply Chain** — Manufacturing, calibration, QA, BOM. |
+| **[compliance](./qoobot-service/compliance/)** | **Regulatory Compliance** — Safety standards, wireless certs, export controls, privacy. |
+| **[gear](./qoobot-service/gear/)** | **Accessory Services** — MFQ certification, lab management. |
+| **[store](./qoobot-service/store/)** | **Skill Store** — Skill publishing, orders, analytics. |
+
+### 📱 qoobot-mobile — Mobile App (Planned)
+
+> 🚧 To be developed — Android/iOS native app. Planned: login, remote control, live monitoring, community.
+
+### 📲 qoobot-h5 — Mobile H5 / Mini Program (Planned)
+
+> 🚧 To be developed — Mobile browser &amp; WeChat mini program. Planned: mobile site, QR binding, lightweight community.
+
+### 🔌 qoobot-proto — Cross-Platform Protocols
+
+> **[Protocol Index](./qoobot-proto/)** — Defines all cross-platform gRPC/Protobuf communication contracts.
 
 ---
 
@@ -199,7 +215,7 @@ Projects that build the global robotics community:
 ```bash
 # Clone the monorepo
 git clone https://github.com/qoobots/qoobot.git
-cd qoobot/qoobrain
+cd qoobot/qoobot-os/brain
 
 # Install dependencies
 pip install -e ".[dev]"
@@ -233,24 +249,26 @@ class PickAndPlace(Skill):
 
 ## 📊 Project Status
 
-> **All 12 sub-projects have completed design phase and entered full development. 525 feature modules — 100% complete.**
+> **All 12 sub-projects completed design and migrated to 7 platform directories. 525 feature modules — 100% complete.**
 
-| # | Project | Version | Status | Progress |
-|---|---------|---------|------|:--:|
-| 1 | **qoobrain** | v1.0.0-alpha | 🟢 **Alpha** | 10/10 |
-| 2 | qoobody | v1.0 | 🟢 **Complete** | 43/43 |
-| 3 | qoocore | v0.5 | 🟢 **Complete** | 40/40 |
-| 4 | qooauth | v0.6 | 🟢 **Complete** | 59/59 |
-| 5 | qoodev | v1.0 | 🟢 **Complete** | 56/56 |
-| 6 | qooweb | v1.0 | 🟢 **Complete** | 19/19 |
-| 7 | qoosvc | v0.3 | 🟢 **Complete** | 48/48 |
-| 8 | qoocloud | v0.3 | 🟢 **Complete** | 45/45 |
-| 9 | qoocompliance | v0.3 | 🟢 **Complete** | 42/42 |
-| 10 | qooremote | v0.3 | 🟢 **Complete** | 10/10 |
-| 11 | qoostore | v0.1 | 🟢 **Complete** | 45/45 |
-| 12 | qoochain | v0.1 | 🟢 **Complete** | 36/36 |
-| 13 | qoogear | v0.1 | 🟢 **Complete** | 36/36 |
-| 14 | qoocommunity | v0.1 | 🟢 **Complete** | 38/38 |
+| # | Platform | Module | Version | Status | Progress |
+|---|------|------|---------|------|:--:|
+| 1 | **qoobot-os** | brain | v1.0.0-alpha | 🟢 **Alpha** | 10/10 |
+| 2 | qoobot-os | hal | v1.0 | 🟢 **Complete** | 43/43 |
+| 3 | qoobot-os | ai-engine | v0.5 | 🟢 **Complete** | 40/40 |
+| 4 | qoobot-os | services | v0.3 | 🟢 **Complete** | 48/48 |
+| 5 | **qoobot-service** | auth | v0.6 | 🟢 **Complete** | 59/59 |
+| 6 | qoobot-service | cloud | v0.3 | 🟢 **Complete** | 45/45 |
+| 7 | qoobot-service | compliance | v0.3 | 🟢 **Complete** | 42/42 |
+| 8 | qoobot-service | store | v0.1 | 🟢 **Complete** | 45/45 |
+| 9 | qoobot-service | chain | v0.1 | 🟢 **Complete** | 36/36 |
+| 10 | qoobot-service | gear | v0.1 | 🟢 **Complete** | 36/36 |
+| 11 | qoobot-service | community | v0.1 | 🟢 **Complete** | 38/38 |
+| 12 | **qoobot-web** | portal | v1.0 | 🟢 **Complete** | 19/19 |
+| 13 | qoobot-web | remote | v0.3 | 🟢 **Complete** | 10/10 |
+| 14 | **qoobot-desktop** | cli/lsp/plugin | v1.0 | 🟢 **Complete** | 56/56 |
+| 15 | **qoobot-mobile** | — | — | ⚪ **Planned** | 0 |
+| 16 | **qoobot-h5** | — | — | ⚪ **Planned** | 0 |
 
 ---
 
@@ -258,24 +276,26 @@ class PickAndPlace(Skill):
 
 ### ✅ Current (v1.0 — All Sub-projects Design Complete)
 
-- [x] Core brain OS: perception, planning, decision engine (qoobrain Alpha)
-- [x] On-device AI inference engine (qoocore v0.5, 40/40 complete)
-- [x] Hardware reference design (qoobody, 43/43 all ready)
-- [x] Unified identity infrastructure (qooauth v0.6, 59/59 complete)
-- [x] Developer toolchain (qoodev, 56/56 complete)
-- [x] System services (qoosvc v0.3, 48/48 complete)
-- [x] Cloud services (qoocloud v0.3, 45/45 complete)
-- [x] Regulatory compliance (qoocompliance v0.3, 42/42 complete)
-- [x] Remote control (qooremote v0.3, 10/10 complete)
-- [x] Skill marketplace (qoostore v0.1, 45/45 complete)
-- [x] Supply chain manufacturing (qoochain v0.1, 36/36 complete)
-- [x] Accessory ecosystem (qoogear v0.1, 36/36 complete)
-- [x] Open source community (qoocommunity v0.1, 38/38 complete)
-- [x] Official website (qooweb v1.0, 19/19 complete)
+- [x] Core brain OS: perception, planning, decision engine (qoobot-os/brain Alpha)
+- [x] On-device AI inference engine (qoobot-os/ai-engine v0.5, 40/40 complete)
+- [x] Hardware reference design (qoobot-os/hal, 43/43 all ready)
+- [x] Unified identity infrastructure (qoobot-service/auth v0.6, 59/59 complete)
+- [x] Developer toolchain (qoobot-desktop, 56/56 complete)
+- [x] System services (qoobot-os/services v0.3, 48/48 complete)
+- [x] Cloud services (qoobot-service/cloud v0.3, 45/45 complete)
+- [x] Regulatory compliance (qoobot-service/compliance v0.3, 42/42 complete)
+- [x] Remote control (qoobot-web/remote v0.3, 10/10 complete)
+- [x] Skill marketplace (qoobot-service/store v0.1, 45/45 complete)
+- [x] Supply chain manufacturing (qoobot-service/chain v0.1, 36/36 complete)
+- [x] Accessory ecosystem (qoobot-service/gear v0.1, 36/36 complete)
+- [x] Open source community (qoobot-service/community v0.1, 38/38 complete)
+- [x] Official website (qoobot-web/portal v1.0, 19/19 complete)
+- [ ] Mobile App (qoobot-mobile — planned)
+- [ ] Mobile H5 / Mini Program (qoobot-h5 — planned)
 
 ### Next (v1.1+ — Deep Implementation & Hardware Validation)
 
-- [ ] qoobrain real robot deployment on ≥ 3 platforms
+- [ ] qoobot-os/brain real robot deployment on ≥ 3 platforms
 - [ ] Simulation environment (Isaac Sim + MuJoCo) deep refinement
 - [ ] Skill SDK v1.0 with developer documentation
 - [ ] On-device inference compiler performance benchmarks
@@ -347,7 +367,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ```
 
-All sub-projects in this monorepo are licensed under **[Apache License 2.0](./LICENSE)** .
+All platform directories in this monorepo are licensed under **[Apache License 2.0](./LICENSE)** .
 
 ---
 
