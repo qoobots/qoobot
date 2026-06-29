@@ -1,0 +1,46 @@
+# ============================================================================
+# qoosvc — 语音服务配置
+# ============================================================================
+
+voice:
+  wake_word:
+    enabled: true
+    words:
+      - text: "Hey QooBot"
+        language: "zh"
+        threshold: 0.7
+        sensitivity: medium
+      - text: "你好机器人"
+        language: "zh"
+        threshold: 0.65
+        sensitivity: medium
+    false_trigger_suppression: true
+    energy_threshold: 300
+
+  asr:
+    engine: whisper_cpp
+    model: models/asr_zh_v3.onnx
+    languages: ["zh", "en", "ja"]
+    sample_rate: 16000
+    streaming: true
+    vad_sensitivity: 2
+
+  nlu:
+    engine: onnx_runtime
+    model: models/nlu_v1.onnx
+    intent_threshold: 0.6
+    slot_threshold: 0.5
+    context_window: 5
+
+  tts:
+    engine: piper
+    default_voice: "warm_female"
+    voices:
+      warm_female:
+        model: models/tts_female_v2.onnx
+        sample_rate: 22050
+      calm_male:
+        model: models/tts_male_v1.onnx
+        sample_rate: 22050
+    speed: 1.0
+    pitch: 1.0

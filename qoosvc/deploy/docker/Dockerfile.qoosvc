@@ -1,0 +1,59 @@
+# ============================================================================
+# qoosvc — QooBot 系统服务 Docker 镜像
+# 运行位置：机器人计算平台 (非云端)
+# 基础镜像：NVIDIA CUDA + Ubuntu 22.04
+# ============================================================================
+
+FROM nvidia/cuda:12.1-runtime-ubuntu22.04
+
+LABEL maintainer="QooBot Team"
+LABEL description="QooBot System Services — Voice, Navigation, Diagnostics & More"
+LABEL version="0.3.0"
+
+# 系统依赖
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    cmake \
+    libeigen3-dev \
+    libyaml-cpp-dev \
+    python3.11 \
+    python3.11-dev \
+    python3-pip \
+    libspdlog-dev \
+    libgtest-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+# Python 依赖
+RUN pip3 install --no-cache-dir \
+    numpy>=1.26 \
+    pyyaml>=6.0 \
+    typer>=0.12 \
+    rich>=13.7 \
+    structlog>=24.1
+
+# 复制构建产物
+COPY build/lib/libsvc_*.so /usr/local/lib/
+COPY build/lib/libqoosvc_*.so /usr/local/lib/
+
+# 复制 Python SDK
+COPY python/ /opt/qoosvc/python/
+
+# 复制配置文件
+COPY config/ /etc/qoosvc/
+
+# 环境变量
+ENV LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
+ENV PYTHONPATH=/opt/qoosvc:$PYTHONPATH
+ENV QOOSVC_CONFIG_DIR=/etc/qoosvc
+
+# 创建运行时目录
+RUN mkdir -p /var/lib/qoosvc/maps \
+             /var/lib/qoosvc/models \
+             /var/lib/qoosvc/faces \
+             /var/lib/qoosvc/calibration \
+             /var/lib/qoosvc/diagnostics \
+             /var/lib/qoosvc/cache \
+             /var/log/qoosvc
+
+# 启动所有系统服务
+ENTRYPOINT ["python3", "-m", "qoosvc.cli.main", "start", "--all"]

@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+package qoosvc.diagnostics;
+
+/**
+ * DiagnosticStatus — status of a single diagnostic item.
+ */
+enum DiagnosticStatus {
+    OK = 0;
+    WARNING = 1;
+    ERROR = 2;
+    NOT_TESTED = 3;
+}
+
+/**
+ * DiagnosticItem — a single diagnostic check result.
+ */
+message DiagnosticItem {
+    string name = 1;           // Check name
+    string component = 2;      // Component category (sensor/motor/battery/comm)
+    DiagnosticStatus status = 3;
+    string message = 4;        // Human-readable message
+    double value = 5;          // Measured value
+    string unit = 6;           // Unit of measurement
+    double min_normal = 7;     // Normal range lower bound
+    double max_normal = 8;     // Normal range upper bound
+}
+
+/**
+ * HealthReport — comprehensive health assessment.
+ * Published to /qoosvc/diag/health_report with QoS RELIABLE at 1Hz.
+ */
+message HealthReport {
+    double overall_score = 1;           // Overall health score [0, 100]
+    repeated DiagnosticItem items = 2;  // All diagnostic items
+    repeated string warnings = 3;       // Warning messages
+    repeated string errors = 4;         // Error messages
+    repeated string suggestions = 5;    // Maintenance suggestions
+    int64 timestamp_ns = 6;             // Timestamp in nanoseconds
+}

@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package qoosvc.voice;
+
+/**
+ * TTSConfig — text-to-speech synthesis configuration.
+ */
+message TTSConfig {
+    string voice_id = 1;       // Voice profile ID
+    float speed = 2;           // Speech speed multiplier [0.5, 2.0]
+    float pitch = 3;           // Pitch multiplier [0.5, 2.0]
+    string language = 4;       // Target language
+}
+
+/**
+ * TTSRequest — text-to-speech synthesis request.
+ */
+message TTSRequest {
+    string text = 1;           // Text to synthesize
+    TTSConfig config = 2;      // Synthesis configuration
+}
+
+/**
+ * TTSAudio — synthesized audio data.
+ * Published to /qoosvc/voice/tts_audio with QoS BEST_EFFORT.
+ */
+message TTSAudio {
+    bytes audio_data = 1;      // Raw PCM audio data
+    int32 sample_rate = 2;     // Sample rate in Hz
+    int32 channels = 3;        // Number of channels
+    string format = 4;         // Audio format (pcm_s16le, etc.)
+    int64 timestamp_ns = 5;    // Timestamp in nanoseconds
+}

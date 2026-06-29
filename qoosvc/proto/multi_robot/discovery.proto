@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+package qoosvc.multi_robot;
+
+/**
+ * RobotCapability — a capability that a robot can advertise.
+ */
+message RobotCapability {
+    string name = 1;           // Capability name (e.g., "cleaning", "patrol")
+    string version = 2;        // Capability version
+    string status = 3;         // "available", "busy", "offline"
+}
+
+/**
+ * RobotInfo — information about a robot on the network.
+ * Published to /qoosvc/multi/discovery with QoS RELIABLE.
+ */
+message RobotInfo {
+    string robot_id = 1;       // Unique robot identifier
+    string robot_name = 2;     // Human-readable name
+    string robot_model = 3;    // Model identifier
+    string ip_address = 4;     // IP address
+    int32 port = 5;            // Service port
+    repeated RobotCapability capabilities = 6;  // Advertised capabilities
+    double battery_level = 7;  // Battery percentage [0, 100]
+    string status = 8;         // "idle", "working", "charging", "error"
+    int64 timestamp_ns = 9;    // Timestamp in nanoseconds
+}
+
+/**
+ * TaskOffer — a task proposal for multi-robot coordination.
+ * Published to /qoosvc/multi/task_offer with QoS RELIABLE.
+ */
+message TaskOffer {
+    string task_id = 1;        // Unique task identifier
+    string task_type = 2;      // Task type
+    string description = 3;    // Human-readable description
+    string payload_json = 4;   // Task-specific payload
+    double estimated_duration_sec = 5;  // Estimated duration
+    int32 priority = 6;        // Task priority (lower = higher)
+    int64 expires_at_ns = 7;   // Offer expiration time
+}

@@ -1,0 +1,16 @@
+{
+  "name": "happy",
+  "description": "开心表情 — 弯眼笑",
+  "frames": [
+    {
+      "duration_ms": 200,
+      "eyes": "happy_curve",
+      "mouth": "smile",
+      "led_matrix": {
+        "left_eye": [0,0,0,0,0,1,1,0,0,1,1,0,0,0,0,0],
+        "right_eye": [0,0,0,0,0,1,1,0,0,1,1,0,0,0,0,0],
+        "mouth": [0,0,0,0,1,1,1,1,1,1,1,1,0,0,0,0]
+      }
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+# ============================================================================
+# qoosvc — 灯光配置方案
+# ============================================================================
+
+light_profiles:
+  idle:
+    pattern: breathing
+    color: [0, 180, 255]
+    brightness: 0.5
+    speed: 0.5
+
+  working:
+    pattern: rotating
+    color: [0, 255, 100]
+    brightness: 0.8
+    speed: 1.0
+
+  warning:
+    pattern: flashing
+    color: [255, 180, 0]
+    brightness: 1.0
+    speed: 2.0
+
+  error:
+    pattern: flashing
+    color: [255, 0, 0]
+    brightness: 1.0
+    speed: 3.0
+
+  charging:
+    pattern: breathing
+    color: [255, 200, 0]
+    brightness: 0.6
+    speed: 0.3
+
+  listening:
+    pattern: rotating
+    color: [100, 200, 255]
+    brightness: 0.7
+    speed: 1.5
+
+  speaking:
+    pattern: solid
+    color: [255, 255, 255]
+    brightness: 0.5
+    speed: 0.0
+
+  sleeping:
+    pattern: breathing
+    color: [20, 20, 50]
+    brightness: 0.2
+    speed: 0.1

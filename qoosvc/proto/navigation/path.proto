@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package qoosvc.navigation;
+
+/**
+ * PathPoint — a single point on a navigation path.
+ */
+message PathPoint {
+    double x = 1;              // X position in meters
+    double y = 2;              // Y position in meters
+    double theta = 3;          // Heading angle in radians
+    double velocity = 4;       // Target velocity at this point (m/s)
+}
+
+/**
+ * Path — a planned navigation path.
+ * Published to /qoosvc/nav/current_path with QoS RELIABLE.
+ */
+message Path {
+    string frame_id = 1;       // Coordinate frame
+    repeated PathPoint points = 2;  // Sequence of path points
+    int64 timestamp_ns = 3;    // Timestamp in nanoseconds
+}

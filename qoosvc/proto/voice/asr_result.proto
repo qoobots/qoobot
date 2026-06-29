@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package qoosvc.voice;
+
+/**
+ * ASRResult — automatic speech recognition result.
+ * Published to /qoosvc/voice/asr_result with QoS RELIABLE.
+ */
+message ASRResult {
+    string text = 1;           // Recognized text
+    string language = 2;       // Detected language (zh/en/ja)
+    float confidence = 3;      // Recognition confidence [0.0, 1.0]
+    bool is_final = 4;         // Whether this is the final result (streaming)
+    int64 timestamp_ns = 5;    // Timestamp in nanoseconds
+}

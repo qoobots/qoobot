@@ -1,0 +1,16 @@
+{
+  "name": "neutral",
+  "description": "默认中性表情",
+  "frames": [
+    {
+      "duration_ms": 0,
+      "eyes": "open",
+      "mouth": "line",
+      "led_matrix": {
+        "left_eye": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+        "right_eye": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+        "mouth": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+      }
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+# qoosvc — QooBot 系统服务 Python SDK
+# 机器人端 Python API + CLI 工具
+
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "qoosvc"
+version = "0.3.0"
+description = "QooBot System Services - Voice, Navigation, Diagnostics & More"
+requires-python = ">=3.11"
+dependencies = [
+    "numpy>=1.26",
+    "pyyaml>=6.0",
+    "typer>=0.12",
+    "rich>=13.7",
+    "structlog>=24.1",
+]
+
+[project.optional-dependencies]
+voice = ["whisper>=1.1", "piper-tts>=1.2"]
+face = ["insightface>=0.7"]
+slam = ["open3d>=0.18"]
+
+[project.scripts]
+qoo-svc = "qoosvc.cli.main:app"
+
+[tool.setuptools.packages.find]
+where = ["python"]

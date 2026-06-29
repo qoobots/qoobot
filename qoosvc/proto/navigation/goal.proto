@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package qoosvc.navigation;
+
+/**
+ * NavigationGoal — target pose for navigation.
+ * Published to /qoosvc/nav/goal with QoS RELIABLE.
+ */
+message NavigationGoal {
+    string frame_id = 1;       // Coordinate frame (default: "map")
+    double x = 2;              // X position in meters
+    double y = 3;              // Y position in meters
+    double z = 4;              // Z position in meters
+    double qx = 5;             // Orientation quaternion X
+    double qy = 6;             // Orientation quaternion Y
+    double qz = 7;             // Orientation quaternion Z
+    double qw = 8;             // Orientation quaternion W
+    int64 timestamp_ns = 9;    // Timestamp in nanoseconds
+}

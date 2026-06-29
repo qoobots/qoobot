@@ -1,0 +1,45 @@
+# ============================================================================
+# qoosvc.service — QooBot 系统服务 systemd 单元
+# 安装: sudo cp deploy/systemd/qoosvc.service /etc/systemd/system/
+#       sudo systemctl enable qoosvc
+#       sudo systemctl start qoosvc
+# ============================================================================
+
+[Unit]
+Description=QooBot System Services
+Documentation=https://github.com/qoobot/qoosvc
+After=network.target qoobrain.service
+Requires=qoobrain.service
+Wants=network.target
+
+[Service]
+Type=simple
+User=qoobot
+Group=qoobot
+WorkingDirectory=/opt/qoosvc
+Environment=PYTHONPATH=/opt/qoosvc
+Environment=QOOSVC_CONFIG_DIR=/etc/qoosvc
+Environment=LD_LIBRARY_PATH=/usr/local/lib
+
+# 启动所有系统服务
+ExecStart=/usr/bin/python3 -m qoosvc.cli.main start --all
+
+# 优雅停止
+ExecStop=/usr/bin/python3 -m qoosvc.cli.main stop --all
+
+# 自动重启
+Restart=on-failure
+RestartSec=5
+
+# 资源限制
+CPUQuota=400%
+MemoryMax=4G
+TasksMax=256
+
+# 日志
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=qoosvc
+
+[Install]
+WantedBy=multi-user.target

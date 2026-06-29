@@ -1,0 +1,38 @@
+# ============================================================================
+# qoosvc — 导航服务配置
+# ============================================================================
+
+navigation:
+  global_planner:
+    algorithm: "astar"
+    use_heuristic: true
+    grid_resolution: 0.05
+    allow_unknown: false
+
+  local_planner:
+    algorithm: "teb"
+    max_velocity: 1.5
+    max_angular_velocity: 1.0
+    max_acceleration: 0.5
+    goal_tolerance_linear: 0.1
+    goal_tolerance_angular: 0.1
+
+  obstacle_avoidance:
+    inflation_radius: 0.55
+    social_navigation: true
+    personal_space: 1.0
+    dynamic_window: 3.0
+    narrow_passage:
+      enabled: true
+      width_threshold: 0.8
+      sideways_mode: true
+
+  recovery:
+    max_recovery_attempts: 3
+    recovery_behaviors: ["rotate", "backup", "clear_costmap"]
+    localization_lost_timeout: 5.0
+
+  exploration:
+    frontier_detection_radius: 3.0
+    info_gain_weight: 0.6
+    travel_cost_weight: 0.4
