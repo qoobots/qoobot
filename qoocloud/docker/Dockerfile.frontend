@@ -1,0 +1,42 @@
+# ==============================================
+# qoocloud Frontend — Vue 3 Web 控制台
+# Stage 1: Node.js 构建
+# Stage 2: Nginx 静态服务
+# ==============================================
+
+# ---------- Stage 1: Build ----------
+FROM node:20-alpine AS builder
+
+WORKDIR /workspace
+
+COPY web/package.json web/package-lock.json* ./
+RUN npm ci --silent
+
+COPY web/ ./
+RUN npm run build
+
+# ---------- Stage 2: Serve ----------
+FROM nginx:1.27-alpine
+
+RUN addgroup -S qoo && adduser -S qoo -G qoo
+
+# 复制自定义 nginx 配置
+COPY docker/nginx.conf /etc/nginx/conf.d/default.conf
+
+# 复制构建产物
+COPY --from=builder /workspace/dist /usr/share/nginx/html
+
+RUN chown -R qoo:qoo /usr/share/nginx/html && \
+    chown -R qoo:qoo /var/cache/nginx && \
+    chown -R qoo:qoo /var/log/nginx && \
+    touch /var/run/nginx.pid && \
+    chown -R qoo:qoo /var/run/nginx.pid
+
+USER qoo
+
+EXPOSE 80
+
+HEALTHCHECK --interval=30s --timeout=3s --retries=3 \
+  CMD wget -q --spider http://localhost:80/health || exit 1
+
+CMD ["nginx", "-g", "daemon off;"]

@@ -1,0 +1,59 @@
+# ==============================================
+# qoocloud Backend — 多阶段构建
+# Stage 1: Maven 编译
+# Stage 2: JRE 运行
+# ==============================================
+
+# ---------- Stage 1: Build ----------
+FROM maven:3.9-eclipse-temurin-21-alpine AS builder
+
+WORKDIR /workspace
+
+# 先复制父 POM 和所有模块 POM（利用 Docker 层缓存）
+COPY pom.xml .
+COPY qoocloud-common/pom.xml qoocloud-common/
+COPY qoocloud-gateway/pom.xml qoocloud-gateway/
+COPY qoocloud-inference/pom.xml qoocloud-inference/
+COPY qoocloud-device/pom.xml qoocloud-device/
+COPY qoocloud-ota/pom.xml qoocloud-ota/
+COPY qoocloud-data/pom.xml qoocloud-data/
+COPY qoocloud-orchestra/pom.xml qoocloud-orchestra/
+COPY qoocloud-twin/pom.xml qoocloud-twin/
+COPY qoocloud-observability/pom.xml qoocloud-observability/
+COPY qoocloud-infra/pom.xml qoocloud-infra/
+COPY qoocloud-teleop/pom.xml qoocloud-teleop/
+
+# 下载依赖（依赖层缓存）
+RUN mvn dependency:go-offline -pl qoocloud-common -B -q || true
+
+# 复制全部源码
+COPY . .
+
+# 编译 + 跳过测试
+ARG MODULE=qoocloud-gateway
+RUN mvn clean package -pl ${MODULE} -am -DskipTests -B -q
+
+# ---------- Stage 2: Runtime ----------
+FROM eclipse-temurin:21-jre-alpine AS runtime
+
+RUN addgroup -S qoo && adduser -S qoo -G qoo
+
+# JVM 优化参数
+ENV JAVA_OPTS="-XX:+UseG1GC -XX:MaxGCPauseMillis=200 -XX:+HeapDumpOnOutOfMemoryError \
+  -XX:HeapDumpPath=/tmp/heapdump.hprof -Djava.security.egd=file:/dev/./urandom"
+
+WORKDIR /app
+
+ARG MODULE=qoocloud-gateway
+COPY --from=builder /workspace/${MODULE}/target/*.jar /app/app.jar
+
+RUN chown -R qoo:qoo /app
+
+USER qoo
+
+EXPOSE 8080
+
+HEALTHCHECK --interval=30s --timeout=5s --retries=3 \
+  CMD wget -q --spider http://localhost:8080/actuator/health || exit 1
+
+ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -jar /app/app.jar"]
