@@ -25,6 +25,13 @@ spring:
       discovery:
         server-addr: localhost:8848
 
+qoogear:
+  security:
+    jwt:
+      secret: ${JWT_SECRET:qoogear-dev-secret-key-must-be-at-least-64-bytes-long-for-hs512-algorithm}
+      access-expiration-ms: 900000
+      refresh-expiration-ms: 604800000
+
 logging:
   level:
     com.qoobot.qoogear: DEBUG

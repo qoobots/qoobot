@@ -7,6 +7,7 @@ import com.qoobot.qoogear.developer.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -36,11 +37,13 @@ public class DeveloperPortalController {
     }
 
     @PostMapping("/references")
+    @PreAuthorize("hasRole('ADMIN')")
     public ApiResponse<ReferenceDesign> createDesign(@RequestBody ReferenceDesign design) {
         return ApiResponse.success(designService.createDesign(design));
     }
 
     @PostMapping("/references/{id}/download")
+    @PreAuthorize("hasRole('DEVELOPER') or hasRole('ADMIN')")
     public ApiResponse<Void> downloadDesign(@PathVariable Long id) {
         designService.incrementDownloads(id);
         return ApiResponse.success("Download recorded", null);
@@ -64,6 +67,7 @@ public class DeveloperPortalController {
     }
 
     @PostMapping("/sdk")
+    @PreAuthorize("hasRole('ADMIN')")
     public ApiResponse<SdkRelease> publishSdk(@RequestBody SdkRelease release) {
         return ApiResponse.success(sdkService.publishRelease(release));
     }
@@ -86,11 +90,13 @@ public class DeveloperPortalController {
     }
 
     @PostMapping("/test-kits")
+    @PreAuthorize("hasRole('ADMIN')")
     public ApiResponse<TestKit> createKit(@RequestBody TestKit kit) {
         return ApiResponse.success(kitService.createKit(kit));
     }
 
     @PutMapping("/test-kits/{id}/stock")
+    @PreAuthorize("hasRole('ADMIN')")
     public ApiResponse<TestKit> updateStock(@PathVariable Long id, @RequestParam int stock) {
         return ApiResponse.success(kitService.updateStock(id, stock));
     }

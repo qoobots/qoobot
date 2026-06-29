@@ -7,6 +7,7 @@ import com.qoobot.qoogear.standard.service.StandardSpecService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -36,6 +37,7 @@ public class StandardSpecController {
     }
 
     @PostMapping("/categories")
+    @PreAuthorize("hasRole('ADMIN')")
     public ApiResponse<StandardCategory> createCategory(@RequestBody StandardCategory category) {
         return ApiResponse.success(specService.createCategory(category));
     }
@@ -69,21 +71,25 @@ public class StandardSpecController {
     }
 
     @PostMapping("/specs")
+    @PreAuthorize("hasRole('ADMIN')")
     public ApiResponse<StandardSpec> createSpec(@RequestBody StandardSpec spec) {
         return ApiResponse.success(specService.createSpec(spec));
     }
 
     @PutMapping("/specs/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ApiResponse<StandardSpec> updateSpec(@PathVariable Long id, @RequestBody StandardSpec spec) {
         return ApiResponse.success(specService.updateSpec(id, spec));
     }
 
     @PostMapping("/specs/{id}/publish")
+    @PreAuthorize("hasRole('ADMIN')")
     public ApiResponse<StandardSpec> publishSpec(@PathVariable Long id) {
         return ApiResponse.success(specService.publishSpec(id));
     }
 
     @PostMapping("/specs/{id}/deprecate")
+    @PreAuthorize("hasRole('ADMIN')")
     public ApiResponse<StandardSpec> deprecateSpec(@PathVariable Long id) {
         return ApiResponse.success(specService.deprecateSpec(id));
     }
@@ -96,6 +102,7 @@ public class StandardSpecController {
     }
 
     @PostMapping("/compatibility")
+    @PreAuthorize("hasRole('ADMIN')")
     public ApiResponse<CompatibilityMatrix> addCompatibility(@RequestBody CompatibilityMatrix matrix) {
         return ApiResponse.success(specService.addCompatibility(matrix));
     }
@@ -108,12 +115,14 @@ public class StandardSpecController {
     }
 
     @PostMapping("/specs/{id}/checklist")
+    @PreAuthorize("hasRole('ADMIN')")
     public ApiResponse<TestChecklist> addChecklistItem(@PathVariable Long id, @RequestBody TestChecklist item) {
         item.setStandardId(id);
         return ApiResponse.success(specService.addChecklistItem(item));
     }
 
     @DeleteMapping("/checklist/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ApiResponse<Void> removeChecklistItem(@PathVariable Long id) {
         specService.removeChecklistItem(id);
         return ApiResponse.success(null);
