@@ -142,7 +142,7 @@ QooBot's grand vision — **Humanoid robots are not tools, but an extension of h
   <img src="./docs/static/architecture.svg" alt="QooBot Architecture" width="100%">
 </p>
 
-QooBot is organized by **deployment platform** into **7 platform directories**:
+QooBot is organized by **deployment platform** into **6 platform directories**:
 
 ### 🤖 qoobot-os — Humanoid Robot OS
 
@@ -191,10 +191,6 @@ The complete operating system running on robot hardware:
 ### 📱 qoobot-mobile — Mobile App (Planned)
 
 > 🚧 To be developed — Android/iOS native app. Planned: login, remote control, live monitoring, community.
-
-### 📲 qoobot-h5 — Mobile H5 / Mini Program (Planned)
-
-> 🚧 To be developed — Mobile browser &amp; WeChat mini program. Planned: mobile site, QR binding, lightweight community.
 
 ### 🔌 qoobot-proto — Cross-Platform Protocols
 
@@ -249,7 +245,7 @@ class PickAndPlace(Skill):
 
 ## 📊 Project Status
 
-> **All 12 sub-projects completed design and migrated to 7 platform directories. 525 feature modules — 100% complete.**
+> **All 12 sub-projects completed design and migrated to 6 platform directories. 525 feature modules — 100% complete.**
 
 | # | Platform | Module | Version | Status | Progress |
 |---|------|------|---------|------|:--:|
@@ -268,7 +264,6 @@ class PickAndPlace(Skill):
 | 13 | qoobot-web | remote | v0.3 | 🟢 **Complete** | 10/10 |
 | 14 | **qoobot-desktop** | cli/lsp/plugin | v1.0 | 🟢 **Complete** | 56/56 |
 | 15 | **qoobot-mobile** | — | — | ⚪ **Planned** | 0 |
-| 16 | **qoobot-h5** | — | — | ⚪ **Planned** | 0 |
 
 ---
 
@@ -291,7 +286,6 @@ class PickAndPlace(Skill):
 - [x] Open source community (qoobot-service/community v0.1, 38/38 complete)
 - [x] Official website (qoobot-web/portal v1.0, 19/19 complete)
 - [ ] Mobile App (qoobot-mobile — planned)
-- [ ] Mobile H5 / Mini Program (qoobot-h5 — planned)
 
 ### Next (v1.1+ — Deep Implementation & Hardware Validation)
 
