@@ -1,0 +1,70 @@
+server:
+  port: 8084
+
+spring:
+  application:
+    name: qooauth-security
+  datasource:
+    url: jdbc:postgresql://localhost:5432/qooauth?reWriteBatchedInserts=true
+    username: ${DB_USERNAME:qooauth}
+    password: ${DB_PASSWORD:qooauth_secret}
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 2
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        jdbc:
+          batch_size: 50
+        order_inserts: true
+    show-sql: false
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${JWT_ISSUER_URI:http://localhost:8080}
+          jwk-set-uri: ${JWK_SET_URI:http://localhost:8080/oauth2/jwks}
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+    table: flyway_schema_history_security
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,metrics,prometheus
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+
+logging:
+  level:
+    com.qoobot.qooauth.security: DEBUG
+    org.springframework.security: INFO
+
+security:
+  threat-detection:
+    risk-threshold-high: 0.8
+    risk-threshold-medium: 0.7
+    risk-threshold-low: 0.5
+  rate-limit:
+    per-account-max: 5
+    per-ip-max: 20
+    global-max: 1000
+    captcha-threshold: 10
+    auto-ban-threshold: 15
+    window-seconds: 300
+  device-fingerprint:
+    spoofing-threshold: 0.7
+    unknown-device-base-risk: 0.4
+  encryption:
+    aes-key-size: 256
+    gcm-tag-length: 128
+    gcm-iv-length: 12
+  privacy:
+    retention:
+      default-days: 365

@@ -1,0 +1,104 @@
+# Auth Service Routes
+# Handles: Authentication, OAuth2, OpenID Connect, JWT issuance, JWKS endpoint
+
+spring:
+  cloud:
+    gateway:
+      routes:
+        # OAuth2 Authorization Endpoint
+        - id: auth-authorize
+          uri: http://localhost:8081
+          predicates:
+            - Path=/oauth2/authorize
+          filters:
+            - name: RequestRateLimiter
+              args:
+                redis-rate-limiter.replenishRate: 5
+                redis-rate-limiter.burstCapacity: 10
+
+        # OAuth2 Token Endpoint
+        - id: auth-token
+          uri: http://localhost:8081
+          predicates:
+            - Path=/oauth2/token
+          filters:
+            - name: RequestRateLimiter
+              args:
+                redis-rate-limiter.replenishRate: 10
+                redis-rate-limiter.burstCapacity: 20
+
+        # OAuth2 Introspection
+        - id: auth-introspect
+          uri: http://localhost:8081
+          predicates:
+            - Path=/oauth2/introspect
+
+        # OAuth2 Revocation
+        - id: auth-revoke
+          uri: http://localhost:8081
+          predicates:
+            - Path=/oauth2/revoke
+
+        # OpenID Connect UserInfo
+        - id: auth-userinfo
+          uri: http://localhost:8081
+          predicates:
+            - Path=/oauth2/userinfo
+
+        # OpenID Connect Configuration
+        - id: auth-oidc-config
+          uri: http://localhost:8081
+          predicates:
+            - Path=/.well-known/openid-configuration
+
+        # JWKS Endpoint
+        - id: auth-jwks
+          uri: http://localhost:8081
+          predicates:
+            - Path=/.well-known/jwks.json
+
+        # Login Endpoint
+        - id: auth-login
+          uri: http://localhost:8081
+          predicates:
+            - Path=/api/v1/auth/login
+          filters:
+            - name: RequestRateLimiter
+              args:
+                redis-rate-limiter.replenishRate: 5
+                redis-rate-limiter.burstCapacity: 10
+
+        # Registration Endpoint
+        - id: auth-register
+          uri: http://localhost:8081
+          predicates:
+            - Path=/api/v1/auth/register
+          filters:
+            - name: RequestRateLimiter
+              args:
+                redis-rate-limiter.replenishRate: 3
+                redis-rate-limiter.burstCapacity: 5
+
+        # Logout Endpoint
+        - id: auth-logout
+          uri: http://localhost:8081
+          predicates:
+            - Path=/api/v1/auth/logout
+
+        # Password Reset
+        - id: auth-password-reset
+          uri: http://localhost:8081
+          predicates:
+            - Path=/api/v1/auth/password-reset
+
+        # MFA Endpoints
+        - id: auth-mfa
+          uri: http://localhost:8081
+          predicates:
+            - Path=/api/v1/auth/mfa/**
+
+        # Session Management
+        - id: auth-sessions
+          uri: http://localhost:8081
+          predicates:
+            - Path=/api/v1/auth/sessions/**

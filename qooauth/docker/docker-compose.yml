@@ -1,6 +1,9 @@
 version: '3.8'
 
 services:
+  # ============================================================
+  # Infrastructure
+  # ============================================================
   postgres:
     image: postgres:16-alpine
     container_name: qooauth-postgres
@@ -21,7 +24,7 @@ services:
   redis:
     image: redis:7.2-alpine
     container_name: qooauth-redis
-    command: redis-server --appendonly yes
+    command: redis-server --appendonly yes --maxmemory 256mb --maxmemory-policy allkeys-lru
     ports:
       - "6379:6379"
     volumes:
@@ -31,6 +34,44 @@ services:
       interval: 5s
       timeout: 5s
       retries: 5
+
+  kafka:
+    image: confluentinc/cp-kafka:7.6.0
+    container_name: qooauth-kafka
+    depends_on:
+      - zookeeper
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    ports:
+      - "9092:9092"
+
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.6.0
+    container_name: qooauth-zookeeper
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+
+  # ============================================================
+  # QooAuth Services
+  # ============================================================
+  qooauth-gateway:
+    build:
+      context: ..
+      dockerfile: docker/gateway/Dockerfile
+    container_name: qooauth-gateway
+    depends_on:
+      redis:
+        condition: service_healthy
+    environment:
+      SPRING_PROFILES_ACTIVE: dev
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+    ports:
+      - "8080:8080"
 
   qooauth-auth:
     build:
@@ -48,7 +89,7 @@ services:
       REDIS_HOST: redis
       REDIS_PORT: 6379
     ports:
-      - "8080:8080"
+      - "8081:8080"
 
   qooauth-user:
     build:
@@ -66,7 +107,114 @@ services:
       REDIS_HOST: redis
       REDIS_PORT: 6379
     ports:
-      - "8081:8080"
+      - "8087:8080"
+
+  qooauth-device:
+    build:
+      context: ..
+      dockerfile: docker/device/Dockerfile
+    container_name: qooauth-device
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    environment:
+      SPRING_PROFILES_ACTIVE: dev
+      DB_PASSWORD: qooauth_dev
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+    ports:
+      - "8082:8080"
+
+  qooauth-security:
+    build:
+      context: ..
+      dockerfile: docker/security/Dockerfile
+    container_name: qooauth-security
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    environment:
+      SPRING_PROFILES_ACTIVE: dev
+      DB_PASSWORD: qooauth_dev
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+    ports:
+      - "8084:8080"
+
+  qooauth-api-key:
+    build:
+      context: ..
+      dockerfile: docker/api-key/Dockerfile
+    container_name: qooauth-api-key
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    environment:
+      SPRING_PROFILES_ACTIVE: dev
+      DB_PASSWORD: qooauth_dev
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+    ports:
+      - "8083:8080"
+
+  qooauth-robot-trust:
+    build:
+      context: ..
+      dockerfile: docker/robot-trust/Dockerfile
+    container_name: qooauth-robot-trust
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    environment:
+      SPRING_PROFILES_ACTIVE: dev
+      DB_PASSWORD: qooauth_dev
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+    ports:
+      - "8085:8080"
+
+  qooauth-developer:
+    build:
+      context: ..
+      dockerfile: docker/developer/Dockerfile
+    container_name: qooauth-developer
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    environment:
+      SPRING_PROFILES_ACTIVE: dev
+      DB_PASSWORD: qooauth_dev
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+    ports:
+      - "8086:8080"
+
+  qooauth-audit:
+    build:
+      context: ..
+      dockerfile: docker/audit/Dockerfile
+    container_name: qooauth-audit
+    depends_on:
+      postgres:
+        condition: service_healthy
+      kafka:
+        condition: service_started
+    environment:
+      SPRING_PROFILES_ACTIVE: dev
+      DB_PASSWORD: qooauth_dev
+      KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+    ports:
+      - "8088:8080"
 
 volumes:
   postgres_data:

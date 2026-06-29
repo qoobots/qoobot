@@ -1,0 +1,141 @@
+# ============================================================================
+# QooAuth Device Service — Application Configuration
+# ============================================================================
+# Port: 8082
+# Database: PostgreSQL (qooauth_devices)
+# Cache: Redis
+# ============================================================================
+
+server:
+  port: 8082
+  shutdown: graceful
+  forward-headers-strategy: framework
+
+spring:
+  application:
+    name: qooauth-device
+
+  # --- PostgreSQL ---
+  datasource:
+    url: jdbc:postgresql://localhost:5432/qooauth_devices
+    username: ${DB_USERNAME:qooauth}
+    password: ${DB_PASSWORD:qooauth}
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 20
+      minimum-idle: 5
+      idle-timeout: 300000
+      connection-timeout: 10000
+      max-lifetime: 1200000
+      pool-name: device-pool
+
+  # --- JPA / Hibernate ---
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+    open-in-view: false
+    properties:
+      hibernate:
+        jdbc:
+          batch_size: 20
+        order_inserts: true
+        order_updates: true
+
+  # --- Flyway ---
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+    baseline-on-migrate: true
+    table: flyway_schema_history_device
+
+  # --- Redis ---
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+      password: ${REDIS_PASSWORD:}
+      database: 2
+      timeout: 3000ms
+      lettuce:
+        pool:
+          max-active: 16
+          max-idle: 8
+          min-idle: 4
+
+  # --- Security ---
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${JWT_ISSUER_URI:http://localhost:8080}
+          jwk-set-uri: ${JWT_JWK_SET_URI:http://localhost:8080/oauth2/jwks}
+
+  # --- Graceful shutdown ---
+  lifecycle:
+    timeout-per-shutdown-phase: 30s
+
+# ============================================================================
+# QooAuth Device Service — Custom Configuration
+# ============================================================================
+qooauth:
+  device:
+    ca:
+      # Path to the CA private key (PKCS#8 PEM) or HSM alias
+      key-path: ${CA_KEY_PATH:/etc/qooauth/ca/device-ca-key.pem}
+      # Path to the CA certificate (PEM)
+      cert-path: ${CA_CERT_PATH:/etc/qooauth/ca/device-ca-cert.pem}
+      # Optional HSM provider class name (e.g. "SunPKCS11-nCipher")
+      hsm-provider: ${CA_HSM_PROVIDER:}
+      # Optional HSM key alias
+      hsm-key-alias: ${CA_HSM_KEY_ALIAS:}
+      # Device certificate validity (ISO-8601 period)
+      cert-validity: ${CA_CERT_VALIDITY:P5Y}
+      # Renewal certificate validity
+      renewal-validity: ${CA_RENEWAL_VALIDITY:P1Y}
+      # Signature algorithm
+      signature-algorithm: SHA256withECDSA
+      # EC curve
+      ec-curve: secp256r1
+      # Subject DN pattern — {serial} is replaced with the device serial
+      subject-dn-pattern: "CN=dev-{serial},OU=Device,O=QooBot"
+
+    # Activation
+    activation:
+      binding-token-ttl: 24h
+      max-activation-attempts: 5
+
+# ============================================================================
+# Actuator / Management
+# ============================================================================
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+      base-path: /actuator
+  endpoint:
+    health:
+      show-details: when-authorized
+      probes:
+        enabled: true
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+  tracing:
+    sampling:
+      probability: 0.1
+
+# ============================================================================
+# Logging
+# ============================================================================
+logging:
+  level:
+    root: INFO
+    com.qoobot.qooauth.device: DEBUG
+    org.springframework.security: INFO
+    org.bouncycastle: WARN
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level [%X{traceId:-}] %logger{36} - %msg%n"

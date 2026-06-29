@@ -1,0 +1,58 @@
+# User Service Routes
+# Handles: User CRUD, profile management, role assignment
+
+spring:
+  cloud:
+    gateway:
+      routes:
+        # List Users (Admin)
+        - id: user-list
+          uri: http://localhost:8087
+          predicates:
+            - Path=/api/v1/users
+            - Method=GET
+
+        # Get User by ID
+        - id: user-get
+          uri: http://localhost:8087
+          predicates:
+            - Path=/api/v1/users/{userId}
+
+        # Create User
+        - id: user-create
+          uri: http://localhost:8087
+          predicates:
+            - Path=/api/v1/users
+            - Method=POST
+
+        # Update User
+        - id: user-update
+          uri: http://localhost:8087
+          predicates:
+            - Path=/api/v1/users/{userId}
+            - Method=PUT,PATCH
+
+        # Delete User
+        - id: user-delete
+          uri: http://localhost:8087
+          predicates:
+            - Path=/api/v1/users/{userId}
+            - Method=DELETE
+
+        # User Profile
+        - id: user-profile
+          uri: http://localhost:8087
+          predicates:
+            - Path=/api/v1/users/profile
+
+        # User Roles
+        - id: user-roles
+          uri: http://localhost:8087
+          predicates:
+            - Path=/api/v1/users/{userId}/roles
+
+        # User Search
+        - id: user-search
+          uri: http://localhost:8087
+          predicates:
+            - Path=/api/v1/users/search

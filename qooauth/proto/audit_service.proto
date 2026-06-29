@@ -1,0 +1,100 @@
+syntax = "proto3";
+
+package qooauth.audit.v1;
+
+option java_package = "com.qoobot.qooauth.proto.audit";
+option java_multiple_files = true;
+option go_package = "github.com/qoobot/qooauth/proto/audit/v1;auditv1";
+
+import "google/protobuf/timestamp.proto";
+
+// AuditService provides audit logging and query RPCs.
+service AuditService {
+    // LogEvent records an audit event.
+    rpc LogEvent(LogEventRequest) returns (LogEventResponse);
+
+    // QueryEvents retrieves audit events based on filters.
+    rpc QueryEvents(QueryEventsRequest) returns (QueryEventsResponse);
+
+    // GenerateReport generates an audit report.
+    rpc GenerateReport(GenerateReportRequest) returns (GenerateReportResponse);
+}
+
+message AuditEvent {
+    string event_id = 1;
+    string event_type = 2; // LOGIN, LOGOUT, TOKEN_ISSUE, TOKEN_REVOKE, USER_CREATE, etc.
+    string actor_id = 3;
+    string actor_type = 4; // USER, DEVICE, SYSTEM
+    string target_id = 5;
+    string target_type = 6;
+    string action = 7;
+    string outcome = 8; // SUCCESS, FAILURE, DENIED
+    string client_ip = 9;
+    string user_agent = 10;
+    string request_id = 11;
+    map<string, string> metadata = 12;
+    google.protobuf.Timestamp timestamp = 13;
+}
+
+message LogEventRequest {
+    string event_type = 1;
+    string actor_id = 2;
+    string actor_type = 3;
+    string target_id = 4;
+    string target_type = 5;
+    string action = 6;
+    string outcome = 7;
+    string client_ip = 8;
+    string user_agent = 9;
+    string request_id = 10;
+    map<string, string> metadata = 11;
+}
+
+message LogEventResponse {
+    string event_id = 1;
+    bool success = 2;
+}
+
+message QueryEventsRequest {
+    // Pagination.
+    int32 page = 1;
+    int32 page_size = 2;
+
+    // Filters.
+    optional string event_type = 3;
+    optional string actor_id = 4;
+    optional string target_id = 5;
+    optional string outcome = 6;
+    optional google.protobuf.Timestamp start_time = 7;
+    optional google.protobuf.Timestamp end_time = 8;
+    optional string search = 9;
+
+    // Sort.
+    string sort_by = 10;
+    string sort_direction = 11; // ASC/DESC
+}
+
+message QueryEventsResponse {
+    repeated AuditEvent events = 1;
+    int32 total_count = 2;
+    int32 page = 3;
+    int32 page_size = 4;
+}
+
+message GenerateReportRequest {
+    // Report type: LOGIN_SUMMARY, TOKEN_USAGE, SECURITY_ALERTS, COMPLIANCE
+    string report_type = 1;
+    google.protobuf.Timestamp start_time = 2;
+    google.protobuf.Timestamp end_time = 3;
+    // Output format: JSON, CSV, PDF
+    string format = 4;
+}
+
+message GenerateReportResponse {
+    string report_id = 1;
+    string report_type = 2;
+    string format = 3;
+    // Report content or URL to download.
+    string content = 4;
+    google.protobuf.Timestamp generated_at = 5;
+}

@@ -1,0 +1,66 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: qooauth-gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: false
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Origin
+      httpclient:
+        connect-timeout: 5000
+        response-timeout: 30s
+        pool:
+          type: elastic
+          max-idle-time: 60s
+          max-life-time: 300s
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+      password: ${REDIS_PASSWORD:}
+      timeout: 3000ms
+      lettuce:
+        pool:
+          max-active: 16
+          max-idle: 8
+          min-idle: 4
+  main:
+    web-application-type: reactive
+    allow-bean-definition-overriding: true
+
+gateway:
+  jwt:
+    jwk-set-uri: ${JWK_SET_URI:http://localhost:8081/.well-known/jwks.json}
+    issuer-uri: ${JWT_ISSUER_URI:http://localhost:8081}
+  rate-limit:
+    enabled: true
+    default-capacity: 100
+    default-refill-rate: 10
+    window-seconds: 60
+  cors:
+    allowed-origins: "*"
+    allowed-methods: GET,POST,PUT,PATCH,DELETE,OPTIONS
+    allowed-headers: Authorization,Content-Type,X-Request-Id,X-Auth-User-Id
+    max-age: 3600
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,gateway
+  endpoint:
+    health:
+      show-details: when_authorized
+    gateway:
+      enabled: true
+
+logging:
+  level:
+    com.qoobot.qooauth.gateway: DEBUG
+    org.springframework.cloud.gateway: INFO
+    org.springframework.data.redis: INFO

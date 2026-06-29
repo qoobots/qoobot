@@ -1,0 +1,104 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: qooauth-user
+  namespace: qooauth
+  labels:
+    app: qooauth-user
+    app.kubernetes.io/part-of: qoobot
+    app.kubernetes.io/component: user
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: qooauth-user
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app: qooauth-user
+        app.kubernetes.io/part-of: qoobot
+        app.kubernetes.io/component: user
+    spec:
+      serviceAccountName: qooauth-user
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        fsGroup: 1000
+      containers:
+        - name: qooauth-user
+          image: registry.example.com/qoobot/qooauth-user:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 8087
+              protocol: TCP
+          envFrom:
+            - configMapRef:
+                name: qooauth-config
+            - secretRef:
+                name: qooauth-secrets
+          env:
+            - name: SERVER_PORT
+              value: "8087"
+            - name: SPRING_APPLICATION_NAME
+              value: "qooauth-user"
+            - name: JAVA_OPTS
+              value: "-Xms256m -Xmx512m -XX:+UseG1GC"
+          resources:
+            requests:
+              cpu: "250m"
+              memory: "256Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+          livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: 8087
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /actuator/health/readiness
+              port: 8087
+            initialDelaySeconds: 15
+            periodSeconds: 5
+            timeoutSeconds: 3
+            failureThreshold: 3
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 100
+              podAffinityTerm:
+                labelSelector:
+                  matchExpressions:
+                    - key: app
+                      operator: In
+                      values:
+                        - qooauth-user
+                topologyKey: kubernetes.io/hostname
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: qooauth-user
+  namespace: qooauth
+  labels:
+    app: qooauth-user
+    app.kubernetes.io/part-of: qoobot
+spec:
+  type: ClusterIP
+  selector:
+    app: qooauth-user
+  ports:
+    - name: http
+      port: 8087
+      targetPort: 8087
+      protocol: TCP

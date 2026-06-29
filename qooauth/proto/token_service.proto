@@ -1,0 +1,101 @@
+syntax = "proto3";
+
+package qooauth.token.v1;
+
+option java_package = "com.qoobot.qooauth.proto.token";
+option java_multiple_files = true;
+option go_package = "github.com/qoobot/qooauth/proto/token/v1;tokenv1";
+
+// TokenService provides token lifecycle management RPCs.
+// Handles JWT and opaque token verification, issuance, and revocation.
+service TokenService {
+    // VerifyToken validates a token and returns its claims if valid.
+    rpc VerifyToken(VerifyTokenRequest) returns (VerifyTokenResponse);
+
+    // IssueToken generates a new token for the given subject.
+    rpc IssueToken(IssueTokenRequest) returns (IssueTokenResponse);
+
+    // RevokeToken invalidates a token so it can no longer be used.
+    rpc RevokeToken(RevokeTokenRequest) returns (RevokeTokenResponse);
+}
+
+message VerifyTokenRequest {
+    // The token string (JWT or opaque reference token).
+    string token = 1;
+
+    // Expected token type hint (e.g., "access_token", "refresh_token").
+    string token_type_hint = 2;
+
+    // Optional: Expected scopes to validate against.
+    repeated string required_scopes = 3;
+}
+
+message VerifyTokenResponse {
+    // Whether the token is valid.
+    bool valid = 1;
+
+    // Token claims if valid.
+    string subject = 2;
+    repeated string scopes = 3;
+    repeated string roles = 4;
+    map<string, string> claims = 5;
+
+    // Token expiry (Unix timestamp in seconds).
+    int64 expires_at = 6;
+
+    // Token type (access_token, refresh_token, id_token).
+    string token_type = 7;
+}
+
+message IssueTokenRequest {
+    // Subject (user/device) identifier.
+    string subject = 1;
+
+    // Requested scopes.
+    repeated string scopes = 2;
+
+    // Requested roles.
+    repeated string roles = 3;
+
+    // Token lifetime in seconds. 0 means use default.
+    int64 ttl_seconds = 4;
+
+    // Token type to issue.
+    string token_type = 5;
+
+    // Additional claims to include.
+    map<string, string> additional_claims = 6;
+}
+
+message IssueTokenResponse {
+    // The issued token string.
+    string access_token = 1;
+
+    // Token type.
+    string token_type = 2;
+
+    // Expiry (Unix timestamp in seconds).
+    int64 expires_at = 3;
+
+    // Refresh token (if issued).
+    string refresh_token = 4;
+
+    // Scopes granted.
+    repeated string scopes = 5;
+}
+
+message RevokeTokenRequest {
+    // The token to revoke.
+    string token = 1;
+
+    // Token type hint.
+    string token_type_hint = 2;
+}
+
+message RevokeTokenResponse {
+    // Whether the revocation was successful.
+    bool success = 1;
+
+    // Message describing the result.
+    string message = 2;
+}

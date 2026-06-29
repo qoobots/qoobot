@@ -1,0 +1,96 @@
+syntax = "proto3";
+
+package qooauth.device.v1;
+
+option java_package = "com.qoobot.qooauth.proto.device";
+option java_multiple_files = true;
+option go_package = "github.com/qoobot/qooauth/proto/device/v1;devicev1";
+
+import "google/protobuf/timestamp.proto";
+
+// DeviceService provides device lifecycle management RPCs.
+service DeviceService {
+    // RegisterDevice registers a new device.
+    rpc RegisterDevice(RegisterDeviceRequest) returns (RegisterDeviceResponse);
+
+    // IssueCertificate issues an X.509 certificate for a device.
+    rpc IssueCertificate(IssueCertificateRequest) returns (IssueCertificateResponse);
+
+    // RevokeDevice revokes a device's access.
+    rpc RevokeDevice(RevokeDeviceRequest) returns (RevokeDeviceResponse);
+
+    // GetDeviceStatus retrieves the current status of a device.
+    rpc GetDeviceStatus(GetDeviceStatusRequest) returns (GetDeviceStatusResponse);
+}
+
+message Device {
+    string device_id = 1;
+    string user_id = 2;
+    string device_name = 3;
+    string device_type = 4; // robot, desktop, mobile, embedded
+    string serial_number = 5;
+    string hardware_fingerprint = 6;
+    string state = 7; // ACTIVE, LOCKED, WIPED, REVOKED
+    string certificate_sha256 = 8;
+    google.protobuf.Timestamp registered_at = 9;
+    google.protobuf.Timestamp last_seen_at = 10;
+    google.protobuf.Timestamp certificate_expires_at = 11;
+}
+
+message RegisterDeviceRequest {
+    string user_id = 1;
+    string device_name = 2;
+    string device_type = 3;
+    string serial_number = 4;
+    string hardware_fingerprint = 5;
+    map<string, string> metadata = 6;
+}
+
+message RegisterDeviceResponse {
+    Device device = 1;
+    // Initial registration token (used to obtain first certificate).
+    string registration_token = 2;
+}
+
+message IssueCertificateRequest {
+    string device_id = 1;
+    // CSR (Certificate Signing Request) in PEM format.
+    string csr_pem = 2;
+    // Certificate validity period in days.
+    int32 validity_days = 3;
+}
+
+message IssueCertificateResponse {
+    string device_id = 1;
+    // Issued certificate in PEM format.
+    string certificate_pem = 2;
+    // Certificate chain in PEM format.
+    repeated string certificate_chain_pem = 3;
+    // SHA-256 fingerprint of the certificate.
+    string sha256_fingerprint = 4;
+    google.protobuf.Timestamp expires_at = 5;
+}
+
+message RevokeDeviceRequest {
+    string device_id = 1;
+    string reason = 2;
+}
+
+message RevokeDeviceResponse {
+    bool success = 1;
+    string message = 2;
+}
+
+message GetDeviceStatusRequest {
+    string device_id = 1;
+}
+
+message GetDeviceStatusResponse {
+    Device device = 1;
+    // Online/offline status.
+    bool online = 2;
+    // Last heartbeat timestamp.
+    google.protobuf.Timestamp last_heartbeat = 3;
+    // Active session count.
+    int32 active_sessions = 4;
+}

@@ -1,0 +1,115 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: qooauth-auth
+  namespace: qooauth
+  labels:
+    app: qooauth-auth
+    app.kubernetes.io/part-of: qoobot
+    app.kubernetes.io/component: auth
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: qooauth-auth
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app: qooauth-auth
+        app.kubernetes.io/part-of: qoobot
+        app.kubernetes.io/component: auth
+    spec:
+      serviceAccountName: qooauth-auth
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        fsGroup: 1000
+      containers:
+        - name: qooauth-auth
+          image: registry.example.com/qoobot/qooauth-auth:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 8081
+              protocol: TCP
+          envFrom:
+            - configMapRef:
+                name: qooauth-config
+            - secretRef:
+                name: qooauth-secrets
+          env:
+            - name: SERVER_PORT
+              value: "8081"
+            - name: SPRING_APPLICATION_NAME
+              value: "qooauth-auth"
+            - name: JAVA_OPTS
+              value: "-Xms256m -Xmx512m -XX:+UseG1GC -XX:MaxGCPauseMillis=200"
+          resources:
+            requests:
+              cpu: "250m"
+              memory: "256Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+          livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: 8081
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /actuator/health/readiness
+              port: 8081
+            initialDelaySeconds: 15
+            periodSeconds: 5
+            timeoutSeconds: 3
+            failureThreshold: 3
+          volumeMounts:
+            - name: certs
+              mountPath: /etc/qooauth/certs
+              readOnly: true
+      volumes:
+        - name: certs
+          secret:
+            secretName: qooauth-secrets
+            items:
+              - key: MTLS_CA_KEY_PATH
+                path: ca.key
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 100
+              podAffinityTerm:
+                labelSelector:
+                  matchExpressions:
+                    - key: app
+                      operator: In
+                      values:
+                        - qooauth-auth
+                topologyKey: kubernetes.io/hostname
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: qooauth-auth
+  namespace: qooauth
+  labels:
+    app: qooauth-auth
+    app.kubernetes.io/part-of: qoobot
+spec:
+  type: ClusterIP
+  selector:
+    app: qooauth-auth
+  ports:
+    - name: http
+      port: 8081
+      targetPort: 8081
+      protocol: TCP

@@ -1,0 +1,42 @@
+{
+  "name": "@qoobot/auth-sdk",
+  "version": "1.0.0",
+  "description": "QooBot Authentication SDK for Web Applications - OIDC Client with PKCE support",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "clean": "rm -rf dist",
+    "prepublishOnly": "npm run build",
+    "typecheck": "tsc --noEmit"
+  },
+  "keywords": [
+    "qoobot",
+    "auth",
+    "oidc",
+    "pkce",
+    "oauth2",
+    "authentication",
+    "sdk"
+  ],
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "typescript": "^5.3.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

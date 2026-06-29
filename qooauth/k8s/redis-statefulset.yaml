@@ -1,0 +1,121 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: qooauth-redis
+  namespace: qooauth
+  labels:
+    app: qooauth-redis
+    app.kubernetes.io/part-of: qoobot
+    app.kubernetes.io/component: cache
+spec:
+  serviceName: qooauth-redis
+  replicas: 1
+  selector:
+    matchLabels:
+      app: qooauth-redis
+  template:
+    metadata:
+      labels:
+        app: qooauth-redis
+        app.kubernetes.io/part-of: qoobot
+        app.kubernetes.io/component: cache
+    spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 999
+        fsGroup: 999
+      containers:
+        - name: redis
+          image: redis:7.2-alpine
+          imagePullPolicy: IfNotPresent
+          command:
+            - redis-server
+          args:
+            - "--appendonly"
+            - "yes"
+            - "--maxmemory"
+            - "256mb"
+            - "--maxmemory-policy"
+            - "allkeys-lru"
+            - "--save"
+            - "900"
+            - "1"
+            - "--save"
+            - "300"
+            - "10"
+            - "--save"
+            - "60"
+            - "10000"
+          ports:
+            - name: redis
+              containerPort: 6379
+              protocol: TCP
+          envFrom:
+            - secretRef:
+                name: qooauth-secrets
+          env:
+            - name: REDIS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: qooauth-secrets
+                  key: REDIS_PASSWORD
+                  optional: true
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+          livenessProbe:
+            exec:
+              command:
+                - redis-cli
+                - ping
+            initialDelaySeconds: 15
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3
+          readinessProbe:
+            exec:
+              command:
+                - redis-cli
+                - ping
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            timeoutSeconds: 3
+            failureThreshold: 3
+          volumeMounts:
+            - name: redis-data
+              mountPath: /data
+  volumeClaimTemplates:
+    - metadata:
+        name: redis-data
+        labels:
+          app: qooauth-redis
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 10Gi
+        storageClassName: standard
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: qooauth-redis
+  namespace: qooauth
+  labels:
+    app: qooauth-redis
+    app.kubernetes.io/part-of: qoobot
+spec:
+  type: ClusterIP
+  clusterIP: None
+  selector:
+    app: qooauth-redis
+  ports:
+    - name: redis
+      port: 6379
+      targetPort: 6379
+      protocol: TCP

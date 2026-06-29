@@ -1,0 +1,78 @@
+# Device Service Routes
+# Handles: Device registration, certificate management, device lifecycle
+
+spring:
+  cloud:
+    gateway:
+      routes:
+        # Register Device
+        - id: device-register
+          uri: http://localhost:8082
+          predicates:
+            - Path=/api/v1/devices
+            - Method=POST
+
+        # List Devices
+        - id: device-list
+          uri: http://localhost:8082
+          predicates:
+            - Path=/api/v1/devices
+            - Method=GET
+
+        # Get Device by ID
+        - id: device-get
+          uri: http://localhost:8082
+          predicates:
+            - Path=/api/v1/devices/{deviceId}
+
+        # Update Device
+        - id: device-update
+          uri: http://localhost:8082
+          predicates:
+            - Path=/api/v1/devices/{deviceId}
+            - Method=PUT,PATCH
+
+        # Delete/Revoke Device
+        - id: device-delete
+          uri: http://localhost:8082
+          predicates:
+            - Path=/api/v1/devices/{deviceId}
+            - Method=DELETE
+
+        # Device Certificate Issuance
+        - id: device-cert-issue
+          uri: http://localhost:8082
+          predicates:
+            - Path=/api/v1/devices/{deviceId}/certificate
+            - Method=POST
+
+        # Device Certificate Status
+        - id: device-cert-status
+          uri: http://localhost:8082
+          predicates:
+            - Path=/api/v1/devices/{deviceId}/certificate
+
+        # Device Attestation
+        - id: device-attestation
+          uri: http://localhost:8082
+          predicates:
+            - Path=/api/v1/devices/{deviceId}/attestation
+
+        # Device Status
+        - id: device-status
+          uri: http://localhost:8082
+          predicates:
+            - Path=/api/v1/devices/{deviceId}/status
+
+        # Device Lock/Wipe
+        - id: device-lock
+          uri: http://localhost:8082
+          predicates:
+            - Path=/api/v1/devices/{deviceId}/lock
+            - Method=POST
+
+        - id: device-wipe
+          uri: http://localhost:8082
+          predicates:
+            - Path=/api/v1/devices/{deviceId}/wipe
+            - Method=POST
