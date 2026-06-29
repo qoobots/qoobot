@@ -11,15 +11,15 @@
 </head>
 <body>
 
-  <nav class="nav">
+  <nav class="nav" aria-label="Main navigation">
     <div class="nav-inner">
       <a href="index.html" class="nav-logo">
         <img src="../assets/qoobot-logo.svg" alt="QooBot">
       </a>
-      <ul class="nav-links" id="nav-links">
+      <ul class="nav-links" id="nav-links" role="list">
         <li><a href="index.html">Home</a></li>
         <li class="nav-dropdown-trigger">
-          <a href="products.html" class="nav-dropdown-link">Products <span class="dropdown-arrow">▾</span></a>
+          <a href="products.html" class="nav-dropdown-link" aria-expanded="false" aria-haspopup="true">Products <span class="dropdown-arrow" aria-hidden="true">▾</span></a>
           <div class="nav-dropdown nav-dropdown-mega">
             <div class="nav-dropdown-mega-inner">
             <div class="nav-dropdown-group">
@@ -31,7 +31,7 @@
           </div>
         </li>
         <li class="nav-dropdown-trigger">
-          <a href="products.html#ecosystem" class="nav-dropdown-link">Ecosystem <span class="dropdown-arrow">▾</span></a>
+          <a href="products.html#ecosystem" class="nav-dropdown-link" aria-expanded="false" aria-haspopup="true">Ecosystem <span class="dropdown-arrow" aria-hidden="true">▾</span></a>
           <div class="nav-dropdown nav-dropdown-mega">
             <div class="nav-dropdown-mega-inner">
             <div class="nav-dropdown-group">
@@ -144,7 +144,7 @@
     </p>
   </div>
 
-  <footer class="footer">
+  <footer class="footer" role="contentinfo">
     <div class="footer-inner">
       <div class="footer-col">
         <h4>Products</h4>

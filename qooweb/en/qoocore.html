@@ -11,15 +11,15 @@
 </head>
 <body>
 
-  <nav class="nav">
+  <nav class="nav" aria-label="Main navigation">
     <div class="nav-inner">
       <a href="index.html" class="nav-logo">
         <img src="../assets/qoobot-logo.svg" alt="QooBot">
       </a>
-      <ul class="nav-links" id="nav-links">
+      <ul class="nav-links" id="nav-links" role="list">
         <li><a href="index.html">Home</a></li>
         <li class="nav-dropdown-trigger">
-          <a href="products.html" class="nav-dropdown-link">Products <span class="dropdown-arrow">▾</span></a>
+          <a href="products.html" class="nav-dropdown-link" aria-expanded="false" aria-haspopup="true">Products <span class="dropdown-arrow" aria-hidden="true">▾</span></a>
           <div class="nav-dropdown nav-dropdown-mega">
             <div class="nav-dropdown-mega-inner">
               <div class="nav-dropdown-group">
@@ -38,7 +38,7 @@
           </div>
         </li>
         <li class="nav-dropdown-trigger">
-          <a href="products.html#ecosystem" class="nav-dropdown-link active">Ecosystem <span class="dropdown-arrow">▾</span></a>
+          <a href="products.html#ecosystem" class="nav-dropdown-link active">Ecosystem <span class="dropdown-arrow" aria-hidden="true">▾</span></a>
           <div class="nav-dropdown nav-dropdown-mega">
             <div class="nav-dropdown-mega-inner">
               <div class="nav-dropdown-group">
@@ -220,7 +220,7 @@
     </div>
   </section>
 
-  <footer class="footer">
+  <footer class="footer" role="contentinfo">
     <div class="footer-inner">
       <div class="footer-col"><h4>Products</h4><ul><li><a href="products.html">Products & Ecosystem</a></li><li><a href="products.html#ecosystem">Open Source Sub-Projects</a></li></ul></div>
       <div class="footer-col"><h4>Developers</h4><ul><li><a href="https://github.com/qoobots/qoobot" target="_blank" rel="noopener">GitHub</a></li><li><a href="https://github.com/qoobots/qoobot/blob/main/LICENSE" target="_blank" rel="noopener">License</a></li></ul></div>

@@ -79,6 +79,28 @@ body {
   overflow-x: hidden;
 }
 
+/* --- Skip Link (keyboard accessibility) --- */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 16px;
+  z-index: 10000;
+  padding: 12px 20px;
+  background: var(--color-accent);
+  color: #ffffff;
+  border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: top 0.2s ease;
+}
+
+.skip-link:focus {
+  top: 0;
+  outline: 3px solid #ffffff;
+  outline-offset: -3px;
+}
+
 img {
   max-width: 100%;
   display: block;
@@ -92,6 +114,26 @@ a {
 
 a:hover {
   color: var(--color-accent-hover);
+}
+
+/* --- Focus styles (keyboard navigation) --- */
+:focus-visible {
+  outline: 2.5px solid var(--color-accent);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+a:focus-visible {
+  outline-offset: 2px;
+}
+
+button:focus-visible {
+  outline-offset: 3px;
+}
+
+/* Suppress focus ring for mouse clicks */
+:focus:not(:focus-visible) {
+  outline: none;
 }
 
 /* --- Navigation --- */

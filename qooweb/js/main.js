@@ -46,7 +46,8 @@ function updateThemeIcon(dark) {
   const toggle = document.getElementById("theme-toggle");
   if (!toggle) return;
   toggle.textContent = dark ? "☀️" : "🌙";
-  toggle.setAttribute("aria-label", dark ? "Switch to light mode" : "Switch to dark mode");
+  toggle.setAttribute("aria-label", dark ? "切换到浅色模式" : "切换到深色模式");
+  toggle.setAttribute("aria-pressed", dark ? "true" : "false");
 }
 
 /* --- Mobile Nav --- */
@@ -56,18 +57,66 @@ function initMobileNav() {
   if (!toggle || !links) return;
 
   toggle.addEventListener("click", () => {
-    links.classList.toggle("open");
+    const isOpen = links.classList.toggle("open");
+    toggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
+    toggle.setAttribute("aria-label", isOpen ? "关闭菜单" : "打开菜单");
   });
 
   // Close nav on link click
   links.querySelectorAll("a").forEach((a) => {
-    a.addEventListener("click", () => links.classList.remove("open"));
+    a.addEventListener("click", () => {
+      links.classList.remove("open");
+      toggle.setAttribute("aria-expanded", "false");
+      toggle.setAttribute("aria-label", "打开菜单");
+    });
   });
 
   // Close nav on outside click
   document.addEventListener("click", (e) => {
     if (!toggle.contains(e.target) && !links.contains(e.target)) {
+      if (links.classList.contains("open")) {
+        links.classList.remove("open");
+        toggle.setAttribute("aria-expanded", "false");
+        toggle.setAttribute("aria-label", "打开菜单");
+      }
+    }
+  });
+
+  // Keyboard: close nav on Escape
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && links.classList.contains("open")) {
       links.classList.remove("open");
+      toggle.setAttribute("aria-expanded", "false");
+      toggle.setAttribute("aria-label", "打开菜单");
+      toggle.focus();
+    }
+  });
+
+  // Manage dropdown aria-expanded on hover/focus
+  document.querySelectorAll(".nav-dropdown-trigger").forEach((trigger) => {
+    const dropdownLink = trigger.querySelector(".nav-dropdown-link");
+    const dropdown = trigger.querySelector(".nav-dropdown");
+    if (!dropdownLink || !dropdown) return;
+
+    trigger.addEventListener("mouseenter", () => {
+      if (dropdownLink) dropdownLink.setAttribute("aria-expanded", "true");
+    });
+    trigger.addEventListener("mouseleave", () => {
+      if (dropdownLink) dropdownLink.setAttribute("aria-expanded", "false");
+    });
+    dropdownLink.addEventListener("focus", () => {
+      dropdownLink.setAttribute("aria-expanded", "true");
+    });
+    // Close on last item blur inside dropdown
+    const dropdownLinks = dropdown.querySelectorAll("a");
+    if (dropdownLinks.length > 0) {
+      const lastLink = dropdownLinks[dropdownLinks.length - 1];
+      lastLink.addEventListener("blur", (e) => {
+        // Check if focus is moving outside the trigger
+        if (!trigger.contains(e.relatedTarget)) {
+          dropdownLink.setAttribute("aria-expanded", "false");
+        }
+      });
     }
   });
 }

@@ -373,12 +373,12 @@
 <body>
 
   <!-- 导航栏 -->
-  <nav class="nav">
+  <nav class="nav" aria-label="主导航">
     <div class="nav-inner">
       <a href="index.html" class="nav-logo">
         <img src="assets/qoobot-logo.svg" alt="QooBot">
       </a>
-      <ul class="nav-links" id="nav-links">
+      <ul class="nav-links" id="nav-links" role="list">
         <li><a href="index.html">首页</a></li>
         <li><a href="products.html">产品</a></li>
         <li><a href="qoobrain.html">QOS 大脑</a></li>
@@ -670,11 +670,12 @@
   </section>
 
   <!-- 页脚 -->
-  <footer style="padding: 40px 20px; background: #0d1117; border-top: 1px solid var(--teleop-border);">
+  <footer style="padding: 40px 20px; background: #0d1117; border-top: 1px solid var(--teleop-border);" role="contentinfo" aria-label="页脚">
     <div class="teleop-container" style="text-align: center; color: var(--teleop-text-dim); font-size: 13px;">
       <p>qooremote — QOS 远程人工遥控子系统 | &copy; 2026 QooBot Open Source</p>
     </div>
   </footer>
 
+  <script src="js/main.js"></script>
 </body>
 </html>

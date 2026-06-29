@@ -373,12 +373,12 @@
 <body>
 
   <!-- Navigation -->
-  <nav class="nav">
+  <nav class="nav" aria-label="Main navigation">
     <div class="nav-inner">
       <a href="index.html" class="nav-logo">
         <img src="../assets/qoobot-logo.svg" alt="QooBot">
       </a>
-      <ul class="nav-links" id="nav-links">
+      <ul class="nav-links" id="nav-links" role="list">
         <li><a href="index.html">Home</a></li>
         <li><a href="products.html">Products</a></li>
         <li><a href="qoobrain.html">QOS Brain</a></li>
@@ -677,11 +677,12 @@
   </section>
 
   <!-- Footer -->
-  <footer style="padding: 40px 20px; background: #0d1117; border-top: 1px solid var(--teleop-border);">
+  <footer style="padding: 40px 20px; background: #0d1117; border-top: 1px solid var(--teleop-border);" role="contentinfo" aria-label="页脚">
     <div class="teleop-container" style="text-align: center; color: var(--teleop-text-dim); font-size: 13px;">
       <p>qooremote — QOS Remote Human Teleoperation Subsystem | &copy; 2026 QooBot Open Source</p>
     </div>
   </footer>
 
+  <script src="../js/main.js"></script>
 </body>
 </html>
