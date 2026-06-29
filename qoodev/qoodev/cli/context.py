@@ -7,7 +7,11 @@ by looking for qoo.toml configuration files.
 
 from __future__ import annotations
 
-import tomllib
+try:
+    import tomllib
+except ImportError:
+    import tomli as tomllib  # Python < 3.11 compatibility
+
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Optional, Dict, Any

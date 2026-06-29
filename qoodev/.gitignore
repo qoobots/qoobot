@@ -1,0 +1,86 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+dist/
+build/
+.eggs/
+*.egg
+.venv/
+venv/
+*.whl
+
+# C++
+*.o
+*.obj
+*.out
+install/
+log/
+*.cmake
+CMakeCache.txt
+CMakeFiles/
+
+# Node.js
+node_modules/
+.npm/
+.next/
+out/
+
+# IDE
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# TypeScript
+*.js.map
+*.d.ts.map
+
+# Test
+.coverage
+htmlcov/
+coverage.xml
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Env
+.env
+.env.local
+
+# Docker
+docker-compose.override.yml
+
+# Logs
+*.log
+logs/
+
+# VS Code plugin artifacts
+vscode-plugin/*.vsix
+
+# Web dashboard build
+web-dashboard/dist/
+web-dashboard/.vite/
+
+# qoodev specific
+.qoodev/
+.qoodata/
+.qooannot/
+.qooskills_cache/
+
+# Model weights (Git LFS recommended)
+*.bin
+*.safetensors
+*.gguf
+*.onnx
+*.engine
+
+# Data recordings
+*.qoodata
+recordings/
+
+# Isaac Sim temp
+isaac_sim_temp/

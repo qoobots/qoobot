@@ -5,11 +5,14 @@
 """
 
 from .package_format import (
-    QooSkillPackage,
     PackageManifest,
     PackageBuilder,
     PackageReader,
     PackageValidator,
+    SkillCategory,
+    SkillRuntime,
+    SkillPlatform,
+    create_default_manifest,
 )
 from .dependency import (
     DependencySpec,
@@ -23,15 +26,21 @@ from .signing import (
     SignatureVerifier,
     CertificateInfo,
 )
-from .cli_integration import register_packager_commands
+try:
+    from .cli_integration import register_packager_commands
+except ImportError:
+    register_packager_commands = None  # typer not installed
 
 __all__ = [
     # 包格式
-    "QooSkillPackage",
     "PackageManifest",
     "PackageBuilder",
     "PackageReader",
     "PackageValidator",
+    "SkillCategory",
+    "SkillRuntime",
+    "SkillPlatform",
+    "create_default_manifest",
     # 依赖管理
     "DependencySpec",
     "DependencyResolver",

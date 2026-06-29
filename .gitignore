@@ -45,7 +45,7 @@ docker-compose.override.yml
 *.onnx
 *.engine
 *.fbow
-
+.venv/
 # Logs
 *.log
 logs/

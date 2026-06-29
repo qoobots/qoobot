@@ -278,9 +278,10 @@ class PackageBuilder:
             if docs_dir.exists():
                 self._add_directory(zf, docs_dir, "docs/")
 
-            # 生成并写入校验和
-            checksums = self._compute_checksums(output_path)
-            zf.writestr("checksums.json", json.dumps(checksums, indent=2))
+        # 写入校验和文件 (在 ZIP 关闭后追加，避免 Windows 文件锁问题)
+        checksums = self._compute_checksums(output_path)
+        with zipfile.ZipFile(output_path, "a", compression=compression) as zf_append:
+            zf_append.writestr("checksums.json", json.dumps(checksums, indent=2))
 
         # 计算最终哈希
         sha256 = self._file_sha256(output_path)

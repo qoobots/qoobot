@@ -379,7 +379,10 @@ def create_qoostore_client(
     # Try config file
     if config_path and config_path.exists():
         try:
-            import tomllib
+            try:
+                import tomllib
+            except ImportError:
+                import tomli as tomllib  # Python < 3.11 compatibility
             config = tomllib.loads(config_path.read_text())
             eco_config = config.get("qoostore", {})
             if "api_key" in eco_config:
