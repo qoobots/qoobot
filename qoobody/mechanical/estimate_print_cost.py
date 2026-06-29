@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 """
 基于已分析的腿足系统STEP体积数据，推算全机器人3D打印费用。
 
@@ -55,7 +55,7 @@ total_mid = leg_both + waist_est_mid + chest_est_mid + head_est_mid
 total_high = leg_both + waist_est_high + chest_est_high + head_est_high
 
 print("=" * 70)
-print("青龙人形机器人 - 3D打印费用预估")
+print("青龙仿生人 - 3D打印费用预估")
 print("=" * 70)
 
 print(f"\n{'子系统':<20} {'零件数':>6} {'体积(cm³)':>16} {'数据来源':>10}")

@@ -1,4 +1,4 @@
-# qoobody ROS 2 Packages
+﻿# qoobody ROS 2 Packages
 
 > QooBot 机器人 ROS 2 生态集成，对标 unitree_ros-master。
 
@@ -41,7 +41,7 @@ python3 qoobot_description/scripts/mujoco_urdf_validator.py \
 
 | 模型 | 文件 | DOF |
 |------|------|-----|
-| 双足人形 | `urdf/qoobot.urdf.xacro` | 30 |
+| 双足仿生人 | `urdf/qoobot.urdf.xacro` | 30 |
 | 轮式底盘 | `urdf/wheeled/qoobot_wheeled.urdf.xacro` | 6 |
 | 四足机器人 | `urdf/quadruped/qoobot_quadruped.urdf.xacro` | 12 |
 | 6轴机械臂 | `urdf/manipulator/qoobot_arm6.urdf.xacro` | 6 |

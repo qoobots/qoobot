@@ -1,4 +1,4 @@
-<p align="center">
+﻿<p align="center">
   <picture>
     <source media="(prefers-color-scheme: dark)">
     <img alt="Brain OS" src="brain_docs/assets/logo.svg" width="420">
@@ -6,7 +6,7 @@
 </p>
 
 <p align="center">
-  <strong>人形机器人操作系统</strong><br>
+  <strong>仿生人操作系统</strong><br>
   从自然语言指令到机器人执行的完整技术栈
 </p>
 
@@ -42,7 +42,7 @@
 
 ## 概述
 
-Brain OS 是一个面向 **人形机器人** 的操作系统。它将大语言模型 (LLM)、计算机视觉、运动规划与实时控制统一于一条完整的执行链路，让机器人能够**听懂中文自然语言指令，自主感知环境、规划动作并安全执行**。
+Brain OS 是一个面向 **仿生人** 的操作系统。它将大语言模型 (LLM)、计算机视觉、运动规划与实时控制统一于一条完整的执行链路，让机器人能够**听懂中文自然语言指令，自主感知环境、规划动作并安全执行**。
 
 ### 为什么选择 Brain OS？
 

@@ -1,8 +1,8 @@
-<template>
+﻿<template>
   <div class="home-view">
     <section class="hero-banner">
       <h1>QooBot 开发者社区</h1>
-      <p class="hero-subtitle">加入全球人形机器人开发者社区，学习、分享、创造</p>
+      <p class="hero-subtitle">加入全球仿生人开发者社区，学习、分享、创造</p>
       <div class="hero-actions">
         <el-button type="primary" size="large" @click="$router.push('/academy')">开始学习</el-button>
         <el-button size="large" @click="$router.push('/forums')">浏览论坛</el-button>

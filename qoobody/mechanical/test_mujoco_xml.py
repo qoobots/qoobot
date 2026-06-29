@@ -1,6 +1,6 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 """
-QooBot MuJoCo 双足人形模型 — 结构检查
+QooBot MuJoCo 双足仿生人模型 — 结构检查
 ==========================================
 解析 qoobot_float.xml，验证：
   - XML 语法正确性

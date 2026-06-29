@@ -1,4 +1,4 @@
-# qoosvc — 人形机器人系统服务
+﻿# qoosvc — 仿生人系统服务
 
 > **运行位置**：机器人端（机器人计算平台），运行在 qoobrain 之上，**非云端服务**
 > **技术栈**：C++17 + Python 3.11 + CMake，通过 DDS/iceoryx2 与 qoobrain 通信

@@ -1,9 +1,9 @@
-<template>
+﻿<template>
   <footer class="app-footer">
     <div class="footer-inner">
       <div class="footer-section">
         <h4>QooBot Community</h4>
-        <p>人形机器人开发者社区</p>
+        <p>仿生人开发者社区</p>
         <p class="license">Apache-2.0 License</p>
       </div>
       <div class="footer-section">

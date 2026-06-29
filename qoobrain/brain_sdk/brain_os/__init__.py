@@ -1,6 +1,6 @@
-"""Brain OS Python SDK.
+﻿"""Brain OS Python SDK.
 
-人形机器人操作系统 Python SDK — 自然语言指令到机器人执行的完整工具链。
+仿生人操作系统 Python SDK — 自然语言指令到机器人执行的完整工具链。
 
 Quickstart:
     from brain_os import BrainOSClient

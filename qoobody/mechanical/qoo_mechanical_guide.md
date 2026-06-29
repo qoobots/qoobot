@@ -1,4 +1,4 @@
-# mechanical — 机械结构参考设计
+﻿# mechanical — 机械结构参考设计
 
 > 基于 qoobody 设计文档的机械结构参考实现
 
@@ -6,7 +6,7 @@
 
 ```
 mechanical/
-├── mujoco/                 # MuJoCo 双足人形仿真模型
+├── mujoco/                 # MuJoCo 双足仿生人仿真模型
 │   ├── qoobot_float.xml    # 30 DOF 浮动基座模型
 │   ├── joint_ctrl_config.json  # 关节控制参数
 │   ├── *.h / *.cpp         # 控制器 / 接口 / Demo
@@ -20,7 +20,7 @@ mechanical/
 
 ## 1. 形态因子
 
-### 1.1 双足人形形态
+### 1.1 双足仿生人形态
 
 ```
 整体高度: ~1400 mm

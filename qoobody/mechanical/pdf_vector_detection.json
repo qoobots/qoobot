@@ -1,4 +1,4 @@
-[
+﻿[
   {
     "pages": 1,
     "vector_paths": 455,
@@ -1317,7 +1317,7 @@
     "raster_images": 39,
     "text_blocks": 415,
     "category": "MIXED",
-    "file": "QingLoong V2.5\\zh\\青龙V2.5 - 电气图纸与开源内容介绍\\青龙全尺寸通用人形机器人硬件开源内容.pdf"
+    "file": "QingLoong V2.5\\zh\\青龙V2.5 - 电气图纸与开源内容介绍\\青龙全尺寸通用仿生人硬件开源内容.pdf"
   },
   {
     "pages": 5,
@@ -2629,6 +2629,6 @@
     "raster_images": 39,
     "text_blocks": 415,
     "category": "MIXED",
-    "file": "青龙全尺寸通用人形机器人硬件开源内容.pdf"
+    "file": "青龙全尺寸通用仿生人硬件开源内容.pdf"
   }
 ]

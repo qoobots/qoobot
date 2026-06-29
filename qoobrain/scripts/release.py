@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 """Brain OS 发布打包脚本
 
 功能：
@@ -178,7 +178,7 @@ def generate_manifest(version: str) -> dict:
     manifest = {
         "version": version,
         "release_date": datetime.date.today().isoformat(),
-        "project": "Brain OS — 人形机器人操作系统",
+        "project": "Brain OS — 仿生人操作系统",
         "modules": {}
     }
     

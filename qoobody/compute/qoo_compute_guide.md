@@ -1,4 +1,4 @@
-# compute — 计算平台参考方案
+﻿# compute — 计算平台参考方案
 
 > 基于 qoobody 设计文档的参考实现方案
 
@@ -24,7 +24,7 @@ compute/
 |------|---------|---------|---------|---------|
 | **Lite** | 桌面机械臂 | 10~20 TOPS NPU, 200 GFLOPS GPU | < 30W | Rockchip RK3588 / NXP i.MX 95 |
 | **Standard** | 移动底盘 / 服务机器人 | 30~100 TOPS NPU, 1 TFLOPS GPU | < 60W | NVIDIA Jetson Orin NX 16GB |
-| **Pro** | 人形机器人 / 工业协作 | 200~275 TOPS NPU, 3~5 TFLOPS GPU | < 100W | NVIDIA Jetson AGX Orin 64GB |
+| **Pro** | 仿生人 / 工业协作 | 200~275 TOPS NPU, 3~5 TFLOPS GPU | < 100W | NVIDIA Jetson AGX Orin 64GB |
 | **Enterprise** | 多机协作 / 云端协同 | 集群部署 | 按需 | 边缘服务器 + AGX Orin |
 
 ### 1.2 Standard 档位详细配置 (推荐开发基准)

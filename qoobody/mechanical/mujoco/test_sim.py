@@ -1,4 +1,4 @@
-"""
+﻿"""
 QooBot MuJoCo 仿真测试脚本 (带行走控制器)
 加载 qoobot_float.xml 模型，运行 MPC+WBC 闭环行走控制，GLFW 渲染可视化。
 """
@@ -32,7 +32,7 @@ def load_model():
 def print_model_info(model):
     """打印模型信息"""
     print("=" * 60)
-    print("  QooBot 双足人形机器人 - MuJoCo 模型信息")
+    print("  QooBot 双足仿生人 - MuJoCo 模型信息")
     print("=" * 60)
     print(f"  - 刚体数量 (nbody):     {model.nbody}")
     print(f"  - 关节数量 (njnt):      {model.njnt}")
@@ -258,7 +258,7 @@ def run_simulation(model, data):
 def main():
     print("╔" + "═" * 58 + "╗")
     print("║" + "  QooBot MPC+WBC Walking Simulation              ".center(56) + "║")
-    print("║" + "  双足人形机器人 (30 DOF) 闭环行走控制              ".center(56) + "║")
+    print("║" + "  双足仿生人 (30 DOF) 闭环行走控制              ".center(56) + "║")
     print("╚" + "═" * 58 + "╝")
     print()
 

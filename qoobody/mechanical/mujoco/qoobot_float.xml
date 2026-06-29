@@ -1,10 +1,10 @@
-<mujoco model="QooBot">
+﻿<mujoco model="QooBot">
   <!--
   ============================================================================
-  QooBot Standard — 双足人形机器人 MuJoCo 模型 (浮动基座)
+  QooBot Standard — 双足仿生人 MuJoCo 模型 (浮动基座)
   ============================================================================
   
-  形态: 双足人形 (复用 OpenLoong 青龙 STL 网格)
+  形态: 双足仿生人 (复用 OpenLoong 青龙 STL 网格)
   自由度: 30 DOF
     - 浮动基座: 6 DOF (自由飞行)
     - 腰部: 3 DOF (pitch, roll, yaw)
@@ -14,7 +14,7 @@
     - 左腿: 5 DOF (hip_roll/yaw/pitch + knee_pitch + ankle_pitch/roll)
     - 右腿: 5 DOF (对称)
   
-  硬件参考: OpenLoong 青龙全尺寸人形机器人工程图纸
+  硬件参考: OpenLoong 青龙全尺寸仿生人工程图纸
   运动控制: MPC + WBC (基于 OpenLoong dyn-control)
   
   单位: 米(m), 千克(kg), 弧度(rad), 牛·米(N·m)
