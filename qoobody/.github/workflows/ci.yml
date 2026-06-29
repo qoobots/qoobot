@@ -1,0 +1,152 @@
+# =============================================================================
+# QooBody — CI/CD Pipeline (GitHub Actions)
+#
+# Triggers: push/PR to main, manual dispatch
+# Builds:   x86_64 (HIL/sim), aarch64 (Jetson Orin), armv7-r (Safety MCU)
+# =============================================================================
+
+name: QooBody CI
+
+on:
+  push:
+    branches: [main, develop]
+    paths:
+      - 'qoobody/**'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'qoobody/**'
+  workflow_dispatch:
+    inputs:
+      platform:
+        description: 'Target platform'
+        required: false
+        default: 'x86_64'
+        type: choice
+        options:
+          - x86_64
+          - jetson_orin
+          - rk3588
+          - arm_none_eabi
+
+defaults:
+  run:
+    working-directory: qoobody
+
+jobs:
+
+  # ---- Lint & Format Check --------------------------------------------------
+  lint:
+    name: Lint & Format
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check C code formatting (clang-format)
+        run: |
+          find . -name '*.c' -o -name '*.h' | xargs clang-format-17 --dry-run --Werror
+      - name: Check CMake formatting
+        run: |
+          pip install cmake-format
+          find . -name 'CMakeLists.txt' -o -name '*.cmake' | xargs cmake-format --check
+
+  # ---- Build: x86_64 Host (HIL / Simulation / Tests) ------------------------
+  build-x86_64:
+    name: Build (x86_64)
+    runs-on: ubuntu-24.04
+    needs: lint
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential cmake ninja-build pkg-config
+      - name: Configure (Release + Tests)
+        run: |
+          cmake -B build \
+            -G Ninja \
+            -DPLATFORM=x86_64 \
+            -DCMAKE_BUILD_TYPE=Release \
+            -DQOOBODY_BUILD_TESTS=ON \
+            -DQOOBODY_ENABLE_SANITIZERS=ON
+      - name: Build
+        run: cmake --build build --parallel $(nproc)
+      - name: Test
+        run: cd build && ctest --output-on-failure -j $(nproc)
+
+  # ---- Build: aarch64 (Jetson Orin — Cross-compile) -------------------------
+  build-jetson-orin:
+    name: Build (Jetson Orin · aarch64)
+    runs-on: ubuntu-24.04
+    needs: lint
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install cross-compiler
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gcc-aarch64-linux-gnu g++-aarch64-linux-gnu
+      - name: Configure (aarch64 cross)
+        run: |
+          cmake -B build-aarch64 \
+            -G Ninja \
+            -DCMAKE_TOOLCHAIN_FILE=cmake/toolchains/aarch64-linux-gnu.cmake \
+            -DPLATFORM=jetson_orin \
+            -DCMAKE_BUILD_TYPE=Release \
+            -DQOOBODY_BUILD_FIRMWARE=OFF \
+            -DQOOBODY_BUILD_TESTS=OFF
+      - name: Build
+        run: cmake --build build-aarch64 --parallel $(nproc)
+
+  # ---- Build: armv7-r (Safety MCU bare-metal) -------------------------------
+  build-safety-mcu:
+    name: Build (Safety MCU · armv7-r)
+    runs-on: ubuntu-24.04
+    needs: lint
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install cross-compiler
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gcc-arm-none-eabi binutils-arm-none-eabi
+      - name: Configure (bare-metal)
+        run: |
+          cmake -B build-mcu \
+            -G Ninja \
+            -DCMAKE_TOOLCHAIN_FILE=cmake/toolchains/arm-none-eabi.cmake \
+            -DPLATFORM=arm_none_eabi \
+            -DCMAKE_BUILD_TYPE=MinSizeRel \
+            -DQOOBODY_BUILD_FIRMWARE=ON \
+            -DQOOBODY_BUILD_DRIVERS=OFF \
+            -DQOOBODY_BUILD_TESTS=OFF
+      - name: Build
+        run: cmake --build build-mcu --parallel $(nproc)
+
+  # ---- Static Analysis (clang-tidy) -----------------------------------------
+  static-analysis:
+    name: Static Analysis
+    runs-on: ubuntu-24.04
+    needs: lint
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install clang-tidy
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y clang-tidy-17 bear
+      - name: Generate compile_commands.json
+        run: |
+          cmake -B build-sa -DPLATFORM=x86_64 -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
+      - name: Run clang-tidy
+        run: |
+          run-clang-tidy -p build-sa \
+            -header-filter='.*qoobody/(hal|drivers|firmware|compute|power)/.*' \
+            -warnings-as-errors='*'
+
+  # ---- Documentation Check --------------------------------------------------
+  docs-check:
+    name: Docs Check
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check Markdown links
+        run: |
+          npm install -g markdown-link-check
+          find docs -name '*.md' | xargs -I{} markdown-link-check {} --quiet

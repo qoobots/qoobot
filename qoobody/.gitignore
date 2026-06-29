@@ -1,0 +1,93 @@
+# =============================================================================
+# QooBody — Git Ignore Rules
+# =============================================================================
+
+# ---- Build Artifacts --------------------------------------------------------
+build/
+cmake-build-*/
+out/
+*.o
+*.obj
+*.a
+*.so
+*.so.*
+*.dylib
+*.exe
+*.elf
+*.bin
+*.hex
+*.map
+*.lst
+*.d
+*.d.*
+*.gcda
+*.gcno
+*.gcov
+
+# ---- CMake ------------------------------------------------------------------
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+CTestTestfile.cmake
+Makefile
+compile_commands.json
+!cmake/
+
+# ---- IDE --------------------------------------------------------------------
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+*.suo
+*.user
+*.sln.docstates
+*.VC.db
+*.VC.opendb
+
+# ---- Eclipse ----------------------------------------------------------------
+.project
+.cproject
+.settings/
+.metadata/
+
+# ---- Package Managers -------------------------------------------------------
+node_modules/
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+venv/
+.venv/
+env/
+
+# ---- Docker -----------------------------------------------------------------
+.dockerignore
+
+# ---- OS Files ---------------------------------------------------------------
+*.log
+*.tmp
+
+# ---- Mechanical CAD Temp Files ----------------------------------------------
+*.stp~
+*~.stp
+*.dxf~
+*.log.*
+*.bak
+
+# ---- ROS 2 ------------------------------------------------------------------
+ros2_pkgs/build/
+ros2_pkgs/install/
+ros2_pkgs/log/
+
+# ---- Yocto ------------------------------------------------------------------
+os/build/
+os/tmp/
+os/sstate-cache/
+os/downloads/
+
+# ---- Misc -------------------------------------------------------------------
+*.core
+core
