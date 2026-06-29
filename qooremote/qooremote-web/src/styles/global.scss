@@ -1,0 +1,76 @@
+// qooremote Web 遥控面板全局样式
+
+:root {
+  --teleop-bg: #0f1923;
+  --teleop-bg-card: #1a2736;
+  --teleop-bg-card-hover: #1e3044;
+  --teleop-border: #2a3f55;
+  --teleop-text: #e4e8ec;
+  --teleop-text-secondary: #8a9bb5;
+  --teleop-accent: #409eff;
+  --teleop-accent-hover: #66b1ff;
+  --teleop-success: #67c23a;
+  --teleop-warning: #e6a23c;
+  --teleop-danger: #f56c6c;
+  --teleop-danger-hover: #f78989;
+  --teleop-video-bg: #0a1118;
+  --teleop-slider-track: #2a3f55;
+  --teleop-dpad-bg: #1a2736;
+  --teleop-dpad-active: #409eff33;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  background: var(--teleop-bg);
+  color: var(--teleop-text);
+  font-size: 14px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+// Element Plus 暗色主题覆盖
+.el-config-provider {
+  background: var(--teleop-bg);
+}
+
+// 滚动条
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--teleop-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--teleop-border);
+  border-radius: 3px;
+
+  &:hover {
+    background: var(--teleop-text-secondary);
+  }
+}
+
+// 工具类
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.gap-8 { gap: 8px; }
+.gap-12 { gap: 12px; }
+.gap-16 { gap: 16px; }
