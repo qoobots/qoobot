@@ -1,0 +1,134 @@
+# ============================================
+# QooBrain monorepo .gitignore
+# C++ / Python / TypeScript / ROS 2 工程
+# ============================================
+
+# --- C++ / ROS 2 Build ---
+build/
+install/
+log/
+*.o
+*.so
+*.a
+*.dylib
+*.dll
+*.exe
+*.out
+*.app
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+CTestTestfile.cmake
+Makefile
+*.cmake.in
+compile_commands.json
+
+# colcon / ament
+.catkin_tools/
+colcon_*
+ament_*
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+eggs/
+*.whl
+.eggs/
+*.manifest
+*.spec
+.python-version
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.tox/
+.nox/
+*.cover
+
+# --- Node.js / TypeScript ---
+node_modules/
+.npm-cache/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+.next/
+out/
+dist/
+.nuxt/
+.vite/
+
+# --- IDE ---
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# --- Docker ---
+*.tar
+*.tar.gz
+
+# --- ROS 2 ---
+*.bag
+*.active
+*.db3
+
+# --- Model Files (managed by Git LFS) ---
+*.onnx
+*.engine
+*.gguf
+*.safetensors
+*.weights
+*.pt
+*.pth
+*.ckpt
+*.bin
+
+# --- Logs ---
+*.log
+logs/
+
+# --- Environment ---
+.env
+.env.local
+.env.*.local
+.venv/
+venv/
+ENV/
+env/
+
+# --- Benchmark Results ---
+benchmark_results/*.json
+!benchmark_results/*.md
+
+# --- Git LFS pointers ---
+*.lfs
+
+# --- Generated proto code ---
+brain_proto/gen/
+*_pb2.py
+*_pb2_grpc.py
+*.pb.h
+*.pb.cc
+*.grpc.pb.h
+*.grpc.pb.cc
+
+# --- ccache ---
+.ccache/
+
+# --- Temporary ---
+tmp/
+temp/
+*.tmp
+*.bak

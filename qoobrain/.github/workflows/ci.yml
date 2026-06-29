@@ -6,7 +6,6 @@ on:
   pull_request:
     branches: [ main, dev ]
 
-# Cancel in-progress runs for the same branch
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
@@ -71,7 +70,6 @@ jobs:
       - name: Lint with ruff
         run: |
           ruff check brain_ai/brain_ai/ --ignore E501,E402 || true
-          # Note: ignoring import order (E402) and line length for generated code
 
       - name: Run gRPC communication test
         run: python tests/test_grpc_communication.py
@@ -96,8 +94,7 @@ jobs:
         run: pip install ruff
 
       - name: Lint brain_sdk
-        run: |
-          ruff check brain_sdk/brain_os/ --ignore E501,E402 || true
+        run: ruff check brain_sdk/brain_os/ --ignore E501,E402 || true
 
   # ── 4. brain_viz (TypeScript) build ─────────────────────────────────────
   brain-viz:

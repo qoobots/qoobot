@@ -1,0 +1,113 @@
+# ============================================================
+# Brain OS — CI 集成测试 Docker Compose
+# ============================================================
+# 用于 Stage 4 集成测试和 IT 测试场景
+# 所有服务使用 healthcheck + --wait 等待就绪
+# ============================================================
+
+networks:
+  brain-ci-net:
+    driver: bridge
+
+volumes:
+  ros2-log:
+  ci-model-cache:
+
+services:
+  # ── brain_core — C++17 ROS 2 实时控制引擎 ──
+  brain_core:
+    build:
+      context: .
+      dockerfile: brain_deploy/docker/Dockerfile.brain_core
+    image: brain-os/brain_core:ci
+    container_name: brain_core_ci
+    networks:
+      - brain-ci-net
+    environment:
+      - ROS_DOMAIN_ID=42
+      - BRAIN_ROBOT_ID=ci_robot_01
+      - BRAIN_GRPC_BACKEND=brain_ai:50051
+      - BRAIN_SIM_MODE=true
+    volumes:
+      - ros2-log:/root/.ros/log
+    healthcheck:
+      test: ["CMD", "ros2", "topic", "list"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+      start_period: 10s
+
+  # ── brain_ai — Python gRPC AI 认知引擎 ──
+  brain_ai:
+    build:
+      context: .
+      dockerfile: brain_deploy/docker/Dockerfile.brain_ai
+    image: brain-os/brain_ai:ci
+    container_name: brain_ai_ci
+    networks:
+      - brain-ci-net
+    ports:
+      - "50051:50051"
+      - "8765:8765"
+    environment:
+      - BRAIN_OS_ROBOT_ID=ci_robot_01
+      - BRAIN_OS_LOG_LEVEL=INFO
+      - BRAIN_LLM_BACKEND=stub
+      - BRAIN_SIM_MODE=true
+    volumes:
+      - ci-model-cache:/workspace/brain_models
+    depends_on:
+      brain_core:
+        condition: service_healthy
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "python",
+          "-c",
+          "import grpc; ch=grpc.insecure_channel('localhost:50051'); grpc.channel_ready_future(ch).result(timeout=3); print('ok')",
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 30s
+
+  # ── brain_viz — Next.js 可视化 Dashboard ──
+  brain_viz:
+    build:
+      context: .
+      dockerfile: brain_deploy/docker/Dockerfile.brain_viz
+    image: brain-os/brain_viz:ci
+    container_name: brain_viz_ci
+    networks:
+      - brain-ci-net
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_WS_URL=ws://brain_ai:8765
+      - NEXT_PUBLIC_GRPC_WEB_URL=http://localhost:8080
+      - NEXT_PUBLIC_ROBOT_ID=ci_robot_01
+      - NEXT_TELEMETRY_DISABLED=1
+    depends_on:
+      brain_ai:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-sf", "http://localhost:3000/api/health"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+      start_period: 15s
+
+  # ── envoy — gRPC-Web 反向代理 ──
+  envoy:
+    build:
+      context: .
+      dockerfile: brain_deploy/docker/Dockerfile.envoy
+    image: brain-os/envoy:ci
+    container_name: brain_envoy_ci
+    networks:
+      - brain-ci-net
+    ports:
+      - "8080:8080"
+    depends_on:
+      - brain_ai
