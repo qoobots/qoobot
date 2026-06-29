@@ -12,7 +12,7 @@ import java.util.Map;
 /**
  * Feign client for qoogear-cert service (port 8091).
  */
-@FeignClient(name = "qoogear-cert", path = "/api/v1/cert")
+@FeignClient(name = "qoogear-cert", path = "/api/v1/cert", fallback = CertificationClientFallback.class)
 public interface CertificationClient {
 
     @GetMapping("/applications/{id}")

@@ -11,7 +11,7 @@ import java.util.Map;
 /**
  * Feign client for qoogear-standard service (port 8092).
  */
-@FeignClient(name = "qoogear-standard", path = "/api/v1/standard")
+@FeignClient(name = "qoogear-standard", path = "/api/v1/standard", fallback = StandardClientFallback.class)
 public interface StandardClient {
 
     @GetMapping("/specs/{id}")

@@ -1,8 +1,15 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import { useAuthStore } from '@/stores/auth'
 
 const router = createRouter({
   history: createWebHistory('/qoogear'),
   routes: [
+    {
+      path: '/login',
+      name: 'login',
+      component: () => import('@/views/auth/LoginPage.vue'),
+      meta: { title: '登录 - MFQ 认证门户' },
+    },
     {
       path: '/',
       name: 'home',
@@ -156,6 +163,33 @@ const router = createRouter({
 
 router.beforeEach((to, _from, next) => {
   document.title = (to.meta.title as string) || 'MFQ 认证门户'
+
+  const authStore = useAuthStore()
+
+  // Redirect to login if route requires auth and user not logged in
+  if (to.meta.requiresAuth && !authStore.isLoggedIn) {
+    next({ name: 'login', query: { redirect: to.fullPath } })
+    return
+  }
+
+  // Check admin-only routes
+  if (to.meta.requiresAdmin && !authStore.isAdmin) {
+    next({ name: 'home' })
+    return
+  }
+
+  // Check lab-only routes
+  if (to.meta.requiresLab && !authStore.isLab) {
+    next({ name: 'home' })
+    return
+  }
+
+  // Redirect logged-in users away from login page
+  if (to.name === 'login' && authStore.isLoggedIn) {
+    next({ name: 'home' })
+    return
+  }
+
   next()
 })
 

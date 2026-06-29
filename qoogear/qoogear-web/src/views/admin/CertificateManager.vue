@@ -193,8 +193,8 @@ function renewCert(row: any) {
 
 async function doRenew() {
   try {
-    // TODO: implement renew API
-    ElMessage.success('证书已续期')
+    await certApi.renewCertificate(renewDialog.certId, renewDialog.years)
+    ElMessage.success(`证书已续期 ${renewDialog.years} 年`)
     renewDialog.visible = false
     loadCerts()
   } catch {

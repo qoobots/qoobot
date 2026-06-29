@@ -9,7 +9,7 @@ import java.util.Map;
 /**
  * Feign client for qoogear-security service (port 8095).
  */
-@FeignClient(name = "qoogear-security", path = "/api/v1/security")
+@FeignClient(name = "qoogear-security", path = "/api/v1/security", fallback = SecurityClientFallback.class)
 public interface SecurityClient {
 
     @PostMapping("/audit")

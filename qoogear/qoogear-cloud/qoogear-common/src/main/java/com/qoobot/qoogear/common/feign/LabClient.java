@@ -12,7 +12,7 @@ import java.util.Map;
 /**
  * Feign client for qoogear-lab service (port 8094).
  */
-@FeignClient(name = "qoogear-lab", path = "/api/v1/lab")
+@FeignClient(name = "qoogear-lab", path = "/api/v1/lab", fallback = LabClientFallback.class)
 public interface LabClient {
 
     @PostMapping("/assignments")

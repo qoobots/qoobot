@@ -25,11 +25,14 @@ export const certApi = {
   submitApplication: (id: number) =>
     client.post<ApiResponse<CertificationApplication>>(`${BASE}/applications/${id}/submit`),
 
-  reviewApplication: (id: number, approved: boolean, comment: string) =>
-    client.post<ApiResponse<CertificationApplication>>(`${BASE}/applications/${id}/review`, { approved, comment }),
+  reviewApplication: (id: number, data: { reviewerId?: number; approved: boolean; comment?: string }) =>
+    client.post<ApiResponse<CertificationApplication>>(`${BASE}/applications/${id}/review`, data),
 
   assignLab: (id: number, labId: number) =>
     client.post<ApiResponse<CertificationApplication>>(`${BASE}/applications/${id}/assign-lab`, { labId }),
+
+  requestInfo: (id: number, message: string) =>
+    client.post<ApiResponse<null>>(`${BASE}/applications/${id}/request-info`, { message }),
 
   // 证书
   listCertificates: (params?: Record<string, any>) =>
@@ -40,4 +43,14 @@ export const certApi = {
 
   verifyCertificate: (id: number) =>
     client.get<ApiResponse<Certificate>>(`${BASE}/certificates/${id}/verify`),
+
+  revokeCertificate: (id: number, reason: string) =>
+    client.post<ApiResponse<Certificate>>(`${BASE}/certificates/${id}/revoke`, { reason }),
+
+  renewCertificate: (id: number, years: number) =>
+    client.post<ApiResponse<Certificate>>(`${BASE}/certificates/${id}/renew`, { years }),
+
+  // 实验室
+  listLabs: () =>
+    client.get<ApiResponse<{ id: number; name: string }[]>>('/lab/laboratories'),
 }

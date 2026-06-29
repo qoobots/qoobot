@@ -141,8 +141,11 @@
 import { ref, reactive, onMounted } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { certApi } from '@/api/cert'
+import { useAuthStore } from '@/stores/auth'
 import CertLevelBadge from '@/components/cert/CertLevelBadge.vue'
 import CertStatusTag from '@/components/cert/CertStatusTag.vue'
+
+const authStore = useAuthStore()
 
 const activeTab = ref('pending')
 const loading = ref(false)
@@ -278,7 +281,7 @@ async function confirmApprove() {
   if (!approveDialog.currentApp) return
   try {
     await certApi.reviewApplication(approveDialog.currentApp.id, {
-      reviewerId: 1, // TODO: get from auth store
+      reviewerId: authStore.user?.id || 1,
       approved: true,
       comment: approveDialog.form.comment
     })
@@ -317,7 +320,7 @@ async function confirmReject() {
   }
   try {
     await certApi.reviewApplication(rejectDialog.currentApp.id, {
-      reviewerId: 1,
+      reviewerId: authStore.user?.id || 1,
       approved: false,
       comment: rejectDialog.form.reason
     })
@@ -336,8 +339,12 @@ function requestInfo(row: any) {
     confirmButtonText: '发送',
     cancelButtonText: '取消'
   }).then(async ({ value }) => {
-    // TODO: send request-info notification
-    ElMessage.success('已发送补充材料请求')
+    try {
+      await certApi.requestInfo(row.id, value)
+      ElMessage.success('已发送补充材料请求')
+    } catch {
+      ElMessage.error('发送失败')
+    }
   }).catch(() => {})
 }
 

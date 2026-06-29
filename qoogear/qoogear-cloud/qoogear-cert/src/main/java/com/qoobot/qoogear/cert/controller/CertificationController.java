@@ -111,9 +111,12 @@ public class CertificationController {
     @PreAuthorize("hasRole('ADMIN')")
     public ApiResponse<CertApplication> reviewApplication(
             @PathVariable Long id,
-            @RequestParam Long reviewerId,
-            @RequestParam boolean approved,
-            @RequestParam(required = false) String comment) {
+            @RequestBody Map<String, Object> reviewData) {
+        Long reviewerId = reviewData.containsKey("reviewerId") ?
+                ((Number) reviewData.get("reviewerId")).longValue() : 1L;
+        boolean approved = (boolean) reviewData.get("approved");
+        String comment = reviewData.containsKey("comment") ?
+                (String) reviewData.get("comment") : "";
         return ApiResponse.success(certService.reviewApplication(id, reviewerId, approved,
                 comment != null ? comment : ""));
     }
@@ -132,10 +135,30 @@ public class CertificationController {
         return ApiResponse.success(certService.issueCertificate(id));
     }
 
-    @PostMapping("/applications/{id}/revoke")
+    @PostMapping("/certificates/{id}/revoke")
     @PreAuthorize("hasRole('ADMIN')")
-    public ApiResponse<Certificate> revokeCertificate(@PathVariable Long id, @RequestParam String reason) {
-        return ApiResponse.success(certService.revokeCertificate(id, reason));
+    public ApiResponse<Certificate> revokeCertificate(@PathVariable Long id, @RequestBody Map<String, String> body) {
+        return ApiResponse.success(certService.revokeCertificate(id, body.get("reason")));
+    }
+
+    @PostMapping("/certificates/{id}/renew")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ApiResponse<Certificate> renewCertificate(@PathVariable Long id, @RequestBody Map<String, Integer> body) {
+        int years = body.getOrDefault("years", 2);
+        Certificate cert = certRepo.findById(id)
+                .orElseThrow(() -> com.qoobot.qoogear.common.exception.QooGearException.notFound("Certificate", id));
+        cert.setExpiresAt(cert.getExpiresAt().plusYears(years));
+        certRepo.save(cert);
+        log.info("Certificate renewed: {} for {} years", cert.getCertNumber(), years);
+        return ApiResponse.success(cert);
+    }
+
+    @PostMapping("/applications/{id}/request-info")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ApiResponse<Void> requestInfo(@PathVariable Long id, @RequestBody Map<String, String> body) {
+        log.info("Request-info for application {}: {}", id, body.get("message"));
+        // In production: send notification to developer
+        return ApiResponse.success(null);
     }
 
     @GetMapping("/certificates")
