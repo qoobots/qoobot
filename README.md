@@ -37,6 +37,10 @@ QooBot 是一个面向仿生人的**开源全栈生态**。我们正在构建驱
 
 我们的使命是为机器人领域做开源操作系统为计算领域所做的事：**降低门槛、加速创新、构建全球社区**。
 
+<p align="center">
+  <img src="./docs/static/robot_lab.jpg" alt="QooBot 仿生人实验室" width="100%">
+</p>
+
 ---
 
 ## 🔭 愿景与使命
@@ -178,6 +182,14 @@ QooBot 按**运行平台**分为 **6 个平台目录**：
 | **[lsp](./qoobot-desktop/lsp/)** | **LSP Server** — 代码补全、诊断、导航。 |
 | **[vscode-plugin](./qoobot-desktop/vscode-plugin/)** | **VS Code 插件** — 集成开发环境。 |
 | **[python-sdk](./qoobot-desktop/python-sdk/)** | **Python SDK** — 机器人应用开发。 |
+
+#### 🎮 远程机器人监控控制台
+
+<p align="center">
+  <img src="./docs/static/远程机器人监控控制台.jpg" alt="QooRemote 远程机器人监控控制台" width="100%">
+</p>
+
+> QooRemote — 多路视频回传、遥操作控制、3D 数字孪生、语音对讲、示教录制一站式远程操作控制台。
 
 ### ☁️ qoobot-service — 云端微服务
 
