@@ -50,6 +50,9 @@ docker-compose.override.yml
 *.log
 logs/
 
+# Temp debug files
+_test_*.py
+
 # Test
 .coverage
 htmlcov/
