@@ -1,4 +1,4 @@
-﻿"""qoo sim — 仿真环境管理命令。
+"""qoo sim — 仿真环境管理命令。
 
 管理仿真引擎的生命周期：启动/停止/暂停/恢复，
 加载场景，监控传感器数据。
@@ -18,9 +18,9 @@ from rich.panel import Panel
 from rich.table import Table
 from rich.text import Text
 
-from qoodev.sim_bridge.interface import SimConfig, SimState
-from qoodev.sim_bridge.manager import SimManager, list_backends
-from qoodev.sim_bridge.scene_loader import SceneLoader, list_presets
+from cli.sim_bridge.interface import SimConfig, SimState
+from cli.sim_bridge.manager import SimManager, list_backends
+from cli.sim_bridge.scene_loader import SceneLoader, list_presets
 
 app = typer.Typer(
     name="sim",
@@ -54,7 +54,7 @@ def sim_start(
     ),
     scene: str = typer.Option(
         "home", "--scene", "-s",
-        help="场景名称或路径: home / factory / empty / 文件路径"
+        help="场景名称或路径: home / factory / empty / azureloong / 文件路径"
     ),
     headless: bool = typer.Option(
         False, "--headless",
@@ -68,14 +68,19 @@ def sim_start(
         True, "--real-time/--no-real-time",
         help="实时模式 vs 最快速度"
     ),
+    walk: bool = typer.Option(
+        False, "--walk", "-w",
+        help="启用 MPC+WBC 行走控制器（双足机器人行走）"
+    ),
 ) -> None:
     """启动仿真引擎并加载场景。
 
     Examples:
         qoo sim start                          # 默认: MuJoCo + 家居场景
-        qoo sim start --backend mujoco --scene factory
+        qoo sim start --scene azureloong       # AzureLoong 双足机器人场景
+        qoo sim start --scene azureloong -w    # 带行走控制器的双足机器人
         qoo sim start --backend isaac_sim --scene /path/to/scene.usd
-        qoo sim start --headless --scene empty   # CI 模式
+        qoo sim start --headless --scene empty  # CI 模式
     """
     global _sim_manager
 
@@ -102,6 +107,18 @@ def sim_start(
         sim_scene = loader.load(scene)
         _sim_manager.load_scene(sim_scene)
 
+    # 行走控制器
+    walking_info = ""
+    if walk:
+        with console.status("[cyan]初始化行走控制器 (MPC+WBC)...[/cyan]"):
+            if _sim_manager.backend and hasattr(_sim_manager.backend, 'enable_walking'):
+                if _sim_manager.backend.enable_walking():
+                    walking_info = "\n行走: [green]MPC+WBC 已启用[/green]"
+                    # 默认慢速前进
+                    _sim_manager.backend.set_walking_velocity(0.3, 0.0, 0.0)
+                else:
+                    walking_info = "\n行走: [yellow]初始化失败[/yellow]"
+
     # 启动
     _sim_manager.start()
     _sim_manager.backend.state = SimState.RUNNING
@@ -115,11 +132,29 @@ def sim_start(
             f"模式: {'无头' if headless else '渲染'}\n"
             f"时间步长: {time_step}s\n"
             f"机器人: {len(sim_scene.robots)} 个\n"
-            f"物体: {len(sim_scene.objects)} 个",
+            f"物体: {len(sim_scene.objects)} 个"
+            f"{walking_info}",
             title="[bold]Simulation[/bold]",
             border_style="green",
         )
     )
+
+    if not headless:
+        console.print("[cyan]渲染窗口已打开。按 Ctrl+C 停止仿真...[/cyan]")
+    if walk:
+        console.print("[cyan]行走控制: 在渲染窗口中用键盘 WASD 控制方向[/cyan]")
+
+    # 保持主线程运行，等待用户中断
+    try:
+        while _sim_manager.backend and _sim_manager.backend.state == SimState.RUNNING:
+            time.sleep(0.5)
+    except KeyboardInterrupt:
+        pass
+    finally:
+        if _sim_manager is not None:
+            _sim_manager.shutdown()
+            _sim_manager = None
+        console.print("[green]✓ 仿真已停止[/green]")
 
 
 @app.command("stop")
@@ -246,6 +281,77 @@ def sim_monitor(
         pass
 
     console.print("[yellow]监控已停止[/yellow]")
+
+
+@app.command("train")
+def sim_train(
+    algo: str = typer.Option(
+        "ppo", "--algo", "-a",
+        help="RL 算法: ppo / sac"
+    ),
+    timesteps: int = typer.Option(
+        1_000_000, "--timesteps", "-t",
+        help="总训练步数"
+    ),
+    resume: Optional[str] = typer.Option(
+        None, "--resume", "-r",
+        help="从 checkpoint 继续训练"
+    ),
+    eval_model: Optional[str] = typer.Option(
+        None, "--eval", "-e",
+        help="仅评估已训练的模型 (不训练)"
+    ),
+    log_dir: Optional[str] = typer.Option(
+        None, "--log-dir", "-l",
+        help="日志目录"
+    ),
+    no_render: bool = typer.Option(
+        False, "--no-render",
+        help="无渲染模式（加快训练）"
+    ),
+    mpc_guide: bool = typer.Option(
+        False, "--mpc-guide",
+        help="使用 MPC 引导训练"
+    ),
+    seed: int = typer.Option(
+        42, "--seed",
+        help="随机种子"
+    ),
+) -> None:
+    """强化学习训练 QooBot 双足行走。
+
+    使用 PPO 或 SAC 算法在 MuJoCo 物理引擎中训练行走策略。
+
+    Examples:
+        qoo sim train                                      # 默认: PPO, 100万步
+        qoo sim train --algo sac --timesteps 2_000_000     # SAC, 200万步
+        qoo sim train --algo ppo --no-render               # 无渲染快速训练
+        qoo sim train --resume ./logs/.../checkpoint.zip   # 继续训练
+        qoo sim train --eval ./logs/.../best_model.zip     # 评估模型
+        qoo sim train --mpc-guide                          # MPC 引导训练
+    """
+    from cli.sim_bridge.train_walking import train
+
+    console.print()
+    console.print(
+        Panel.fit(
+            "[bold cyan]QooBot 行走 RL 训练[/bold cyan]",
+            border_style="cyan",
+        )
+    )
+
+    train(
+        algo=algo,
+        total_timesteps=timesteps,
+        resume=resume,
+        eval_model=eval_model,
+        log_dir=log_dir,
+        no_render=no_render,
+        use_mpc_guide=mpc_guide,
+        seed=seed,
+    )
+
+    console.print("[green]✓ 训练完成[/green]")
 
 
 @app.command("scenes")
