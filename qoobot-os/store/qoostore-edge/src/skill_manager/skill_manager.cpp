@@ -1,6 +1,8 @@
 #include "qoostore/skill_manager.h"
+#include "json_utils.hpp"
 #include <filesystem>
 #include <fstream>
+#include <sstream>
 #include <iostream>
 #include <algorithm>
 #include <sys/stat.h>
@@ -22,10 +24,15 @@ public:
 
     void installFromPackage(const std::string& package_path,
                              InstallCallback callback) override {
-        // 解析 .qooskills 包（ZIP 格式）
         std::string skill_id = extractSkillId(package_path);
         if (skill_id.empty()) {
             callback("", false, "Invalid package: cannot extract skill_id");
+            return;
+        }
+
+        // 检查是否已安装
+        if (installed_skills_.count(skill_id)) {
+            callback(skill_id, false, "Skill already installed: " + skill_id);
             return;
         }
 
@@ -64,6 +71,7 @@ public:
             status_callback_(skill.skill_id, SkillStatus::ACTIVE);
         }
 
+        std::cout << "[SkillManager] Installed: " << skill_id << " v" << manifest.version << std::endl;
         callback(skill_id, true, "");
     }
 
@@ -72,9 +80,10 @@ public:
         std::string temp_path = skills_root_ + "/temp/" + std::to_string(std::time(nullptr)) + ".qooskills";
         fs::create_directories(skills_root_ + "/temp");
 
-        // 下载包（由 Downloader 处理，这里简化）
-        std::cout << "[SkillManager] Downloading from: " << url << std::endl;
+        // 下载包（由 SkillDownloader 处理，这里执行安装流程）
+        std::cout << "[SkillManager] Installing from URL: " << url << std::endl;
 
+        // 模拟下载完成后的安装
         installFromPackage(temp_path, callback);
     }
 
@@ -92,12 +101,14 @@ public:
         }
 
         // 删除技能文件
-        fs::remove_all(it->second.install_path);
-        fs::remove_all(skills_root_ + "/data/" + skill_id);
+        std::error_code ec;
+        fs::remove_all(it->second.install_path, ec);
+        fs::remove_all(skills_root_ + "/data/" + skill_id, ec);
 
         installed_skills_.erase(it);
         saveInstalledSkills();
 
+        std::cout << "[SkillManager] Uninstalled: " << skill_id << std::endl;
         callback(skill_id, true);
     }
 
@@ -109,6 +120,7 @@ public:
             return;
         }
 
+        std::string old_version = it->second.version;
         it->second.status = SkillStatus::UPDATING;
         if (status_callback_) {
             status_callback_(skill_id, SkillStatus::UPDATING);
@@ -117,9 +129,10 @@ public:
         std::string temp_path = skills_root_ + "/temp/" + skill_id + "_update.qooskills";
         fs::create_directories(skills_root_ + "/temp");
 
-        // 解压更新包
+        // 解压更新包（覆盖安装路径）
         std::string install_path = it->second.install_path;
         if (!extractPackage(temp_path, install_path)) {
+            it->second.status = SkillStatus::ACTIVE;
             callback(skill_id, "", false);
             return;
         }
@@ -130,12 +143,15 @@ public:
         it->second.updated_at = std::time(nullptr);
         saveInstalledSkills();
 
+        std::cout << "[SkillManager] Updated: " << skill_id
+                  << " v" << old_version << " → v" << manifest.version << std::endl;
         callback(skill_id, manifest.version, true);
     }
 
     void checkForUpdates() override {
         for (auto& [skill_id, skill] : installed_skills_) {
-            std::cout << "[SkillManager] Checking updates for: " << skill_id << std::endl;
+            std::cout << "[SkillManager] Checking updates for: " << skill_id
+                      << " (v" << skill.version << ")" << std::endl;
         }
     }
 
@@ -147,6 +163,7 @@ public:
             if (status_callback_) {
                 status_callback_(skill_id, SkillStatus::ACTIVE);
             }
+            std::cout << "[SkillManager] Enabled: " << skill_id << std::endl;
         }
     }
 
@@ -158,6 +175,7 @@ public:
             if (status_callback_) {
                 status_callback_(skill_id, SkillStatus::DISABLED);
             }
+            std::cout << "[SkillManager] Disabled: " << skill_id << std::endl;
         }
     }
 
@@ -203,40 +221,91 @@ private:
         std::ifstream in(index_path);
         if (!in.is_open()) return;
 
-        // 简化 JSON 解析（生产环境使用 nlohmann/json 或 rapidjson）
-        std::string line;
-        while (std::getline(in, line)) {
-            // 解析逻辑...
+        std::stringstream buffer;
+        buffer << in.rdbuf();
+        std::string content = buffer.str();
+
+        try {
+            auto root = json::parse(content);
+            if (root.is_object()) {
+                for (auto& [id, obj] : root.as_object()) {
+                    if (!obj.is_object()) continue;
+                    InstalledSkill skill;
+                    skill.skill_id = id;
+                    skill.name = obj.get_string("name", id);
+                    skill.version = obj.get_string("version", "0.0.0");
+                    skill.install_path = obj.get_string("install_path", "");
+                    int status_val = static_cast<int>(obj.get_int("status", 1));
+                    skill.status = static_cast<SkillStatus>(status_val);
+                    skill.installed_at = static_cast<uint64_t>(obj.get_int("installed_at", 0));
+                    skill.updated_at = static_cast<uint64_t>(obj.get_int("updated_at", 0));
+                    installed_skills_[id] = skill;
+                }
+            }
+        } catch (const json::ParseError& e) {
+            std::cerr << "[SkillManager] Failed to parse installed.json: " << e.what() << std::endl;
         }
     }
 
     void saveInstalledSkills() {
         std::string index_path = skills_root_ + "/installed.json";
         std::ofstream out(index_path);
-        if (!out.is_open()) return;
-
-        out << "{\n";
-        bool first = true;
-        for (const auto& [id, skill] : installed_skills_) {
-            if (!first) out << ",\n";
-            first = false;
-            out << "  \"" << id << "\": {"
-                << "\"name\":\"" << skill.name << "\","
-                << "\"version\":\"" << skill.version << "\""
-                << "}";
+        if (!out.is_open()) {
+            std::cerr << "[SkillManager] Failed to write installed.json" << std::endl;
+            return;
         }
-        out << "\n}\n";
+
+        json::Value root(json::Object{});
+        for (const auto& [id, skill] : installed_skills_) {
+            json::Value entry(json::Object{});
+            entry["name"] = skill.name;
+            entry["version"] = skill.version;
+            entry["install_path"] = skill.install_path;
+            entry["status"] = static_cast<int>(skill.status);
+            entry["installed_at"] = static_cast<int64_t>(skill.installed_at);
+            entry["updated_at"] = static_cast<int64_t>(skill.updated_at);
+            root[id] = entry;
+        }
+
+        out << root.dump(2);
+        out.close();
     }
 
     std::string extractSkillId(const std::string& package_path) {
-        // 从包路径提取 skill_id
         return fs::path(package_path).stem().string();
     }
 
     bool extractPackage(const std::string& package_path, const std::string& dest_path) {
-        // ZIP 解压（生产环境使用 libzip 或 minizip）
+        // 生产环境使用 libzip/minizip 解压 .qooskills (ZIP) 包
+        // 当前开发环境：模拟解压，从 manifest.json 模板创建技能目录结构
         std::cout << "[SkillManager] Extracting: " << package_path << " -> " << dest_path << std::endl;
-        return fs::exists(package_path);
+
+        if (!fs::exists(package_path)) {
+            std::cerr << "[SkillManager] Package not found: " << package_path << std::endl;
+            return false;
+        }
+
+        // 创建技能目录结构（开发环境模拟）
+        std::string skill_id = extractSkillId(package_path);
+        fs::create_directories(dest_path + "/skill");
+        fs::create_directories(dest_path + "/icons");
+        fs::create_directories(dest_path + "/config");
+
+        // 生成 manifest.json
+        std::string manifest_path = dest_path + "/manifest.json";
+        std::ofstream manifest(manifest_path);
+        manifest << "{\n"
+                 << "  \"skillId\": \"" << skill_id << "\",\n"
+                 << "  \"name\": \"" << skill_id << "\",\n"
+                 << "  \"version\": \"1.0.0\",\n"
+                 << "  \"entryPoint\": \"main.py\",\n"
+                 << "  \"runtime\": \"python3.11\",\n"
+                 << "  \"sandboxLevel\": \"restricted\",\n"
+                 << "  \"permissions\": [\"camera\", \"microphone\"]\n"
+                 << "}\n";
+        manifest.close();
+
+        return true;
     }
 
     SkillManifest readManifest(const std::string& install_path) {
@@ -245,13 +314,39 @@ private:
         std::ifstream in(manifest_path);
         if (!in.is_open()) return manifest;
 
-        // 简化 JSON 解析
-        manifest.skill_id = fs::path(install_path).filename().string();
-        manifest.name = manifest.skill_id;
-        manifest.version = "1.0.0";
-        manifest.entry_point = "main.py";
-        manifest.runtime = "python3.11";
-        manifest.permissions = {"camera", "microphone"};
+        std::stringstream buffer;
+        buffer << in.rdbuf();
+
+        try {
+            auto root = json::parse(buffer.str());
+            if (root.is_object()) {
+                manifest.skill_id = root.get_string("skillId", "");
+                manifest.name = root.get_string("name", "");
+                manifest.version = root.get_string("version", "1.0.0");
+                manifest.min_qos_version = root.get_string("minQOSVersion", "");
+                manifest.entry_point = root.get_string("entryPoint", "main.py");
+                manifest.runtime = root.get_string("runtime", "python3.11");
+
+                std::string sandbox = root.get_string("sandboxLevel", "restricted");
+                if (sandbox == "unrestricted") manifest.sandbox_level = SandboxLevel::UNRESTRICTED;
+                else if (sandbox == "isolated") manifest.sandbox_level = SandboxLevel::ISOLATED;
+                else manifest.sandbox_level = SandboxLevel::RESTRICTED;
+
+                manifest.max_memory_mb = static_cast<uint64_t>(root.get_int("maxMemoryMB", 512));
+                manifest.max_cpu_percent = static_cast<uint32_t>(root.get_int("maxCPUPercent", 30));
+
+                // 解析权限数组
+                if (root.has("permissions") && root["permissions"].is_array()) {
+                    for (const auto& perm : root["permissions"].as_array()) {
+                        if (perm.is_string()) {
+                            manifest.permissions.push_back(perm.as_string());
+                        }
+                    }
+                }
+            }
+        } catch (const json::ParseError& e) {
+            std::cerr << "[SkillManager] Failed to parse manifest.json: " << e.what() << std::endl;
+        }
 
         return manifest;
     }

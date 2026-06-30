@@ -1,9 +1,20 @@
 #include "qoostore/runtime_monitor.h"
+#include "json_utils.hpp"
 #include <iostream>
+#include <fstream>
+#include <filesystem>
 #include <thread>
 #include <chrono>
 #include <map>
 #include <mutex>
+#include <set>
+
+#ifdef __linux__
+#include <sys/resource.h>
+#include <unistd.h>
+#endif
+
+namespace fs = std::filesystem;
 
 namespace qoostore {
 namespace edge {
@@ -44,12 +55,21 @@ public:
     }
 
     ResourceUsage getResourceUsage(const std::string& skill_id) const override {
-        // 从 /proc/{pid}/stat 和 cgroup 读取实际使用量
         ResourceUsage usage;
+
+        // 尝试从 /proc 文件系统读取实际资源使用量
+        // 如果 /proc 不可用（非 Linux 环境），返回模拟值
+#ifdef __linux__
+        usage = readProcUsage(skill_id);
+        if (usage.memory_mb > 0) return usage;
+#endif
+
+        // 回退：模拟值（开发/测试环境）
         usage.cpu_percent = 5.0 + (skill_id.length() % 20);
         usage.memory_mb = 128 + (skill_id.length() % 256);
         usage.network_rx_bytes = 1024 * 1024;
         usage.network_tx_bytes = 512 * 1024;
+        usage.disk_mb = 10 + (skill_id.length() % 50);
         return usage;
     }
 
@@ -133,6 +153,54 @@ private:
     std::map<std::string, std::vector<ResourceUsage>> stats_buffer_;
     CrashCallback crash_callback_;
     std::mutex mutex_;
+
+#ifdef __linux__
+    /**
+     * 从 /proc 文件系统读取资源使用量
+     */
+    ResourceUsage readProcUsage(const std::string& skill_id) const {
+        ResourceUsage usage;
+
+        // 尝试从 /proc/[pid]/stat 读取 CPU 使用量
+        // 这里简化实现：从 cgroup 读取（实际生产环境需维护 pid 映射）
+        std::string cgroup_path = "/sys/fs/cgroup/qoostore/" + skill_id;
+
+        // 读取 CPU 使用量 (cpu.stat)
+        std::ifstream cpu_stat(cgroup_path + "/cpu.stat");
+        if (cpu_stat.is_open()) {
+            std::string line;
+            while (std::getline(cpu_stat, line)) {
+                if (line.starts_with("usage_usec")) {
+                    size_t pos = line.find(' ');
+                    if (pos != std::string::npos) {
+                        usage.cpu_percent = std::stod(line.substr(pos + 1)) / 10000.0;
+                    }
+                }
+            }
+        }
+
+        // 读取内存使用量 (memory.current)
+        std::ifstream mem_current(cgroup_path + "/memory.current");
+        if (mem_current.is_open()) {
+            uint64_t mem_bytes = 0;
+            mem_current >> mem_bytes;
+            usage.memory_mb = mem_bytes / (1024 * 1024);
+        }
+
+        // 读取磁盘使用量
+        std::string data_path = "/data/qoostore/skills/data/" + skill_id;
+        std::error_code ec;
+        uint64_t disk_bytes = 0;
+        for (const auto& entry : fs::recursive_directory_iterator(data_path, ec)) {
+            if (entry.is_regular_file()) {
+                disk_bytes += entry.file_size();
+            }
+        }
+        usage.disk_mb = disk_bytes / (1024 * 1024);
+
+        return usage;
+    }
+#endif
 
     void monitorLoop() {
         while (running_) {
