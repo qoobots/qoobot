@@ -336,7 +336,7 @@ message NavFeedback {
 
 ## 5. C/C++ Direct API (底层)
 
-### 5.1 推理引擎 (QooCore)
+### 5.1 推理引擎 (ai-engine/)
 
 ```c
 // 引擎
@@ -419,10 +419,10 @@ service ControlService {
 |------|------|------|
 | 0 | SUCCESS | 成功 |
 | 1~99 | SYSTEM | 系统级错误 (OOM/超时/内部) |
-| 100~199 | CORE | QooCore 推理引擎错误 |
-| 200~299 | BRAIN | QooBrain 认知决策错误 |
-| 300~399 | HAL | QooBody HAL 硬件错误 |
-| 400~499 | SERVICE | QooSvc 服务错误 |
+| 100~199 | CORE | ai-engine/ 推理引擎错误 |
+| 200~299 | BRAIN | brain/ 认知决策错误 |
+| 300~399 | HAL | hal/ 硬件错误 |
+| 400~499 | SERVICE | services/ 服务错误 |
 | 500~599 | SAFETY | 安全相关错误 |
 | 600~699 | NETWORK | 网络通信错误 |
 
