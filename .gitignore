@@ -46,6 +46,12 @@ docker-compose.override.yml
 *.engine
 *.fbow
 .venv/
+
+# MuJoCo large model files
+mjmodel.mjb
+MJMODEL.TXT
+mjmodel.xml
+
 # Logs
 *.log
 logs/
