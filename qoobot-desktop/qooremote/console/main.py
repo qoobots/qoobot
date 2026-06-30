@@ -1,7 +1,7 @@
 """QooRemote 桌面控制台 — 应用入口
 
 启动 QApplication、主窗口，连接 ViewModel 与 UI。
-v0.5.0 Immersive: +数字孪生(DT-01~04) + VR遥控(TEL-05) + 视频录制回放(VID-03) + 画中画(VID-04) + 告警历史(ALT-03)
+v1.0.0 GA: +权限管理(TAK-03) + 接管审计(TAK-04) — 40/40 全部完成
 """
 
 from __future__ import annotations
@@ -38,6 +38,8 @@ from console.ui.viewmodels.teleop_vm import TeleopViewModel
 from console.ui.viewmodels.voice_vm import VoiceViewModel
 from console.ui.viewmodels.recording_vm import RecordingViewModel
 from console.ui.viewmodels.alert_history_vm import AlertHistoryViewModel
+from console.ui.viewmodels.takeover_vm import TakeoverViewModel
+from console.ui.panels.takeover_panel import TakeoverPanel
 from console.ui.dialogs.connection_dialog import ConnectionDialog
 
 logger = logging.getLogger(__name__)
@@ -46,7 +48,7 @@ logger = logging.getLogger(__name__)
 def main() -> int:
     """QooRemote 应用入口"""
     setup_logging()
-    logger.info("QooRemote v0.5.0 Immersive starting...")
+    logger.info("QooRemote v1.0.0 GA starting...")
 
     app = create_application()
 
@@ -72,6 +74,9 @@ def main() -> int:
 
     # 告警历史
     alert_history_service = AlertHistoryService()
+
+    # TAK-03/04: 接管权限管理 + 审计
+    takeover_vm = TakeoverViewModel()
 
     # ================================================================
     # ViewModel 层
@@ -105,6 +110,7 @@ def main() -> int:
     viewport_3d = Viewport3D()
     recording_panel = RecordingPanel()
     alert_history_panel = AlertHistoryPanel()
+    takeover_panel = TakeoverPanel()
 
     # 画中画组件
     pip_overlay = PipOverlay(video_panel)
@@ -118,6 +124,7 @@ def main() -> int:
     main_window.set_viewport3d_widget(viewport_3d)
     main_window.set_recording_widget(recording_panel)
     main_window.set_alert_history_widget(alert_history_panel)
+    main_window.set_takeover_widget(takeover_panel)
 
     # ================================================================
     # 连接 UI 信号
@@ -208,6 +215,43 @@ def main() -> int:
         lambda s: alert_history_panel.update_statistics(s.to_dict())
     )
 
+    # 接管面板 — TAK-03 权限管理 + TAK-04 接管审计
+    takeover_panel.login_requested.connect(takeover_vm.login)
+    takeover_panel.logout_requested.connect(takeover_vm.logout)
+    takeover_panel.operator_add_requested.connect(takeover_vm.add_operator)
+    takeover_panel.operator_remove_requested.connect(takeover_vm.remove_operator)
+    takeover_panel.takeover_requested.connect(takeover_vm.request_takeover)
+    takeover_panel.takeover_approve_requested.connect(takeover_vm.approve_takeover)
+    takeover_panel.takeover_reject_requested.connect(takeover_vm.reject_takeover)
+    takeover_panel.control_release_requested.connect(takeover_vm.release_control)
+
+    # 审计查询/导出
+    takeover_panel.audit_query_requested.connect(takeover_vm.query_audit)
+    takeover_panel.audit_export_requested.connect(takeover_vm.export_audit)
+    takeover_panel.audit_refresh_requested.connect(takeover_vm.refresh_audit)
+
+    # ViewModel → Panel 数据流
+    takeover_vm.operators_updated.connect(takeover_panel.update_operators)
+    takeover_vm.requests_updated.connect(takeover_panel.update_requests)
+    takeover_vm.audit_query_completed.connect(takeover_panel.populate_audit_table)
+    takeover_vm.audit_statistics_updated.connect(
+        lambda s: takeover_panel.update_audit_statistics(s.to_dict())
+    )
+    takeover_vm.status_message.connect(
+        lambda msg: takeover_panel.update_login_status(
+            takeover_vm.current_operator is not None,
+            takeover_vm.current_operator.name if takeover_vm.current_operator else ""
+        )
+    )
+
+    # 紧急制动审计记录
+    main_window.emergency_stop_requested.connect(takeover_vm.record_emergency)
+
+    # 模式切换审计记录
+    control_panel.mode_switch_requested.connect(
+        lambda to_mode: takeover_vm.record_mode_switch("current", to_mode)
+    )
+
     # ViewModel → UI 数据流
     robot_vm.state_updated.connect(dash_panel.update_robot_state)
     robot_vm.state_updated.connect(
@@ -254,7 +298,7 @@ def main() -> int:
     vr_driver.connect()
     _start_vr_polling()
 
-    logger.info("QooRemote v0.5.0 Immersive initialized — %d panels ready", 7)
+    logger.info("QooRemote v1.0.0 GA initialized — %d panels ready", 8)
 
     # 启动时做一次告警历史同步
     alert_history_vm.sync_current()
@@ -263,6 +307,7 @@ def main() -> int:
 
     # 清理
     alert_history_vm.cleanup()
+    takeover_vm.cleanup()
     if _vr_timer:
         _vr_timer.stop()
     vr_driver.disconnect()

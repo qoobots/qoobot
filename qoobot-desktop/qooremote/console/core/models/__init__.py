@@ -1,4 +1,4 @@
-"""核心数据模型 — 机器人状态、关节状态、传感器数据、告警、会话、多机器人管理"""
+"""核心数据模型 — 机器人状态、关节状态、传感器数据、告警、会话、多机器人管理、接管权限与审计"""
 
 from console.core.models.robot_state import (
     RobotState, RobotStatus, RobotMode, RobotOperationalState,
@@ -13,3 +13,11 @@ from console.core.models.session import (
     SessionRecord, RobotInfo, ControlMode,
 )
 from console.core.models.multi_robot import RobotRegistry
+from console.core.models.takeover_permission import (
+    OperatorRole, TakeoverRequestStatus, Operator, TakeoverRequest,
+    TakeoverPermissionManager,
+)
+from console.core.models.takeover_audit import (
+    AuditActionType, AuditEntry, AuditQuery, AuditStatistics,
+    TakeoverAuditStore, TakeoverAuditService,
+)

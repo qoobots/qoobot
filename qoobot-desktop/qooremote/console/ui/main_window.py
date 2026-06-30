@@ -304,6 +304,11 @@ class MainWindow(QMainWindow):
         ah_layout.setContentsMargins(0, 0, 0, 0)
         self._right_tabs.addTab(self._alert_history_container, "🔔 告警")
 
+        self._takeover_container = QWidget()
+        to_layout = QVBoxLayout(self._takeover_container)
+        to_layout.setContentsMargins(0, 0, 0, 0)
+        self._right_tabs.addTab(self._takeover_container, "🔐 接管")
+
         central_splitter.addWidget(self._right_tabs)
 
         # 设置分割比例
@@ -426,6 +431,10 @@ class MainWindow(QMainWindow):
     def set_alert_history_widget(self, widget: QWidget) -> None:
         """设置告警历史面板"""
         self._replace_container_child(self._alert_history_container, widget)
+
+    def set_takeover_widget(self, widget: QWidget) -> None:
+        """设置接管面板"""
+        self._replace_container_child(self._takeover_container, widget)
 
     def _replace_container_child(self, container: QWidget, widget: QWidget) -> None:
         """替换容器内的子控件"""
