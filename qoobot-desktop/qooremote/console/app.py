@@ -36,7 +36,7 @@ def create_application(argv: list[str] | None = None) -> QApplication:
     app = QApplication(argv)
     app.setApplicationName("qooremote")
     app.setApplicationDisplayName("QooRemote")
-    app.setApplicationVersion("0.1.0")
+    app.setApplicationVersion("0.3.0")
     app.setOrganizationName("QooBot")
     app.setOrganizationDomain("qoobot.dev")
 

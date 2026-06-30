@@ -24,6 +24,7 @@ from PySide6.QtWidgets import (
     QMessageBox,
     QSplitter,
     QStatusBar,
+    QTabWidget,
     QToolBar,
     QWidget,
     QVBoxLayout,
@@ -31,6 +32,10 @@ from PySide6.QtWidgets import (
 
 from console.core.models.robot_state import RobotState
 from console.core.signaling.client import ConnectionState, SignalingClient
+from console.ui.dialogs.connection_dialog import ConnectionDialog
+from console.ui.dialogs.settings_dialog import SettingsDialog
+from console.ui.dialogs.about_dialog import AboutDialog
+from console.ui.dialogs.recording_manager import RecordingManagerDialog
 
 logger = logging.getLogger(__name__)
 
@@ -240,13 +245,12 @@ class MainWindow(QMainWindow):
     # ------------------------------------------------------------------
 
     def _setup_central_widget(self) -> None:
-        """构建中央工作区（可拖拽面板布局）"""
-        # 创建中心分割器
+        """构建中央工作区（左侧视频 + 右侧多页签面板）"""
         central_splitter = QSplitter(Qt.Orientation.Horizontal)
         central_splitter.setObjectName("centralSplitter")
         self.setCentralWidget(central_splitter)
 
-        # 视频面板占位
+        # 左侧：视频面板
         self._video_container = QWidget()
         self._video_container.setObjectName("videoContainer")
         video_layout = QVBoxLayout(self._video_container)
@@ -257,16 +261,37 @@ class MainWindow(QMainWindow):
         video_layout.addWidget(video_placeholder)
         central_splitter.addWidget(self._video_container)
 
-        # 仪表盘面板占位
+        # 右侧：多页签面板 (仪表盘 | 3D视口 | 语音 | 操控 | 录制)
+        self._right_tabs = QTabWidget()
+        self._right_tabs.setObjectName("rightTabs")
+
         self._dashboard_container = QWidget()
         self._dashboard_container.setObjectName("dashboardContainer")
         dash_layout = QVBoxLayout(self._dashboard_container)
         dash_layout.setContentsMargins(0, 0, 0, 0)
-        dash_placeholder = QLabel("仪表盘面板")
-        dash_placeholder.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        dash_placeholder.setStyleSheet("color: #90a4ae; font-size: 18px;")
-        dash_layout.addWidget(dash_placeholder)
-        central_splitter.addWidget(self._dashboard_container)
+        self._right_tabs.addTab(self._dashboard_container, "📊 仪表盘")
+
+        self._viewport3d_container = QWidget()
+        v3d_layout = QVBoxLayout(self._viewport3d_container)
+        v3d_layout.setContentsMargins(0, 0, 0, 0)
+        self._right_tabs.addTab(self._viewport3d_container, "🏗️ 3D 视口")
+
+        self._voice_container = QWidget()
+        voice_cont_layout = QVBoxLayout(self._voice_container)
+        voice_cont_layout.setContentsMargins(0, 0, 0, 0)
+        self._right_tabs.addTab(self._voice_container, "🎤 语音")
+
+        self._control_container = QWidget()
+        ctrl_cont_layout = QVBoxLayout(self._control_container)
+        ctrl_cont_layout.setContentsMargins(0, 0, 0, 0)
+        self._right_tabs.addTab(self._control_container, "🎮 操控")
+
+        self._recording_container = QWidget()
+        rec_cont_layout = QVBoxLayout(self._recording_container)
+        rec_cont_layout.setContentsMargins(0, 0, 0, 0)
+        self._right_tabs.addTab(self._recording_container, "⏺️ 录制")
+
+        central_splitter.addWidget(self._right_tabs)
 
         # 设置分割比例
         central_splitter.setSizes([700, 500])
@@ -362,18 +387,32 @@ class MainWindow(QMainWindow):
             self._label_alerts.setStyleSheet("color: #e74c3c; font-weight: bold;")
 
     def set_dashboard_widget(self, widget: QWidget) -> None:
-        """替换仪表盘面板占位"""
-        old_layout = self._dashboard_container.layout()
-        if old_layout:
-            while old_layout.count():
-                item = old_layout.takeAt(0)
-                if item.widget():
-                    item.widget().setParent(None)
-            old_layout.addWidget(widget)
+        """替换仪表盘面板"""
+        self._replace_container_child(self._dashboard_container, widget)
 
     def set_video_widget(self, widget: QWidget) -> None:
-        """替换视频面板占位"""
-        old_layout = self._video_container.layout()
+        """替换视频面板"""
+        self._replace_container_child(self._video_container, widget)
+
+    def set_viewport3d_widget(self, widget: QWidget) -> None:
+        """设置 3D 视口面板"""
+        self._replace_container_child(self._viewport3d_container, widget)
+
+    def set_voice_widget(self, widget: QWidget) -> None:
+        """设置语音面板"""
+        self._replace_container_child(self._voice_container, widget)
+
+    def set_control_widget(self, widget: QWidget) -> None:
+        """设置操控面板"""
+        self._replace_container_child(self._control_container, widget)
+
+    def set_recording_widget(self, widget: QWidget) -> None:
+        """设置录制面板"""
+        self._replace_container_child(self._recording_container, widget)
+
+    def _replace_container_child(self, container: QWidget, widget: QWidget) -> None:
+        """替换容器内的子控件"""
+        old_layout = container.layout()
         if old_layout:
             while old_layout.count():
                 item = old_layout.takeAt(0)
@@ -412,7 +451,9 @@ class MainWindow(QMainWindow):
 
     def _on_robot_list(self) -> None:
         """机器人列表槽"""
-        QMessageBox.information(self, "机器人列表", "功能开发中...")
+        from console.ui.dialogs.recording_manager import RecordingManagerDialog
+        dlg = RecordingManagerDialog(self)
+        dlg.exec()
 
     def _on_emergency_stop(self) -> None:
         """紧急制动槽 — TAK-02"""
@@ -440,7 +481,8 @@ class MainWindow(QMainWindow):
 
     def _on_settings(self) -> None:
         """偏好设置"""
-        QMessageBox.information(self, "偏好设置", "功能开发中...")
+        dlg = SettingsDialog(self)
+        dlg.exec()
 
     def _on_docs(self) -> None:
         """打开开发文档"""
@@ -448,16 +490,8 @@ class MainWindow(QMainWindow):
 
     def _on_about(self) -> None:
         """关于对话框"""
-        QMessageBox.about(
-            self,
-            "关于 QooRemote",
-            f"<h3>QooRemote v0.1.0</h3>"
-            f"<p>QooBot 远程机器人监控遥控控制台</p>"
-            f"<p>适用平台：Windows / Linux / macOS</p>"
-            f"<p>技术栈：Python 3.11+ / PySide6</p>"
-            f"<p>许可证：Apache License 2.0</p>"
-            f"<p>© 2026 QooBot Project</p>",
-        )
+        dlg = AboutDialog(self)
+        dlg.exec()
 
     def closeEvent(self, event) -> None:
         """关闭窗口确认"""
