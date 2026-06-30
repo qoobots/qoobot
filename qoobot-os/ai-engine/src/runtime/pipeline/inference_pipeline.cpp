@@ -32,6 +32,7 @@
 #include <algorithm>
 #include <atomic>
 #include <chrono>
+#include <numeric>
 #include <condition_variable>
 #include <deque>
 #include <functional>
@@ -151,7 +152,7 @@ public:
      */
     Result<void> start(InferenceEngine& engine) {
         if (running_) {
-            return Error<void>(ErrorCode::ALREADY_INIT, "Pipeline already running");
+            return Error<void>(ErrorCode::ENGINE_NOT_INIT, "Pipeline already running");
         }
 
         engine_ = &engine;
@@ -193,7 +194,7 @@ public:
         inflight_frames_.clear();
 
         spdlog::info("[pipeline:{}] Stopped. Total frames: {}, dropped: {}",
-                      config_.name, total_frames_, dropped_frames_);
+                      config_.name, total_frames_.load(), dropped_frames_.load());
     }
 
     // ── 帧提交 ──────────────────────────────────────────────────────────
@@ -222,7 +223,11 @@ public:
 
         // 将原始输入放入感知阶段的"输入"
         auto& perception_stage = frame->stages[StageType::PERCEPTION];
-        perception_stage.outputs = inputs;  // 感知阶段"输出"实际是输入
+        // Clone inputs (Tensor is move-only)
+        for (const auto& t : inputs) {
+            auto c = t.clone();
+            if (c.ok()) perception_stage.outputs.push_back(std::move(c).value());
+        }
 
         {
             std::lock_guard<std::mutex> lock(frames_mutex_);
@@ -490,7 +495,16 @@ private:
 
         if (stage.model_handle == INVALID_MODEL_HANDLE) {
             // 无模型阶段：透传输入作为输出（如纯后处理阶段）
-            return inputs;
+            std::vector<Tensor> outputs;
+            outputs.reserve(inputs.size());
+            for (const auto& t : inputs) {
+                auto c = t.clone();
+                if (!c.ok()) {
+                    return Error<std::vector<Tensor>>(c.error().code, c.error().message);
+                }
+                outputs.push_back(std::move(c).value());
+            }
+            return outputs;
         }
 
         // 通过引擎执行推理

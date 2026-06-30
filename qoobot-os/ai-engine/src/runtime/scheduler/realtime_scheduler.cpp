@@ -34,6 +34,7 @@
 #include <memory>
 #include <mutex>
 #include <queue>
+#include <sstream>
 #include <string>
 #include <thread>
 #include <unordered_map>
@@ -112,6 +113,10 @@ struct ExecutionUnit {
     uint32_t total_cores{1};
     std::atomic<uint32_t> available_cores{1};
     std::atomic<uint64_t> total_inferences{0};
+
+    ExecutionUnit() = default;
+    ExecutionUnit(BackendType b, std::string n, uint32_t tc, uint32_t ac)
+        : backend(b), name(std::move(n)), total_cores(tc), available_cores(ac), total_inferences(0) {}
     std::atomic<uint64_t> total_flops{0};
     std::atomic<uint64_t> busy_us{0};       ///< 忙碌时间（微秒）
 
@@ -352,7 +357,7 @@ public:
     /**
      * @brief 获取调度统计。
      */
-    [[nodiscard]] SchedulerStats stats() const { return stats_; }
+    [[nodiscard]] const SchedulerStats& stats() const { return stats_; }
 
     /**
      * @brief 导出统计为 JSON 字符串。
@@ -418,8 +423,8 @@ private:
     std::mutex running_mutex_;
     std::vector<InferenceTaskPtr> running_tasks_;
 
-    // 执行单元
-    std::vector<ExecutionUnit> exec_units_;
+    // 执行单元 (unique_ptr because ExecutionUnit has std::atomic members)
+    std::vector<std::unique_ptr<ExecutionUnit>> exec_units_;
     std::mutex unit_mutex_;
 
     // 线程
@@ -434,10 +439,10 @@ private:
     // ── 内部方法 ────────────────────────────────────────────────────────
 
     void init_execution_units() {
-        exec_units_.push_back({BackendType::NPU, "NPU_0", 1, 1});
-        exec_units_.push_back({BackendType::GPU, "GPU_0", 1, 1});
-        exec_units_.push_back({BackendType::CPU, "CPU_0", 4, 4});
-        exec_units_.push_back({BackendType::CPU, "CPU_1", 4, 4});
+        exec_units_.push_back(std::make_unique<ExecutionUnit>(BackendType::NPU, "NPU_0", 1u, 1u));
+        exec_units_.push_back(std::make_unique<ExecutionUnit>(BackendType::GPU, "GPU_0", 1u, 1u));
+        exec_units_.push_back(std::make_unique<ExecutionUnit>(BackendType::CPU, "CPU_0", 4u, 4u));
+        exec_units_.push_back(std::make_unique<ExecutionUnit>(BackendType::CPU, "CPU_1", 4u, 4u));
     }
 
     std::chrono::microseconds get_default_timeout(TaskPriority p) {
@@ -610,7 +615,7 @@ private:
         std::lock_guard<std::mutex> lock(unit_mutex_);
         // 优先 NPU → GPU → CPU
         for (auto& unit : exec_units_) {
-            if (unit.can_accept()) return &unit;
+            if (unit->can_accept()) return unit.get();
         }
         return nullptr;
     }
@@ -796,11 +801,16 @@ public:
         auto current_inputs = std::move(frame_data);
         for (size_t i = 0; i < stages_.size(); ++i) {
             const auto& stage = stages_[i];
-            auto stage_inputs = current_inputs;  // 复制（实际应为引用/移动）
+            // Clone inputs for each stage (Tensor is move-only)
+            std::vector<Tensor> stage_inputs;
+            for (const auto& t : current_inputs) {
+                auto c = t.clone();
+                if (c.ok()) stage_inputs.push_back(std::move(c).value());
+            }
 
             sched.submit(
                 stage.model_handle,
-                stage_inputs,
+                std::move(stage_inputs),
                 stage.priority,
                 stage.expected_latency,
                 [this, i, frame_id = frame_count_ - 1](
