@@ -11,19 +11,24 @@ authors = [
 keywords = ["robotics", "teleoperation", "remote-control", "qoobot"]
 
 dependencies = [
-    "PySide6>=6.5",
-    "websockets>=12.0",
-    "numpy>=1.26",
-    "opencv-python>=4.9",
-    "pyaudio>=0.2",
+    "PySide6>=6.5,<7.0",
+    "websockets>=12.0,<14.0",
+    "numpy>=1.26,<2.0",
+    "opencv-python>=4.9,<5.0",
+    "pyaudio>=0.2,<1.0",
+    "pyqtgraph>=0.13,<1.0",
 ]
 
 [project.optional-dependencies]
 dev = [
-    "pytest>=8.0",
-    "pytest-asyncio>=0.23",
-    "mypy>=1.8",
+    "pytest>=8.0,<9.0",
+    "pytest-asyncio>=0.23,<1.0",
+    "mypy>=1.8,<2.0",
+    "ruff>=0.3,<1.0",
 ]
+
+[project.scripts]
+qooremote = "console.main:main"
 
 [build-system]
 requires = ["setuptools>=68"]
@@ -32,3 +37,20 @@ build-backend = "setuptools.backends._legacy:_Backend"
 [tool.setuptools.packages.find]
 where = ["."]
 include = ["console*"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "N", "UP", "B", "C4"]
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+warn_return_any = true
+warn_unused_configs = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
