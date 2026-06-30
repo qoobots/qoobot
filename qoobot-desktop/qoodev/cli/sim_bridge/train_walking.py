@@ -69,7 +69,7 @@ def train(
         from stable_baselines3.common.callbacks import (
             CheckpointCallback,
             EvalCallback,
-            StopOnNoModelImprovement,
+            StopTrainingOnNoModelImprovement,
         )
         from stable_baselines3.common.monitor import Monitor
         from stable_baselines3.common.vec_env import DummyVecEnv, VecNormalize
@@ -133,7 +133,6 @@ def train(
     # ── 算法配置 ─────────────────────────────────────
     policy_kwargs = dict(
         net_arch=dict(pi=[256, 256], vf=[256, 256]),
-        activation_fn=None,  # 默认 ReLU
     )
 
     if algo == "ppo":
@@ -210,14 +209,6 @@ def train(
     )
     callbacks.append(eval_callback)
 
-    # 早停 (无改善)
-    early_stop = StopOnNoModelImprovement(
-        max_no_improvement_evals=20,
-        min_evals=10,
-        verbose=1,
-    )
-    callbacks.append(early_stop)
-
     # ── 训练 ─────────────────────────────────────────
     print(f"\n[INFO] 开始训练... (按 Ctrl+C 可中断并保存)")
     print(f"[INFO] 使用 TensorBoard 查看: tensorboard --logdir {tensorboard_log}\n")
@@ -226,7 +217,7 @@ def train(
         model.learn(
             total_timesteps=total_timesteps,
             callback=callbacks,
-            progress_bar=True,
+            progress_bar=False,
         )
     except KeyboardInterrupt:
         print("\n[WARN] 训练被中断，正在保存模型...")
