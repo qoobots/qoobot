@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="qooremote — 远程遥控子系统 — QooBot 两大核心子系统之一，当自主大脑无法应对长尾场景时，人类操作员可远程接管机器人">
-  <title>qooremote — 远程遥控 | QooBot 生态</title>
+  <meta name="description" content="qoobot-web/remote — 远程操控面板 — 基于 WebRTC 的实时机器人遥控、示教记录与远程监控">
+  <title>qoobot-web/remote — 远程操控面板 | QooBot 生态</title>
   <link rel="stylesheet" href="css/style.css">
   <link rel="icon" type="image/svg+xml" href="assets/qoobot-logo.svg">
   <link rel="manifest" href="manifest.json">
@@ -376,15 +376,70 @@
   <nav class="nav" aria-label="主导航">
     <div class="nav-inner">
       <a href="index.html" class="nav-logo">
-        <img src="assets/qoobot-logo.svg" alt="QooBot">
+        <img src="assets/qoobot-logo.svg" alt="QooBot" class="nav-logo-img">
       </a>
       <ul class="nav-links" id="nav-links" role="list">
         <li><a href="index.html">首页</a></li>
-        <li><a href="products.html">产品</a></li>
-        <li><a href="qoobrain.html">QOS 大脑</a></li>
-        <li><a href="qoocloud.html">云端服务</a></li>
-        <li><a href="qoocommunity.html">社区</a></li>
+        <li class="nav-dropdown-trigger">
+          <a href="products.html" class="nav-dropdown-link" aria-expanded="false" aria-haspopup="true">产品 <span class="dropdown-arrow" aria-hidden="true">▾</span></a>
+          <div class="nav-dropdown nav-dropdown-mega" aria-label="产品子菜单">
+            <div class="nav-dropdown-mega-inner">
+            <div class="nav-dropdown-group">
+              <span class="nav-dropdown-label">机器人平台</span>
+              <a href="products.html#max">🦾 QooBot Max</a>
+              <span class="nav-dropdown-desc">男性成人 · 工业旗舰 · 1.90m · 40+ DOF · 100 TOPS</span>
+              <a href="products.html#nova">✨ QooBot Nova</a>
+              <span class="nav-dropdown-desc">女性成人 · 商业服务 · 1.70m · 36+ DOF · 80 TOPS</span>
+            </div>
+            <div class="nav-dropdown-group">
+              <span class="nav-dropdown-label">开源图纸</span>
+              <a href="products.html#hardware-designs">📐 硬件参考设计</a>
+              <span class="nav-dropdown-desc">81 张工程图纸全开源 — 腰部 · 胸腔 · 头部 · 腿足</span>
+            </div>
+            </div>
+          </div>
+        </li>
+        <li class="nav-dropdown-trigger">
+          <a href="products.html#ecosystem" class="nav-dropdown-link active" aria-expanded="false" aria-haspopup="true">生态 <span class="dropdown-arrow" aria-hidden="true">▾</span></a>
+          <div class="nav-dropdown nav-dropdown-mega" aria-label="生态子菜单">
+            <div class="nav-dropdown-mega-inner">
+            <div class="nav-dropdown-group">
+              <span class="nav-dropdown-label">核心层</span>
+              <a href="qoobrain.html">🧠 qoobrain — 大脑操作系统</a>
+              <a href="qoocore.html">⚡ qoocore — 芯片与加速</a>
+              <a href="qoobody.html">🔩 qoobody — 硬件参考设计</a>
+            </div>
+            <div class="nav-dropdown-group">
+              <span class="nav-dropdown-label">平台层</span>
+              <a href="qoostore.html">🛒 qoostore — 技能市场</a>
+              <a href="qoocloud.html">☁️ qoocloud — 云端服务</a>
+              <a href="qoosvc.html">🔧 qoosvc — 系统服务</a>
+            </div>
+            <div class="nav-dropdown-group">
+              <span class="nav-dropdown-label">保障层</span>
+              <a href="qoodev.html">💻 qoodev — 开发者工具链</a>
+              <a href="qooauth.html">🔐 qooauth — 账号与安全</a>
+              <a href="qoocompliance.html">📋 qoocompliance — 法规合规</a>
+            </div>
+            <div class="nav-dropdown-group">
+              <span class="nav-dropdown-label">生态层</span>
+              <a href="qoogear.html">🔌 qoogear — 配件生态</a>
+              <a href="qoocommunity.html">👥 qoocommunity — 全球社区</a>
+              <a href="qoochain.html">🏭 qoochain — 供应链</a>
+            </div>
+            </div>
+          </div>
+        </li>
+        <li><a href="about.html">关于</a></li>
+        <li><a href="https://github.com/qoobots/qoobot" target="_blank" rel="noopener">GitHub</a></li>
       </ul>
+      <div class="nav-actions">
+        <a href="en/qooremote.html" class="nav-lang" aria-label="Switch to English" lang="en">EN</a>
+        <button class="nav-theme" id="theme-toggle" aria-label="切换深色模式" aria-pressed="false">🌙</button>
+        <button class="nav-toggle" id="nav-toggle" aria-label="打开菜单" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
     </div>
   </nav>
 
@@ -392,17 +447,16 @@
   <section class="hero" style="padding: 60px 0 40px; background: linear-gradient(135deg, #0a0e14 0%, #131820 100%);">
     <div class="hero-inner" style="max-width: 1400px;">
       <h1 style="font-size: 42px; margin-bottom: 16px;">
-        <span style="color: var(--teleop-accent);">qooremote</span> — 远程人工遥控系统
+        <span style="color: var(--teleop-accent);">qoobot-web/remote</span> — 远程操控面板
       </h1>
       <p style="font-size: 18px; color: var(--teleop-text-dim); max-width: 800px;">
-        QOS 两大核心子系统之一（与 qoobrain 并列）。当自主大脑无法应对长尾场景时，人类操作员可远程接管机器人的感知、决策与控制。
+        QooBot Web 应用平台的远程操控模块。当自主大脑无法应对长尾场景时，人类操作员可通过 WebRTC 实时遥控机器人，支持示教记录与多端协同。
       </p>
       <div style="display: flex; gap: 12px; margin-top: 24px;">
-        <span class="teleop-badge auto">🖥️ onboard_core</span>
-        <span class="teleop-badge auto">☁️ cloud_service</span>
-        <span class="teleop-badge auto">🖱️ desktop_console</span>
-        <span class="teleop-badge auto">🌐 web_portal</span>
-        <span class="teleop-badge auto">📱 mobile_app</span>
+        <span class="teleop-badge auto">🖥️ 端侧 Agent</span>
+        <span class="teleop-badge auto">☁️ 信令中继</span>
+        <span class="teleop-badge auto">🌐 Web 操控面板</span>
+        <span class="teleop-badge auto">🖱️ 桌面控制台</span>
       </div>
     </div>
   </section>
@@ -672,7 +726,7 @@
   <!-- 页脚 -->
   <footer style="padding: 40px 20px; background: #0d1117; border-top: 1px solid var(--teleop-border);" role="contentinfo" aria-label="页脚">
     <div class="teleop-container" style="text-align: center; color: var(--teleop-text-dim); font-size: 13px;">
-      <p>qooremote — QOS 远程人工遥控子系统 | &copy; 2026 QooBot Open Source</p>
+      <p>qoobot-web/remote — 远程操控面板 | &copy; 2026 QooBot Open Source | Apache 2.0</p>
     </div>
   </footer>
 

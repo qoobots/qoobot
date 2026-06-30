@@ -86,7 +86,7 @@
     <div class="section-label fade-up visible">产品与生态</div>
     <h1 class="section-title fade-up visible">硬件 + 软件 + 生态，三位一体。</h1>
     <p class="section-desc fade-up visible" style="margin: 0 auto;">
-      QooBot 不仅是机器人硬件平台，更是一个覆盖全栈的开源生态——12 个子项目，四层架构，为机器人领域的每一个环节赋能。
+      QooBot 不仅是机器人硬件平台，更是一个覆盖全栈的开源生态——6 个平台目录，12 个子项目，为机器人领域的每一个环节赋能。
     </p>
   </section>
 
@@ -254,9 +254,9 @@
   <section class="section section-dark" id="ecosystem">
     <div class="section-inner">
       <div class="section-label fade-up">开源生态</div>
-      <h2 class="section-title fade-up">12 个子项目，四层架构，全栈覆盖。</h2>
+      <h2 class="section-title fade-up">6 个平台目录，12 个子项目，全栈覆盖。</h2>
       <p class="section-desc fade-up">
-        QooBot 生态涵盖从芯片到云端、从开发工具到全球社区的完整技术栈，每个子项目均可独立使用、自由组合。
+        QooBot 生态按运行平台分为 qoobot-os、qoobot-web、qoobot-desktop、qoobot-service、qoobot-mobile、qoobot-proto 六大目录，涵盖从芯片到云端的完整技术栈。
       </p>
 
       <!-- Architecture Overview -->
@@ -277,7 +277,7 @@
                   <span>感知引擎</span><span>决策系统</span><span>运动规划</span><span>实时通信</span>
                 </div>
                 <a href="qoobrain.html" class="eco-link">了解详情 →</a>
-                <a href="https://github.com/qoobots/qoobot/tree/main/qoobrain" target="_blank" rel="noopener" class="eco-link" style="display:inline;opacity:0.6;font-size:0.85rem;">GitHub ↗</a>
+                <a href="https://github.com/qoobots/qoobot/tree/main/qoobot-os/brain" target="_blank" rel="noopener" class="eco-link" style="display:inline;opacity:0.6;font-size:0.85rem;">GitHub ↗</a>
               </div>
             </div>
             <div class="eco-card">
@@ -289,7 +289,7 @@
                   <span>推理运行时</span><span>模型编译</span><span>硬件抽象</span>
                 </div>
                 <a href="qoocore.html" class="eco-link">了解详情 →</a>
-                <a href="https://github.com/qoobots/qoobot/tree/main/qoocore" target="_blank" rel="noopener" class="eco-link" style="display:inline;opacity:0.6;font-size:0.85rem;">GitHub ↗</a>
+                <a href="https://github.com/qoobots/qoobot/tree/main/qoobot-os/ai-engine" target="_blank" rel="noopener" class="eco-link" style="display:inline;opacity:0.6;font-size:0.85rem;">GitHub ↗</a>
               </div>
             </div>
             <div class="eco-card">
@@ -301,7 +301,7 @@
                   <span>传感器接口</span><span>执行器驱动</span><span>参考设计</span>
                 </div>
                 <a href="qoobody.html" class="eco-link">了解详情 →</a>
-                <a href="https://github.com/qoobots/qoobot/tree/main/qoobody" target="_blank" rel="noopener" class="eco-link" style="display:inline;opacity:0.6;font-size:0.85rem;">GitHub ↗</a>
+                <a href="https://github.com/qoobots/qoobot/tree/main/qoobot-os/hal" target="_blank" rel="noopener" class="eco-link" style="display:inline;opacity:0.6;font-size:0.85rem;">GitHub ↗</a>
               </div>
             </div>
           </div>
@@ -323,7 +323,7 @@
                   <span>技能分发</span><span>商业化</span><span>算法市场</span>
                 </div>
                 <a href="qoostore.html" class="eco-link">了解详情 →</a>
-                <a href="https://github.com/qoobots/qoobot/tree/main/qoostore" target="_blank" rel="noopener" class="eco-link" style="display:inline;opacity:0.6;font-size:0.85rem;">GitHub ↗</a>
+                <a href="https://github.com/qoobots/qoobot/tree/main/qoobot-service/store" target="_blank" rel="noopener" class="eco-link" style="display:inline;opacity:0.6;font-size:0.85rem;">GitHub ↗</a>
               </div>
             </div>
             <div class="eco-card">
@@ -335,7 +335,7 @@
                   <span>远程推理</span><span>集群管理</span><span>OTA</span><span>多机编排</span>
                 </div>
                 <a href="qoocloud.html" class="eco-link">了解详情 →</a>
-                <a href="https://github.com/qoobots/qoobot/tree/main/qoocloud" target="_blank" rel="noopener" class="eco-link" style="display:inline;opacity:0.6;font-size:0.85rem;">GitHub ↗</a>
+                <a href="https://github.com/qoobots/qoobot/tree/main/qoobot-service/cloud" target="_blank" rel="noopener" class="eco-link" style="display:inline;opacity:0.6;font-size:0.85rem;">GitHub ↗</a>
               </div>
             </div>
             <div class="eco-card">
@@ -347,7 +347,7 @@
                   <span>语音助手</span><span>空间理解</span><span>导航</span><span>自诊断</span>
                 </div>
                 <a href="qoosvc.html" class="eco-link">了解详情 →</a>
-                <a href="https://github.com/qoobots/qoobot/tree/main/qoosvc" target="_blank" rel="noopener" class="eco-link" style="display:inline;opacity:0.6;font-size:0.85rem;">GitHub ↗</a>
+                <a href="https://github.com/qoobots/qoobot/tree/main/qoobot-os/services" target="_blank" rel="noopener" class="eco-link" style="display:inline;opacity:0.6;font-size:0.85rem;">GitHub ↗</a>
               </div>
             </div>
           </div>
@@ -369,7 +369,7 @@
                   <span>IDE 插件</span><span>仿真器</span><span>调试器</span><span>数据标注</span>
                 </div>
                 <a href="qoodev.html" class="eco-link">了解详情 →</a>
-                <a href="https://github.com/qoobots/qoobot/tree/main/qoodev" target="_blank" rel="noopener" class="eco-link" style="display:inline;opacity:0.6;font-size:0.85rem;">GitHub ↗</a>
+                <a href="https://github.com/qoobots/qoobot/tree/main/qoobot-desktop" target="_blank" rel="noopener" class="eco-link" style="display:inline;opacity:0.6;font-size:0.85rem;">GitHub ↗</a>
               </div>
             </div>
             <div class="eco-card">
@@ -381,7 +381,7 @@
                   <span>身份认证</span><span>授权管理</span><span>隐私框架</span>
                 </div>
                 <a href="qooauth.html" class="eco-link">了解详情 →</a>
-                <a href="https://github.com/qoobots/qoobot/tree/main/qooauth" target="_blank" rel="noopener" class="eco-link" style="display:inline;opacity:0.6;font-size:0.85rem;">GitHub ↗</a>
+                <a href="https://github.com/qoobots/qoobot/tree/main/qoobot-service/auth" target="_blank" rel="noopener" class="eco-link" style="display:inline;opacity:0.6;font-size:0.85rem;">GitHub ↗</a>
               </div>
             </div>
             <div class="eco-card">
@@ -393,7 +393,7 @@
                   <span>安全标准</span><span>合规认证</span><span>出口管制</span>
                 </div>
                 <a href="qoocompliance.html" class="eco-link">了解详情 →</a>
-                <a href="https://github.com/qoobots/qoobot/tree/main/qoocompliance" target="_blank" rel="noopener" class="eco-link" style="display:inline;opacity:0.6;font-size:0.85rem;">GitHub ↗</a>
+                <a href="https://github.com/qoobots/qoobot/tree/main/qoobot-service/compliance" target="_blank" rel="noopener" class="eco-link" style="display:inline;opacity:0.6;font-size:0.85rem;">GitHub ↗</a>
               </div>
             </div>
           </div>
@@ -415,7 +415,7 @@
                   <span>外设认证</span><span>末端执行器</span><span>通信标准</span>
                 </div>
                 <a href="qoogear.html" class="eco-link">了解详情 →</a>
-                <a href="https://github.com/qoobots/qoobot/tree/main/qoogear" target="_blank" rel="noopener" class="eco-link" style="display:inline;opacity:0.6;font-size:0.85rem;">GitHub ↗</a>
+                <a href="https://github.com/qoobots/qoobot/tree/main/qoobot-service/gear" target="_blank" rel="noopener" class="eco-link" style="display:inline;opacity:0.6;font-size:0.85rem;">GitHub ↗</a>
               </div>
             </div>
             <div class="eco-card">
@@ -427,7 +427,7 @@
                   <span>贡献者网络</span><span>开发者大会</span><span>高校合作</span>
                 </div>
                 <a href="qoocommunity.html" class="eco-link">了解详情 →</a>
-                <a href="https://github.com/qoobots/qoobot/tree/main/qoocommunity" target="_blank" rel="noopener" class="eco-link" style="display:inline;opacity:0.6;font-size:0.85rem;">GitHub ↗</a>
+                <a href="https://github.com/qoobots/qoobot/tree/main/qoobot-service/community" target="_blank" rel="noopener" class="eco-link" style="display:inline;opacity:0.6;font-size:0.85rem;">GitHub ↗</a>
               </div>
             </div>
             <div class="eco-card">
@@ -439,7 +439,7 @@
                   <span>制造标准</span><span>出厂标定</span><span>质量检测</span>
                 </div>
                 <a href="qoochain.html" class="eco-link">了解详情 →</a>
-                <a href="https://github.com/qoobots/qoobot/tree/main/qoochain" target="_blank" rel="noopener" class="eco-link" style="display:inline;opacity:0.6;font-size:0.85rem;">GitHub ↗</a>
+                <a href="https://github.com/qoobots/qoobot/tree/main/qoobot-service/chain" target="_blank" rel="noopener" class="eco-link" style="display:inline;opacity:0.6;font-size:0.85rem;">GitHub ↗</a>
               </div>
             </div>
           </div>
