@@ -13,7 +13,7 @@ Features:
 - Export to common formats (COCO, KITTI, YOLO, ROS2 bag)
 
 Usage:
-    from qoodev.data_management import DataManager
+    from cli.data_management import DataManager
 
     dm = DataManager("my_dataset")
     dm.version("v1.0", message="Initial training set")

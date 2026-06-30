@@ -1,4 +1,4 @@
-﻿"""
+"""
 qoodev Performance Profiler — v1.5+
 
 Comprehensive performance analysis for QooBot skills:
@@ -9,7 +9,7 @@ Comprehensive performance analysis for QooBot skills:
 - Power tracking (per-module power attribution, efficiency ratio)
 
 Usage:
-    from qoodev.profiler import ProfilerSession, FlameGraph, CommProfiler, ModelProfiler
+    from cli.profiler import ProfilerSession, FlameGraph, CommProfiler, ModelProfiler
 
     with ProfilerSession("my_skill") as prof:
         skill.run()

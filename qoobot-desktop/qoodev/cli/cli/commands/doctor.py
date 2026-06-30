@@ -1,4 +1,4 @@
-﻿"""qoo doctor - Environment diagnostic command."""
+"""qoo doctor - Environment diagnostic command."""
 
 from __future__ import annotations
 

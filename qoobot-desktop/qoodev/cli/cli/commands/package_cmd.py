@@ -1,8 +1,8 @@
-﻿"""qoo test CLI — 测试命令"""
+"""qoo test CLI — 测试命令"""
 
 from pathlib import Path
 from typer import Typer, Option, Argument
-from typing import Optional, List
+from typing import Dict, Optional, List
 
 app = Typer(name="test", help="Run unit tests and regression tests")
 
@@ -29,7 +29,7 @@ def run_tests(
     # 动态加载测试文件
     sys.path.insert(0, str(project_path))
 
-    from qoodev.testing import SkillTestRunner, TestResult
+    from cli.testing import SkillTestRunner, TestResult
 
     runner = SkillTestRunner()
 
@@ -68,7 +68,7 @@ def regression(
     output: Optional[str] = Option(None, "--output", "-o", help="Output report path"),
 ):
     """Run simulation regression tests"""
-    from qoodev.testing import RegressionTestSuite, create_home_scenario, create_factory_scenario
+    from cli.testing import RegressionTestSuite, create_home_scenario, create_factory_scenario
 
     suite = RegressionTestSuite(name="skill-regression")
 
@@ -104,7 +104,7 @@ def scaffold(
     conftest = tests_dir / "conftest.py"
     if not conftest.exists():
         conftest.write_text("""# Test fixtures and configuration
-from qoodev.testing import (
+from cli.testing import (
     SkillTestRunner,
     TestScenario,
     create_home_scenario,
@@ -140,7 +140,7 @@ def runner(home_scenario):
     example_test = tests_dir / "test_skill_example.py"
     if not example_test.exists():
         example_test.write_text("""# Example skill test
-from qoodev.testing import SkillTestRunner, create_home_scenario
+from cli.testing import SkillTestRunner, create_home_scenario
 
 scenario = create_home_scenario()
 runner = SkillTestRunner(scenario)
@@ -200,7 +200,7 @@ markers =
 def _write_junit_xml(results: Dict, output_path: Path):
     """生成 JUnit XML 报告"""
     import xml.etree.ElementTree as ET
-    from qoodev.testing import TestResult
+    from cli.testing import TestResult
 
     status_map = {
         TestResult.PASS: "passed",

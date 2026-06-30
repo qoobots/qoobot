@@ -1,4 +1,4 @@
-﻿"""qoo init - Project scaffolding command."""
+"""qoo init - Project scaffolding command."""
 
 from __future__ import annotations
 
@@ -10,7 +10,7 @@ from rich.console import Console
 from rich.panel import Panel
 from rich.progress import Progress, SpinnerColumn, TextColumn
 
-from qoodev.cli.scaffold import ProjectScaffold
+from cli.cli.scaffold import ProjectScaffold
 
 app = typer.Typer(help="Create a new QooBot project", rich_markup_mode="rich")
 console = Console()

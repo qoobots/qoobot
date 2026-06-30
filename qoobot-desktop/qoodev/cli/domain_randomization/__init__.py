@@ -15,7 +15,7 @@ Features:
 - Domain parameter scheduling
 
 Usage:
-    from qoodev.domain_randomization import DomainRandomizer
+    from cli.domain_randomization import DomainRandomizer
 
     dr = DomainRandomizer(sim_backend)
     dr.randomize_lighting()

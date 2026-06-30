@@ -7,7 +7,7 @@ Provides JetBrains IDE plugin support (PyCharm/CLion) and advanced IDE features:
 - Code generator (sensor config, behavior tree, model skeleton generation)
 
 Usage:
-    from qoodev.ide import JetBrainsPlugin, SkillManifestEditor, CodeGenerator
+    from cli.ide import JetBrainsPlugin, SkillManifestEditor, CodeGenerator
 
     # Generate a JetBrains plugin config
     plugin = JetBrainsPlugin(project_root)
@@ -18,8 +18,8 @@ Usage:
     editor.open()
 """
 
-from qoodev.ide.jetbrains_plugin import JetBrainsPlugin
-from qoodev.ide.skill_manifest_editor import SkillManifestEditor
-from qoodev.ide.code_generator import CodeGenerator
+from cli.ide.jetbrains_plugin import JetBrainsPlugin
+from cli.ide.skill_manifest_editor import SkillManifestEditor
+from cli.ide.code_generator import CodeGenerator
 
 __all__ = ["JetBrainsPlugin", "SkillManifestEditor", "CodeGenerator"]

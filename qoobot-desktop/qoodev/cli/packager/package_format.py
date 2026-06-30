@@ -1,4 +1,4 @@
-﻿""".qooskills 包格式定义 — 构建、读取、校验。
+""".qooskills 包格式定义 — 构建、读取、校验。
 
 包结构:
   skill.qooskills  (ZIP 容器)

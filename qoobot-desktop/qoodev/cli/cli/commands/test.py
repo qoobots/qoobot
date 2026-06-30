@@ -1,4 +1,4 @@
-﻿"""qoo test - Test command."""
+"""qoo test - Test command."""
 
 from __future__ import annotations
 
@@ -33,7 +33,7 @@ def test(
     ),
 ):
     """Run tests for the current project."""
-    from qoodev.cli.context import ProjectContext
+    from cli.cli.context import ProjectContext
 
     ctx = ProjectContext.from_cwd()
     if not ctx:

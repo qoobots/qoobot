@@ -286,7 +286,7 @@ qoo debug backtrace
 Autonomous navigation with A* path planning and obstacle avoidance.
 
 ```python
-from qoodev.examples import NavigationSkill
+from cli.examples import NavigationSkill
 
 nav = NavigationSkill(NavigationConfig(max_linear_speed=0.5))
 nav.set_goal(3.0, 2.0, 0.0)
@@ -298,7 +298,7 @@ cmd = nav.step(lidar_scan, current_pose)
 Vision-based object grasping with force feedback.
 
 ```python
-from qoodev.examples import GraspingSkill
+from cli.examples import GraspingSkill
 
 grasp = GraspingSkill(GraspConfig())
 grasp.detect_objects(rgb, depth)
@@ -310,7 +310,7 @@ result = grasp.grasp("mug")
 Speech recognition and intent parsing.
 
 ```python
-from qoodev.examples import VoiceControlSkill
+from cli.examples import VoiceControlSkill
 
 voice = VoiceControlSkill(VoiceConfig())
 voice.register_handler(IntentType.MOVE, move_handler)
@@ -322,7 +322,7 @@ intent = voice.process_text("go to the kitchen")
 DWA-based reactive obstacle avoidance.
 
 ```python
-from qoodev.examples import ObstacleAvoidanceSkill
+from cli.examples import ObstacleAvoidanceSkill
 
 oa = ObstacleAvoidanceSkill(AvoidanceConfig())
 cmd = oa.compute_command(lidar_scan, pose, target_vel)
@@ -333,7 +333,7 @@ cmd = oa.compute_command(lidar_scan, pose, target_vel)
 Composite skill combining navigation, grasping, and voice control.
 
 ```python
-from qoodev.examples import HomeServiceSkill
+from cli.examples import HomeServiceSkill
 
 service = HomeServiceSkill(ServiceConfig())
 task = ServiceTask(task_id="1", command="bring mug", target_object="mug")

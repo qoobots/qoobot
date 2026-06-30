@@ -32,17 +32,17 @@ from rich.console import Console
 from rich.panel import Panel
 from rich.table import Table
 
-from qoodev import __version__
-from qoodev.cli.commands import init, build, run, test, doctor, sim
-from qoodev.cli.commands import package_cmd, record_cmd, debug_cmd, ci_cmd
-from qoodev.cli.commands import profile_cmd, compile_cmd, annotate_cmd
-from qoodev.stability.error_handler import (
+from cli import __version__
+from cli.cli.commands import init, build, run, test, doctor, sim
+from cli.cli.commands import package_cmd, record_cmd, debug_cmd, ci_cmd
+from cli.cli.commands import profile_cmd, compile_cmd, annotate_cmd
+from cli.stability.error_handler import (
     qoodevError,
     global_error_handler,
     ErrorBoundary,
     ErrorSeverity,
 )
-from qoodev.stability.crash_collector import install_crash_hook
+from cli.stability.crash_collector import install_crash_hook
 
 app = typer.Typer(
     name="qoo",
@@ -137,7 +137,7 @@ def eco_submit(
     changelog: str = typer.Option("", "--changelog", help="Version changelog"),
 ):
     """Submit a skill to the qoostore marketplace."""
-    from qoodev.qoostore import create_qoostore_client
+    from cli.qoostore import create_qoostore_client
 
     with ErrorBoundary("eco submit", suggestion="Check your API key and package path"):
         client = create_qoostore_client(api_key=api_key)
@@ -160,7 +160,7 @@ def eco_status(
     api_key: Optional[str] = typer.Option(None, "--api-key", help="qoostore API key"),
 ):
     """Check submission review status."""
-    from qoodev.qoostore import create_qoostore_client
+    from cli.qoostore import create_qoostore_client
 
     client = create_qoostore_client(api_key=api_key)
     client.authenticate()
@@ -176,7 +176,7 @@ def eco_search(
     limit: int = typer.Option(20, "--limit", "-n", help="Max results"),
 ):
     """Search skills on qoostore marketplace."""
-    from qoodev.qoostore import create_qoostore_client, SkillCategory
+    from cli.qoostore import create_qoostore_client, SkillCategory
 
     client = create_qoostore_client()
     cat = SkillCategory(category) if category else None
@@ -214,7 +214,7 @@ def docs_generate(
     output: str = typer.Option("docs_site", "--output", "-o", help="Output directory"),
 ):
     """Generate MkDocs documentation site."""
-    from qoodev.docs_generator import DocSiteGenerator
+    from cli.docs_generator import DocSiteGenerator
 
     with ErrorBoundary("docs generate", suggestion="Check your project structure"):
         generator = DocSiteGenerator(Path(output).resolve())
@@ -240,8 +240,8 @@ def ide_jetbrains(
     ide: str = typer.Option("pycharm", "--ide", "-i", help="Target IDE: pycharm, clion, idea"),
 ):
     """Generate JetBrains IDE plugin configuration."""
-    from qoodev.ide import JetBrainsPlugin
-    from qoodev.ide.jetbrains_plugin import JetBrainsIDE
+    from cli.ide import JetBrainsPlugin
+    from cli.ide.jetbrains_plugin import JetBrainsIDE
 
     ide_map = {"pycharm": JetBrainsIDE.PYCHARM, "clion": JetBrainsIDE.CLION, "idea": JetBrainsIDE.IDEA}
     target = ide_map.get(ide, JetBrainsIDE.PYCHARM)
@@ -257,7 +257,7 @@ def ide_generate(
     output: str = typer.Option("src", "--output", "-o", help="Output directory"),
 ):
     """Generate code from sensor config, behavior tree, model, or service spec."""
-    from qoodev.ide import CodeGenerator
+    from cli.ide import CodeGenerator
 
     gen = CodeGenerator(Path(output).resolve())
 
@@ -281,7 +281,7 @@ def ide_manifest(
     template: str = typer.Option("default", "--template", "-t", help="Template: default, perception, navigation, interaction, minimal"),
 ):
     """Create or edit a QooBot skill manifest."""
-    from qoodev.ide import SkillManifestEditor
+    from cli.ide import SkillManifestEditor
 
     editor = SkillManifestEditor.create_from_template(name, template)
     editor.show()
@@ -335,7 +335,7 @@ def dr_init(
     output: str = typer.Option("domain_config.yaml", "--output", "-o", help="Output config file"),
 ):
     """Create a default domain randomization config."""
-    from qoodev.domain_randomization import DomainRandomizer
+    from cli.domain_randomization import DomainRandomizer
 
     dr = DomainRandomizer()
     dr.save_config(output)
@@ -347,7 +347,7 @@ def dr_step(
     num_steps: int = typer.Option(1, "--num", "-n", help="Number of steps"),
 ):
     """Run domain randomization steps."""
-    from qoodev.domain_randomization import DomainRandomizer
+    from cli.domain_randomization import DomainRandomizer
 
     dr = DomainRandomizer.from_config(config)
     for _ in range(num_steps):
@@ -363,7 +363,7 @@ def dr_curriculum(
     start_level: str = typer.Option("easy", "--start", "-s", help="Starting difficulty"),
 ):
     """Enable curriculum learning with progressive difficulty."""
-    from qoodev.domain_randomization import DomainRandomizer, DifficultyLevel
+    from cli.domain_randomization import DomainRandomizer, DifficultyLevel
 
     dr = DomainRandomizer.from_config(config)
     level = DifficultyLevel(start_level)
@@ -382,7 +382,7 @@ def data_init(
     path: str = typer.Argument(..., help="Dataset directory path"),
 ):
     """Initialize a new dataset."""
-    from qoodev.data_management import DataManager
+    from cli.data_management import DataManager
 
     dm = DataManager(path, create=True)
     dm.summary()
@@ -394,7 +394,7 @@ def data_add(
     source: str = typer.Argument(..., help="Source directory of data files"),
 ):
     """Add samples to a dataset."""
-    from qoodev.data_management import DataManager
+    from cli.data_management import DataManager
 
     dm = DataManager(dataset)
     added = dm.add_samples(source)
@@ -408,7 +408,7 @@ def data_version(
     message: str = typer.Option("", "--message", "-m", help="Version message"),
 ):
     """Create a dataset version snapshot."""
-    from qoodev.data_management import DataManager
+    from cli.data_management import DataManager
 
     dm = DataManager(dataset)
     dm.version(tag, message)
@@ -420,7 +420,7 @@ def data_clean(
     dry_run: bool = typer.Option(False, "--dry-run", help="Preview only, don't remove"),
 ):
     """Clean dataset (deduplicate, remove outliers, validate)."""
-    from qoodev.data_management import DataManager
+    from cli.data_management import DataManager
 
     dm = DataManager(dataset)
     dm.clean(dry_run=dry_run)
@@ -431,7 +431,7 @@ def data_report(
     dataset: str = typer.Argument(..., help="Dataset directory"),
 ):
     """Generate dataset quality report."""
-    from qoodev.data_management import DataManager
+    from cli.data_management import DataManager
 
     dm = DataManager(dataset)
     dm.quality_report()
@@ -447,7 +447,7 @@ def data_split(
     seed: int = typer.Option(42, "--seed", help="Random seed"),
 ):
     """Split dataset into train/val/test sets."""
-    from qoodev.data_management import DataManager, SplitStrategy
+    from cli.data_management import DataManager, SplitStrategy
 
     dm = DataManager(dataset)
     strat = {"random": SplitStrategy.RANDOM, "stratified": SplitStrategy.STRATIFIED, "temporal": SplitStrategy.TEMPORAL}.get(strategy, SplitStrategy.RANDOM)
@@ -461,7 +461,7 @@ def data_export(
     output: str = typer.Option("./export", "--output", "-o", help="Output path"),
 ):
     """Export dataset to standard format."""
-    from qoodev.data_management import DataManager
+    from cli.data_management import DataManager
 
     dm = DataManager(dataset)
     if format == "coco":
@@ -484,7 +484,7 @@ def bt_debug(
     tree_file: str = typer.Argument(..., help="Path to behavior tree JSON file"),
 ):
     """Start interactive behavior tree debugger."""
-    from qoodev.bt_debugger import BehaviorTreeDebugger
+    from cli.bt_debugger import BehaviorTreeDebugger
     import json
 
     tree_path = Path(tree_file)
@@ -506,7 +506,7 @@ def bt_replay(
     speed: float = typer.Option(1.0, "--speed", "-s", help="Replay speed multiplier"),
 ):
     """Replay a previously recorded behavior tree debug session."""
-    from qoodev.bt_debugger import BehaviorTreeDebugger
+    from cli.bt_debugger import BehaviorTreeDebugger
 
     debugger = BehaviorTreeDebugger("replay")
     debugger.replay_session(Path(session_file), speed)

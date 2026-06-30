@@ -1,4 +1,4 @@
-﻿"""
+"""
 Example: Home Service Skill — composite skill combining navigation, grasping, and interaction.
 
 Demonstrates how to compose multiple skills into a higher-level
@@ -12,10 +12,10 @@ from typing import Optional, List, Dict, Any
 import enum
 import time
 
-from qoodev.examples.navigation import NavigationSkill, NavigationConfig
-from qoodev.examples.grasping import GraspingSkill, GraspConfig
-from qoodev.examples.voice_control import VoiceControlSkill, VoiceConfig, IntentType
-from qoodev.examples.obstacle_avoidance import ObstacleAvoidanceSkill, AvoidanceConfig
+from cli.examples.navigation import NavigationSkill, NavigationConfig
+from cli.examples.grasping import GraspingSkill, GraspConfig
+from cli.examples.voice_control import VoiceControlSkill, VoiceConfig, IntentType
+from cli.examples.obstacle_avoidance import ObstacleAvoidanceSkill, AvoidanceConfig
 
 
 class ServiceState(enum.Enum):

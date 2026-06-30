@@ -136,10 +136,135 @@ class SceneLoader:
         )
 
 
+# ── MuJoCo 真实场景根目录 ──────────────────────────────────
+
+def _find_mujoco_models_dir() -> Path:
+    """查找 qoobot-os 中的 MuJoCo 模型目录。"""
+    # 从当前文件向上查找 qoobot-os/hal/mechanical/mujoco/models
+    current = Path(__file__).resolve().parent
+    # cli/sim_bridge -> cli -> qoodev -> qoobot-desktop -> qoobot
+    repo_root = current.parent.parent.parent.parent
+    mujoco_models = repo_root / "qoobot-os" / "hal" / "mechanical" / "mujoco" / "models"
+    if mujoco_models.exists():
+        return mujoco_models
+    return Path(".")
+
+
+_MUJOCO_MODELS_DIR = _find_mujoco_models_dir()
+# walking 场景在 mujoco/ 根目录（非 models/ 子目录）
+_MUJOCO_WALKING_DIR = _MUJOCO_MODELS_DIR.parent  # models/ 的父目录即 mujoco/
+
+
 # ── 注册预置场景 ────────────────────────────────────────
 
 def _register_default_presets() -> None:
     """注册默认预置场景。"""
+
+    # ── 真实 MuJoCo 场景（AzureLoong 双足人形机器人） ──
+
+    # AzureLoong 平地场景
+    azureloong = SimScene(
+        name="azureloong",
+        description="AzureLoong 双足人形机器人 — 平地行走场景",
+        scene_path=str(_MUJOCO_MODELS_DIR / "scene.xml"),
+        robots=[
+            SimRobot(
+                name="azureloong",
+                model_path=str(_MUJOCO_MODELS_DIR / "AzureLoong.xml"),
+                base_position=(0.0, 0.0, 0.0),
+                control_mode=ControlMode.POSITION,
+                sensors=["imu", "joint_states", "force_torque"],
+            ),
+        ],
+    )
+    register_preset("azureloong", azureloong)
+
+    # AzureLoong 浮空场景
+    azureloong_float = SimScene(
+        name="azureloong_float",
+        description="AzureLoong 双足人形机器人 — 浮空调试场景",
+        scene_path=str(_MUJOCO_MODELS_DIR / "scene_float.xml"),
+        robots=[
+            SimRobot(
+                name="azureloong_float",
+                model_path=str(_MUJOCO_MODELS_DIR / "AzureLoong_float.xml"),
+                base_position=(0.0, 0.0, 0.0),
+                control_mode=ControlMode.POSITION,
+                sensors=["imu", "joint_states", "force_torque"],
+            ),
+        ],
+    )
+    register_preset("azureloong_float", azureloong_float)
+
+    # AzureLoong 楼梯场景
+    azureloong_stairs = SimScene(
+        name="azureloong_stairs",
+        description="AzureLoong 双足人形机器人 — 爬楼梯场景",
+        scene_path=str(_MUJOCO_MODELS_DIR / "scene_staircase.xml"),
+        robots=[
+            SimRobot(
+                name="azureloong_stairs",
+                model_path=str(_MUJOCO_MODELS_DIR / "AzureLoong.xml"),
+                base_position=(0.0, 0.0, 0.0),
+                control_mode=ControlMode.POSITION,
+                sensors=["imu", "joint_states", "force_torque"],
+            ),
+        ],
+    )
+    register_preset("azureloong_stairs", azureloong_stairs)
+
+    # AzureLoong 平衡板场景
+    azureloong_board = SimScene(
+        name="azureloong_board",
+        description="AzureLoong 双足人形机器人 — 平衡板场景",
+        scene_path=str(_MUJOCO_MODELS_DIR / "scene_board.xml"),
+        robots=[
+            SimRobot(
+                name="azureloong_board",
+                model_path=str(_MUJOCO_MODELS_DIR / "AzureLoong.xml"),
+                base_position=(0.0, 0.0, 0.0),
+                control_mode=ControlMode.POSITION,
+                sensors=["imu", "joint_states", "force_torque"],
+            ),
+        ],
+    )
+    register_preset("azureloong_board", azureloong_board)
+
+    # AzureLoong 白色背景场景
+    azureloong_white = SimScene(
+        name="azureloong_white",
+        description="AzureLoong 双足人形机器人 — 白色背景场景",
+        scene_path=str(_MUJOCO_MODELS_DIR / "scene_white.xml"),
+        robots=[
+            SimRobot(
+                name="azureloong_white",
+                model_path=str(_MUJOCO_MODELS_DIR / "AzureLoong.xml"),
+                base_position=(0.0, 0.0, 0.0),
+                control_mode=ControlMode.POSITION,
+                sensors=["imu", "joint_states", "force_torque"],
+            ),
+        ],
+    )
+    register_preset("azureloong_white", azureloong_white)
+
+    # ── QooBot 浮动基座行走场景（MPC+WBC） ──
+    qoobot_walking = SimScene(
+        name="qoobot_walking",
+        description="QooBot 双足仿生人 — 浮动基座行走场景 (MPC+WBC)",
+        scene_path=str(_MUJOCO_WALKING_DIR / "qoobot_float.xml"),
+        robots=[
+            SimRobot(
+                name="qoobot",
+                model_path=str(_MUJOCO_WALKING_DIR / "qoobot_float.xml"),
+                base_position=(0.0, 0.0, 1.0),
+                control_mode=ControlMode.POSITION,
+                sensors=["imu", "joint_states", "force_torque", "contact"],
+            ),
+        ],
+    )
+    register_preset("qoobot_walking", qoobot_walking)
+
+    # ── 简化预置场景（兼容旧版） ──
 
     # 家居场景
     home = SimScene(

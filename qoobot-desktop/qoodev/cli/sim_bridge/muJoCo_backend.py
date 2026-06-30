@@ -85,19 +85,63 @@ class MuJoCoBackend(SimBackend):
 
         # 初始化渲染器
         if not self.config.headless:
+            # 使用模型定义的 offscreen framebuffer 大小，避免超出限制
+            render_w = min(self.config.render_width, max(self._model.vis.global_.offwidth, 640))
+            render_h = min(self.config.render_height, max(self._model.vis.global_.offheight, 480))
             self._renderer = self._mujoco.Renderer(
                 self._model,
-                self.config.render_height,
-                self.config.render_width,
+                render_h,
+                render_w,
             )
+
+            # 启动被动渲染窗口（独立进程，不阻塞仿真循环）
+            # left_ui=左侧信息面板, right_ui=右侧控制面板(含播放/暂停/重置/速度等按钮)
+            try:
+                from mujoco import viewer as mj_viewer
+                self._viewer = mj_viewer.launch_passive(
+                    self._model, self._data,
+                    show_left_ui=True,
+                    show_right_ui=True,
+                )
+                logger.info("MuJoCo 被动渲染窗口已启动")
+            except Exception as e:
+                logger.warning(f"无法启动渲染窗口: {e}。"
+                               "仿真将在无窗口模式下运行。")
 
         # 索引相机、传感器、执行器
         self._index_elements()
 
         self._mujoco.mj_forward(self._model, self._data)
+
+        # 行走控制器（可选）
+        self._walking_enabled = False
+        self._walking_ctrl = None
+
         self.state = SimState.READY
         logger.info(f"场景加载完成: {scene.name} "
                      f"(qpos={self._model.nq}, qvel={self._model.nv})")
+
+    def enable_walking(self) -> bool:
+        """启用行走控制器（MPC+WBC）。"""
+        from .walking_bridge import init_walking_controller
+        if init_walking_controller(self._model, self._data):
+            self._walking_enabled = True
+            logger.info("行走控制器已启用")
+            return True
+        logger.warning("行走控制器启用失败")
+        return False
+
+    def disable_walking(self) -> None:
+        """禁用行走控制器。"""
+        from .walking_bridge import shutdown_walking_controller
+        shutdown_walking_controller()
+        self._walking_enabled = False
+        logger.info("行走控制器已禁用")
+
+    def set_walking_velocity(self, vx: float = 0.0, vy: float = 0.0, wz: float = 0.0) -> None:
+        """设置行走速度。"""
+        from .walking_bridge import set_walking_velocity
+        set_walking_velocity(vx, vy, wz)
 
     def step(self) -> None:
         """推进一个仿真步长。"""
@@ -105,11 +149,20 @@ class MuJoCoBackend(SimBackend):
             return
         step_start = time.perf_counter()
 
+        # 行走控制器步进（在物理步进之前）
+        if self._walking_enabled:
+            from .walking_bridge import walking_step
+            walking_step()
+
         self._mujoco.mj_step(self._model, self._data)
 
         physics_time = time.perf_counter() - step_start
 
-        if self._renderer and not self.config.headless:
+        # 同步被动渲染窗口
+        if self._viewer and self._viewer.is_running():
+            self._viewer.sync()
+            render_time = time.perf_counter() - step_start - physics_time
+        elif self._renderer and not self.config.headless:
             self._renderer.update_scene(self._data)
             render_time = time.perf_counter() - step_start - physics_time
         else:
@@ -137,7 +190,10 @@ class MuJoCoBackend(SimBackend):
         """关闭 MuJoCo 引擎。"""
         self.state = SimState.STOPPED
         if self._viewer:
-            self._viewer.close()
+            try:
+                self._viewer.close()
+            except Exception:
+                pass
             self._viewer = None
         self._model = None
         self._data = None
@@ -357,6 +413,12 @@ class MuJoCoBackend(SimBackend):
                      f'gravity="{" ".join(map(str, self.config.gravity))}" '
                      f'iterations="{self.config.solver_iterations}"/>')
 
+        # 视觉设置（offscreen framebuffer）
+        lines.append(f'  <visual>')
+        lines.append(f'    <global offwidth="{self.config.render_width}" '
+                     f'offheight="{self.config.render_height}"/>')
+        lines.append(f'  </visual>')
+
         # 默认设置
         lines.append('  <default>')
         lines.append('    <geom friction="0.5 0.005 0.0001"/>')
@@ -385,6 +447,9 @@ class MuJoCoBackend(SimBackend):
             pos = " ".join(map(str, obj.get("position", [0, 0, 0.5])))
             size = " ".join(map(str, obj.get("size", [0.1, 0.1, 0.1])))
             obj_type = obj.get("type", "box")
+            # mesh 类型需要 mesh 文件，对于预置场景回退为 box
+            if obj_type == "mesh":
+                obj_type = "box"
             lines.append(
                 f'    <body name="{obj["name"]}" pos="{pos}">'
             )
@@ -433,27 +498,40 @@ class MuJoCoBackend(SimBackend):
                 f'            <geom name="{robot.name}_gripper" type="box" '
                 f'size="0.03 0.03 0.05" rgba="0.9 0.3 0.2 1"/>'
             )
+            lines.append(
+                f'            <site name="{robot.name}_ee" pos="0 0 0" size="0.01"/>'
+            )
             lines.append(f'          </body>')
             lines.append(f'        </body>')
             lines.append(f'      </body>')
 
-            # 传感器
+            # 相机（在 worldbody 中作为渲染相机）
             if "rgbd_camera" in robot.sensors:
                 lines.append(
                     f'      <camera name="{robot.name}_cam" pos="0.15 0 0.5" '
                     f'xyaxes="1 0 0 0 1 0"/>'
                 )
-            if "imu" in robot.sensors:
-                lines.append(
-                    f'      <accelerometer name="{robot.name}_accel" site="{robot.name}_ee"/>'
-                )
-                lines.append(
-                    f'      <gyro name="{robot.name}_gyro" site="{robot.name}_ee"/>'
-                )
 
             lines.append(f'    </body>')
 
         lines.append('  </worldbody>')
+
+        # 传感器
+        has_sensors = any(
+            "imu" in r.sensors
+            for r in scene.robots
+        )
+        if has_sensors:
+            lines.append('  <sensor>')
+            for robot in scene.robots:
+                if "imu" in robot.sensors:
+                    lines.append(
+                        f'    <accelerometer name="{robot.name}_accel" site="{robot.name}_ee"/>'
+                    )
+                    lines.append(
+                        f'    <gyro name="{robot.name}_gyro" site="{robot.name}_ee"/>'
+                    )
+            lines.append('  </sensor>')
 
         # 执行器
         lines.append('  <actuator>')

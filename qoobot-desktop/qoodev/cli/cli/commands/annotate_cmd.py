@@ -1,4 +1,4 @@
-﻿"""
+"""
 qoodev `qoo annotate` CLI commands — v1.5+
 Data annotation tools for QooBot perception data.
 """
@@ -14,7 +14,7 @@ from rich.console import Console
 from rich.panel import Panel
 from rich.table import Table
 
-from qoodev.annotation import (
+from cli.annotation import (
     AnnotationProject,
     Labeler2D,
     Labeler3D,
@@ -26,7 +26,7 @@ from qoodev.annotation import (
     BBox3D,
     AnnotationStats,
 )
-from qoodev.stability.error_handler import ErrorBoundary
+from cli.stability.error_handler import ErrorBoundary
 
 app = typer.Typer(help="Data annotation and labeling tools", rich_markup_mode="rich")
 console = Console()

@@ -11,7 +11,7 @@ The generator uses Jinja2 templates and produces production-ready code
 that follows QooBot best practices.
 
 Usage:
-    from qoodev.ide import CodeGenerator
+    from cli.ide import CodeGenerator
 
     gen = CodeGenerator(project_root)
 
@@ -1002,7 +1002,7 @@ class InferenceWrapper:
         Returns:
             Path to compiled .qoomodel
         \"\"\"
-        from qoodev.compiler import CompilerBridge
+        from cli.compiler import CompilerBridge
 
         if sample_input is None:
             sample_input = torch.randn({{ input_shape }})

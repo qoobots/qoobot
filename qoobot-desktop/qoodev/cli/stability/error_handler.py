@@ -1,4 +1,4 @@
-﻿"""
+"""
 Global error handling system.
 
 Provides typed exceptions, contextual error reporting, and graceful degradation

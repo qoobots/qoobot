@@ -1,4 +1,4 @@
-﻿"""
+"""
 qoodev `qoo compile` CLI commands — v1.5+
 Model compilation and cross-compilation for QooBot skills.
 """
@@ -14,7 +14,7 @@ from rich.console import Console
 from rich.panel import Panel
 from rich.table import Table
 
-from qoodev.compiler import (
+from cli.compiler import (
     CompilerBridge,
     ModelCompiler,
     CrossCompiler,
@@ -30,7 +30,7 @@ from qoodev.compiler import (
     CrossCompileResult,
     format_compile_result,
 )
-from qoodev.stability.error_handler import ErrorBoundary
+from cli.stability.error_handler import ErrorBoundary
 
 app = typer.Typer(help="Model compilation and cross-compilation", rich_markup_mode="rich")
 console = Console()

@@ -12,7 +12,7 @@ Real-time behavior tree debugging with:
 Integrates with the existing RemoteDebugger and Dashboard WebSocket server.
 
 Usage:
-    from qoodev.bt_debugger import BehaviorTreeDebugger
+    from cli.bt_debugger import BehaviorTreeDebugger
 
     bt_debugger = BehaviorTreeDebugger(bt_engine)
     bt_debugger.set_breakpoint("grasp_approach")

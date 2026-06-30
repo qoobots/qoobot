@@ -1,4 +1,4 @@
-﻿"""
+"""
 Project templates for qoo init.
 
 Each template module provides a generate() function that returns
@@ -29,13 +29,13 @@ def get_template(name: str) -> TemplateGenerator:
         Template generator instance.
     """
     if name == "skill":
-        from qoodev.cli.templates.skill import SkillTemplate
+        from cli.cli.templates.skill import SkillTemplate
         return SkillTemplate()
     elif name == "service":
-        from qoodev.cli.templates.service import ServiceTemplate
+        from cli.cli.templates.service import ServiceTemplate
         return ServiceTemplate()
     elif name == "model":
-        from qoodev.cli.templates.model import ModelTemplate
+        from cli.cli.templates.model import ModelTemplate
         return ModelTemplate()
     else:
         raise ValueError(f"Unknown template: {name}")

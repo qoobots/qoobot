@@ -1,4 +1,4 @@
-﻿"""qoo build - Build command.
+"""qoo build - Build command.
 
 Builds QooBot projects of different types (skill/service/model),
 supporting Python, C++, and model compilation targets.
@@ -47,7 +47,7 @@ def build(
     - C++ projects: runs CMake build
     - Model projects: compiles models via qoocore toolchain
     """
-    from qoodev.cli.context import ProjectContext
+    from cli.cli.context import ProjectContext
 
     ctx = ProjectContext.from_cwd()
     if not ctx:
@@ -114,7 +114,7 @@ def clean(
     ),
 ):
     """Clean build artifacts."""
-    from qoodev.cli.context import ProjectContext
+    from cli.cli.context import ProjectContext
 
     ctx = ProjectContext.from_cwd()
     root = ctx.root if ctx else Path.cwd()
@@ -377,7 +377,7 @@ def _build_model(ctx, release: bool, verbose: bool) -> bool:
         task = progress.add_task(f"Compiling {len(model_files)} model(s)...", total=None)
         try:
             # Try to use qoocore compiler bridge
-            from qoodev.compiler import CompilerBridge, TargetArch
+            from cli.compiler import CompilerBridge, TargetArch
 
             compiler = CompilerBridge(root)
             for model_file in model_files:

@@ -56,9 +56,9 @@ class AcceleratedSimulation:
     def _try_init_backend(self, worker_id: int, scene_config: Dict) -> Optional[Any]:
         """尝试初始化真实仿真后端；失败则返回 None（降级为模拟模式）。"""
         try:
-            from qoodev.sim_bridge.interface import SimConfig
-            from qoodev.sim_bridge.manager import SimManager
-            from qoodev.sim_bridge.scene_loader import SceneLoader
+            from cli.sim_bridge.interface import SimConfig
+            from cli.sim_bridge.manager import SimManager
+            from cli.sim_bridge.scene_loader import SceneLoader
 
             sim_cfg = SimConfig(
                 backend=self.config.backend,
@@ -77,7 +77,7 @@ class AcceleratedSimulation:
                 mgr.load_scene(sim_scene)
             except Exception:
                 # 场景加载失败时创建空场景
-                from qoodev.sim_bridge.interface import SimScene
+                from cli.sim_bridge.interface import SimScene
                 sim_scene = SimScene(name="batch_worker", description="Batch simulation scene")
                 mgr.load_scene(sim_scene)
 

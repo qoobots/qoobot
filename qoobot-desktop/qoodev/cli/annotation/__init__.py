@@ -1,4 +1,4 @@
-﻿"""
+"""
 qoodev Data Annotation Toolkit — v1.5+
 
 Tools for annotating robot perception data:
@@ -9,7 +9,7 @@ Tools for annotating robot perception data:
 - Quality review: annotation consistency check, inter-annotator agreement
 
 Usage:
-    from qoodev.annotation import (
+    from cli.annotation import (
         AnnotationProject, Labeler2D, Labeler3D, TrajectoryLabeler
     )
 

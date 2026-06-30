@@ -1,4 +1,4 @@
-﻿"""qoo run - Run command.
+"""qoo run - Run command.
 
 Launches QooBot projects in simulation or on real hardware,
 supporting MuJoCo, Isaac Sim, and Gazebo backends.
@@ -58,7 +58,7 @@ def run(
     Launches the simulation backend, loads the specified scene,
     and executes the project's main skill or service.
     """
-    from qoodev.cli.context import ProjectContext
+    from cli.cli.context import ProjectContext
 
     ctx = ProjectContext.from_cwd()
     if not ctx:
@@ -174,14 +174,14 @@ def run(
 
 def _init_simulation(ctx, backend: str, scene: str, headless: bool, real_time: bool):
     """Initialize the simulation backend and load the scene."""
-    from qoodev.sim_bridge.interface import SimConfig, SimScene
-    from qoodev.sim_bridge.manager import SimManager, register_backend
-    from qoodev.sim_bridge.muJoCo_backend import MuJoCoBackend
+    from cli.sim_bridge.interface import SimConfig, SimScene
+    from cli.sim_bridge.manager import SimManager, register_backend
+    from cli.sim_bridge.muJoCo_backend import MuJoCoBackend
 
     # Register available backends
     register_backend("mujoco", MuJoCoBackend)
     try:
-        from qoodev.sim_bridge.isaac_sim_backend import IsaacSimBackend
+        from cli.sim_bridge.isaac_sim_backend import IsaacSimBackend
         register_backend("isaac_sim", IsaacSimBackend)
     except ImportError:
         pass
@@ -208,11 +208,11 @@ def _init_simulation(ctx, backend: str, scene: str, headless: bool, real_time: b
 
 def _load_scene(scene_name: str):
     """Load a named scene or create a default one."""
-    from qoodev.sim_bridge.interface import SimScene, SimRobot, ControlMode
+    from cli.sim_bridge.interface import SimScene, SimRobot, ControlMode
 
     # Try to load from scene loader
     try:
-        from qoodev.sim_bridge.scene_loader import SceneLoader
+        from cli.sim_bridge.scene_loader import SceneLoader
         loader = SceneLoader()
         return loader.load(scene_name)
     except Exception:
@@ -236,7 +236,7 @@ def _load_scene(scene_name: str):
 
 def _init_recorder(ctx, output_path: str):
     """Initialize the data recorder."""
-    from qoodev.data_recorder import DataRecorder
+    from cli.data_recorder import DataRecorder
 
     out = Path(output_path)
     if not out.is_absolute():
@@ -248,7 +248,7 @@ def _init_recorder(ctx, output_path: str):
 
 def _make_status_table(manager, step_count: int, run_start: float) -> Table:
     """Create a live status table for the simulation."""
-    from qoodev.sim_bridge.interface import SimState
+    from cli.sim_bridge.interface import SimState
 
     elapsed = time.perf_counter() - run_start
     state = manager.state if manager else SimState.UNINITIALIZED

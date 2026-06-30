@@ -51,11 +51,11 @@ dev = [
 ]
 
 [project.scripts]
-qoo = "qoodev.cli.main:app"
+qoo = "cli.cli.main:app"
 
 [tool.setuptools.packages.find]
 where = ["."]
-include = ["qoodev", "qoodev.*"]
+include = ["cli", "cli.*", "lsp", "lsp.*", "python-sdk", "python-sdk.*"]
 
 [tool.black]
 line-length = 100

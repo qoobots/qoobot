@@ -9,7 +9,7 @@ The editor is designed to be used both as a CLI tool and as a backend for
 IDE-integrated visual editors (VS Code / JetBrains).
 
 Usage:
-    from qoodev.ide import SkillManifestEditor
+    from cli.ide import SkillManifestEditor
 
     editor = SkillManifestEditor("my_skill")
     editor.set_permissions(["camera.rgb_front", "control.right_arm"])

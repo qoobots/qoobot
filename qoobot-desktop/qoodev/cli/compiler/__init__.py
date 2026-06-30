@@ -1,4 +1,4 @@
-﻿"""
+"""
 qoodev Compiler Integration — v1.5+
 
 Bridge to qoocore compiler toolchain for:
@@ -8,7 +8,7 @@ Bridge to qoocore compiler toolchain for:
 - Skill + model joint packaging
 
 Usage:
-    from qoodev.compiler import CompilerBridge, CrossCompiler, Quantizer
+    from cli.compiler import CompilerBridge, CrossCompiler, Quantizer
 
     bridge = CompilerBridge()
     bridge.compile("model.onnx", output="model.qoomodel", target="aarch64")

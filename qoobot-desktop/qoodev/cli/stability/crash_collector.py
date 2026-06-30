@@ -1,4 +1,4 @@
-﻿"""
+"""
 Crash collection and reporting system.
 
 Collects, aggregates, and optionally uploads crash/error reports
@@ -20,7 +20,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Optional, Dict, Any, List
 
-from qoodev import __version__ as qoodev_version
+from cli import __version__ as qoodev_version
 
 
 # ---------------------------------------------------------------------------

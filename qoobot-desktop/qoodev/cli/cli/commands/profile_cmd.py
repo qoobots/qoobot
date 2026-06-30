@@ -1,4 +1,4 @@
-﻿"""
+"""
 qoodev `qoo profile` CLI commands — v1.5+
 Performance profiling for QooBot skills.
 """
@@ -14,7 +14,7 @@ from rich.console import Console
 from rich.panel import Panel
 from rich.table import Table
 
-from qoodev.profiler import (
+from cli.profiler import (
     ProfilerSession,
     LatencyTracker,
     CommunicationProfiler,
@@ -25,7 +25,7 @@ from qoodev.profiler import (
     ProfilerReport,
     Severity,
 )
-from qoodev.stability.error_handler import ErrorBoundary
+from cli.stability.error_handler import ErrorBoundary
 
 app = typer.Typer(help="Performance profiling and analysis", rich_markup_mode="rich")
 console = Console()
@@ -64,7 +64,7 @@ def profile_run(
     Example:
         qoo profile run my_skill.py -d 60 --comm --inference -o ./profiles
     """
-    from qoodev.profiler import ProfilerSession
+    from cli.profiler import ProfilerSession
 
     with ErrorBoundary("profile run", suggestion="Check that the skill file exists and is valid"):
         skill_path = Path(skill_file).resolve()

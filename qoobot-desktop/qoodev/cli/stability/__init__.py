@@ -1,10 +1,10 @@
-﻿"""
+"""
 qoodev Stability Framework — Global error handling, input validation, and crash reporting.
 
 Provides robust error handling across all CLI commands and runtime environments.
 """
 
-from qoodev.stability.error_handler import (
+from cli.stability.error_handler import (
     qoodevError,
     qoodevCommandError,
     qoodevConfigError,
@@ -16,7 +16,7 @@ from qoodev.stability.error_handler import (
     ErrorContext,
     ErrorSeverity,
 )
-from qoodev.stability.input_validator import (
+from cli.stability.input_validator import (
     InputValidator,
     ValidationRule,
     validate_project_name,
@@ -25,7 +25,7 @@ from qoodev.stability.input_validator import (
     validate_port,
     validate_url,
 )
-from qoodev.stability.crash_collector import (
+from cli.stability.crash_collector import (
     CrashReport,
     CrashCollector,
     CrashReporter,

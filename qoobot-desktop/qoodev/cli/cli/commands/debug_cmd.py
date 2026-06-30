@@ -1,4 +1,4 @@
-﻿"""qoo debug CLI — 远程调试命令
+"""qoo debug CLI — 远程调试命令
 
 通过 WebSocket 协议连接到运行中的 DebugServer，
 支持断点管理、步进控制、变量检查、调用栈追踪。
@@ -102,7 +102,7 @@ def start_server(
     and the qoo debug CLI. Attach it to a running skill process to
     enable interactive debugging.
     """
-    from qoodev.debugger import DebugServer
+    from cli.debugger import DebugServer
 
     server = DebugServer(host=host, port=port)
 

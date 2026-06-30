@@ -8,7 +8,7 @@ Provides:
 """
 
 # API client factory
-from .rest_client import QooDevRESTClient
-from .grpc_client import QooDevGRPCClient
+from .rest_client import cliRESTClient
+from .grpc_client import cliGRPCClient
 
 __all__ = ["QooDevRESTClient", "QooDevGRPCClient"]

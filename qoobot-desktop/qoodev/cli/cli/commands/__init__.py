@@ -1,1 +1,1 @@
-﻿"""qoodev CLI subcommands."""
+"""qoodev CLI subcommands."""

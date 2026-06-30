@@ -1,4 +1,4 @@
-﻿"""qoo record CLI — 数据录制与回放命令"""
+"""qoo record CLI — 数据录制与回放命令"""
 
 from pathlib import Path
 from typer import Typer, Option, Argument
@@ -20,7 +20,7 @@ def start_record(
     tags: Optional[List[str]] = Option(None, "--tag", help="Tags"),
 ):
     """Start recording sensor/control data"""
-    from qoodev.data_recorder import DataRecorder, EpisodeMetadata, TeleoperationRecorder
+    from cli.data_recorder import DataRecorder, EpisodeMetadata, TeleoperationRecorder
 
     episode_id = f"ep_{datetime.utcnow().strftime('%Y%m%d_%H%M%S')}_{uuid.uuid4().hex[:8]}"
 
@@ -63,7 +63,7 @@ def inspect_record(
     head: int = Option(0, "--head", help="Show first N frames"),
 ):
     """Inspect a .qoodata recording"""
-    from qoodev.data_recorder import DataReader, DataType
+    from cli.data_recorder import DataReader, DataType
 
     path = Path(data_path)
     if not path.exists():
@@ -115,7 +115,7 @@ def replay(
     bp_type: Optional[str] = Option(None, "--bp-type", help="Break at frame type"),
 ):
     """Replay a recorded session"""
-    from qoodev.data_recorder.replay import PlaybackEngine, BreakpointFactory
+    from cli.data_recorder.replay import PlaybackEngine, BreakpointFactory
 
     engine = PlaybackEngine(Path(data_path))
 
@@ -130,7 +130,7 @@ def replay(
     if bp_time is not None:
         engine.add_breakpoint(BreakpointFactory.at_time(bp_time))
     if bp_type:
-        from qoodev.data_recorder import DataType
+        from cli.data_recorder import DataType
         engine.add_breakpoint(BreakpointFactory.at_frame_type(DataType[bp_type.upper()]))
 
     # 事件回调
@@ -170,7 +170,7 @@ def export_data(
     include_types: Optional[List[str]] = Option(None, "--include", help="Frame types to include"),
 ):
     """Export recording to other formats"""
-    from qoodev.data_recorder import DataExporter, DataType
+    from cli.data_recorder import DataExporter, DataType
 
     path = Path(data_path)
     out = Path(output) if output else path.with_suffix(f".{format}")
@@ -193,7 +193,7 @@ def compare(
     data_paths: List[str] = Argument(..., help="Paths to .qoodata files to compare"),
 ):
     """Compare multiple recordings"""
-    from qoodev.data_recorder import DataReader
+    from cli.data_recorder import DataReader
 
     for dp in data_paths:
         path = Path(dp)

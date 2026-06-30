@@ -13,7 +13,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Optional, List, Callable, Any, Union
 
-from qoodev.stability.error_handler import (
+from cli.stability.error_handler import (
     qoodevValidationError,
     ErrorContext,
     ErrorSeverity,

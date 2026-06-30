@@ -1,18 +1,18 @@
-﻿"""打包器 CLI 集成 — qoo package 命令"""
+"""打包器 CLI 集成 — qoo package 命令"""
 
 from pathlib import Path
 from typer import Typer, Option, Argument
 from typing import Optional
 
-from qoodev.packager.package_format import (
+from cli.packager.package_format import (
     PackageBuilder,
     PackageReader,
     PackageValidator,
     SkillCategory,
     PackageManifest,
 )
-from qoodev.packager.dependency import DependencyResolver, ConflictError
-from qoodev.packager.signing import CodeSigner, SignatureVerifier, SigningConfig, SigningAlgorithm
+from cli.packager.dependency import DependencyResolver, ConflictError
+from cli.packager.signing import CodeSigner, SignatureVerifier, SigningConfig, SigningAlgorithm
 
 app = Typer(name="package", help="Package and distribute skills (.qooskills)")
 
@@ -168,7 +168,7 @@ def verify(
     cert_path: Optional[str] = Option(None, "--cert", "-c", help="Trusted certificate path"),
 ):
     """Verify a signed .qooskills package"""
-    from qoodev.packager.signing import CertificateInfo
+    from cli.packager.signing import CertificateInfo
     import json
 
     trusted = []
@@ -226,7 +226,7 @@ def generate_keypair(
 ):
     """Generate a developer keypair for signing"""
     import json
-    from qoodev.packager.signing import CertificateInfo
+    from cli.packager.signing import CertificateInfo
 
     out = Path(output_dir)
     out.mkdir(parents=True, exist_ok=True)

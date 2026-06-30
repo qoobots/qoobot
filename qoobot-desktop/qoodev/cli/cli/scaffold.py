@@ -1,4 +1,4 @@
-﻿"""
+"""
 Project scaffolding engine.
 
 Generates project directories from built-in templates:
@@ -14,7 +14,7 @@ from typing import List
 
 from jinja2 import Environment, BaseLoader
 
-from qoodev.cli.templates import get_template
+from cli.cli.templates import get_template
 
 # Minimal Jinja2 environment for template rendering
 _jinja_env = Environment(loader=BaseLoader())

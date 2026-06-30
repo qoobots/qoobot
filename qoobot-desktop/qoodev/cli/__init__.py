@@ -1,4 +1,4 @@
-﻿"""
+"""
 qoodev - Developer Toolchain for QooBot Humanoid Robot.
 
 qoodev is the complete developer tools platform for the QooBot ecosystem,
