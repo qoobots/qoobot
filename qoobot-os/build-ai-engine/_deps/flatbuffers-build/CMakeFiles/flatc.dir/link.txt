@@ -1,0 +1,3 @@
+"C:\Program Files\CMake\bin\cmake.exe" -E rm -f CMakeFiles\flatc.dir/objects.a
+D:\ProgramFiles\msys64\ucrt64\bin\ar.exe qc CMakeFiles\flatc.dir/objects.a @CMakeFiles\flatc.dir\objects1.rsp
+D:\ProgramFiles\msys64\ucrt64\bin\c++.exe -O3 -DNDEBUG -Wl,--whole-archive CMakeFiles\flatc.dir/objects.a -Wl,--no-whole-archive -o flatc.exe -Wl,--out-implib,libflatc.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\flatc.dir\linkLibs.rsp

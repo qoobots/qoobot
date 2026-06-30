@@ -1,0 +1,890 @@
+[
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DQOOCORE_ENABLE_ION=1 -DQOOCORE_ENABLE_PROFILING=1 -DSPDLOG_COMPILED_LIB -DYAML_CPP_STATIC_DEFINE -Dqoocore_EXPORTS @CMakeFiles/qoocore.dir/includes_CXX.rsp -O3 -DNDEBUG -std=gnu++17 -Wall -Wextra -Wpedantic -o CMakeFiles\\qoocore.dir\\src\\core\\result.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\ai-engine\\src\\core\\result.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/ai-engine/src/core/result.cpp",
+  "output": "CMakeFiles/qoocore.dir/src/core/result.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DQOOCORE_ENABLE_ION=1 -DQOOCORE_ENABLE_PROFILING=1 -DSPDLOG_COMPILED_LIB -DYAML_CPP_STATIC_DEFINE -Dqoocore_EXPORTS @CMakeFiles/qoocore.dir/includes_CXX.rsp -O3 -DNDEBUG -std=gnu++17 -Wall -Wextra -Wpedantic -o CMakeFiles\\qoocore.dir\\src\\core\\dtype.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\ai-engine\\src\\core\\dtype.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/ai-engine/src/core/dtype.cpp",
+  "output": "CMakeFiles/qoocore.dir/src/core/dtype.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DQOOCORE_ENABLE_ION=1 -DQOOCORE_ENABLE_PROFILING=1 -DSPDLOG_COMPILED_LIB -DYAML_CPP_STATIC_DEFINE -Dqoocore_EXPORTS @CMakeFiles/qoocore.dir/includes_CXX.rsp -O3 -DNDEBUG -std=gnu++17 -Wall -Wextra -Wpedantic -o CMakeFiles\\qoocore.dir\\src\\core\\tensor.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\ai-engine\\src\\core\\tensor.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/ai-engine/src/core/tensor.cpp",
+  "output": "CMakeFiles/qoocore.dir/src/core/tensor.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DQOOCORE_ENABLE_ION=1 -DQOOCORE_ENABLE_PROFILING=1 -DSPDLOG_COMPILED_LIB -DYAML_CPP_STATIC_DEFINE -Dqoocore_EXPORTS @CMakeFiles/qoocore.dir/includes_CXX.rsp -O3 -DNDEBUG -std=gnu++17 -Wall -Wextra -Wpedantic -o CMakeFiles\\qoocore.dir\\src\\core\\config_manager.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\ai-engine\\src\\core\\config_manager.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/ai-engine/src/core/config_manager.cpp",
+  "output": "CMakeFiles/qoocore.dir/src/core/config_manager.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DQOOCORE_ENABLE_ION=1 -DQOOCORE_ENABLE_PROFILING=1 -DSPDLOG_COMPILED_LIB -DYAML_CPP_STATIC_DEFINE -Dqoocore_EXPORTS @CMakeFiles/qoocore.dir/includes_CXX.rsp -O3 -DNDEBUG -std=gnu++17 -Wall -Wextra -Wpedantic -o CMakeFiles\\qoocore.dir\\src\\engine\\engine.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\ai-engine\\src\\engine\\engine.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/ai-engine/src/engine/engine.cpp",
+  "output": "CMakeFiles/qoocore.dir/src/engine/engine.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DQOOCORE_ENABLE_ION=1 -DQOOCORE_ENABLE_PROFILING=1 -DSPDLOG_COMPILED_LIB -DYAML_CPP_STATIC_DEFINE -Dqoocore_EXPORTS @CMakeFiles/qoocore.dir/includes_CXX.rsp -O3 -DNDEBUG -std=gnu++17 -Wall -Wextra -Wpedantic -o CMakeFiles\\qoocore.dir\\src\\compiler\\importer\\onnx_importer.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\ai-engine\\src\\compiler\\importer\\onnx_importer.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/ai-engine/src/compiler/importer/onnx_importer.cpp",
+  "output": "CMakeFiles/qoocore.dir/src/compiler/importer/onnx_importer.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DQOOCORE_ENABLE_ION=1 -DQOOCORE_ENABLE_PROFILING=1 -DSPDLOG_COMPILED_LIB -DYAML_CPP_STATIC_DEFINE -Dqoocore_EXPORTS @CMakeFiles/qoocore.dir/includes_CXX.rsp -O3 -DNDEBUG -std=gnu++17 -Wall -Wextra -Wpedantic -o CMakeFiles\\qoocore.dir\\src\\compiler\\optimizer\\graph_optimizer.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\ai-engine\\src\\compiler\\optimizer\\graph_optimizer.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/ai-engine/src/compiler/optimizer/graph_optimizer.cpp",
+  "output": "CMakeFiles/qoocore.dir/src/compiler/optimizer/graph_optimizer.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DQOOCORE_ENABLE_ION=1 -DQOOCORE_ENABLE_PROFILING=1 -DSPDLOG_COMPILED_LIB -DYAML_CPP_STATIC_DEFINE -Dqoocore_EXPORTS @CMakeFiles/qoocore.dir/includes_CXX.rsp -O3 -DNDEBUG -std=gnu++17 -Wall -Wextra -Wpedantic -o CMakeFiles\\qoocore.dir\\src\\compiler\\pruner\\model_pruner.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\ai-engine\\src\\compiler\\pruner\\model_pruner.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/ai-engine/src/compiler/pruner/model_pruner.cpp",
+  "output": "CMakeFiles/qoocore.dir/src/compiler/pruner/model_pruner.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DQOOCORE_ENABLE_ION=1 -DQOOCORE_ENABLE_PROFILING=1 -DSPDLOG_COMPILED_LIB -DYAML_CPP_STATIC_DEFINE -Dqoocore_EXPORTS @CMakeFiles/qoocore.dir/includes_CXX.rsp -O3 -DNDEBUG -std=gnu++17 -Wall -Wextra -Wpedantic -o CMakeFiles\\qoocore.dir\\src\\compiler\\quantizer\\quantizer.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\ai-engine\\src\\compiler\\quantizer\\quantizer.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/ai-engine/src/compiler/quantizer/quantizer.cpp",
+  "output": "CMakeFiles/qoocore.dir/src/compiler/quantizer/quantizer.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DQOOCORE_ENABLE_ION=1 -DQOOCORE_ENABLE_PROFILING=1 -DSPDLOG_COMPILED_LIB -DYAML_CPP_STATIC_DEFINE -Dqoocore_EXPORTS @CMakeFiles/qoocore.dir/includes_CXX.rsp -O3 -DNDEBUG -std=gnu++17 -Wall -Wextra -Wpedantic -o CMakeFiles\\qoocore.dir\\src\\compiler\\codegen\\codegen_npu.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\ai-engine\\src\\compiler\\codegen\\codegen_npu.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/ai-engine/src/compiler/codegen/codegen_npu.cpp",
+  "output": "CMakeFiles/qoocore.dir/src/compiler/codegen/codegen_npu.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DQOOCORE_ENABLE_ION=1 -DQOOCORE_ENABLE_PROFILING=1 -DSPDLOG_COMPILED_LIB -DYAML_CPP_STATIC_DEFINE -Dqoocore_EXPORTS @CMakeFiles/qoocore.dir/includes_CXX.rsp -O3 -DNDEBUG -std=gnu++17 -Wall -Wextra -Wpedantic -o CMakeFiles\\qoocore.dir\\src\\compiler\\codegen\\codegen_gpu.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\ai-engine\\src\\compiler\\codegen\\codegen_gpu.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/ai-engine/src/compiler/codegen/codegen_gpu.cpp",
+  "output": "CMakeFiles/qoocore.dir/src/compiler/codegen/codegen_gpu.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DQOOCORE_ENABLE_ION=1 -DQOOCORE_ENABLE_PROFILING=1 -DSPDLOG_COMPILED_LIB -DYAML_CPP_STATIC_DEFINE -Dqoocore_EXPORTS @CMakeFiles/qoocore.dir/includes_CXX.rsp -O3 -DNDEBUG -std=gnu++17 -Wall -Wextra -Wpedantic -o CMakeFiles\\qoocore.dir\\src\\compiler\\codegen\\codegen_cpu.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\ai-engine\\src\\compiler\\codegen\\codegen_cpu.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/ai-engine/src/compiler/codegen/codegen_cpu.cpp",
+  "output": "CMakeFiles/qoocore.dir/src/compiler/codegen/codegen_cpu.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DQOOCORE_ENABLE_ION=1 -DQOOCORE_ENABLE_PROFILING=1 -DSPDLOG_COMPILED_LIB -DYAML_CPP_STATIC_DEFINE -Dqoocore_EXPORTS @CMakeFiles/qoocore.dir/includes_CXX.rsp -O3 -DNDEBUG -std=gnu++17 -Wall -Wextra -Wpedantic -o CMakeFiles\\qoocore.dir\\src\\compiler\\package\\qoomodel_reader.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\ai-engine\\src\\compiler\\package\\qoomodel_reader.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/ai-engine/src/compiler/package/qoomodel_reader.cpp",
+  "output": "CMakeFiles/qoocore.dir/src/compiler/package/qoomodel_reader.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DQOOCORE_ENABLE_ION=1 -DQOOCORE_ENABLE_PROFILING=1 -DSPDLOG_COMPILED_LIB -DYAML_CPP_STATIC_DEFINE -Dqoocore_EXPORTS @CMakeFiles/qoocore.dir/includes_CXX.rsp -O3 -DNDEBUG -std=gnu++17 -Wall -Wextra -Wpedantic -o CMakeFiles\\qoocore.dir\\src\\compiler\\package\\qoomodel_writer.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\ai-engine\\src\\compiler\\package\\qoomodel_writer.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/ai-engine/src/compiler/package/qoomodel_writer.cpp",
+  "output": "CMakeFiles/qoocore.dir/src/compiler/package/qoomodel_writer.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DQOOCORE_ENABLE_ION=1 -DQOOCORE_ENABLE_PROFILING=1 -DSPDLOG_COMPILED_LIB -DYAML_CPP_STATIC_DEFINE -Dqoocore_EXPORTS @CMakeFiles/qoocore.dir/includes_CXX.rsp -O3 -DNDEBUG -std=gnu++17 -Wall -Wextra -Wpedantic -o CMakeFiles\\qoocore.dir\\src\\hal\\npu_hal_loader.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\ai-engine\\src\\hal\\npu_hal_loader.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/ai-engine/src/hal/npu_hal_loader.cpp",
+  "output": "CMakeFiles/qoocore.dir/src/hal/npu_hal_loader.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DQOOCORE_ENABLE_ION=1 -DQOOCORE_ENABLE_PROFILING=1 -DSPDLOG_COMPILED_LIB -DYAML_CPP_STATIC_DEFINE -Dqoocore_EXPORTS @CMakeFiles/qoocore.dir/includes_CXX.rsp -O3 -DNDEBUG -std=gnu++17 -Wall -Wextra -Wpedantic -o CMakeFiles\\qoocore.dir\\src\\hal\\mock_npu_hal.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\ai-engine\\src\\hal\\mock_npu_hal.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/ai-engine/src/hal/mock_npu_hal.cpp",
+  "output": "CMakeFiles/qoocore.dir/src/hal/mock_npu_hal.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DQOOCORE_ENABLE_ION=1 -DQOOCORE_ENABLE_PROFILING=1 -DSPDLOG_COMPILED_LIB -DYAML_CPP_STATIC_DEFINE -Dqoocore_EXPORTS @CMakeFiles/qoocore.dir/includes_CXX.rsp -O3 -DNDEBUG -std=gnu++17 -Wall -Wextra -Wpedantic -o CMakeFiles\\qoocore.dir\\src\\runtime\\scheduler\\realtime_scheduler.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\ai-engine\\src\\runtime\\scheduler\\realtime_scheduler.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/ai-engine/src/runtime/scheduler/realtime_scheduler.cpp",
+  "output": "CMakeFiles/qoocore.dir/src/runtime/scheduler/realtime_scheduler.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DQOOCORE_ENABLE_ION=1 -DQOOCORE_ENABLE_PROFILING=1 -DSPDLOG_COMPILED_LIB -DYAML_CPP_STATIC_DEFINE -Dqoocore_EXPORTS @CMakeFiles/qoocore.dir/includes_CXX.rsp -O3 -DNDEBUG -std=gnu++17 -Wall -Wextra -Wpedantic -o CMakeFiles\\qoocore.dir\\src\\runtime\\backend\\cpu_backend.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\ai-engine\\src\\runtime\\backend\\cpu_backend.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/ai-engine/src/runtime/backend/cpu_backend.cpp",
+  "output": "CMakeFiles/qoocore.dir/src/runtime/backend/cpu_backend.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DQOOCORE_ENABLE_ION=1 -DQOOCORE_ENABLE_PROFILING=1 -DSPDLOG_COMPILED_LIB -DYAML_CPP_STATIC_DEFINE -Dqoocore_EXPORTS @CMakeFiles/qoocore.dir/includes_CXX.rsp -O3 -DNDEBUG -std=gnu++17 -Wall -Wextra -Wpedantic -o CMakeFiles\\qoocore.dir\\src\\runtime\\backend\\gpu_backend.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\ai-engine\\src\\runtime\\backend\\gpu_backend.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/ai-engine/src/runtime/backend/gpu_backend.cpp",
+  "output": "CMakeFiles/qoocore.dir/src/runtime/backend/gpu_backend.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DQOOCORE_ENABLE_ION=1 -DQOOCORE_ENABLE_PROFILING=1 -DSPDLOG_COMPILED_LIB -DYAML_CPP_STATIC_DEFINE -Dqoocore_EXPORTS @CMakeFiles/qoocore.dir/includes_CXX.rsp -O3 -DNDEBUG -std=gnu++17 -Wall -Wextra -Wpedantic -o CMakeFiles\\qoocore.dir\\src\\runtime\\pipeline\\inference_pipeline.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\ai-engine\\src\\runtime\\pipeline\\inference_pipeline.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/ai-engine/src/runtime/pipeline/inference_pipeline.cpp",
+  "output": "CMakeFiles/qoocore.dir/src/runtime/pipeline/inference_pipeline.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DQOOCORE_ENABLE_ION=1 -DQOOCORE_ENABLE_PROFILING=1 -DSPDLOG_COMPILED_LIB -DYAML_CPP_STATIC_DEFINE -Dqoocore_EXPORTS @CMakeFiles/qoocore.dir/includes_CXX.rsp -O3 -DNDEBUG -std=gnu++17 -Wall -Wextra -Wpedantic -o CMakeFiles\\qoocore.dir\\src\\runtime\\backend\\dsp_backend.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\ai-engine\\src\\runtime\\backend\\dsp_backend.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/ai-engine/src/runtime/backend/dsp_backend.cpp",
+  "output": "CMakeFiles/qoocore.dir/src/runtime/backend/dsp_backend.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DQOOCORE_ENABLE_ION=1 -DQOOCORE_ENABLE_PROFILING=1 -DSPDLOG_COMPILED_LIB -DYAML_CPP_STATIC_DEFINE -Dqoocore_EXPORTS @CMakeFiles/qoocore.dir/includes_CXX.rsp -O3 -DNDEBUG -std=gnu++17 -Wall -Wextra -Wpedantic -o CMakeFiles\\qoocore.dir\\src\\runtime\\batch\\dynamic_batcher.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\ai-engine\\src\\runtime\\batch\\dynamic_batcher.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/ai-engine/src/runtime/batch/dynamic_batcher.cpp",
+  "output": "CMakeFiles/qoocore.dir/src/runtime/batch/dynamic_batcher.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DQOOCORE_ENABLE_ION=1 -DQOOCORE_ENABLE_PROFILING=1 -DSPDLOG_COMPILED_LIB -DYAML_CPP_STATIC_DEFINE -Dqoocore_EXPORTS @CMakeFiles/qoocore.dir/includes_CXX.rsp -O3 -DNDEBUG -std=gnu++17 -Wall -Wextra -Wpedantic -o CMakeFiles\\qoocore.dir\\src\\memory\\ion\\ion_allocator.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\ai-engine\\src\\memory\\ion\\ion_allocator.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/ai-engine/src/memory/ion/ion_allocator.cpp",
+  "output": "CMakeFiles/qoocore.dir/src/memory/ion/ion_allocator.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DQOOCORE_ENABLE_ION=1 -DQOOCORE_ENABLE_PROFILING=1 -DSPDLOG_COMPILED_LIB -DYAML_CPP_STATIC_DEFINE -Dqoocore_EXPORTS @CMakeFiles/qoocore.dir/includes_CXX.rsp -O3 -DNDEBUG -std=gnu++17 -Wall -Wextra -Wpedantic -o CMakeFiles\\qoocore.dir\\src\\memory\\ion\\ion_allocator_ext.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\ai-engine\\src\\memory\\ion\\ion_allocator_ext.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/ai-engine/src/memory/ion/ion_allocator_ext.cpp",
+  "output": "CMakeFiles/qoocore.dir/src/memory/ion/ion_allocator_ext.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DQOOCORE_ENABLE_ION=1 -DQOOCORE_ENABLE_PROFILING=1 -DSPDLOG_COMPILED_LIB -DYAML_CPP_STATIC_DEFINE -Dqoocore_EXPORTS @CMakeFiles/qoocore.dir/includes_CXX.rsp -O3 -DNDEBUG -std=gnu++17 -Wall -Wextra -Wpedantic -o CMakeFiles\\qoocore.dir\\src\\memory\\pool\\model_pool.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\ai-engine\\src\\memory\\pool\\model_pool.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/ai-engine/src/memory/pool/model_pool.cpp",
+  "output": "CMakeFiles/qoocore.dir/src/memory/pool/model_pool.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DQOOCORE_ENABLE_ION=1 -DQOOCORE_ENABLE_PROFILING=1 -DSPDLOG_COMPILED_LIB -DYAML_CPP_STATIC_DEFINE -Dqoocore_EXPORTS @CMakeFiles/qoocore.dir/includes_CXX.rsp -O3 -DNDEBUG -std=gnu++17 -Wall -Wextra -Wpedantic -o CMakeFiles\\qoocore.dir\\src\\memory\\swapper\\memory_swapper.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\ai-engine\\src\\memory\\swapper\\memory_swapper.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/ai-engine/src/memory/swapper/memory_swapper.cpp",
+  "output": "CMakeFiles/qoocore.dir/src/memory/swapper/memory_swapper.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DQOOCORE_ENABLE_ION=1 -DQOOCORE_ENABLE_PROFILING=1 -DSPDLOG_COMPILED_LIB -DYAML_CPP_STATIC_DEFINE -Dqoocore_EXPORTS @CMakeFiles/qoocore.dir/includes_CXX.rsp -O3 -DNDEBUG -std=gnu++17 -Wall -Wextra -Wpedantic -o CMakeFiles\\qoocore.dir\\src\\memory\\compressor\\memory_compressor.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\ai-engine\\src\\memory\\compressor\\memory_compressor.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/ai-engine/src/memory/compressor/memory_compressor.cpp",
+  "output": "CMakeFiles/qoocore.dir/src/memory/compressor/memory_compressor.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DQOOCORE_ENABLE_ION=1 -DQOOCORE_ENABLE_PROFILING=1 -DSPDLOG_COMPILED_LIB -DYAML_CPP_STATIC_DEFINE -Dqoocore_EXPORTS @CMakeFiles/qoocore.dir/includes_CXX.rsp -O3 -DNDEBUG -std=gnu++17 -Wall -Wextra -Wpedantic -o CMakeFiles\\qoocore.dir\\src\\hardware\\probe\\hardware_probe.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\ai-engine\\src\\hardware\\probe\\hardware_probe.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/ai-engine/src/hardware/probe/hardware_probe.cpp",
+  "output": "CMakeFiles/qoocore.dir/src/hardware/probe/hardware_probe.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DQOOCORE_ENABLE_ION=1 -DQOOCORE_ENABLE_PROFILING=1 -DSPDLOG_COMPILED_LIB -DYAML_CPP_STATIC_DEFINE -Dqoocore_EXPORTS @CMakeFiles/qoocore.dir/includes_CXX.rsp -O3 -DNDEBUG -std=gnu++17 -Wall -Wextra -Wpedantic -o CMakeFiles\\qoocore.dir\\src\\hardware\\probe\\hardware_prober.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\ai-engine\\src\\hardware\\probe\\hardware_prober.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/ai-engine/src/hardware/probe/hardware_prober.cpp",
+  "output": "CMakeFiles/qoocore.dir/src/hardware/probe/hardware_prober.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DQOOCORE_ENABLE_ION=1 -DQOOCORE_ENABLE_PROFILING=1 -DSPDLOG_COMPILED_LIB -DYAML_CPP_STATIC_DEFINE -Dqoocore_EXPORTS @CMakeFiles/qoocore.dir/includes_CXX.rsp -O3 -DNDEBUG -std=gnu++17 -Wall -Wextra -Wpedantic -o CMakeFiles\\qoocore.dir\\src\\hardware\\probe\\feature_probe.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\ai-engine\\src\\hardware\\probe\\feature_probe.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/ai-engine/src/hardware/probe/feature_probe.cpp",
+  "output": "CMakeFiles/qoocore.dir/src/hardware/probe/feature_probe.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DQOOCORE_ENABLE_ION=1 -DQOOCORE_ENABLE_PROFILING=1 -DSPDLOG_COMPILED_LIB -DYAML_CPP_STATIC_DEFINE -Dqoocore_EXPORTS @CMakeFiles/qoocore.dir/includes_CXX.rsp -O3 -DNDEBUG -std=gnu++17 -Wall -Wextra -Wpedantic -o CMakeFiles\\qoocore.dir\\src\\hardware\\chip\\chip_support_matrix.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\ai-engine\\src\\hardware\\chip\\chip_support_matrix.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/ai-engine/src/hardware/chip/chip_support_matrix.cpp",
+  "output": "CMakeFiles/qoocore.dir/src/hardware/chip/chip_support_matrix.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DQOOCORE_ENABLE_ION=1 -DQOOCORE_ENABLE_PROFILING=1 -DSPDLOG_COMPILED_LIB -DYAML_CPP_STATIC_DEFINE -Dqoocore_EXPORTS @CMakeFiles/qoocore.dir/includes_CXX.rsp -O3 -DNDEBUG -std=gnu++17 -Wall -Wextra -Wpedantic -o CMakeFiles\\qoocore.dir\\src\\hardware\\powermgr\\power_manager.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\ai-engine\\src\\hardware\\powermgr\\power_manager.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/ai-engine/src/hardware/powermgr/power_manager.cpp",
+  "output": "CMakeFiles/qoocore.dir/src/hardware/powermgr/power_manager.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DQOOCORE_ENABLE_ION=1 -DQOOCORE_ENABLE_PROFILING=1 -DSPDLOG_COMPILED_LIB -DYAML_CPP_STATIC_DEFINE -Dqoocore_EXPORTS @CMakeFiles/qoocore.dir/includes_CXX.rsp -O3 -DNDEBUG -std=gnu++17 -Wall -Wextra -Wpedantic -o CMakeFiles\\qoocore.dir\\src\\hardware\\peripheral\\peripheral_dataflow.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\ai-engine\\src\\hardware\\peripheral\\peripheral_dataflow.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/ai-engine/src/hardware/peripheral/peripheral_dataflow.cpp",
+  "output": "CMakeFiles/qoocore.dir/src/hardware/peripheral/peripheral_dataflow.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DQOOCORE_ENABLE_ION=1 -DQOOCORE_ENABLE_PROFILING=1 -DSPDLOG_COMPILED_LIB -DYAML_CPP_STATIC_DEFINE -Dqoocore_EXPORTS @CMakeFiles/qoocore.dir/includes_CXX.rsp -O3 -DNDEBUG -std=gnu++17 -Wall -Wextra -Wpedantic -o CMakeFiles\\qoocore.dir\\src\\hardware\\secure\\tee_runtime.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\ai-engine\\src\\hardware\\secure\\tee_runtime.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/ai-engine/src/hardware/secure/tee_runtime.cpp",
+  "output": "CMakeFiles/qoocore.dir/src/hardware/secure/tee_runtime.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DQOOCORE_ENABLE_ION=1 -DQOOCORE_ENABLE_PROFILING=1 -DSPDLOG_COMPILED_LIB -DYAML_CPP_STATIC_DEFINE -Dqoocore_EXPORTS @CMakeFiles/qoocore.dir/includes_CXX.rsp -O3 -DNDEBUG -std=gnu++17 -Wall -Wextra -Wpedantic -o CMakeFiles\\qoocore.dir\\src\\profiler\\latency\\latency_profiler.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\ai-engine\\src\\profiler\\latency\\latency_profiler.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/ai-engine/src/profiler/latency/latency_profiler.cpp",
+  "output": "CMakeFiles/qoocore.dir/src/profiler/latency/latency_profiler.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DQOOCORE_ENABLE_ION=1 -DQOOCORE_ENABLE_PROFILING=1 -DSPDLOG_COMPILED_LIB -DYAML_CPP_STATIC_DEFINE -Dqoocore_EXPORTS @CMakeFiles/qoocore.dir/includes_CXX.rsp -O3 -DNDEBUG -std=gnu++17 -Wall -Wextra -Wpedantic -o CMakeFiles\\qoocore.dir\\src\\profiler\\resource\\resource_monitor.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\ai-engine\\src\\profiler\\resource\\resource_monitor.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/ai-engine/src/profiler/resource/resource_monitor.cpp",
+  "output": "CMakeFiles/qoocore.dir/src/profiler/resource/resource_monitor.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DQOOCORE_ENABLE_ION=1 -DQOOCORE_ENABLE_PROFILING=1 -DSPDLOG_COMPILED_LIB -DYAML_CPP_STATIC_DEFINE -Dqoocore_EXPORTS @CMakeFiles/qoocore.dir/includes_CXX.rsp -O3 -DNDEBUG -std=gnu++17 -Wall -Wextra -Wpedantic -o CMakeFiles\\qoocore.dir\\src\\profiler\\accuracy\\accuracy_validator.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\ai-engine\\src\\profiler\\accuracy\\accuracy_validator.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/ai-engine/src/profiler/accuracy/accuracy_validator.cpp",
+  "output": "CMakeFiles/qoocore.dir/src/profiler/accuracy/accuracy_validator.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DQOOCORE_ENABLE_ION=1 -DQOOCORE_ENABLE_PROFILING=1 -DSPDLOG_COMPILED_LIB -DYAML_CPP_STATIC_DEFINE -Dqoocore_EXPORTS @CMakeFiles/qoocore.dir/includes_CXX.rsp -O3 -DNDEBUG -std=gnu++17 -Wall -Wextra -Wpedantic -o CMakeFiles\\qoocore.dir\\src\\profiler\\accuracy\\accuracy_monitor.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\ai-engine\\src\\profiler\\accuracy\\accuracy_monitor.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/ai-engine/src/profiler/accuracy/accuracy_monitor.cpp",
+  "output": "CMakeFiles/qoocore.dir/src/profiler/accuracy/accuracy_monitor.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DQOOCORE_ENABLE_ION=1 -DQOOCORE_ENABLE_PROFILING=1 -DSPDLOG_COMPILED_LIB -DYAML_CPP_STATIC_DEFINE -Dqoocore_EXPORTS @CMakeFiles/qoocore.dir/includes_CXX.rsp -O3 -DNDEBUG -std=gnu++17 -Wall -Wextra -Wpedantic -o CMakeFiles\\qoocore.dir\\src\\profiler\\power\\power_measurement.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\ai-engine\\src\\profiler\\power\\power_measurement.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/ai-engine/src/profiler/power/power_measurement.cpp",
+  "output": "CMakeFiles/qoocore.dir/src/profiler/power/power_measurement.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DQOOCORE_ENABLE_ION=1 -DQOOCORE_ENABLE_PROFILING=1 -DSPDLOG_COMPILED_LIB -DYAML_CPP_STATIC_DEFINE -Dqoocore_EXPORTS @CMakeFiles/qoocore.dir/includes_CXX.rsp -O3 -DNDEBUG -std=gnu++17 -Wall -Wextra -Wpedantic -o CMakeFiles\\qoocore.dir\\src\\profiler\\diagnostic\\anomaly_diagnosis.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\ai-engine\\src\\profiler\\diagnostic\\anomaly_diagnosis.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/ai-engine/src/profiler/diagnostic/anomaly_diagnosis.cpp",
+  "output": "CMakeFiles/qoocore.dir/src/profiler/diagnostic/anomaly_diagnosis.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DQOOCORE_ENABLE_ION=1 -DQOOCORE_ENABLE_PROFILING=1 -DSPDLOG_COMPILED_LIB -DYAML_CPP_STATIC_DEFINE -Dqoocore_EXPORTS @CMakeFiles/qoocore.dir/includes_CXX.rsp -O3 -DNDEBUG -std=gnu++17 -Wall -Wextra -Wpedantic -o CMakeFiles\\qoocore.dir\\src\\profiler\\ui\\visualization_panel.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\ai-engine\\src\\profiler\\ui\\visualization_panel.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/ai-engine/src/profiler/ui/visualization_panel.cpp",
+  "output": "CMakeFiles/qoocore.dir/src/profiler/ui/visualization_panel.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DQOOCORE_ENABLE_ION=1 -DQOOCORE_ENABLE_PROFILING=1 -DSPDLOG_COMPILED_LIB -DYAML_CPP_STATIC_DEFINE -Dqoocore_EXPORTS @CMakeFiles/qoocore.dir/includes_CXX.rsp -O3 -DNDEBUG -std=gnu++17 -Wall -Wextra -Wpedantic -o CMakeFiles\\qoocore.dir\\src\\operators\\vision\\vision_ops.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\ai-engine\\src\\operators\\vision\\vision_ops.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/ai-engine/src/operators/vision/vision_ops.cpp",
+  "output": "CMakeFiles/qoocore.dir/src/operators/vision/vision_ops.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DQOOCORE_ENABLE_ION=1 -DQOOCORE_ENABLE_PROFILING=1 -DSPDLOG_COMPILED_LIB -DYAML_CPP_STATIC_DEFINE -Dqoocore_EXPORTS @CMakeFiles/qoocore.dir/includes_CXX.rsp -O3 -DNDEBUG -std=gnu++17 -Wall -Wextra -Wpedantic -o CMakeFiles\\qoocore.dir\\src\\operators\\lidar\\lidar_ops.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\ai-engine\\src\\operators\\lidar\\lidar_ops.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/ai-engine/src/operators/lidar/lidar_ops.cpp",
+  "output": "CMakeFiles/qoocore.dir/src/operators/lidar/lidar_ops.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DQOOCORE_ENABLE_ION=1 -DQOOCORE_ENABLE_PROFILING=1 -DSPDLOG_COMPILED_LIB -DYAML_CPP_STATIC_DEFINE -Dqoocore_EXPORTS @CMakeFiles/qoocore.dir/includes_CXX.rsp -O3 -DNDEBUG -std=gnu++17 -Wall -Wextra -Wpedantic -o CMakeFiles\\qoocore.dir\\src\\operators\\bev\\bev_ops.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\ai-engine\\src\\operators\\bev\\bev_ops.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/ai-engine/src/operators/bev/bev_ops.cpp",
+  "output": "CMakeFiles/qoocore.dir/src/operators/bev/bev_ops.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DQOOCORE_ENABLE_ION=1 -DQOOCORE_ENABLE_PROFILING=1 -DSPDLOG_COMPILED_LIB -DYAML_CPP_STATIC_DEFINE -Dqoocore_EXPORTS @CMakeFiles/qoocore.dir/includes_CXX.rsp -O3 -DNDEBUG -std=gnu++17 -Wall -Wextra -Wpedantic -o CMakeFiles\\qoocore.dir\\src\\operators\\trajectory\\trajectory_ops.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\ai-engine\\src\\operators\\trajectory\\trajectory_ops.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/ai-engine/src/operators/trajectory/trajectory_ops.cpp",
+  "output": "CMakeFiles/qoocore.dir/src/operators/trajectory/trajectory_ops.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DQOOCORE_ENABLE_ION=1 -DQOOCORE_ENABLE_PROFILING=1 -DSPDLOG_COMPILED_LIB -DYAML_CPP_STATIC_DEFINE -Dqoocore_EXPORTS @CMakeFiles/qoocore.dir/includes_CXX.rsp -O3 -DNDEBUG -std=gnu++17 -Wall -Wextra -Wpedantic -o CMakeFiles\\qoocore.dir\\src\\operators\\signal\\signal_ops.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\ai-engine\\src\\operators\\signal\\signal_ops.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/ai-engine/src/operators/signal/signal_ops.cpp",
+  "output": "CMakeFiles/qoocore.dir/src/operators/signal/signal_ops.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DQOOCORE_ENABLE_ION=1 -DQOOCORE_ENABLE_PROFILING=1 -DSPDLOG_COMPILED_LIB -DYAML_CPP_STATIC_DEFINE -Dqoocore_EXPORTS @CMakeFiles/qoocore.dir/includes_CXX.rsp -O3 -DNDEBUG -std=gnu++17 -Wall -Wextra -Wpedantic -o CMakeFiles\\qoocore.dir\\src\\operators\\multimodal\\multimodal_ops.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\ai-engine\\src\\operators\\multimodal\\multimodal_ops.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/ai-engine/src/operators/multimodal/multimodal_ops.cpp",
+  "output": "CMakeFiles/qoocore.dir/src/operators/multimodal/multimodal_ops.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DQOOCORE_ENABLE_ION=1 -DQOOCORE_ENABLE_PROFILING=1 -DSPDLOG_COMPILED_LIB -DYAML_CPP_STATIC_DEFINE -Dqoocore_EXPORTS @CMakeFiles/qoocore.dir/includes_CXX.rsp -O3 -DNDEBUG -std=gnu++17 -Wall -Wextra -Wpedantic -o CMakeFiles\\qoocore.dir\\src\\cloud\\cloud_sync.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\ai-engine\\src\\cloud\\cloud_sync.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/ai-engine/src/cloud/cloud_sync.cpp",
+  "output": "CMakeFiles/qoocore.dir/src/cloud/cloud_sync.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DQOOCORE_ENABLE_ION=1 -DQOOCORE_ENABLE_PROFILING=1 -DSPDLOG_COMPILED_LIB -DYAML_CPP_STATIC_DEFINE -Dqoocore_EXPORTS @CMakeFiles/qoocore.dir/includes_CXX.rsp -O3 -DNDEBUG -std=gnu++17 -Wall -Wextra -Wpedantic -o CMakeFiles\\qoocore.dir\\src\\cloud\\hybrid\\hybrid_inference.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\ai-engine\\src\\cloud\\hybrid\\hybrid_inference.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/ai-engine/src/cloud/hybrid/hybrid_inference.cpp",
+  "output": "CMakeFiles/qoocore.dir/src/cloud/hybrid/hybrid_inference.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DQOOCORE_ENABLE_ION=1 -DQOOCORE_ENABLE_PROFILING=1 -DSPDLOG_COMPILED_LIB -DYAML_CPP_STATIC_DEFINE -Dqoocore_EXPORTS @CMakeFiles/qoocore.dir/includes_CXX.rsp -O3 -DNDEBUG -std=gnu++17 -Wall -Wextra -Wpedantic -o CMakeFiles\\qoocore.dir\\src\\cloud\\federated\\federated_learning.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\ai-engine\\src\\cloud\\federated\\federated_learning.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/ai-engine/src/cloud/federated/federated_learning.cpp",
+  "output": "CMakeFiles/qoocore.dir/src/cloud/federated/federated_learning.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DSPDLOG_COMPILED_LIB @CMakeFiles/qoocore-cli.dir/includes_CXX.rsp -O3 -DNDEBUG -std=gnu++17 -Wall -Wextra -o CMakeFiles\\qoocore-cli.dir\\cli\\main.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\ai-engine\\cli\\main.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/ai-engine/cli/main.cpp",
+  "output": "CMakeFiles/qoocore-cli.dir/cli/main.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DSPDLOG_COMPILED_LIB @CMakeFiles/qoocore-cli.dir/includes_CXX.rsp -O3 -DNDEBUG -std=gnu++17 -Wall -Wextra -o CMakeFiles\\qoocore-cli.dir\\cli\\cli_parser.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\ai-engine\\cli\\cli_parser.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/ai-engine/cli/cli_parser.cpp",
+  "output": "CMakeFiles/qoocore-cli.dir/cli/cli_parser.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DSPDLOG_COMPILED_LIB @CMakeFiles/qoocore-cli.dir/includes_CXX.rsp -O3 -DNDEBUG -std=gnu++17 -Wall -Wextra -o CMakeFiles\\qoocore-cli.dir\\cli\\commands\\compile_cmd.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\ai-engine\\cli\\commands\\compile_cmd.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/ai-engine/cli/commands/compile_cmd.cpp",
+  "output": "CMakeFiles/qoocore-cli.dir/cli/commands/compile_cmd.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DSPDLOG_COMPILED_LIB @CMakeFiles/qoocore-cli.dir/includes_CXX.rsp -O3 -DNDEBUG -std=gnu++17 -Wall -Wextra -o CMakeFiles\\qoocore-cli.dir\\cli\\commands\\infer_cmd.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\ai-engine\\cli\\commands\\infer_cmd.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/ai-engine/cli/commands/infer_cmd.cpp",
+  "output": "CMakeFiles/qoocore-cli.dir/cli/commands/infer_cmd.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DSPDLOG_COMPILED_LIB @CMakeFiles/qoocore-cli.dir/includes_CXX.rsp -O3 -DNDEBUG -std=gnu++17 -Wall -Wextra -o CMakeFiles\\qoocore-cli.dir\\cli\\commands\\profile_cmd.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\ai-engine\\cli\\commands\\profile_cmd.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/ai-engine/cli/commands/profile_cmd.cpp",
+  "output": "CMakeFiles/qoocore-cli.dir/cli/commands/profile_cmd.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DSPDLOG_COMPILED_LIB @CMakeFiles/qoocore-cli.dir/includes_CXX.rsp -O3 -DNDEBUG -std=gnu++17 -Wall -Wextra -o CMakeFiles\\qoocore-cli.dir\\cli\\commands\\list_cmd.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\ai-engine\\cli\\commands\\list_cmd.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/ai-engine/cli/commands/list_cmd.cpp",
+  "output": "CMakeFiles/qoocore-cli.dir/cli/commands/list_cmd.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DSPDLOG_COMPILED_LIB @CMakeFiles/qoocore-cli.dir/includes_CXX.rsp -O3 -DNDEBUG -std=gnu++17 -Wall -Wextra -o CMakeFiles\\qoocore-cli.dir\\cli\\commands\\info_cmd.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\ai-engine\\cli\\commands\\info_cmd.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/ai-engine/cli/commands/info_cmd.cpp",
+  "output": "CMakeFiles/qoocore-cli.dir/cli/commands/info_cmd.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe  @CMakeFiles/qoocore-test.dir/includes_CXX.rsp -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles\\qoocore-test.dir\\tests\\unit\\test_core.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\ai-engine\\tests\\unit\\test_core.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/ai-engine/tests/unit/test_core.cpp",
+  "output": "CMakeFiles/qoocore-test.dir/tests/unit/test_core.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe  @CMakeFiles/qoocore-test.dir/includes_CXX.rsp -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles\\qoocore-test.dir\\tests\\unit\\test_tensor.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\ai-engine\\tests\\unit\\test_tensor.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/ai-engine/tests/unit/test_tensor.cpp",
+  "output": "CMakeFiles/qoocore-test.dir/tests/unit/test_tensor.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe  @CMakeFiles/qoocore-test.dir/includes_CXX.rsp -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles\\qoocore-test.dir\\tests\\unit\\test_config.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\ai-engine\\tests\\unit\\test_config.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/ai-engine/tests/unit/test_config.cpp",
+  "output": "CMakeFiles/qoocore-test.dir/tests/unit/test_config.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe  @CMakeFiles/qoocore-test.dir/includes_CXX.rsp -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles\\qoocore-test.dir\\tests\\unit\\test_compiler.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\ai-engine\\tests\\unit\\test_compiler.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/ai-engine/tests/unit/test_compiler.cpp",
+  "output": "CMakeFiles/qoocore-test.dir/tests/unit/test_compiler.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/flatbuffers-build",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DFLATBUFFERS_LOCALE_INDEPENDENT=0 @CMakeFiles/flatc.dir/includes_CXX.rsp -O3 -DNDEBUG -std=c++17 -Wall -pedantic -Wextra -Wno-unused-parameter -Wold-style-cast -fsigned-char -Wnon-virtual-dtor -Wunused-result -Wunused-parameter -Werror=unused-parameter -Wmissing-declarations -Wzero-as-null-pointer-constant -faligned-new -Wextra-semi -o CMakeFiles\\flatc.dir\\src\\idl_parser.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\build-ai-engine\\_deps\\flatbuffers-src\\src\\idl_parser.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/flatbuffers-src/src/idl_parser.cpp",
+  "output": "_deps/flatbuffers-build/CMakeFiles/flatc.dir/src/idl_parser.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/flatbuffers-build",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DFLATBUFFERS_LOCALE_INDEPENDENT=0 @CMakeFiles/flatc.dir/includes_CXX.rsp -O3 -DNDEBUG -std=c++17 -Wall -pedantic -Wextra -Wno-unused-parameter -Wold-style-cast -fsigned-char -Wnon-virtual-dtor -Wunused-result -Wunused-parameter -Werror=unused-parameter -Wmissing-declarations -Wzero-as-null-pointer-constant -faligned-new -Wextra-semi -o CMakeFiles\\flatc.dir\\src\\idl_gen_text.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\build-ai-engine\\_deps\\flatbuffers-src\\src\\idl_gen_text.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/flatbuffers-src/src/idl_gen_text.cpp",
+  "output": "_deps/flatbuffers-build/CMakeFiles/flatc.dir/src/idl_gen_text.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/flatbuffers-build",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DFLATBUFFERS_LOCALE_INDEPENDENT=0 @CMakeFiles/flatc.dir/includes_CXX.rsp -O3 -DNDEBUG -std=c++17 -Wall -pedantic -Wextra -Wno-unused-parameter -Wold-style-cast -fsigned-char -Wnon-virtual-dtor -Wunused-result -Wunused-parameter -Werror=unused-parameter -Wmissing-declarations -Wzero-as-null-pointer-constant -faligned-new -Wextra-semi -o CMakeFiles\\flatc.dir\\src\\reflection.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\build-ai-engine\\_deps\\flatbuffers-src\\src\\reflection.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/flatbuffers-src/src/reflection.cpp",
+  "output": "_deps/flatbuffers-build/CMakeFiles/flatc.dir/src/reflection.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/flatbuffers-build",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DFLATBUFFERS_LOCALE_INDEPENDENT=0 @CMakeFiles/flatc.dir/includes_CXX.rsp -O3 -DNDEBUG -std=c++17 -Wall -pedantic -Wextra -Wno-unused-parameter -Wold-style-cast -fsigned-char -Wnon-virtual-dtor -Wunused-result -Wunused-parameter -Werror=unused-parameter -Wmissing-declarations -Wzero-as-null-pointer-constant -faligned-new -Wextra-semi -o CMakeFiles\\flatc.dir\\src\\util.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\build-ai-engine\\_deps\\flatbuffers-src\\src\\util.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/flatbuffers-src/src/util.cpp",
+  "output": "_deps/flatbuffers-build/CMakeFiles/flatc.dir/src/util.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/flatbuffers-build",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DFLATBUFFERS_LOCALE_INDEPENDENT=0 @CMakeFiles/flatc.dir/includes_CXX.rsp -O3 -DNDEBUG -std=c++17 -Wall -pedantic -Wextra -Wno-unused-parameter -Wold-style-cast -fsigned-char -Wnon-virtual-dtor -Wunused-result -Wunused-parameter -Werror=unused-parameter -Wmissing-declarations -Wzero-as-null-pointer-constant -faligned-new -Wextra-semi -o CMakeFiles\\flatc.dir\\src\\idl_gen_binary.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\build-ai-engine\\_deps\\flatbuffers-src\\src\\idl_gen_binary.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/flatbuffers-src/src/idl_gen_binary.cpp",
+  "output": "_deps/flatbuffers-build/CMakeFiles/flatc.dir/src/idl_gen_binary.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/flatbuffers-build",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DFLATBUFFERS_LOCALE_INDEPENDENT=0 @CMakeFiles/flatc.dir/includes_CXX.rsp -O3 -DNDEBUG -std=c++17 -Wall -pedantic -Wextra -Wno-unused-parameter -Wold-style-cast -fsigned-char -Wnon-virtual-dtor -Wunused-result -Wunused-parameter -Werror=unused-parameter -Wmissing-declarations -Wzero-as-null-pointer-constant -faligned-new -Wextra-semi -o CMakeFiles\\flatc.dir\\src\\idl_gen_cpp.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\build-ai-engine\\_deps\\flatbuffers-src\\src\\idl_gen_cpp.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/flatbuffers-src/src/idl_gen_cpp.cpp",
+  "output": "_deps/flatbuffers-build/CMakeFiles/flatc.dir/src/idl_gen_cpp.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/flatbuffers-build",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DFLATBUFFERS_LOCALE_INDEPENDENT=0 @CMakeFiles/flatc.dir/includes_CXX.rsp -O3 -DNDEBUG -std=c++17 -Wall -pedantic -Wextra -Wno-unused-parameter -Wold-style-cast -fsigned-char -Wnon-virtual-dtor -Wunused-result -Wunused-parameter -Werror=unused-parameter -Wmissing-declarations -Wzero-as-null-pointer-constant -faligned-new -Wextra-semi -o CMakeFiles\\flatc.dir\\src\\idl_gen_csharp.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\build-ai-engine\\_deps\\flatbuffers-src\\src\\idl_gen_csharp.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/flatbuffers-src/src/idl_gen_csharp.cpp",
+  "output": "_deps/flatbuffers-build/CMakeFiles/flatc.dir/src/idl_gen_csharp.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/flatbuffers-build",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DFLATBUFFERS_LOCALE_INDEPENDENT=0 @CMakeFiles/flatc.dir/includes_CXX.rsp -O3 -DNDEBUG -std=c++17 -Wall -pedantic -Wextra -Wno-unused-parameter -Wold-style-cast -fsigned-char -Wnon-virtual-dtor -Wunused-result -Wunused-parameter -Werror=unused-parameter -Wmissing-declarations -Wzero-as-null-pointer-constant -faligned-new -Wextra-semi -o CMakeFiles\\flatc.dir\\src\\idl_gen_dart.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\build-ai-engine\\_deps\\flatbuffers-src\\src\\idl_gen_dart.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/flatbuffers-src/src/idl_gen_dart.cpp",
+  "output": "_deps/flatbuffers-build/CMakeFiles/flatc.dir/src/idl_gen_dart.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/flatbuffers-build",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DFLATBUFFERS_LOCALE_INDEPENDENT=0 @CMakeFiles/flatc.dir/includes_CXX.rsp -O3 -DNDEBUG -std=c++17 -Wall -pedantic -Wextra -Wno-unused-parameter -Wold-style-cast -fsigned-char -Wnon-virtual-dtor -Wunused-result -Wunused-parameter -Werror=unused-parameter -Wmissing-declarations -Wzero-as-null-pointer-constant -faligned-new -Wextra-semi -o CMakeFiles\\flatc.dir\\src\\idl_gen_kotlin.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\build-ai-engine\\_deps\\flatbuffers-src\\src\\idl_gen_kotlin.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/flatbuffers-src/src/idl_gen_kotlin.cpp",
+  "output": "_deps/flatbuffers-build/CMakeFiles/flatc.dir/src/idl_gen_kotlin.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/flatbuffers-build",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DFLATBUFFERS_LOCALE_INDEPENDENT=0 @CMakeFiles/flatc.dir/includes_CXX.rsp -O3 -DNDEBUG -std=c++17 -Wall -pedantic -Wextra -Wno-unused-parameter -Wold-style-cast -fsigned-char -Wnon-virtual-dtor -Wunused-result -Wunused-parameter -Werror=unused-parameter -Wmissing-declarations -Wzero-as-null-pointer-constant -faligned-new -Wextra-semi -o CMakeFiles\\flatc.dir\\src\\idl_gen_kotlin_kmp.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\build-ai-engine\\_deps\\flatbuffers-src\\src\\idl_gen_kotlin_kmp.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/flatbuffers-src/src/idl_gen_kotlin_kmp.cpp",
+  "output": "_deps/flatbuffers-build/CMakeFiles/flatc.dir/src/idl_gen_kotlin_kmp.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/flatbuffers-build",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DFLATBUFFERS_LOCALE_INDEPENDENT=0 @CMakeFiles/flatc.dir/includes_CXX.rsp -O3 -DNDEBUG -std=c++17 -Wall -pedantic -Wextra -Wno-unused-parameter -Wold-style-cast -fsigned-char -Wnon-virtual-dtor -Wunused-result -Wunused-parameter -Werror=unused-parameter -Wmissing-declarations -Wzero-as-null-pointer-constant -faligned-new -Wextra-semi -o CMakeFiles\\flatc.dir\\src\\idl_gen_go.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\build-ai-engine\\_deps\\flatbuffers-src\\src\\idl_gen_go.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/flatbuffers-src/src/idl_gen_go.cpp",
+  "output": "_deps/flatbuffers-build/CMakeFiles/flatc.dir/src/idl_gen_go.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/flatbuffers-build",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DFLATBUFFERS_LOCALE_INDEPENDENT=0 @CMakeFiles/flatc.dir/includes_CXX.rsp -O3 -DNDEBUG -std=c++17 -Wall -pedantic -Wextra -Wno-unused-parameter -Wold-style-cast -fsigned-char -Wnon-virtual-dtor -Wunused-result -Wunused-parameter -Werror=unused-parameter -Wmissing-declarations -Wzero-as-null-pointer-constant -faligned-new -Wextra-semi -o CMakeFiles\\flatc.dir\\src\\idl_gen_java.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\build-ai-engine\\_deps\\flatbuffers-src\\src\\idl_gen_java.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/flatbuffers-src/src/idl_gen_java.cpp",
+  "output": "_deps/flatbuffers-build/CMakeFiles/flatc.dir/src/idl_gen_java.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/flatbuffers-build",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DFLATBUFFERS_LOCALE_INDEPENDENT=0 @CMakeFiles/flatc.dir/includes_CXX.rsp -O3 -DNDEBUG -std=c++17 -Wall -pedantic -Wextra -Wno-unused-parameter -Wold-style-cast -fsigned-char -Wnon-virtual-dtor -Wunused-result -Wunused-parameter -Werror=unused-parameter -Wmissing-declarations -Wzero-as-null-pointer-constant -faligned-new -Wextra-semi -o CMakeFiles\\flatc.dir\\src\\idl_gen_ts.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\build-ai-engine\\_deps\\flatbuffers-src\\src\\idl_gen_ts.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/flatbuffers-src/src/idl_gen_ts.cpp",
+  "output": "_deps/flatbuffers-build/CMakeFiles/flatc.dir/src/idl_gen_ts.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/flatbuffers-build",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DFLATBUFFERS_LOCALE_INDEPENDENT=0 @CMakeFiles/flatc.dir/includes_CXX.rsp -O3 -DNDEBUG -std=c++17 -Wall -pedantic -Wextra -Wno-unused-parameter -Wold-style-cast -fsigned-char -Wnon-virtual-dtor -Wunused-result -Wunused-parameter -Werror=unused-parameter -Wmissing-declarations -Wzero-as-null-pointer-constant -faligned-new -Wextra-semi -o CMakeFiles\\flatc.dir\\src\\idl_gen_php.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\build-ai-engine\\_deps\\flatbuffers-src\\src\\idl_gen_php.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/flatbuffers-src/src/idl_gen_php.cpp",
+  "output": "_deps/flatbuffers-build/CMakeFiles/flatc.dir/src/idl_gen_php.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/flatbuffers-build",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DFLATBUFFERS_LOCALE_INDEPENDENT=0 @CMakeFiles/flatc.dir/includes_CXX.rsp -O3 -DNDEBUG -std=c++17 -Wall -pedantic -Wextra -Wno-unused-parameter -Wold-style-cast -fsigned-char -Wnon-virtual-dtor -Wunused-result -Wunused-parameter -Werror=unused-parameter -Wmissing-declarations -Wzero-as-null-pointer-constant -faligned-new -Wextra-semi -o CMakeFiles\\flatc.dir\\src\\idl_gen_python.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\build-ai-engine\\_deps\\flatbuffers-src\\src\\idl_gen_python.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/flatbuffers-src/src/idl_gen_python.cpp",
+  "output": "_deps/flatbuffers-build/CMakeFiles/flatc.dir/src/idl_gen_python.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/flatbuffers-build",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DFLATBUFFERS_LOCALE_INDEPENDENT=0 @CMakeFiles/flatc.dir/includes_CXX.rsp -O3 -DNDEBUG -std=c++17 -Wall -pedantic -Wextra -Wno-unused-parameter -Wold-style-cast -fsigned-char -Wnon-virtual-dtor -Wunused-result -Wunused-parameter -Werror=unused-parameter -Wmissing-declarations -Wzero-as-null-pointer-constant -faligned-new -Wextra-semi -o CMakeFiles\\flatc.dir\\src\\idl_gen_lobster.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\build-ai-engine\\_deps\\flatbuffers-src\\src\\idl_gen_lobster.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/flatbuffers-src/src/idl_gen_lobster.cpp",
+  "output": "_deps/flatbuffers-build/CMakeFiles/flatc.dir/src/idl_gen_lobster.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/flatbuffers-build",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DFLATBUFFERS_LOCALE_INDEPENDENT=0 @CMakeFiles/flatc.dir/includes_CXX.rsp -O3 -DNDEBUG -std=c++17 -Wall -pedantic -Wextra -Wno-unused-parameter -Wold-style-cast -fsigned-char -Wnon-virtual-dtor -Wunused-result -Wunused-parameter -Werror=unused-parameter -Wmissing-declarations -Wzero-as-null-pointer-constant -faligned-new -Wextra-semi -o CMakeFiles\\flatc.dir\\src\\idl_gen_rust.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\build-ai-engine\\_deps\\flatbuffers-src\\src\\idl_gen_rust.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/flatbuffers-src/src/idl_gen_rust.cpp",
+  "output": "_deps/flatbuffers-build/CMakeFiles/flatc.dir/src/idl_gen_rust.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/flatbuffers-build",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DFLATBUFFERS_LOCALE_INDEPENDENT=0 @CMakeFiles/flatc.dir/includes_CXX.rsp -O3 -DNDEBUG -std=c++17 -Wall -pedantic -Wextra -Wno-unused-parameter -Wold-style-cast -fsigned-char -Wnon-virtual-dtor -Wunused-result -Wunused-parameter -Werror=unused-parameter -Wmissing-declarations -Wzero-as-null-pointer-constant -faligned-new -Wextra-semi -o CMakeFiles\\flatc.dir\\src\\idl_gen_fbs.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\build-ai-engine\\_deps\\flatbuffers-src\\src\\idl_gen_fbs.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/flatbuffers-src/src/idl_gen_fbs.cpp",
+  "output": "_deps/flatbuffers-build/CMakeFiles/flatc.dir/src/idl_gen_fbs.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/flatbuffers-build",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DFLATBUFFERS_LOCALE_INDEPENDENT=0 @CMakeFiles/flatc.dir/includes_CXX.rsp -O3 -DNDEBUG -std=c++17 -Wall -pedantic -Wextra -Wno-unused-parameter -Wold-style-cast -fsigned-char -Wnon-virtual-dtor -Wunused-result -Wunused-parameter -Werror=unused-parameter -Wmissing-declarations -Wzero-as-null-pointer-constant -faligned-new -Wextra-semi -o CMakeFiles\\flatc.dir\\src\\idl_gen_grpc.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\build-ai-engine\\_deps\\flatbuffers-src\\src\\idl_gen_grpc.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/flatbuffers-src/src/idl_gen_grpc.cpp",
+  "output": "_deps/flatbuffers-build/CMakeFiles/flatc.dir/src/idl_gen_grpc.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/flatbuffers-build",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DFLATBUFFERS_LOCALE_INDEPENDENT=0 @CMakeFiles/flatc.dir/includes_CXX.rsp -O3 -DNDEBUG -std=c++17 -Wall -pedantic -Wextra -Wno-unused-parameter -Wold-style-cast -fsigned-char -Wnon-virtual-dtor -Wunused-result -Wunused-parameter -Werror=unused-parameter -Wmissing-declarations -Wzero-as-null-pointer-constant -faligned-new -Wextra-semi -o CMakeFiles\\flatc.dir\\src\\idl_gen_json_schema.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\build-ai-engine\\_deps\\flatbuffers-src\\src\\idl_gen_json_schema.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/flatbuffers-src/src/idl_gen_json_schema.cpp",
+  "output": "_deps/flatbuffers-build/CMakeFiles/flatc.dir/src/idl_gen_json_schema.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/flatbuffers-build",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DFLATBUFFERS_LOCALE_INDEPENDENT=0 @CMakeFiles/flatc.dir/includes_CXX.rsp -O3 -DNDEBUG -std=c++17 -Wall -pedantic -Wextra -Wno-unused-parameter -Wold-style-cast -fsigned-char -Wnon-virtual-dtor -Wunused-result -Wunused-parameter -Werror=unused-parameter -Wmissing-declarations -Wzero-as-null-pointer-constant -faligned-new -Wextra-semi -o CMakeFiles\\flatc.dir\\src\\idl_gen_swift.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\build-ai-engine\\_deps\\flatbuffers-src\\src\\idl_gen_swift.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/flatbuffers-src/src/idl_gen_swift.cpp",
+  "output": "_deps/flatbuffers-build/CMakeFiles/flatc.dir/src/idl_gen_swift.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/flatbuffers-build",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DFLATBUFFERS_LOCALE_INDEPENDENT=0 @CMakeFiles/flatc.dir/includes_CXX.rsp -O3 -DNDEBUG -std=c++17 -Wall -pedantic -Wextra -Wno-unused-parameter -Wold-style-cast -fsigned-char -Wnon-virtual-dtor -Wunused-result -Wunused-parameter -Werror=unused-parameter -Wmissing-declarations -Wzero-as-null-pointer-constant -faligned-new -Wextra-semi -o CMakeFiles\\flatc.dir\\src\\file_name_saving_file_manager.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\build-ai-engine\\_deps\\flatbuffers-src\\src\\file_name_saving_file_manager.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/flatbuffers-src/src/file_name_saving_file_manager.cpp",
+  "output": "_deps/flatbuffers-build/CMakeFiles/flatc.dir/src/file_name_saving_file_manager.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/flatbuffers-build",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DFLATBUFFERS_LOCALE_INDEPENDENT=0 @CMakeFiles/flatc.dir/includes_CXX.rsp -O3 -DNDEBUG -std=c++17 -Wall -pedantic -Wextra -Wno-unused-parameter -Wold-style-cast -fsigned-char -Wnon-virtual-dtor -Wunused-result -Wunused-parameter -Werror=unused-parameter -Wmissing-declarations -Wzero-as-null-pointer-constant -faligned-new -Wextra-semi -o CMakeFiles\\flatc.dir\\src\\file_binary_writer.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\build-ai-engine\\_deps\\flatbuffers-src\\src\\file_binary_writer.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/flatbuffers-src/src/file_binary_writer.cpp",
+  "output": "_deps/flatbuffers-build/CMakeFiles/flatc.dir/src/file_binary_writer.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/flatbuffers-build",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DFLATBUFFERS_LOCALE_INDEPENDENT=0 @CMakeFiles/flatc.dir/includes_CXX.rsp -O3 -DNDEBUG -std=c++17 -Wall -pedantic -Wextra -Wno-unused-parameter -Wold-style-cast -fsigned-char -Wnon-virtual-dtor -Wunused-result -Wunused-parameter -Werror=unused-parameter -Wmissing-declarations -Wzero-as-null-pointer-constant -faligned-new -Wextra-semi -o CMakeFiles\\flatc.dir\\src\\file_writer.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\build-ai-engine\\_deps\\flatbuffers-src\\src\\file_writer.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/flatbuffers-src/src/file_writer.cpp",
+  "output": "_deps/flatbuffers-build/CMakeFiles/flatc.dir/src/file_writer.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/flatbuffers-build",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DFLATBUFFERS_LOCALE_INDEPENDENT=0 @CMakeFiles/flatc.dir/includes_CXX.rsp -O3 -DNDEBUG -std=c++17 -Wall -pedantic -Wextra -Wno-unused-parameter -Wold-style-cast -fsigned-char -Wnon-virtual-dtor -Wunused-result -Wunused-parameter -Werror=unused-parameter -Wmissing-declarations -Wzero-as-null-pointer-constant -faligned-new -Wextra-semi -o CMakeFiles\\flatc.dir\\src\\flatc.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\build-ai-engine\\_deps\\flatbuffers-src\\src\\flatc.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/flatbuffers-src/src/flatc.cpp",
+  "output": "_deps/flatbuffers-build/CMakeFiles/flatc.dir/src/flatc.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/flatbuffers-build",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DFLATBUFFERS_LOCALE_INDEPENDENT=0 @CMakeFiles/flatc.dir/includes_CXX.rsp -O3 -DNDEBUG -std=c++17 -Wall -pedantic -Wextra -Wno-unused-parameter -Wold-style-cast -fsigned-char -Wnon-virtual-dtor -Wunused-result -Wunused-parameter -Werror=unused-parameter -Wmissing-declarations -Wzero-as-null-pointer-constant -faligned-new -Wextra-semi -o CMakeFiles\\flatc.dir\\src\\flatc_main.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\build-ai-engine\\_deps\\flatbuffers-src\\src\\flatc_main.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/flatbuffers-src/src/flatc_main.cpp",
+  "output": "_deps/flatbuffers-build/CMakeFiles/flatc.dir/src/flatc_main.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/flatbuffers-build",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DFLATBUFFERS_LOCALE_INDEPENDENT=0 @CMakeFiles/flatc.dir/includes_CXX.rsp -O3 -DNDEBUG -std=c++17 -Wall -pedantic -Wextra -Wno-unused-parameter -Wold-style-cast -fsigned-char -Wnon-virtual-dtor -Wunused-result -Wunused-parameter -Werror=unused-parameter -Wmissing-declarations -Wzero-as-null-pointer-constant -faligned-new -Wextra-semi -o CMakeFiles\\flatc.dir\\src\\binary_annotator.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\build-ai-engine\\_deps\\flatbuffers-src\\src\\binary_annotator.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/flatbuffers-src/src/binary_annotator.cpp",
+  "output": "_deps/flatbuffers-build/CMakeFiles/flatc.dir/src/binary_annotator.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/flatbuffers-build",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DFLATBUFFERS_LOCALE_INDEPENDENT=0 @CMakeFiles/flatc.dir/includes_CXX.rsp -O3 -DNDEBUG -std=c++17 -Wall -pedantic -Wextra -Wno-unused-parameter -Wold-style-cast -fsigned-char -Wnon-virtual-dtor -Wunused-result -Wunused-parameter -Werror=unused-parameter -Wmissing-declarations -Wzero-as-null-pointer-constant -faligned-new -Wextra-semi -o CMakeFiles\\flatc.dir\\src\\annotated_binary_text_gen.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\build-ai-engine\\_deps\\flatbuffers-src\\src\\annotated_binary_text_gen.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/flatbuffers-src/src/annotated_binary_text_gen.cpp",
+  "output": "_deps/flatbuffers-build/CMakeFiles/flatc.dir/src/annotated_binary_text_gen.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/flatbuffers-build",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DFLATBUFFERS_LOCALE_INDEPENDENT=0 @CMakeFiles/flatc.dir/includes_CXX.rsp -O3 -DNDEBUG -std=c++17 -Wall -pedantic -Wextra -Wno-unused-parameter -Wold-style-cast -fsigned-char -Wnon-virtual-dtor -Wunused-result -Wunused-parameter -Werror=unused-parameter -Wmissing-declarations -Wzero-as-null-pointer-constant -faligned-new -Wextra-semi -o CMakeFiles\\flatc.dir\\src\\bfbs_gen_lua.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\build-ai-engine\\_deps\\flatbuffers-src\\src\\bfbs_gen_lua.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/flatbuffers-src/src/bfbs_gen_lua.cpp",
+  "output": "_deps/flatbuffers-build/CMakeFiles/flatc.dir/src/bfbs_gen_lua.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/flatbuffers-build",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DFLATBUFFERS_LOCALE_INDEPENDENT=0 @CMakeFiles/flatc.dir/includes_CXX.rsp -O3 -DNDEBUG -std=c++17 -Wall -pedantic -Wextra -Wno-unused-parameter -Wold-style-cast -fsigned-char -Wnon-virtual-dtor -Wunused-result -Wunused-parameter -Werror=unused-parameter -Wmissing-declarations -Wzero-as-null-pointer-constant -faligned-new -Wextra-semi -o CMakeFiles\\flatc.dir\\src\\bfbs_gen_nim.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\build-ai-engine\\_deps\\flatbuffers-src\\src\\bfbs_gen_nim.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/flatbuffers-src/src/bfbs_gen_nim.cpp",
+  "output": "_deps/flatbuffers-build/CMakeFiles/flatc.dir/src/bfbs_gen_nim.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/flatbuffers-build",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DFLATBUFFERS_LOCALE_INDEPENDENT=0 @CMakeFiles/flatc.dir/includes_CXX.rsp -O3 -DNDEBUG -std=c++17 -Wall -pedantic -Wextra -Wno-unused-parameter -Wold-style-cast -fsigned-char -Wnon-virtual-dtor -Wunused-result -Wunused-parameter -Werror=unused-parameter -Wmissing-declarations -Wzero-as-null-pointer-constant -faligned-new -Wextra-semi -o CMakeFiles\\flatc.dir\\src\\code_generators.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\build-ai-engine\\_deps\\flatbuffers-src\\src\\code_generators.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/flatbuffers-src/src/code_generators.cpp",
+  "output": "_deps/flatbuffers-build/CMakeFiles/flatc.dir/src/code_generators.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/flatbuffers-build",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DFLATBUFFERS_LOCALE_INDEPENDENT=0 @CMakeFiles/flatc.dir/includes_CXX.rsp -O3 -DNDEBUG -std=c++17 -Wall -pedantic -Wextra -Wno-unused-parameter -Wold-style-cast -fsigned-char -Wnon-virtual-dtor -Wunused-result -Wunused-parameter -Werror=unused-parameter -Wmissing-declarations -Wzero-as-null-pointer-constant -faligned-new -Wextra-semi -o CMakeFiles\\flatc.dir\\grpc\\src\\compiler\\cpp_generator.cc.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\build-ai-engine\\_deps\\flatbuffers-src\\grpc\\src\\compiler\\cpp_generator.cc",
+  "file": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/flatbuffers-src/grpc/src/compiler/cpp_generator.cc",
+  "output": "_deps/flatbuffers-build/CMakeFiles/flatc.dir/grpc/src/compiler/cpp_generator.cc.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/flatbuffers-build",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DFLATBUFFERS_LOCALE_INDEPENDENT=0 @CMakeFiles/flatc.dir/includes_CXX.rsp -O3 -DNDEBUG -std=c++17 -Wall -pedantic -Wextra -Wno-unused-parameter -Wold-style-cast -fsigned-char -Wnon-virtual-dtor -Wunused-result -Wunused-parameter -Werror=unused-parameter -Wmissing-declarations -Wzero-as-null-pointer-constant -faligned-new -Wextra-semi -o CMakeFiles\\flatc.dir\\grpc\\src\\compiler\\go_generator.cc.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\build-ai-engine\\_deps\\flatbuffers-src\\grpc\\src\\compiler\\go_generator.cc",
+  "file": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/flatbuffers-src/grpc/src/compiler/go_generator.cc",
+  "output": "_deps/flatbuffers-build/CMakeFiles/flatc.dir/grpc/src/compiler/go_generator.cc.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/flatbuffers-build",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DFLATBUFFERS_LOCALE_INDEPENDENT=0 @CMakeFiles/flatc.dir/includes_CXX.rsp -O3 -DNDEBUG -std=c++17 -Wall -pedantic -Wextra -Wno-unused-parameter -Wold-style-cast -fsigned-char -Wnon-virtual-dtor -Wunused-result -Wunused-parameter -Werror=unused-parameter -Wmissing-declarations -Wzero-as-null-pointer-constant -faligned-new -Wextra-semi -o CMakeFiles\\flatc.dir\\grpc\\src\\compiler\\java_generator.cc.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\build-ai-engine\\_deps\\flatbuffers-src\\grpc\\src\\compiler\\java_generator.cc",
+  "file": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/flatbuffers-src/grpc/src/compiler/java_generator.cc",
+  "output": "_deps/flatbuffers-build/CMakeFiles/flatc.dir/grpc/src/compiler/java_generator.cc.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/flatbuffers-build",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DFLATBUFFERS_LOCALE_INDEPENDENT=0 @CMakeFiles/flatc.dir/includes_CXX.rsp -O3 -DNDEBUG -std=c++17 -Wall -pedantic -Wextra -Wno-unused-parameter -Wold-style-cast -fsigned-char -Wnon-virtual-dtor -Wunused-result -Wunused-parameter -Werror=unused-parameter -Wmissing-declarations -Wzero-as-null-pointer-constant -faligned-new -Wextra-semi -o CMakeFiles\\flatc.dir\\grpc\\src\\compiler\\python_generator.cc.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\build-ai-engine\\_deps\\flatbuffers-src\\grpc\\src\\compiler\\python_generator.cc",
+  "file": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/flatbuffers-src/grpc/src/compiler/python_generator.cc",
+  "output": "_deps/flatbuffers-build/CMakeFiles/flatc.dir/grpc/src/compiler/python_generator.cc.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/flatbuffers-build",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DFLATBUFFERS_LOCALE_INDEPENDENT=0 @CMakeFiles/flatc.dir/includes_CXX.rsp -O3 -DNDEBUG -std=c++17 -Wall -pedantic -Wextra -Wno-unused-parameter -Wold-style-cast -fsigned-char -Wnon-virtual-dtor -Wunused-result -Wunused-parameter -Werror=unused-parameter -Wmissing-declarations -Wzero-as-null-pointer-constant -faligned-new -Wextra-semi -o CMakeFiles\\flatc.dir\\grpc\\src\\compiler\\swift_generator.cc.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\build-ai-engine\\_deps\\flatbuffers-src\\grpc\\src\\compiler\\swift_generator.cc",
+  "file": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/flatbuffers-src/grpc/src/compiler/swift_generator.cc",
+  "output": "_deps/flatbuffers-build/CMakeFiles/flatc.dir/grpc/src/compiler/swift_generator.cc.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/flatbuffers-build",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DFLATBUFFERS_LOCALE_INDEPENDENT=0 @CMakeFiles/flatc.dir/includes_CXX.rsp -O3 -DNDEBUG -std=c++17 -Wall -pedantic -Wextra -Wno-unused-parameter -Wold-style-cast -fsigned-char -Wnon-virtual-dtor -Wunused-result -Wunused-parameter -Werror=unused-parameter -Wmissing-declarations -Wzero-as-null-pointer-constant -faligned-new -Wextra-semi -o CMakeFiles\\flatc.dir\\grpc\\src\\compiler\\ts_generator.cc.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\build-ai-engine\\_deps\\flatbuffers-src\\grpc\\src\\compiler\\ts_generator.cc",
+  "file": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/flatbuffers-src/grpc/src/compiler/ts_generator.cc",
+  "output": "_deps/flatbuffers-build/CMakeFiles/flatc.dir/grpc/src/compiler/ts_generator.cc.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/flatbuffers-build",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DFLATBUFFERS_LOCALE_INDEPENDENT=0 @CMakeFiles/flatbuffers.dir/includes_CXX.rsp -O3 -DNDEBUG -std=c++17 -Wall -pedantic -Wextra -Wno-unused-parameter -Wold-style-cast -fsigned-char -Wnon-virtual-dtor -Wunused-result -Wunused-parameter -Werror=unused-parameter -Wmissing-declarations -Wzero-as-null-pointer-constant -faligned-new -Wextra-semi -o CMakeFiles\\flatbuffers.dir\\src\\idl_parser.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\build-ai-engine\\_deps\\flatbuffers-src\\src\\idl_parser.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/flatbuffers-src/src/idl_parser.cpp",
+  "output": "_deps/flatbuffers-build/CMakeFiles/flatbuffers.dir/src/idl_parser.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/flatbuffers-build",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DFLATBUFFERS_LOCALE_INDEPENDENT=0 @CMakeFiles/flatbuffers.dir/includes_CXX.rsp -O3 -DNDEBUG -std=c++17 -Wall -pedantic -Wextra -Wno-unused-parameter -Wold-style-cast -fsigned-char -Wnon-virtual-dtor -Wunused-result -Wunused-parameter -Werror=unused-parameter -Wmissing-declarations -Wzero-as-null-pointer-constant -faligned-new -Wextra-semi -o CMakeFiles\\flatbuffers.dir\\src\\idl_gen_text.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\build-ai-engine\\_deps\\flatbuffers-src\\src\\idl_gen_text.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/flatbuffers-src/src/idl_gen_text.cpp",
+  "output": "_deps/flatbuffers-build/CMakeFiles/flatbuffers.dir/src/idl_gen_text.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/flatbuffers-build",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DFLATBUFFERS_LOCALE_INDEPENDENT=0 @CMakeFiles/flatbuffers.dir/includes_CXX.rsp -O3 -DNDEBUG -std=c++17 -Wall -pedantic -Wextra -Wno-unused-parameter -Wold-style-cast -fsigned-char -Wnon-virtual-dtor -Wunused-result -Wunused-parameter -Werror=unused-parameter -Wmissing-declarations -Wzero-as-null-pointer-constant -faligned-new -Wextra-semi -o CMakeFiles\\flatbuffers.dir\\src\\reflection.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\build-ai-engine\\_deps\\flatbuffers-src\\src\\reflection.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/flatbuffers-src/src/reflection.cpp",
+  "output": "_deps/flatbuffers-build/CMakeFiles/flatbuffers.dir/src/reflection.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/flatbuffers-build",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DFLATBUFFERS_LOCALE_INDEPENDENT=0 @CMakeFiles/flatbuffers.dir/includes_CXX.rsp -O3 -DNDEBUG -std=c++17 -Wall -pedantic -Wextra -Wno-unused-parameter -Wold-style-cast -fsigned-char -Wnon-virtual-dtor -Wunused-result -Wunused-parameter -Werror=unused-parameter -Wmissing-declarations -Wzero-as-null-pointer-constant -faligned-new -Wextra-semi -o CMakeFiles\\flatbuffers.dir\\src\\util.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\build-ai-engine\\_deps\\flatbuffers-src\\src\\util.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/flatbuffers-src/src/util.cpp",
+  "output": "_deps/flatbuffers-build/CMakeFiles/flatbuffers.dir/src/util.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/spdlog-build",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DSPDLOG_COMPILED_LIB @CMakeFiles/spdlog.dir/includes_CXX.rsp -O3 -DNDEBUG -std=c++17 -o CMakeFiles\\spdlog.dir\\src\\spdlog.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\build-ai-engine\\_deps\\spdlog-src\\src\\spdlog.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/spdlog-src/src/spdlog.cpp",
+  "output": "_deps/spdlog-build/CMakeFiles/spdlog.dir/src/spdlog.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/spdlog-build",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DSPDLOG_COMPILED_LIB @CMakeFiles/spdlog.dir/includes_CXX.rsp -O3 -DNDEBUG -std=c++17 -o CMakeFiles\\spdlog.dir\\src\\stdout_sinks.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\build-ai-engine\\_deps\\spdlog-src\\src\\stdout_sinks.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/spdlog-src/src/stdout_sinks.cpp",
+  "output": "_deps/spdlog-build/CMakeFiles/spdlog.dir/src/stdout_sinks.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/spdlog-build",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DSPDLOG_COMPILED_LIB @CMakeFiles/spdlog.dir/includes_CXX.rsp -O3 -DNDEBUG -std=c++17 -o CMakeFiles\\spdlog.dir\\src\\color_sinks.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\build-ai-engine\\_deps\\spdlog-src\\src\\color_sinks.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/spdlog-src/src/color_sinks.cpp",
+  "output": "_deps/spdlog-build/CMakeFiles/spdlog.dir/src/color_sinks.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/spdlog-build",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DSPDLOG_COMPILED_LIB @CMakeFiles/spdlog.dir/includes_CXX.rsp -O3 -DNDEBUG -std=c++17 -o CMakeFiles\\spdlog.dir\\src\\file_sinks.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\build-ai-engine\\_deps\\spdlog-src\\src\\file_sinks.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/spdlog-src/src/file_sinks.cpp",
+  "output": "_deps/spdlog-build/CMakeFiles/spdlog.dir/src/file_sinks.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/spdlog-build",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DSPDLOG_COMPILED_LIB @CMakeFiles/spdlog.dir/includes_CXX.rsp -O3 -DNDEBUG -std=c++17 -o CMakeFiles\\spdlog.dir\\src\\async.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\build-ai-engine\\_deps\\spdlog-src\\src\\async.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/spdlog-src/src/async.cpp",
+  "output": "_deps/spdlog-build/CMakeFiles/spdlog.dir/src/async.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/spdlog-build",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DSPDLOG_COMPILED_LIB @CMakeFiles/spdlog.dir/includes_CXX.rsp -O3 -DNDEBUG -std=c++17 -o CMakeFiles\\spdlog.dir\\src\\cfg.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\build-ai-engine\\_deps\\spdlog-src\\src\\cfg.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/spdlog-src/src/cfg.cpp",
+  "output": "_deps/spdlog-build/CMakeFiles/spdlog.dir/src/cfg.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/spdlog-build",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DSPDLOG_COMPILED_LIB @CMakeFiles/spdlog.dir/includes_CXX.rsp -O3 -DNDEBUG -std=c++17 -o CMakeFiles\\spdlog.dir\\src\\bundled_fmtlib_format.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\build-ai-engine\\_deps\\spdlog-src\\src\\bundled_fmtlib_format.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/spdlog-src/src/bundled_fmtlib_format.cpp",
+  "output": "_deps/spdlog-build/CMakeFiles/spdlog.dir/src/bundled_fmtlib_format.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/yaml-cpp-build",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DYAML_CPP_STATIC_DEFINE @CMakeFiles/yaml-cpp.dir/includes_CXX.rsp -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles\\yaml-cpp.dir\\src\\contrib\\graphbuilder.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\build-ai-engine\\_deps\\yaml-cpp-src\\src\\contrib\\graphbuilder.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/yaml-cpp-src/src/contrib/graphbuilder.cpp",
+  "output": "_deps/yaml-cpp-build/CMakeFiles/yaml-cpp.dir/src/contrib/graphbuilder.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/yaml-cpp-build",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DYAML_CPP_STATIC_DEFINE @CMakeFiles/yaml-cpp.dir/includes_CXX.rsp -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles\\yaml-cpp.dir\\src\\contrib\\graphbuilderadapter.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\build-ai-engine\\_deps\\yaml-cpp-src\\src\\contrib\\graphbuilderadapter.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/yaml-cpp-src/src/contrib/graphbuilderadapter.cpp",
+  "output": "_deps/yaml-cpp-build/CMakeFiles/yaml-cpp.dir/src/contrib/graphbuilderadapter.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/yaml-cpp-build",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DYAML_CPP_STATIC_DEFINE @CMakeFiles/yaml-cpp.dir/includes_CXX.rsp -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles\\yaml-cpp.dir\\src\\binary.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\build-ai-engine\\_deps\\yaml-cpp-src\\src\\binary.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/yaml-cpp-src/src/binary.cpp",
+  "output": "_deps/yaml-cpp-build/CMakeFiles/yaml-cpp.dir/src/binary.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/yaml-cpp-build",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DYAML_CPP_STATIC_DEFINE @CMakeFiles/yaml-cpp.dir/includes_CXX.rsp -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles\\yaml-cpp.dir\\src\\convert.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\build-ai-engine\\_deps\\yaml-cpp-src\\src\\convert.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/yaml-cpp-src/src/convert.cpp",
+  "output": "_deps/yaml-cpp-build/CMakeFiles/yaml-cpp.dir/src/convert.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/yaml-cpp-build",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DYAML_CPP_STATIC_DEFINE @CMakeFiles/yaml-cpp.dir/includes_CXX.rsp -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles\\yaml-cpp.dir\\src\\depthguard.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\build-ai-engine\\_deps\\yaml-cpp-src\\src\\depthguard.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/yaml-cpp-src/src/depthguard.cpp",
+  "output": "_deps/yaml-cpp-build/CMakeFiles/yaml-cpp.dir/src/depthguard.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/yaml-cpp-build",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DYAML_CPP_STATIC_DEFINE @CMakeFiles/yaml-cpp.dir/includes_CXX.rsp -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles\\yaml-cpp.dir\\src\\directives.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\build-ai-engine\\_deps\\yaml-cpp-src\\src\\directives.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/yaml-cpp-src/src/directives.cpp",
+  "output": "_deps/yaml-cpp-build/CMakeFiles/yaml-cpp.dir/src/directives.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/yaml-cpp-build",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DYAML_CPP_STATIC_DEFINE @CMakeFiles/yaml-cpp.dir/includes_CXX.rsp -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles\\yaml-cpp.dir\\src\\emit.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\build-ai-engine\\_deps\\yaml-cpp-src\\src\\emit.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/yaml-cpp-src/src/emit.cpp",
+  "output": "_deps/yaml-cpp-build/CMakeFiles/yaml-cpp.dir/src/emit.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/yaml-cpp-build",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DYAML_CPP_STATIC_DEFINE @CMakeFiles/yaml-cpp.dir/includes_CXX.rsp -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles\\yaml-cpp.dir\\src\\emitfromevents.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\build-ai-engine\\_deps\\yaml-cpp-src\\src\\emitfromevents.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/yaml-cpp-src/src/emitfromevents.cpp",
+  "output": "_deps/yaml-cpp-build/CMakeFiles/yaml-cpp.dir/src/emitfromevents.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/yaml-cpp-build",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DYAML_CPP_STATIC_DEFINE @CMakeFiles/yaml-cpp.dir/includes_CXX.rsp -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles\\yaml-cpp.dir\\src\\emitter.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\build-ai-engine\\_deps\\yaml-cpp-src\\src\\emitter.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/yaml-cpp-src/src/emitter.cpp",
+  "output": "_deps/yaml-cpp-build/CMakeFiles/yaml-cpp.dir/src/emitter.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/yaml-cpp-build",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DYAML_CPP_STATIC_DEFINE @CMakeFiles/yaml-cpp.dir/includes_CXX.rsp -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles\\yaml-cpp.dir\\src\\emitterstate.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\build-ai-engine\\_deps\\yaml-cpp-src\\src\\emitterstate.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/yaml-cpp-src/src/emitterstate.cpp",
+  "output": "_deps/yaml-cpp-build/CMakeFiles/yaml-cpp.dir/src/emitterstate.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/yaml-cpp-build",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DYAML_CPP_STATIC_DEFINE @CMakeFiles/yaml-cpp.dir/includes_CXX.rsp -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles\\yaml-cpp.dir\\src\\emitterutils.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\build-ai-engine\\_deps\\yaml-cpp-src\\src\\emitterutils.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/yaml-cpp-src/src/emitterutils.cpp",
+  "output": "_deps/yaml-cpp-build/CMakeFiles/yaml-cpp.dir/src/emitterutils.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/yaml-cpp-build",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DYAML_CPP_STATIC_DEFINE @CMakeFiles/yaml-cpp.dir/includes_CXX.rsp -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles\\yaml-cpp.dir\\src\\exceptions.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\build-ai-engine\\_deps\\yaml-cpp-src\\src\\exceptions.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/yaml-cpp-src/src/exceptions.cpp",
+  "output": "_deps/yaml-cpp-build/CMakeFiles/yaml-cpp.dir/src/exceptions.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/yaml-cpp-build",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DYAML_CPP_STATIC_DEFINE @CMakeFiles/yaml-cpp.dir/includes_CXX.rsp -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles\\yaml-cpp.dir\\src\\exp.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\build-ai-engine\\_deps\\yaml-cpp-src\\src\\exp.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/yaml-cpp-src/src/exp.cpp",
+  "output": "_deps/yaml-cpp-build/CMakeFiles/yaml-cpp.dir/src/exp.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/yaml-cpp-build",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DYAML_CPP_STATIC_DEFINE @CMakeFiles/yaml-cpp.dir/includes_CXX.rsp -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles\\yaml-cpp.dir\\src\\fptostring.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\build-ai-engine\\_deps\\yaml-cpp-src\\src\\fptostring.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/yaml-cpp-src/src/fptostring.cpp",
+  "output": "_deps/yaml-cpp-build/CMakeFiles/yaml-cpp.dir/src/fptostring.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/yaml-cpp-build",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DYAML_CPP_STATIC_DEFINE @CMakeFiles/yaml-cpp.dir/includes_CXX.rsp -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles\\yaml-cpp.dir\\src\\memory.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\build-ai-engine\\_deps\\yaml-cpp-src\\src\\memory.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/yaml-cpp-src/src/memory.cpp",
+  "output": "_deps/yaml-cpp-build/CMakeFiles/yaml-cpp.dir/src/memory.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/yaml-cpp-build",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DYAML_CPP_STATIC_DEFINE @CMakeFiles/yaml-cpp.dir/includes_CXX.rsp -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles\\yaml-cpp.dir\\src\\node.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\build-ai-engine\\_deps\\yaml-cpp-src\\src\\node.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/yaml-cpp-src/src/node.cpp",
+  "output": "_deps/yaml-cpp-build/CMakeFiles/yaml-cpp.dir/src/node.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/yaml-cpp-build",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DYAML_CPP_STATIC_DEFINE @CMakeFiles/yaml-cpp.dir/includes_CXX.rsp -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles\\yaml-cpp.dir\\src\\node_data.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\build-ai-engine\\_deps\\yaml-cpp-src\\src\\node_data.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/yaml-cpp-src/src/node_data.cpp",
+  "output": "_deps/yaml-cpp-build/CMakeFiles/yaml-cpp.dir/src/node_data.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/yaml-cpp-build",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DYAML_CPP_STATIC_DEFINE @CMakeFiles/yaml-cpp.dir/includes_CXX.rsp -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles\\yaml-cpp.dir\\src\\nodebuilder.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\build-ai-engine\\_deps\\yaml-cpp-src\\src\\nodebuilder.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/yaml-cpp-src/src/nodebuilder.cpp",
+  "output": "_deps/yaml-cpp-build/CMakeFiles/yaml-cpp.dir/src/nodebuilder.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/yaml-cpp-build",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DYAML_CPP_STATIC_DEFINE @CMakeFiles/yaml-cpp.dir/includes_CXX.rsp -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles\\yaml-cpp.dir\\src\\nodeevents.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\build-ai-engine\\_deps\\yaml-cpp-src\\src\\nodeevents.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/yaml-cpp-src/src/nodeevents.cpp",
+  "output": "_deps/yaml-cpp-build/CMakeFiles/yaml-cpp.dir/src/nodeevents.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/yaml-cpp-build",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DYAML_CPP_STATIC_DEFINE @CMakeFiles/yaml-cpp.dir/includes_CXX.rsp -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles\\yaml-cpp.dir\\src\\null.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\build-ai-engine\\_deps\\yaml-cpp-src\\src\\null.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/yaml-cpp-src/src/null.cpp",
+  "output": "_deps/yaml-cpp-build/CMakeFiles/yaml-cpp.dir/src/null.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/yaml-cpp-build",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DYAML_CPP_STATIC_DEFINE @CMakeFiles/yaml-cpp.dir/includes_CXX.rsp -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles\\yaml-cpp.dir\\src\\ostream_wrapper.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\build-ai-engine\\_deps\\yaml-cpp-src\\src\\ostream_wrapper.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/yaml-cpp-src/src/ostream_wrapper.cpp",
+  "output": "_deps/yaml-cpp-build/CMakeFiles/yaml-cpp.dir/src/ostream_wrapper.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/yaml-cpp-build",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DYAML_CPP_STATIC_DEFINE @CMakeFiles/yaml-cpp.dir/includes_CXX.rsp -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles\\yaml-cpp.dir\\src\\parse.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\build-ai-engine\\_deps\\yaml-cpp-src\\src\\parse.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/yaml-cpp-src/src/parse.cpp",
+  "output": "_deps/yaml-cpp-build/CMakeFiles/yaml-cpp.dir/src/parse.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/yaml-cpp-build",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DYAML_CPP_STATIC_DEFINE @CMakeFiles/yaml-cpp.dir/includes_CXX.rsp -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles\\yaml-cpp.dir\\src\\parser.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\build-ai-engine\\_deps\\yaml-cpp-src\\src\\parser.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/yaml-cpp-src/src/parser.cpp",
+  "output": "_deps/yaml-cpp-build/CMakeFiles/yaml-cpp.dir/src/parser.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/yaml-cpp-build",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DYAML_CPP_STATIC_DEFINE @CMakeFiles/yaml-cpp.dir/includes_CXX.rsp -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles\\yaml-cpp.dir\\src\\regex_yaml.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\build-ai-engine\\_deps\\yaml-cpp-src\\src\\regex_yaml.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/yaml-cpp-src/src/regex_yaml.cpp",
+  "output": "_deps/yaml-cpp-build/CMakeFiles/yaml-cpp.dir/src/regex_yaml.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/yaml-cpp-build",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DYAML_CPP_STATIC_DEFINE @CMakeFiles/yaml-cpp.dir/includes_CXX.rsp -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles\\yaml-cpp.dir\\src\\scanner.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\build-ai-engine\\_deps\\yaml-cpp-src\\src\\scanner.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/yaml-cpp-src/src/scanner.cpp",
+  "output": "_deps/yaml-cpp-build/CMakeFiles/yaml-cpp.dir/src/scanner.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/yaml-cpp-build",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DYAML_CPP_STATIC_DEFINE @CMakeFiles/yaml-cpp.dir/includes_CXX.rsp -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles\\yaml-cpp.dir\\src\\scanscalar.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\build-ai-engine\\_deps\\yaml-cpp-src\\src\\scanscalar.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/yaml-cpp-src/src/scanscalar.cpp",
+  "output": "_deps/yaml-cpp-build/CMakeFiles/yaml-cpp.dir/src/scanscalar.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/yaml-cpp-build",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DYAML_CPP_STATIC_DEFINE @CMakeFiles/yaml-cpp.dir/includes_CXX.rsp -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles\\yaml-cpp.dir\\src\\scantag.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\build-ai-engine\\_deps\\yaml-cpp-src\\src\\scantag.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/yaml-cpp-src/src/scantag.cpp",
+  "output": "_deps/yaml-cpp-build/CMakeFiles/yaml-cpp.dir/src/scantag.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/yaml-cpp-build",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DYAML_CPP_STATIC_DEFINE @CMakeFiles/yaml-cpp.dir/includes_CXX.rsp -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles\\yaml-cpp.dir\\src\\scantoken.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\build-ai-engine\\_deps\\yaml-cpp-src\\src\\scantoken.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/yaml-cpp-src/src/scantoken.cpp",
+  "output": "_deps/yaml-cpp-build/CMakeFiles/yaml-cpp.dir/src/scantoken.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/yaml-cpp-build",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DYAML_CPP_STATIC_DEFINE @CMakeFiles/yaml-cpp.dir/includes_CXX.rsp -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles\\yaml-cpp.dir\\src\\simplekey.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\build-ai-engine\\_deps\\yaml-cpp-src\\src\\simplekey.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/yaml-cpp-src/src/simplekey.cpp",
+  "output": "_deps/yaml-cpp-build/CMakeFiles/yaml-cpp.dir/src/simplekey.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/yaml-cpp-build",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DYAML_CPP_STATIC_DEFINE @CMakeFiles/yaml-cpp.dir/includes_CXX.rsp -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles\\yaml-cpp.dir\\src\\singledocparser.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\build-ai-engine\\_deps\\yaml-cpp-src\\src\\singledocparser.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/yaml-cpp-src/src/singledocparser.cpp",
+  "output": "_deps/yaml-cpp-build/CMakeFiles/yaml-cpp.dir/src/singledocparser.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/yaml-cpp-build",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DYAML_CPP_STATIC_DEFINE @CMakeFiles/yaml-cpp.dir/includes_CXX.rsp -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles\\yaml-cpp.dir\\src\\stream.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\build-ai-engine\\_deps\\yaml-cpp-src\\src\\stream.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/yaml-cpp-src/src/stream.cpp",
+  "output": "_deps/yaml-cpp-build/CMakeFiles/yaml-cpp.dir/src/stream.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/yaml-cpp-build",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DYAML_CPP_STATIC_DEFINE @CMakeFiles/yaml-cpp.dir/includes_CXX.rsp -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles\\yaml-cpp.dir\\src\\tag.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\build-ai-engine\\_deps\\yaml-cpp-src\\src\\tag.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/yaml-cpp-src/src/tag.cpp",
+  "output": "_deps/yaml-cpp-build/CMakeFiles/yaml-cpp.dir/src/tag.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/yaml-cpp-build/util",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DYAML_CPP_STATIC_DEFINE @CMakeFiles/yaml-cpp-sandbox.dir/includes_CXX.rsp -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles\\yaml-cpp-sandbox.dir\\sandbox.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\build-ai-engine\\_deps\\yaml-cpp-src\\util\\sandbox.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/yaml-cpp-src/util/sandbox.cpp",
+  "output": "_deps/yaml-cpp-build/util/CMakeFiles/yaml-cpp-sandbox.dir/sandbox.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/yaml-cpp-build/util",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DYAML_CPP_STATIC_DEFINE @CMakeFiles/yaml-cpp-parse.dir/includes_CXX.rsp -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles\\yaml-cpp-parse.dir\\parse.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\build-ai-engine\\_deps\\yaml-cpp-src\\util\\parse.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/yaml-cpp-src/util/parse.cpp",
+  "output": "_deps/yaml-cpp-build/util/CMakeFiles/yaml-cpp-parse.dir/parse.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/yaml-cpp-build/util",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe -DYAML_CPP_STATIC_DEFINE @CMakeFiles/yaml-cpp-read.dir/includes_CXX.rsp -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles\\yaml-cpp-read.dir\\read.cpp.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\build-ai-engine\\_deps\\yaml-cpp-src\\util\\read.cpp",
+  "file": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/yaml-cpp-src/util/read.cpp",
+  "output": "_deps/yaml-cpp-build/util/CMakeFiles/yaml-cpp-read.dir/read.cpp.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/googletest-build/googlemock",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe  @CMakeFiles/gmock.dir/includes_CXX.rsp -O3 -DNDEBUG -std=c++17 -Wall -Wshadow -Wundef -Wno-error=dangling-else -DGTEST_HAS_PTHREAD=0 -fexceptions -Wextra -Wno-unused-parameter -Wno-missing-field-initializers -o CMakeFiles\\gmock.dir\\src\\gmock-all.cc.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\build-ai-engine\\_deps\\googletest-src\\googlemock\\src\\gmock-all.cc",
+  "file": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/googletest-src/googlemock/src/gmock-all.cc",
+  "output": "_deps/googletest-build/googlemock/CMakeFiles/gmock.dir/src/gmock-all.cc.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/googletest-build/googlemock",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe  @CMakeFiles/gmock_main.dir/includes_CXX.rsp -O3 -DNDEBUG -std=c++17 -Wall -Wshadow -Wundef -Wno-error=dangling-else -DGTEST_HAS_PTHREAD=0 -fexceptions -Wextra -Wno-unused-parameter -Wno-missing-field-initializers -o CMakeFiles\\gmock_main.dir\\src\\gmock_main.cc.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\build-ai-engine\\_deps\\googletest-src\\googlemock\\src\\gmock_main.cc",
+  "file": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/googletest-src/googlemock/src/gmock_main.cc",
+  "output": "_deps/googletest-build/googlemock/CMakeFiles/gmock_main.dir/src/gmock_main.cc.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/googletest-build/googletest",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe  @CMakeFiles/gtest.dir/includes_CXX.rsp -O3 -DNDEBUG -std=c++17 -Wall -Wshadow -Wundef -Wno-error=dangling-else -DGTEST_HAS_PTHREAD=0 -fexceptions -Wextra -Wno-unused-parameter -Wno-missing-field-initializers -o CMakeFiles\\gtest.dir\\src\\gtest-all.cc.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\build-ai-engine\\_deps\\googletest-src\\googletest\\src\\gtest-all.cc",
+  "file": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/googletest-src/googletest/src/gtest-all.cc",
+  "output": "_deps/googletest-build/googletest/CMakeFiles/gtest.dir/src/gtest-all.cc.obj"
+},
+{
+  "directory": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/googletest-build/googletest",
+  "command": "D:\\ProgramFiles\\msys64\\ucrt64\\bin\\c++.exe  @CMakeFiles/gtest_main.dir/includes_CXX.rsp -O3 -DNDEBUG -std=c++17 -Wall -Wshadow -Wundef -Wno-error=dangling-else -DGTEST_HAS_PTHREAD=0 -fexceptions -Wextra -Wno-unused-parameter -Wno-missing-field-initializers -o CMakeFiles\\gtest_main.dir\\src\\gtest_main.cc.obj -c D:\\05workspaces\\qoobot\\qoobot-os\\build-ai-engine\\_deps\\googletest-src\\googletest\\src\\gtest_main.cc",
+  "file": "D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/googletest-src/googletest/src/gtest_main.cc",
+  "output": "_deps/googletest-build/googletest/CMakeFiles/gtest_main.dir/src/gtest_main.cc.obj"
+}
+]

@@ -19,6 +19,7 @@
 #include <cstdlib>
 #include <fstream>
 #include <sstream>
+#include <nlohmann/json.hpp>
 #include <spdlog/spdlog.h>
 
 #ifdef _WIN32
@@ -43,7 +44,7 @@ Result<bool> ConfigValue::as_bool() const {
         case Type::BOOL:  return bool_val_;
         case Type::INT64: return int_val_ != 0;
         case Type::STRING: return str_val_ == "true" || str_val_ == "1";
-        default: return Error(ErrorCode::CONFIG_PARSE_ERROR, "ConfigValue is not a bool");
+        default: return Error<bool>(ErrorCode::CONFIG_PARSE_ERROR, "ConfigValue is not a bool");
     }
 }
 
@@ -54,10 +55,10 @@ Result<std::int64_t> ConfigValue::as_int() const {
         case Type::STRING:
             try { return std::stoll(str_val_); }
             catch (...) {
-                return Error(ErrorCode::CONFIG_PARSE_ERROR,
+                return Error<std::int64_t>(ErrorCode::CONFIG_PARSE_ERROR,
                              "Cannot parse '" + str_val_ + "' as int64");
             }
-        default: return Error(ErrorCode::CONFIG_PARSE_ERROR, "ConfigValue is not an int");
+        default: return Error<std::int64_t>(ErrorCode::CONFIG_PARSE_ERROR, "ConfigValue is not an int");
     }
 }
 
@@ -68,20 +69,20 @@ Result<double> ConfigValue::as_double() const {
         case Type::STRING:
             try { return std::stod(str_val_); }
             catch (...) {
-                return Error(ErrorCode::CONFIG_PARSE_ERROR,
+                return Error<double>(ErrorCode::CONFIG_PARSE_ERROR,
                              "Cannot parse '" + str_val_ + "' as double");
             }
-        default: return Error(ErrorCode::CONFIG_PARSE_ERROR, "ConfigValue is not a double");
+        default: return Error<double>(ErrorCode::CONFIG_PARSE_ERROR, "ConfigValue is not a double");
     }
 }
 
 Result<std::string> ConfigValue::as_string() const {
     switch (type_) {
         case Type::STRING: return str_val_;
-        case Type::BOOL:   return bool_val_ ? "true" : "false";
+        case Type::BOOL:   return std::string(bool_val_ ? "true" : "false");
         case Type::INT64:  return std::to_string(int_val_);
         case Type::DOUBLE: return std::to_string(double_val_);
-        default: return Error(ErrorCode::CONFIG_PARSE_ERROR, "ConfigValue is not a string");
+        default: return Error<std::string>(ErrorCode::CONFIG_PARSE_ERROR, "ConfigValue is not a string");
     }
 }
 
@@ -237,7 +238,7 @@ Result<ConfigValue> ConfigValue::from_yaml(const std::string& yaml_str) {
         YAML::Node root = YAML::Load(yaml_str);
         return yaml_node_to_config(root);
     } catch (const YAML::Exception& e) {
-        return Error(ErrorCode::CONFIG_PARSE_ERROR,
+        return Error<ConfigValue>(ErrorCode::CONFIG_PARSE_ERROR,
                      std::string("YAML parse error: ") + e.what());
     }
 }
@@ -267,7 +268,7 @@ Result<ConfigValue> ConfigValue::from_json(const std::string& json_str) {
 
         return json_to_config(j);
     } catch (const nlohmann::json::parse_error& e) {
-        return Error(ErrorCode::CONFIG_PARSE_ERROR,
+        return Error<ConfigValue>(ErrorCode::CONFIG_PARSE_ERROR,
                      std::string("JSON parse error: ") + e.what());
     }
 }

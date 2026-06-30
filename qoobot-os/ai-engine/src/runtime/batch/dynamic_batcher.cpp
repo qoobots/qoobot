@@ -56,19 +56,20 @@ std::vector<BatchResult> DynamicBatcher::flush(InferFn infer_fn) {
 
             // 构建批处理输入（沿 batch 维度拼接）
             const auto& f0_shape = batch[0].data.shape();
-            std::vector<std::size_t> batched_shape = {batch.size()};
-            batched_shape.insert(batched_shape.end(), f0_shape.begin(), f0_shape.end());
+            std::vector<std::int64_t> batched_shape;
+            batched_shape.push_back(static_cast<std::int64_t>(batch.size()));
+            for (auto d : f0_shape) batched_shape.push_back(d);
 
             auto batched = Tensor::create(batched_shape, batch[0].data.dtype());
             if (!batched.ok()) continue;
 
             auto& batched_tensor = batched.value();
-            float* dst = static_cast<float*>(batched_tensor.data());
+            float* dst = reinterpret_cast<float*>(batched_tensor.data());
             std::size_t per_item = 1;
-            for (auto d : f0_shape) per_item *= d;
+            for (auto d : f0_shape) per_item *= static_cast<std::size_t>(d);
 
             for (std::size_t i = 0; i < batch.size(); ++i) {
-                const float* src = static_cast<const float*>(batch[i].data.data());
+                const float* src = reinterpret_cast<const float*>(batch[i].data.data());
                 std::memcpy(dst + i * per_item, src, per_item * sizeof(float));
             }
 

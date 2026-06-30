@@ -1,0 +1,7 @@
+{
+	"InstallScripts" : 
+	[
+		"D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/googletest-subbuild/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

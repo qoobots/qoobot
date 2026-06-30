@@ -36,6 +36,7 @@ from console.ui.dialogs.connection_dialog import ConnectionDialog
 from console.ui.dialogs.settings_dialog import SettingsDialog
 from console.ui.dialogs.about_dialog import AboutDialog
 from console.ui.dialogs.recording_manager import RecordingManagerDialog
+from console.ui.dialogs.alert_history_dialog import AlertHistoryDialog
 
 logger = logging.getLogger(__name__)
 
@@ -175,6 +176,13 @@ class MainWindow(QMainWindow):
 
         tools_menu.addSeparator()
 
+        self._action_alert_history = QAction("告警历史...", self)
+        self._action_alert_history.setShortcut(QKeySequence("Ctrl+Shift+A"))
+        self._action_alert_history.triggered.connect(self._on_alert_history)
+        tools_menu.addAction(self._action_alert_history)
+
+        tools_menu.addSeparator()
+
         self._action_screenshot = QAction("截图", self)
         self._action_screenshot.setShortcut(QKeySequence("Ctrl+Shift+S"))
         self._action_screenshot.triggered.connect(
@@ -290,6 +298,11 @@ class MainWindow(QMainWindow):
         rec_cont_layout = QVBoxLayout(self._recording_container)
         rec_cont_layout.setContentsMargins(0, 0, 0, 0)
         self._right_tabs.addTab(self._recording_container, "⏺️ 录制")
+
+        self._alert_history_container = QWidget()
+        ah_layout = QVBoxLayout(self._alert_history_container)
+        ah_layout.setContentsMargins(0, 0, 0, 0)
+        self._right_tabs.addTab(self._alert_history_container, "🔔 告警")
 
         central_splitter.addWidget(self._right_tabs)
 
@@ -410,6 +423,10 @@ class MainWindow(QMainWindow):
         """设置录制面板"""
         self._replace_container_child(self._recording_container, widget)
 
+    def set_alert_history_widget(self, widget: QWidget) -> None:
+        """设置告警历史面板"""
+        self._replace_container_child(self._alert_history_container, widget)
+
     def _replace_container_child(self, container: QWidget, widget: QWidget) -> None:
         """替换容器内的子控件"""
         old_layout = container.layout()
@@ -451,8 +468,12 @@ class MainWindow(QMainWindow):
 
     def _on_robot_list(self) -> None:
         """机器人列表槽"""
-        from console.ui.dialogs.recording_manager import RecordingManagerDialog
         dlg = RecordingManagerDialog(self)
+        dlg.exec()
+
+    def _on_alert_history(self) -> None:
+        """告警历史槽 — ALT-03"""
+        dlg = AlertHistoryDialog(self)
         dlg.exec()
 
     def _on_emergency_stop(self) -> None:

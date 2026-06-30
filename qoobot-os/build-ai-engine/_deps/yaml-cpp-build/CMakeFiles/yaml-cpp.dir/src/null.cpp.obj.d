@@ -1,0 +1,22 @@
+_deps/yaml-cpp-build/CMakeFiles/yaml-cpp.dir/src/null.cpp.obj: \
+ D:\05workspaces\qoobot\qoobot-os\build-ai-engine\_deps\yaml-cpp-src\src\null.cpp \
+ D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/yaml-cpp-src/include/yaml-cpp/null.h \
+ D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/yaml-cpp-src/include/yaml-cpp/dll.h \
+ D:/ProgramFiles/msys64/ucrt64/include/c++/16.1.0/cstddef \
+ D:/ProgramFiles/msys64/ucrt64/include/c++/16.1.0/x86_64-w64-mingw32/bits/c++config.h \
+ D:/ProgramFiles/msys64/ucrt64/include/c++/16.1.0/x86_64-w64-mingw32/bits/os_defines.h \
+ D:/ProgramFiles/msys64/ucrt64/include/c++/16.1.0/x86_64-w64-mingw32/bits/cpu_defines.h \
+ D:/ProgramFiles/msys64/ucrt64/include/c++/16.1.0/pstl/pstl_config.h \
+ D:/ProgramFiles/msys64/ucrt64/lib/gcc/x86_64-w64-mingw32/16.1.0/include/stddef.h \
+ D:/ProgramFiles/msys64/ucrt64/include/stddef.h \
+ D:/ProgramFiles/msys64/ucrt64/include/crtdefs.h \
+ D:/ProgramFiles/msys64/ucrt64/include/corecrt.h \
+ D:/ProgramFiles/msys64/ucrt64/include/_mingw.h \
+ D:/ProgramFiles/msys64/ucrt64/include/_mingw_mac.h \
+ D:/ProgramFiles/msys64/ucrt64/include/_mingw_secapi.h \
+ D:/ProgramFiles/msys64/ucrt64/include/vadefs.h \
+ D:/ProgramFiles/msys64/ucrt64/include/c++/16.1.0/bits/version.h \
+ D:/ProgramFiles/msys64/ucrt64/include/c++/16.1.0/cstring \
+ D:/ProgramFiles/msys64/ucrt64/include/string.h \
+ D:/ProgramFiles/msys64/ucrt64/include/corecrt_memory.h \
+ D:/ProgramFiles/msys64/ucrt64/include/sec_api/string_s.h

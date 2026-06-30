@@ -218,9 +218,16 @@ public:
     virtual std::future<Result<std::vector<Tensor>>> infer_async(
         NpuModelHandle handle,
         const std::vector<Tensor>& inputs) {
+        // Clone inputs for async execution (Tensor is move-only)
+        auto cloned_inputs = std::make_shared<std::vector<Tensor>>();
+        cloned_inputs->reserve(inputs.size());
+        for (const auto& t : inputs) {
+            auto c = t.clone();
+            if (c.ok()) cloned_inputs->push_back(std::move(c).value());
+        }
         return std::async(std::launch::async,
-            [this, handle, &inputs]() {
-                return infer(handle, inputs);
+            [this, handle, cloned_inputs]() {
+                return infer(handle, *cloned_inputs);
             });
     }
 

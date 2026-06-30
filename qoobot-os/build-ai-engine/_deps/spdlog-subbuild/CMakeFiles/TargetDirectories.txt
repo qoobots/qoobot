@@ -1,0 +1,3 @@
+D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/spdlog-subbuild/CMakeFiles/spdlog-populate.dir
+D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/spdlog-subbuild/CMakeFiles/edit_cache.dir
+D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/spdlog-subbuild/CMakeFiles/rebuild_cache.dir

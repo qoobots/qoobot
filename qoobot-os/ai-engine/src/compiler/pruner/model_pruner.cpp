@@ -33,15 +33,7 @@
 
 namespace qoocore {
 
-// ─────────────────────────────────────────────────────────────────────────────
-//  PruningStrategy — 剪枝策略枚举
-// ─────────────────────────────────────────────────────────────────────────────
-enum class PruningStrategy : std::uint8_t {
-    L1_NORM,          ///< L1 范数通道剪枝（结构化）
-    L2_NORM,          ///< L2 范数通道剪枝（结构化）
-    MAGNITUDE,        ///< 权重幅值剪枝（非结构化）
-    GRADIENT_BASED,   ///< 基于梯度的剪枝（需要训练反馈）
-};
+// PruningStrategy is defined in compiler.h
 
 // ─────────────────────────────────────────────────────────────────────────────
 //  ChannelImportance — 通道重要性评分
@@ -56,29 +48,10 @@ struct ChannelImportance {
 };
 
 // ─────────────────────────────────────────────────────────────────────────────
-//  PruningResult — 单层剪枝结果
+//  PruningResult — 单层剪枝结果别名（使用 compiler.h 中的 PruningLayerResult）
 // ─────────────────────────────────────────────────────────────────────────────
-struct PruningResult {
-    std::string node_id;
-    std::string op_type;
-    int original_channels;
-    int pruned_channels;
-    int remaining_channels;
-    double pruning_ratio;
-    std::vector<int> kept_channel_indices;  // 保留的通道索引
-};
-
-// ─────────────────────────────────────────────────────────────────────────────
-//  PruningStatistics — 全局剪枝统计
-// ─────────────────────────────────────────────────────────────────────────────
-struct PruningStatistics {
-    int total_layers_examined{0};
-    int total_layers_pruned{0};
-    std::size_t original_params{0};
-    std::size_t pruned_params{0};
-    double overall_pruning_ratio{0.0};
-    std::vector<PruningResult> layer_results;
-};
+using PruningResult = PruningLayerResult;
+// PruningStatistics is defined in compiler.h
 
 namespace {
 
@@ -332,7 +305,7 @@ namespace {
     result.pruning_ratio = pruning_ratio;
 
     // 标记稀疏度目标
-    node.attrs["sparsity_target"] = pruning_ratio;
+    node.attrs["sparsity_target"] = static_cast<float>(pruning_ratio);
     node.attrs["pruned"] = 1;
     node.attrs["prune_type"] = std::string("unstructured");
 
@@ -757,7 +730,7 @@ distillation_guided_importance(
 Result<PruningStatistics> compress_with_distillation(
     ir::IrGraph& student_graph,
     const CompilationConfig& compile_config,
-    const std::vector<double>& teacher_logits = {}) {
+    const std::vector<double>& teacher_logits) {
 
     const auto& dist_cfg = compile_config.distillation;
     const auto& prune_cfg = compile_config.pruning;

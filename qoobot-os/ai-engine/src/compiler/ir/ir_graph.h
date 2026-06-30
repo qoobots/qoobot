@@ -86,11 +86,21 @@ public:
     }
 
     /**
-     * @brief 遍历所有节点。
+     * @brief 遍历所有节点（const 版本）。
      */
     template <typename Func>
     void for_each_node(Func&& f) const {
         for (const auto& [id, node] : nodes_) {
+            f(node);
+        }
+    }
+
+    /**
+     * @brief 遍历所有节点（可变版本）。
+     */
+    template <typename Func>
+    void for_each_node(Func&& f) {
+        for (auto& [id, node] : nodes_) {
             f(node);
         }
     }

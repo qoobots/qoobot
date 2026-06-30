@@ -362,8 +362,14 @@ Result<Tensor> InferenceEngine::infer(ModelHandle handle,
     // 通过后端执行推理
     std::vector<Tensor> outputs;
     if (model->backend) {
-        std::vector<Tensor> inputs = {input};  // 包装为多输入
-        auto result = model->backend->infer(model->backend_model_handle, inputs);
+        // Clone input for backend (Tensor is move-only)
+        auto input_clone = input.clone();
+        if (!input_clone.ok()) {
+            return Error<Tensor>(ErrorCode::OUT_OF_MEMORY, "Failed to clone input tensor");
+        }
+        std::vector<Tensor> inputs_vec;
+        inputs_vec.push_back(std::move(input_clone).value());
+        auto result = model->backend->infer(model->backend_model_handle, inputs_vec);
         if (!result.ok()) {
             return Error<Tensor>(ErrorCode::INFER_FAILED,
                                  "Backend inference failed: " + result.error().message);
@@ -472,17 +478,17 @@ Result<std::vector<Tensor>> InferenceEngine::infer_multi_input(
 
 std::future<Result<Tensor>> InferenceEngine::infer_async(
     ModelHandle handle,
-    const Tensor& input) {
-    // 拷贝 input 避免异步执行时引用失效
+    Tensor input) {
+    // 移动捕获 input 避免异步执行时引用失效
     return std::async(std::launch::async,
-                      [this, handle, input]() { return infer(handle, input); });
+                      [this, handle, input = std::move(input)]() { return infer(handle, input); });
 }
 
 std::future<Result<std::vector<Tensor>>> InferenceEngine::infer_async_multi_input(
     ModelHandle handle,
-    const std::vector<Tensor>& inputs) {
+    std::vector<Tensor> inputs) {
     return std::async(std::launch::async,
-                      [this, handle, inputs]() {
+                      [this, handle, inputs = std::move(inputs)]() {
                           return infer_multi_input(handle, inputs);
                       });
 }

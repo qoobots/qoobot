@@ -27,6 +27,7 @@
 #include "qoocore/compiler.h"
 
 #include <nlohmann/json.hpp>
+#include <spdlog/spdlog.h>
 
 #include <algorithm>
 #include <cmath>

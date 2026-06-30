@@ -242,10 +242,10 @@ public:
         last_profiling_.input_bytes = 0;
         last_profiling_.output_bytes = 0;
         for (const auto& t : inputs) {
-            last_profiling_.input_bytes += t.num_elements() * dtype_bytes(t.dtype());
+            last_profiling_.input_bytes += t.meta().num_elements() * dtype_bytes(t.dtype());
         }
         for (const auto& t : outputs) {
-            last_profiling_.output_bytes += t.num_elements() * dtype_bytes(t.dtype());
+            last_profiling_.output_bytes += t.meta().num_elements() * dtype_bytes(t.dtype());
         }
         last_profiling_.npu_utilization = npu_util_;
         last_profiling_.power_w = power_;
@@ -257,11 +257,16 @@ public:
     std::future<Result<std::vector<Tensor>>> infer_async(
         NpuModelHandle handle,
         const std::vector<Tensor>& inputs) override {
-
-        // 使用真实异步（std::async），模拟硬件异步队列
+        // Clone inputs for async execution (Tensor is move-only)
+        auto cloned_inputs = std::make_shared<std::vector<Tensor>>();
+        cloned_inputs->reserve(inputs.size());
+        for (const auto& t : inputs) {
+            auto c = t.clone();
+            if (c.ok()) cloned_inputs->push_back(std::move(c).value());
+        }
         return std::async(std::launch::async,
-            [this, handle, inputs]() {
-                return infer(handle, inputs);
+            [this, handle, cloned_inputs]() {
+                return infer(handle, *cloned_inputs);
             });
     }
 
@@ -349,7 +354,7 @@ private:
         // 模拟推理延迟：基于输入大小计算
         std::size_t total_elements = 0;
         for (const auto& t : inputs) {
-            total_elements += t.num_elements();
+            total_elements += t.meta().num_elements();
         }
 
         // 基准：1M 元素 ≈ 1ms（模拟 ~1 TOPS NPU）

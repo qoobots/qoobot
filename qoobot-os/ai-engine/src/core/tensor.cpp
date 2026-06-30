@@ -651,4 +651,22 @@ std::string Tensor::summary() const {
     return s;
 }
 
+Result<Tensor> Tensor::clone() const {
+    if (!data_) {
+        return Tensor();  // empty tensor
+    }
+    auto result = Tensor::create(meta_.shape, meta_.dtype, meta_.layout);
+    if (!result.ok()) {
+        return Error<Tensor>(ErrorCode::OUT_OF_MEMORY, "Failed to allocate memory for tensor clone");
+    }
+    auto cloned = std::move(result).value();
+    if (cloned.nbytes() >= nbytes_) {
+        std::memcpy(cloned.data(), data_, nbytes_);
+    }
+    if (meta_.quant.has_value()) {
+        cloned.set_quant(meta_.quant.value());
+    }
+    return cloned;
+}
+
 }  // namespace qoocore

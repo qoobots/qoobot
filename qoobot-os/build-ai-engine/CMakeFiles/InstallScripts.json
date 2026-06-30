@@ -1,0 +1,15 @@
+{
+	"InstallScripts" : 
+	[
+		"D:/05workspaces/qoobot/qoobot-os/build-ai-engine/cmake_install.cmake",
+		"D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/flatbuffers-build/cmake_install.cmake",
+		"D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/spdlog-build/cmake_install.cmake",
+		"D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/yaml-cpp-build/cmake_install.cmake",
+		"D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/yaml-cpp-build/util/cmake_install.cmake",
+		"D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/nlohmann_json-build/cmake_install.cmake",
+		"D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/googletest-build/cmake_install.cmake",
+		"D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/googletest-build/googlemock/cmake_install.cmake",
+		"D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/googletest-build/googletest/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

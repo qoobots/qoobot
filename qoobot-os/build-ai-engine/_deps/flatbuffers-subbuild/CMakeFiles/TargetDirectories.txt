@@ -1,0 +1,3 @@
+D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/flatbuffers-subbuild/CMakeFiles/flatbuffers-populate.dir
+D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/flatbuffers-subbuild/CMakeFiles/edit_cache.dir
+D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/flatbuffers-subbuild/CMakeFiles/rebuild_cache.dir

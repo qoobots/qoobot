@@ -1,0 +1,3 @@
+"C:\Program Files\CMake\bin\cmake.exe" -E rm -f CMakeFiles\qoocore-cli.dir/objects.a
+D:\ProgramFiles\msys64\ucrt64\bin\ar.exe qc CMakeFiles\qoocore-cli.dir/objects.a @CMakeFiles\qoocore-cli.dir\objects1.rsp
+D:\ProgramFiles\msys64\ucrt64\bin\c++.exe -O3 -DNDEBUG -Wl,--whole-archive CMakeFiles\qoocore-cli.dir/objects.a -Wl,--no-whole-archive -o qoocore-cli.exe -Wl,--out-implib,libqoocore-cli.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\qoocore-cli.dir\linkLibs.rsp

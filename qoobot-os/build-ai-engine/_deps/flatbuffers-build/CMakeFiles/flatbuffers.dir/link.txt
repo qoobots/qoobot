@@ -1,0 +1,2 @@
+D:\ProgramFiles\msys64\ucrt64\bin\ar.exe qc libflatbuffers.a CMakeFiles/flatbuffers.dir/src/idl_parser.cpp.obj CMakeFiles/flatbuffers.dir/src/idl_gen_text.cpp.obj CMakeFiles/flatbuffers.dir/src/reflection.cpp.obj CMakeFiles/flatbuffers.dir/src/util.cpp.obj
+D:\ProgramFiles\msys64\ucrt64\bin\ranlib.exe libflatbuffers.a

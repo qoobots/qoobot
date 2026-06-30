@@ -1,0 +1,14 @@
+# Target labels
+ spdlog-populate
+# Source files and their labels
+D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/spdlog-subbuild/CMakeFiles/spdlog-populate
+D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/spdlog-subbuild/CMakeFiles/spdlog-populate.rule
+D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/spdlog-subbuild/CMakeFiles/spdlog-populate-complete.rule
+D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/spdlog-subbuild/spdlog-populate-prefix/src/spdlog-populate-stamp/spdlog-populate-build.rule
+D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/spdlog-subbuild/spdlog-populate-prefix/src/spdlog-populate-stamp/spdlog-populate-configure.rule
+D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/spdlog-subbuild/spdlog-populate-prefix/src/spdlog-populate-stamp/spdlog-populate-download.rule
+D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/spdlog-subbuild/spdlog-populate-prefix/src/spdlog-populate-stamp/spdlog-populate-install.rule
+D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/spdlog-subbuild/spdlog-populate-prefix/src/spdlog-populate-stamp/spdlog-populate-mkdir.rule
+D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/spdlog-subbuild/spdlog-populate-prefix/src/spdlog-populate-stamp/spdlog-populate-patch.rule
+D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/spdlog-subbuild/spdlog-populate-prefix/src/spdlog-populate-stamp/spdlog-populate-test.rule
+D:/05workspaces/qoobot/qoobot-os/build-ai-engine/_deps/spdlog-subbuild/spdlog-populate-prefix/src/spdlog-populate-stamp/spdlog-populate-update.rule

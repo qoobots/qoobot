@@ -524,10 +524,16 @@ public:
     std::future<Result<std::vector<Tensor>>> infer_async(
         std::uint64_t model_handle,
         const std::vector<Tensor>& inputs) override {
-
+        // Clone inputs for async execution (Tensor is move-only)
+        auto cloned_inputs = std::make_shared<std::vector<Tensor>>();
+        cloned_inputs->reserve(inputs.size());
+        for (const auto& t : inputs) {
+            auto c = t.clone();
+            if (c.ok()) cloned_inputs->push_back(std::move(c).value());
+        }
         return std::async(std::launch::async,
-            [this, model_handle, inputs]() {
-                return infer(model_handle, inputs);
+            [this, model_handle, cloned_inputs]() {
+                return infer(model_handle, *cloned_inputs);
             });
     }
 

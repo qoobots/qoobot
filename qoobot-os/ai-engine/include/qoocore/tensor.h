@@ -193,6 +193,12 @@ public:
     /** @brief 返回 ION 文件描述符（-1 表示非 ION 内存）。 */
     [[nodiscard]] int ion_fd() const noexcept { return ion_fd_; }
 
+    /**
+     * @brief 深拷贝张量（分配新的 CPU 内存）。
+     * @note 显式拷贝，避免隐式拷贝开销。
+     */
+    [[nodiscard]] Result<Tensor> clone() const;
+
     // ── 数据访问辅助 ───────────────────────────────────────────────────
     /**
      * @brief 类型安全地访问元素（仅 contiguous 张量）。

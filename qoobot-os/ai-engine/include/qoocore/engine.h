@@ -228,14 +228,14 @@ public:
      * @return Future，可 .get() 等待结果
      */
     std::future<Result<Tensor>> infer_async(ModelHandle handle,
-                                             const Tensor& input);
+                                             Tensor input);
 
     /**
      * @brief 异步推理（多输入）。
      */
     std::future<Result<std::vector<Tensor>>> infer_async_multi_input(
         ModelHandle handle,
-        const std::vector<Tensor>& inputs);
+        std::vector<Tensor> inputs);
 
     /**
      * @brief 批量推理（动态批处理）。
