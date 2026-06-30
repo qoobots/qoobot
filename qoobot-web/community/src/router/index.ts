@@ -7,6 +7,43 @@ const routes: RouteRecordRaw[] = [
     component: () => import('@/views/HomeView.vue'),
     meta: { title: 'QooBot Community' }
   },
+  // 文档站点
+  {
+    path: '/docs/api',
+    name: 'DocsApi',
+    component: () => import('@/views/docs/DocsApi.vue'),
+    meta: { title: 'API 文档' }
+  },
+  {
+    path: '/docs/examples',
+    name: 'DocsExamples',
+    component: () => import('@/views/docs/DocsExamples.vue'),
+    meta: { title: '示例库' }
+  },
+  {
+    path: '/docs/i18n',
+    name: 'DocsI18n',
+    component: () => import('@/views/docs/DocsI18n.vue'),
+    meta: { title: '多语言文档' }
+  },
+  {
+    path: '/docs/versions',
+    name: 'DocsVersioning',
+    component: () => import('@/views/docs/DocsVersioning.vue'),
+    meta: { title: '版本化文档' }
+  },
+  {
+    path: '/docs/playground',
+    name: 'DocsPlayground',
+    component: () => import('@/views/docs/DocsPlayground.vue'),
+    meta: { title: '交互式 Playground' }
+  },
+  {
+    path: '/docs/search',
+    name: 'DocsSearch',
+    component: () => import('@/views/docs/DocsSearch.vue'),
+    meta: { title: '搜索与导航' }
+  },
   // 论坛
   {
     path: '/forums',
@@ -96,22 +133,41 @@ const routes: RouteRecordRaw[] = [
     meta: { title: '认证详情' }
   },
   {
-    path: '/academy/learning-paths',
-    name: 'LearningPathIndex',
-    component: () => import('@/views/academy/LearningPathIndex.vue'),
-    meta: { title: '学习路径' }
+    path: '/academy/university',
+    name: 'UniversityPartners',
+    component: () => import('@/views/academy/UniversityPartners.vue'),
+    meta: { title: '高校合作' }
   },
   {
-    path: '/academy/learning-paths/:slug',
-    name: 'LearningPathDetail',
-    component: () => import('@/views/academy/LearningPathDetail.vue'),
-    meta: { title: '学习路径详情' }
+    path: '/academy/lab-sponsorship',
+    name: 'LabSponsorship',
+    component: () => import('@/views/academy/LabSponsorship.vue'),
+    meta: { title: '实验室赞助' }
   },
   {
-    path: '/academy/courses/:courseId/lessons/:lessonId',
-    name: 'LessonView',
-    component: () => import('@/views/academy/LessonView.vue'),
-    meta: { title: '课时学习' }
+    path: '/academy/internship',
+    name: 'InternshipProgram',
+    component: () => import('@/views/academy/InternshipProgram.vue'),
+    meta: { title: '实习计划' }
+  },
+  // 社区互动
+  {
+    path: '/community/groups',
+    name: 'UserGroups',
+    component: () => import('@/views/community/UserGroups.vue'),
+    meta: { title: '用户组' }
+  },
+  {
+    path: '/community/chat',
+    name: 'CommunityChat',
+    component: () => import('@/views/community/CommunityChat.vue'),
+    meta: { title: '即时通讯' }
+  },
+  {
+    path: '/community/feedback',
+    name: 'FeedbackView',
+    component: () => import('@/views/community/FeedbackView.vue'),
+    meta: { title: '反馈渠道' }
   },
   // 贡献者
   {
@@ -137,6 +193,24 @@ const routes: RouteRecordRaw[] = [
     name: 'ContributorProfile',
     component: () => import('@/views/contributors/ContributorProfile.vue'),
     meta: { title: '贡献者主页' }
+  },
+  {
+    path: '/contributors/standards',
+    name: 'CodingStandards',
+    component: () => import('@/views/contributors/CodingStandards.vue'),
+    meta: { title: '代码规范' }
+  },
+  {
+    path: '/contributors/pr-guide',
+    name: 'PrGuide',
+    component: () => import('@/views/contributors/PrGuideView.vue'),
+    meta: { title: 'PR 流程' }
+  },
+  {
+    path: '/contributors/good-first-issues',
+    name: 'GoodFirstIssues',
+    component: () => import('@/views/contributors/GoodFirstIssues.vue'),
+    meta: { title: '新手任务' }
   },
   // 治理
   {
@@ -171,8 +245,20 @@ const routes: RouteRecordRaw[] = [
   {
     path: '/governance/tsc-sig',
     name: 'TscSig',
-    component: () => import('../views/governance/TscSigView.vue'),
+    component: () => import('@/views/governance/TscSigView.vue'),
     meta: { title: '治理结构' }
+  },
+  {
+    path: '/governance/transparency',
+    name: 'TransparencyReport',
+    component: () => import('@/views/governance/TransparencyReport.vue'),
+    meta: { title: '透明度报告' }
+  },
+  {
+    path: '/governance/conflict',
+    name: 'ConflictResolution',
+    component: () => import('@/views/governance/ConflictResolution.vue'),
+    meta: { title: '冲突调解' }
   },
   // 内容
   {
@@ -198,6 +284,24 @@ const routes: RouteRecordRaw[] = [
     name: 'ShowcaseDetail',
     component: () => import('@/views/content/ShowcaseDetail.vue'),
     meta: { title: '案例详情' }
+  },
+  {
+    path: '/content/videos',
+    name: 'VideoContent',
+    component: () => import('@/views/content/VideoContent.vue'),
+    meta: { title: '视频内容' }
+  },
+  {
+    path: '/content/social',
+    name: 'SocialMedia',
+    component: () => import('@/views/content/SocialMedia.vue'),
+    meta: { title: '社交媒体' }
+  },
+  {
+    path: '/content/brand',
+    name: 'BrandAssets',
+    component: () => import('@/views/content/BrandAssets.vue'),
+    meta: { title: '品牌资产' }
   },
   // 仪表盘
   {

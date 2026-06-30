@@ -7,8 +7,31 @@
       </router-link>
 
       <nav class="nav-links">
+        <el-dropdown trigger="hover" popper-class="nav-dropdown">
+          <span class="nav-link nav-link-dropdown">文档 <el-icon><ArrowDown /></el-icon></span>
+          <template #dropdown>
+            <el-dropdown-menu>
+              <el-dropdown-item @click="$router.push('/docs/api')">API 文档</el-dropdown-item>
+              <el-dropdown-item @click="$router.push('/docs/examples')">示例库</el-dropdown-item>
+              <el-dropdown-item @click="$router.push('/docs/playground')">Playground</el-dropdown-item>
+              <el-dropdown-item divided @click="$router.push('/docs/versions')">版本化文档</el-dropdown-item>
+              <el-dropdown-item @click="$router.push('/docs/i18n')">多语言</el-dropdown-item>
+              <el-dropdown-item @click="$router.push('/docs/search')">搜索</el-dropdown-item>
+            </el-dropdown-menu>
+          </template>
+        </el-dropdown>
         <router-link to="/forums" class="nav-link">论坛</router-link>
         <router-link to="/qa" class="nav-link">问答</router-link>
+        <el-dropdown trigger="hover" popper-class="nav-dropdown">
+          <span class="nav-link nav-link-dropdown">社区 <el-icon><ArrowDown /></el-icon></span>
+          <template #dropdown>
+            <el-dropdown-menu>
+              <el-dropdown-item @click="$router.push('/community/groups')">用户组</el-dropdown-item>
+              <el-dropdown-item @click="$router.push('/community/chat')">即时通讯</el-dropdown-item>
+              <el-dropdown-item @click="$router.push('/community/feedback')">反馈渠道</el-dropdown-item>
+            </el-dropdown-menu>
+          </template>
+        </el-dropdown>
         <router-link to="/events" class="nav-link">活动</router-link>
         <el-dropdown trigger="hover" popper-class="nav-dropdown">
           <span class="nav-link nav-link-dropdown">学院 <el-icon><ArrowDown /></el-icon></span>
@@ -17,6 +40,9 @@
               <el-dropdown-item @click="$router.push('/academy')">课程中心</el-dropdown-item>
               <el-dropdown-item @click="$router.push('/academy/learning-paths')">学习路径</el-dropdown-item>
               <el-dropdown-item @click="$router.push('/academy/cert')">认证中心</el-dropdown-item>
+              <el-dropdown-item divided @click="$router.push('/academy/university')">高校合作</el-dropdown-item>
+              <el-dropdown-item @click="$router.push('/academy/lab-sponsorship')">实验室赞助</el-dropdown-item>
+              <el-dropdown-item @click="$router.push('/academy/internship')">实习计划</el-dropdown-item>
             </el-dropdown-menu>
           </template>
         </el-dropdown>
@@ -29,6 +55,9 @@
               <el-dropdown-item @click="$router.push('/contributors')">贡献者墙</el-dropdown-item>
               <el-dropdown-item @click="$router.push('/contributors/levels')">等级体系</el-dropdown-item>
               <el-dropdown-item @click="$router.push('/contributors/cla')">CLA 签署</el-dropdown-item>
+              <el-dropdown-item divided @click="$router.push('/contributors/standards')">代码规范</el-dropdown-item>
+              <el-dropdown-item @click="$router.push('/contributors/pr-guide')">PR 流程</el-dropdown-item>
+              <el-dropdown-item @click="$router.push('/contributors/good-first-issues')">新手任务</el-dropdown-item>
             </el-dropdown-menu>
           </template>
         </el-dropdown>
@@ -40,6 +69,18 @@
               <el-dropdown-item @click="$router.push('/governance/tsc-sig')">治理结构</el-dropdown-item>
               <el-dropdown-item @click="$router.push('/governance/rfcs')">RFC 提案</el-dropdown-item>
               <el-dropdown-item @click="$router.push('/governance/roadmap')">路线图</el-dropdown-item>
+              <el-dropdown-item divided @click="$router.push('/governance/transparency')">透明度报告</el-dropdown-item>
+              <el-dropdown-item @click="$router.push('/governance/conflict')">冲突调解</el-dropdown-item>
+            </el-dropdown-menu>
+          </template>
+        </el-dropdown>
+        <el-dropdown class="nav-dropdown" trigger="hover">
+          <span class="nav-link nav-link-dropdown">媒体 <el-icon><ArrowDown /></el-icon></span>
+          <template #dropdown>
+            <el-dropdown-menu>
+              <el-dropdown-item @click="$router.push('/content/videos')">视频内容</el-dropdown-item>
+              <el-dropdown-item @click="$router.push('/content/social')">社交媒体</el-dropdown-item>
+              <el-dropdown-item @click="$router.push('/content/brand')">品牌资产</el-dropdown-item>
             </el-dropdown-menu>
           </template>
         </el-dropdown>
@@ -91,7 +132,7 @@ const searchQuery = ref('')
 
 function doSearch() {
   if (searchQuery.value.trim()) {
-    router.push({ path: '/forums', query: { q: searchQuery.value } })
+    router.push({ path: '/docs/search', query: { q: searchQuery.value } })
   }
 }
 
