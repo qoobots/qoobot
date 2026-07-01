@@ -116,7 +116,7 @@ public:
     void unloadModel(const std::string& model_name) override {
         std::lock_guard<std::mutex> lock(model_mutex_);
         for (auto it = loaded_models_.begin(); it != loaded_models_.end(); ) {
-            if (it->first.starts_with(model_name)) {
+            if (it->first.compare(0, model_name.size(), model_name) == 0) {
                 std::cout << "[EdgeRuntime] Model unloaded: " << it->first << std::endl;
                 it = loaded_models_.erase(it);
             } else {

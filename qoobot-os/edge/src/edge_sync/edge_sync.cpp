@@ -8,6 +8,7 @@
  */
 
 #include "qooedge/edge_sync.h"
+#include <algorithm>
 #include <iostream>
 #include <sstream>
 #include <map>
@@ -20,6 +21,14 @@ namespace qooedge {
 
 class EdgeSyncImpl : public EdgeSync {
 public:
+    ~EdgeSyncImpl() override {
+        shutting_down_ = true;
+        // 等待所有模拟同步线程完成
+        for (auto& t : sync_threads_) {
+            if (t.joinable()) t.join();
+        }
+    }
+
     bool initialize(const std::string& cloud_endpoint,
                      const std::string& device_id) override {
         cloud_endpoint_ = cloud_endpoint;
@@ -37,6 +46,8 @@ public:
         active.task = task;
         active.callback = std::move(callback);
         active.start_time = std::chrono::steady_clock::now();
+        active.progress.sync_id = task.sync_id;
+        active.progress.total_bytes = task.data_size_bytes;
 
         active_syncs_[task.sync_id] = active;
 
@@ -99,9 +110,15 @@ public:
 
     void forceSyncNow() override {
         std::cout << "[EdgeSync] Force sync triggered" << std::endl;
-        // 强制同步所有注册资源
-        std::lock_guard<std::mutex> lock(mutex_);
-        for (const auto& [path, version] : resource_versions_) {
+        // 强制同步所有注册资源（先复制资源列表，避免持锁调用 startSync）
+        std::vector<std::pair<std::string, std::string>> resources;
+        {
+            std::lock_guard<std::mutex> lock(mutex_);
+            for (const auto& [path, version] : resource_versions_) {
+                resources.emplace_back(path, version);
+            }
+        }
+        for (const auto& [path, version] : resources) {
             SyncTask task;
             task.sync_id = "force_" + path;
             task.resource_path = path;
@@ -136,10 +153,13 @@ private:
     mutable std::mutex mutex_;
     std::map<std::string, ActiveSync> active_syncs_;
     std::map<std::string, std::string> resource_versions_;
+    std::atomic<bool> shutting_down_{false};
+    std::vector<std::thread> sync_threads_;
 
     void simulateSync(const std::string& sync_id) {
-        std::thread([this, sync_id]() {
+        sync_threads_.emplace_back([this, sync_id]() {
             for (int i = 0; i <= 100; i += 10) {
+                if (shutting_down_) return;
                 {
                     std::lock_guard<std::mutex> lock(mutex_);
                     auto it = active_syncs_.find(sync_id);
@@ -179,7 +199,7 @@ private:
                     active_syncs_.erase(it);
                 }
             }
-        }).detach();
+        });
     }
 };
 

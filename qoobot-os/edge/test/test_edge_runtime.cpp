@@ -1,3 +1,4 @@
+#include "test_common.h"
 #include "qooedge/edge_runtime.h"
 #include <thread>
 #include <chrono>
@@ -36,17 +37,18 @@ TEST(edge_runtime_submit_task) {
     task.model_name = "test_model";
     task.priority = InferencePriority::HIGH;
 
-    bool callback_called = false;
+    std::string result_task_id;
+    bool result_success = false;
     runtime->submitTask(task, [&](const OffloadResult& result) {
-        callback_called = true;
-        CHECK(result.success);
-        CHECK_EQ(result.task_id, "test-task-001");
+        result_task_id = result.task_id;
+        result_success = result.success;
     });
 
     // 等待任务完成
     std::this_thread::sleep_for(std::chrono::milliseconds(200));
 
-    CHECK(callback_called);
+    CHECK(result_success);
+    CHECK_EQ(result_task_id, "test-task-001");
 
     runtime->shutdown();
     return true;

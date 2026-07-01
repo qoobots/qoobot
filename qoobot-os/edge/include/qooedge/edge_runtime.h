@@ -1,6 +1,7 @@
 #pragma once
 
 #include "edge_types.h"
+#include <memory>
 #include <string>
 #include <vector>
 #include <functional>

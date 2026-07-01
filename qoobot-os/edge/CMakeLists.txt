@@ -49,6 +49,8 @@ target_include_directories(qooedge-cli PRIVATE ${qooedge_INCLUDE_DIR})
 target_link_libraries(qooedge-cli PRIVATE
     qooedge_runtime
     qooedge_offload
+    qooedge_sync
+    qooedge_mesh
     pthread
 )
 

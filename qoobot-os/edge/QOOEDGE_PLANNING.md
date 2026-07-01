@@ -1,6 +1,6 @@
 # QooEdge — 边缘计算层
 
-> **状态**: 🚧 P1 规划中 | **优先级**: P1 (次于 P0 核心模块)
+> **状态**: ✅ v0.1 已完成 | **优先级**: P1
 
 ## 定位
 
@@ -11,14 +11,14 @@ QooEdge 是 qoobot-os 的边缘计算中间件，介于端侧推理引擎 (QooCo
 - 低延迟流式数据处理
 - 多机器人协同通信
 
-## 规划模块
+## 模块
 
 ```
 edge/
-├── edge_runtime/     # 边缘运行时
-├── edge_offload/     # 任务卸载引擎
-├── edge_sync/        # 端-云同步
-└── edge_mesh/        # 多机器人Mesh网络
+├── edge_runtime/     # 边缘推理运行时 (5功能)
+├── edge_offload/     # 任务卸载决策引擎 (7功能)
+├── edge_sync/        # 端-云数据同步引擎 (6功能)
+└── edge_mesh/        # 多机器人Mesh网络 (7功能)
 ```
 
 ## 依赖
@@ -29,4 +29,18 @@ edge/
 
 ## 状态
 
-当前处于 P1 规划阶段，待 P0 核心模块 (brain/core/auth/dev) 完成后启动。
+✅ v0.1 已完成 — 4个核心模块全部实现，25个功能点全部交付，33个测试用例全部通过。
+
+## 构建与测试
+
+```bash
+cd qoobot-os/edge
+mkdir build && cd build
+cmake .. && cmake --build .
+./test/test_qooedge   # 运行测试
+```
+
+## 相关文档
+
+- [功能清单与开发进度](docs/01功能清单完成进度.md)
+- [qoobot-os 总体功能清单](../docs/01功能清单完成进度.md)

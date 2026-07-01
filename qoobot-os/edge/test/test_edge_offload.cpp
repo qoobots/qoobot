@@ -1,3 +1,4 @@
+#include "test_common.h"
 #include "qooedge/edge_offload.h"
 
 using namespace qooedge;

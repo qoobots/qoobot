@@ -1,3 +1,4 @@
+#include "test_common.h"
 #include "qooedge/edge_mesh.h"
 
 using namespace qooedge;
@@ -32,16 +33,15 @@ TEST(edge_mesh_publish_subscribe) {
     auto mesh = createEdgeMesh();
     mesh->initialize("test-node-4", "test-robot-4", 9003);
 
-    bool callback_called = false;
+    std::string received_topic;
     mesh->subscribe("test/topic", [&](const MeshMessage& msg) {
-        callback_called = true;
-        CHECK_EQ(msg.topic, "test/topic");
+        received_topic = msg.topic;
     });
 
     std::vector<uint8_t> payload = {0x01, 0x02, 0x03};
     mesh->publish("test/topic", payload);
 
-    CHECK(callback_called);
+    CHECK_EQ(received_topic, "test/topic");
 
     mesh->unsubscribe("test/topic");
     return true;
