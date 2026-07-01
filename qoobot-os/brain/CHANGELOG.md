@@ -80,11 +80,43 @@ All notable changes to QooBot Brain will be documented in this file.
 
 ---
 
+## [1.0.0-beta] — 2026-07-01
+
+### M6 仿真验证里程碑
+
+#### Added
+
+##### brain_sim (MuJoCo 真实物理仿真)
+- **sim_bridge.py Phase 2 M6 升级**: 从纯 mock 模式升级为支持真实 MuJoCo 后端连接
+  - 双模式: `backend="mock"` (CI 兼容) / `backend="mujoco"` (物理仿真)
+  - 通过 `qoodev.cli.sim_bridge.SimManager` 连接 MuJoCo 后端
+  - 真实传感器数据: 关节状态、基座位姿、渲染帧从 MuJoCo 引擎读取
+  - 行走控制接口: `set_walking_velocity()` / `stop_walking()`
+  - 仿真性能指标: `get_metrics()` 返回 RTF、步进耗时、基座高度/姿态
+  - 双足机器人场景: `load_robot_scene("qoobot_float")` 加载 QooBot 浮动基座模型
+- **e2e_demo_mujoco.py**: M6 真实物理仿真端到端演示
+  - 4 个验证场景: stand/walk/turn/full
+  - 6 阶段流水线: 初始化 → 场景加载 → 稳定站立 → 行走控制 → 感知 → 报告
+  - M6 自动验证检查: 高度 ≥ 1.0m, |Roll| ≤ 0.1rad, |Pitch| ≤ 0.1rad
+  - Mock 模式兼容: `--mock` 标志支持 CI 环境无 MuJoCo 运行
+- **brain_sim/__init__.py**: 模块初始化与公共 API 导出
+
+##### HAL MuJoCo (站立稳定性修复)
+- 浮动基座站立稳定性: 虚拟基座控制 (xfrc_applied) + qpos 索引修复
+- 模式自适应 PD 增益: 站立模式 vs 行走模式差异化控制参数
+- 高度参数统一: STAND_POSE 高度 1.11m 一致性
+
+### Changed
+- brain_sim 模块完成度: 30% → 60% (MuJoCo 路径完整)
+- 仿真验证覆盖: 从纯 mock 升级为真实物理仿真 + mock 双模式
+
+---
+
 ## 下一步
 
 Phase 2 路线图详见 [00_docs/12_Phase1回顾与Phase2路线.md](00_docs/12_Phase1回顾与Phase2路线.md)
 
-- M6: 仿真验证（第 28 周）
+- ~~M6: 仿真验证（第 28 周）~~ ✅ 2026-07-01
 - M7: 真机联调（第 32 周）
 - M8: SDK 发布（第 36 周）
 - M9: Phase 2 发布（第 40 周）
