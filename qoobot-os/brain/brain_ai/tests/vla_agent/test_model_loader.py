@@ -60,9 +60,11 @@ class TestModelLoader:
         assert "mock" in info.metadata.get("source", "")
 
     def test_load_trt_llm(self, loader):
-        """TensorRT-LLM 后端加载"""
+        """TensorRT-LLM 后端加载（无 GPU 环境回退到 mock）"""
         info = loader.load("test-model", backend=ModelBackend.TRT_LLM)
-        assert info.backend == ModelBackend.TRT_LLM
+        # 无 TRT-LLM 环境时回退到 MOCK
+        assert info.backend in (ModelBackend.TRT_LLM, ModelBackend.MOCK)
+        assert info.name == "test-model"
 
     def test_model_info_defaults(self):
         """VLAModelInfo 默认值"""

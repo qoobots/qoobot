@@ -44,6 +44,7 @@ class LoRAConfig:
     ])
     weight_path: Optional[str] = None
     merged: bool = False             # 是否已合并到基座权重
+    metadata: dict = field(default_factory=dict)  # 额外元数据
 
 
 class LoRAAdapter:

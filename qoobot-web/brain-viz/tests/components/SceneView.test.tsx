@@ -23,6 +23,9 @@ jest.mock('@react-three/fiber', () => ({
 jest.mock('@react-three/drei', () => ({
   OrbitControls: () => <div data-testid="orbit-controls" />,
   Grid: () => <div data-testid="drei-grid" />,
+  Line: ({ points }: { points: unknown[] }) => (
+    <div data-testid="drei-line">{points?.length ?? 0} points</div>
+  ),
   GizmoHelper: ({ children }: { children: React.ReactNode }) => (
     <div data-testid="gizmo-helper">{children}</div>
   ),
@@ -35,6 +38,20 @@ jest.mock('@react-three/drei', () => ({
 jest.mock('three', () => ({
   ...jest.requireActual('three'),
   WebGLRenderer: jest.fn(),
+}));
+
+jest.mock('@/stores/trajectoryStore', () => ({
+  useTrajectoryStore: jest.fn((selector) => {
+    const state = {
+      trajectories: [],
+      selectedId: null,
+      showGhostTrails: true,
+      setTrajectories: jest.fn(),
+      selectTrajectory: jest.fn(),
+      toggleGhostTrails: jest.fn(),
+    };
+    return selector ? selector(state) : state;
+  }),
 }));
 
 describe('SceneView', () => {
@@ -73,23 +90,26 @@ describe('CoordinateGrid', () => {
 describe('GhostTrail', () => {
   it('renders trajectory lines', () => {
     const { GhostTrail } = require('@/components/scene-view/GhostTrail');
-    const trajectories = [
-      {
-        id: 't1', strategy: 'OPTIMAL',
-        waypoints: [{ x: 0, y: 0, z: 0, time_from_start_sec: 0 }],
-        score: 1, collision_free: true, duration_sec: 1,
-      },
-    ];
+    const trajectory = {
+      id: 't1', strategy: 'OPTIMAL',
+      waypoints: [{ x: 0, y: 0, z: 0, time_from_start_sec: 0 }],
+      score: 1, collision_free: true, duration_sec: 1,
+    };
     const { container } = render(
-      <GhostTrail trajectories={trajectories} selectedId={null} />
+      <GhostTrail trajectory={trajectory} />
     );
     expect(container).toBeTruthy();
   });
 
-  it('renders empty when no trajectories', () => {
+  it('renders with empty waypoints gracefully', () => {
     const { GhostTrail } = require('@/components/scene-view/GhostTrail');
+    const trajectory = {
+      id: 't2', strategy: 'OPTIMAL',
+      waypoints: [],
+      score: 0.5, collision_free: true, duration_sec: 0,
+    };
     const { container } = render(
-      <GhostTrail trajectories={[]} selectedId={null} />
+      <GhostTrail trajectory={trajectory} />
     );
     expect(container).toBeTruthy();
   });

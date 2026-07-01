@@ -111,16 +111,16 @@ class TestChunkPredictor:
         chunk = ActionChunk(x=0.5, y=0.3, z=0.2, roll=0.0, pitch=0.0, yaw=1.57, gripper=0.8)
         arr = chunk.as_array()
         assert arr.shape == (7,)
-        assert arr[0] == 0.5
-        assert arr[6] == 0.8
+        assert arr[0] == pytest.approx(0.5)
+        assert arr[6] == pytest.approx(0.8)
 
     def test_action_chunk_from_array(self):
         """numpy → ActionChunk"""
         arr = np.array([0.5, 0.3, 0.2, 0.0, 0.0, 1.57, 0.8], dtype=np.float32)
         chunk = ActionChunk.from_array(arr, confidence=0.9)
-        assert chunk.x == 0.5
-        assert chunk.y == 0.3
-        assert chunk.confidence == 0.9
+        assert chunk.x == pytest.approx(0.5)
+        assert chunk.y == pytest.approx(0.3)
+        assert chunk.confidence == pytest.approx(0.9)
 
     def test_action_chunk_defaults(self):
         """默认值"""
