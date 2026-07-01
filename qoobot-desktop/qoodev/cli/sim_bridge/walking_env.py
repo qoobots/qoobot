@@ -95,6 +95,7 @@ class QooBotWalkingEnv(gym.Env):
         max_episode_steps: int = 1000,
         target_velocity: float = 0.5,
         use_mpc_guide: bool = False,
+        use_openloong_controller: bool = False,
     ):
         super().__init__()
 
@@ -107,6 +108,7 @@ class QooBotWalkingEnv(gym.Env):
         self.max_episode_steps = max_episode_steps
         self.target_velocity = target_velocity
         self.use_mpc_guide = use_mpc_guide
+        self.use_openloong_controller = use_openloong_controller
 
         # 模型路径
         if model_path is None:
@@ -177,8 +179,11 @@ class QooBotWalkingEnv(gym.Env):
 
         # MPC 引导 (可选)
         self._mpc_controller = None
+        self._openloong_ctrl = None
         if use_mpc_guide:
             self._init_mpc_guide()
+        if use_openloong_controller:
+            self._init_openloong_controller()
 
     def _init_mpc_guide(self):
         """初始化 MPC 引导控制器。"""
@@ -197,6 +202,31 @@ class QooBotWalkingEnv(gym.Env):
         except Exception as e:
             logger.warning(f"MPC 引导控制器初始化失败: {e}")
 
+    def _init_openloong_controller(self):
+        """初始化 OpenLoong 风格 MPC+WBC 控制器。"""
+        walking_dir = _find_walking_dir()
+        if walking_dir is None:
+            logger.warning("OpenLoong 控制器不可用: 未找到控制器目录")
+            return
+        walking_dir_str = str(walking_dir)
+        if walking_dir_str not in sys.path:
+            sys.path.insert(0, walking_dir_str)
+        try:
+            from openloong_mpc_wbc import OpenLoongWalkingController
+            self._openloong_ctrl = OpenLoongWalkingController(self._model, self._data)
+            # 设置目标速度（行走模式）
+            self._openloong_ctrl.set_velocity(self.target_velocity, 0.0, 0.0)
+            # 站立高度匹配 STAND_POSE 运动学高度（脚底刚好触地）
+            self._openloong_ctrl.stand_height = 1.11
+            logger.info(
+                f"OpenLoong MPC+WBC 控制器已初始化 "
+                f"(目标速度: {self.target_velocity} m/s, 站立高度: {self._openloong_ctrl.stand_height:.2f}m)"
+            )
+        except Exception as e:
+            logger.warning(f"OpenLoong 控制器初始化失败: {e}")
+            import traceback
+            traceback.print_exc()
+
     # ── Gym API ──────────────────────────────────────
 
     def reset(self, seed=None, options=None):
@@ -211,8 +241,8 @@ class QooBotWalkingEnv(gym.Env):
             if info:
                 self._data.qpos[info["qpos_addr"]] = angle
 
-        # 基座初始高度
-        self._data.qpos[2] = 1.0
+        # 基座初始高度（STAND_POSE 运动学计算：脚底刚好触地）
+        self._data.qpos[2] = 1.11
 
         # 随机扰动
         if self.np_random is not None:
@@ -246,30 +276,52 @@ class QooBotWalkingEnv(gym.Env):
         self._step_count += 1
 
         # 施加动作: 目标位置 = 站立姿态 + 动作偏移
+        # 先计算 RL PD 力矩，但不直接写入 ctrl（等 MPC 力矩计算完后叠加）
+        rl_torques = {}
         for i, jname in enumerate(self.LEG_JOINTS):
             info = self._joint_info.get(jname)
             if info:
                 target = self.STAND_POSE.get(jname, 0.0) + float(action[i])
                 current = self._data.qpos[info["qpos_addr"]]
                 velocity = self._data.qvel[info["dof_addr"]]
-
-                # PD 控制
                 aname = self.LEG_ACTUATORS[i]
                 aid = self._act_ids.get(aname)
                 if aid is not None:
                     kp = 200.0
                     kd = 10.0
                     torque = kp * (target - current) - kd * velocity
-                    self._data.ctrl[aid] = np.clip(torque, -396, 396)
+                    rl_torques[aid] = np.clip(torque, -396, 396)
 
         # 物理步进 (仿真 2ms * 5 = 控制周期 10ms)
-        for _ in range(5):
-            if self._mpc_controller is not None:
+        for sub_step in range(5):
+            # 如果使用 OpenLoong MPC+WBC 控制器，在每个子步调用
+            if self._openloong_ctrl is not None:
+                try:
+                    self._openloong_ctrl.step()
+                except Exception:
+                    pass
+            elif self._mpc_controller is not None:
                 try:
                     self._mpc_controller.step()
                 except Exception:
                     pass
+
             self._mj.mj_step(self._model, self._data)
+
+            if self.render_mode == "human" and self._viewer is not None and self._viewer.is_running():
+                self._viewer.sync()
+
+        # RL PD 力矩叠加到 ctrl（在 MPC/WBC 力矩之上）
+        # 如果使用了 OpenLoong 控制器，RL 力矩作为额外引导叠加
+        if self._openloong_ctrl is not None or self._mpc_controller is not None:
+            for aid, rl_torque in rl_torques.items():
+                # 叠加：MPC 提供基础力矩，RL 提供微调
+                self._data.ctrl[aid] += rl_torque * 0.3  # RL 力矩衰减为 30%
+                self._data.ctrl[aid] = np.clip(self._data.ctrl[aid], -396, 396)
+        else:
+            # 纯 RL 模式：直接写入 ctrl
+            for aid, rl_torque in rl_torques.items():
+                self._data.ctrl[aid] = rl_torque
 
         # 观测
         obs = self._get_obs()
@@ -287,9 +339,6 @@ class QooBotWalkingEnv(gym.Env):
             "base_height": float(self._data.qpos[2]),
             "base_vel_x": float(self._data.qvel[0]),
         }
-
-        if self.render_mode == "human":
-            self._render()
 
         return obs, float(reward), terminated, truncated, info
 
@@ -352,42 +401,49 @@ class QooBotWalkingEnv(gym.Env):
         return obs
 
     def _compute_reward(self, action: np.ndarray) -> float:
-        """计算奖励。"""
+        """计算奖励 (参考 DeepMind MuJoCo 行走任务设计)。"""
         data = self._data
 
         base_quat = data.qpos[3:7].copy()
         rpy = self._quat_to_rpy(base_quat)
 
         vx = float(data.qvel[0])
+        vy = float(data.qvel[1])
         height = float(data.qpos[2])
-        target_height = 1.0
+        target_height = 1.11
+        target_vel = self.target_velocity  # 0.5 m/s
 
-        # 前进速度奖励
-        vel_reward = vx * 2.0
+        # 1. 目标速度高斯奖励 (核心：鼓励精确匹配 0.5m/s)
+        vel_reward = np.exp(-((vx - target_vel) ** 2) / 0.25)
 
-        # 存活奖励
-        alive_bonus = 0.5
+        # 2. 存活奖励 (保持活着)
+        alive_bonus = 1.0
 
-        # 姿态惩罚
+        # 3. 姿态惩罚 (保持直立)
         roll, pitch = rpy[0], rpy[1]
-        orientation_penalty = -(roll ** 2 + pitch ** 2) * 0.5
+        orientation_penalty = -(roll ** 2 + pitch ** 2) * 2.0
 
-        # 能耗惩罚
-        energy_penalty = -float(np.sum(np.square(action))) * 0.001
+        # 4. 能耗惩罚 (减小，避免过度惩罚动作)
+        energy_penalty = -float(np.sum(np.square(action))) * 0.0005
 
-        # 高度惩罚
-        height_penalty = -((height - target_height) ** 2) * 2.0
+        # 5. 高度惩罚 (保持目标高度)
+        height_penalty = -((height - target_height) ** 2) * 5.0
 
-        # 侧向速度惩罚
-        lateral_penalty = -(data.qvel[1] ** 2) * 0.5
+        # 6. 侧向速度惩罚 (直线前进)
+        lateral_penalty = -(vy ** 2) * 1.0
+
+        # 7. 关节加速度惩罚 (鼓励平滑动作)
+        action_diff = action - self._prev_action
+        smooth_penalty = -float(np.sum(np.square(action_diff))) * 0.01
 
         reward = (
-            vel_reward
+            vel_reward * 2.0
             + alive_bonus
             + orientation_penalty
             + energy_penalty
             + height_penalty
             + lateral_penalty
+            + smooth_penalty
         )
 
         return reward
@@ -423,8 +479,8 @@ class QooBotWalkingEnv(gym.Env):
                 aname = self.LEG_ACTUATORS[i]
                 aid = self._act_ids.get(aname)
                 if aid is not None:
-                    kp = 200.0
-                    kd = 10.0
+                    kp = 400.0  # 提高增益以更好支撑
+                    kd = 15.0
                     torque = kp * (target - current) - kd * velocity
                     self._data.ctrl[aid] = np.clip(torque, -396, 396)
 
@@ -436,14 +492,14 @@ class QooBotWalkingEnv(gym.Env):
         return self._renderer.render()
 
     def _render(self):
-        """启动/更新渲染窗口。"""
+        """启动/更新渲染窗口 (被动模式 + 主动同步)。"""
         if self._viewer is None:
             try:
                 from mujoco import viewer as mj_viewer
                 self._viewer = mj_viewer.launch_passive(
                     self._model, self._data,
-                    show_left_ui=True,
-                    show_right_ui=True,
+                    show_left_ui=False,
+                    show_right_ui=False,
                 )
             except Exception as e:
                 logger.warning(f"无法启动渲染窗口: {e}")

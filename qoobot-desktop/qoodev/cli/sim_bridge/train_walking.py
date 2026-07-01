@@ -42,6 +42,7 @@ def train(
     log_dir: Optional[str] = None,
     no_render: bool = False,
     use_mpc_guide: bool = False,
+    use_openloong: bool = False,
     seed: int = 42,
     **kwargs,
 ):
@@ -55,6 +56,7 @@ def train(
         log_dir: 日志目录
         no_render: 禁用渲染
         use_mpc_guide: 使用 MPC 引导
+        use_openloong: 使用 OpenLoong 风格 MPC+WBC 控制器
         seed: 随机种子
     """
     # ── 检查依赖 ────────────────────────────────────
@@ -99,6 +101,7 @@ def train(
     print(f"  总步数: {total_timesteps:,}")
     print(f"  日志目录: {log_dir}")
     print(f"  MPC 引导: {'是' if use_mpc_guide else '否'}")
+    print(f"  OpenLoong 控制器: {'是' if use_openloong else '否'}")
     print(f"{'='*60}\n")
 
     # ── 仅评估模式 ──────────────────────────────────
@@ -113,14 +116,15 @@ def train(
                 max_episode_steps=1000,
                 target_velocity=0.5,
                 use_mpc_guide=use_mpc_guide,
+                use_openloong_controller=use_openloong,
             )
             env = Monitor(env)
             env.reset(seed=seed + rank)
             return env
         return _init
 
-    # 训练环境 (4 并行)
-    n_envs = 4
+    # 训练环境 (16 并行，更好利用 GPU)
+    n_envs = 16
     print(f"[INFO] 创建 {n_envs} 个并行训练环境...")
     train_env = DummyVecEnv([make_env(i, seed) for i in range(n_envs)])
     train_env = VecNormalize(train_env, norm_obs=True, norm_reward=True, clip_obs=10.)
@@ -132,21 +136,21 @@ def train(
 
     # ── 算法配置 ─────────────────────────────────────
     policy_kwargs = dict(
-        net_arch=dict(pi=[256, 256], vf=[256, 256]),
+        net_arch=dict(pi=[512, 512, 256], vf=[512, 512, 256]),
     )
 
     if algo == "ppo":
         model = PPO(
             "MlpPolicy",
             train_env,
-            learning_rate=3e-4,
+            learning_rate=1e-4,
             n_steps=2048,
-            batch_size=64,
+            batch_size=512,
             n_epochs=10,
             gamma=0.99,
             gae_lambda=0.95,
             clip_range=0.2,
-            ent_coef=0.01,
+            ent_coef=0.02,
             vf_coef=0.5,
             max_grad_norm=0.5,
             policy_kwargs=policy_kwargs,
@@ -237,22 +241,17 @@ def train(
 
 
 def _evaluate_only(algo: str, model_path: str, no_render: bool):
-    """仅评估已训练的模型。"""
+    """仅评估已训练的模型。
+
+    使用裸环境 + 手动 VecNormalize 归一化，确保渲染正常。
+    """
+    import pickle as _pickle
     import gymnasium as gym
     from stable_baselines3 import PPO, SAC
 
     from cli.sim_bridge.walking_env import QooBotWalkingEnv
 
     render_mode = None if no_render else "human"
-    env = QooBotWalkingEnv(render_mode=render_mode, max_episode_steps=2000)
-
-    # 加载模型
-    if algo == "ppo":
-        model = PPO.load(model_path)
-    elif algo == "sac":
-        model = SAC.load(model_path)
-    else:
-        raise ValueError(f"未知算法: {algo}")
 
     print(f"\n{'='*60}")
     print(f"  评估模式")
@@ -260,17 +259,68 @@ def _evaluate_only(algo: str, model_path: str, no_render: bool):
     print(f"  渲染: {'关闭' if no_render else '开启'}")
     print(f"{'='*60}\n")
 
+    # ── 加载 VecNormalize 统计 ─────────────────────
+    obs_mean = None
+    obs_var = None
+    stats_path = model_path.replace(".zip", "_vecnormalize.pkl")
+    if not os.path.exists(stats_path):
+        model_dir = os.path.dirname(os.path.abspath(model_path))
+        stats_path = os.path.join(model_dir, "vecnormalize.pkl")
+
+    if os.path.exists(stats_path):
+        print(f"[INFO] 加载 VecNormalize 统计: {stats_path}")
+        with open(stats_path, "rb") as f:
+            vn_obj = _pickle.load(f)
+        # VecNormalize 对象直接 pickle 存储，obs_rms 是 RunningMeanStd 实例
+        if hasattr(vn_obj, "obs_rms"):
+            obs_mean = vn_obj.obs_rms.mean.copy()
+            obs_var = vn_obj.obs_rms.var.copy()
+            print(f"[INFO] 观测归一化已启用 (obs_dim={len(obs_mean)})")
+        else:
+            print("[WARN] VecNormalize 文件格式异常，使用原始观测")
+    else:
+        print("[WARN] 未找到 VecNormalize 统计文件，使用原始观测 (结果可能不准确)")
+
+    # ── 裸环境 (保证渲染正常) ──────────────────────
+    env = QooBotWalkingEnv(render_mode=render_mode, max_episode_steps=2000)
+
+    # ── 加载模型 ───────────────────────────────────
+    if algo == "ppo":
+        model = PPO.load(model_path)
+    elif algo == "sac":
+        model = SAC.load(model_path)
+    else:
+        raise ValueError(f"未知算法: {algo}")
+
+    def _normalize_obs(raw_obs):
+        """手动 VecNormalize 观测归一化。"""
+        if obs_mean is None or obs_var is None:
+            return raw_obs
+        eps = 1e-8
+        return (raw_obs - obs_mean) / np.sqrt(obs_var + eps)
+
     if not no_render:
         print("[INFO] 渲染窗口已打开，按 Ctrl+C 退出\n")
+        import time as _time
 
-    obs, _ = env.reset()
+    raw_obs, _ = env.reset()
+    obs = _normalize_obs(raw_obs.astype(np.float32))
     total_reward = 0
     step = 0
+    episode_count = 0
+    episode_rewards = []
+    episode_lengths = []
 
     try:
         while True:
             action, _ = model.predict(obs, deterministic=True)
-            obs, reward, terminated, truncated, info = env.step(action)
+            raw_obs, reward, terminated, truncated, info = env.step(action)
+            obs = _normalize_obs(raw_obs.astype(np.float32))
+
+            # 慢放渲染
+            if not no_render:
+                _time.sleep(0.05)
+
             total_reward += reward
             step += 1
 
@@ -280,16 +330,28 @@ def _evaluate_only(algo: str, model_path: str, no_render: bool):
                       f"Vel X: {info.get('base_vel_x', 0):.3f}")
 
             if terminated or truncated:
-                print(f"\n  Episode 结束:")
+                episode_count += 1
+                episode_rewards.append(total_reward)
+                episode_lengths.append(step)
+                print(f"\n  Episode {episode_count} 结束:")
                 print(f"    总步数: {step}")
                 print(f"    总奖励: {total_reward:.2f}")
                 print(f"    终止原因: {'跌倒' if terminated else '超时'}")
-                obs, _ = env.reset()
+                raw_obs, _ = env.reset()
+                obs = _normalize_obs(raw_obs.astype(np.float32))
                 total_reward = 0
                 step = 0
 
     except KeyboardInterrupt:
         print("\n[INFO] 评估已停止")
+
+    # ── 汇总 ───────────────────────────────────────
+    if episode_rewards:
+        print(f"\n{'='*60}")
+        print(f"  评估汇总 ({episode_count} 个 episode)")
+        print(f"  平均步数: {np.mean(episode_lengths):.1f} +/- {np.std(episode_lengths):.1f}")
+        print(f"  平均奖励: {np.mean(episode_rewards):.2f} +/- {np.std(episode_rewards):.2f}")
+        print(f"{'='*60}")
 
     env.close()
 
@@ -307,6 +369,8 @@ if __name__ == "__main__":
     parser.add_argument("--log-dir", type=str, help="日志目录")
     parser.add_argument("--no-render", action="store_true", help="禁用渲染")
     parser.add_argument("--mpc-guide", action="store_true", help="MPC 引导")
+    parser.add_argument("--openloong", action="store_true", dest="use_openloong",
+                        help="使用 OpenLoong 风格 MPC+WBC 控制器")
     parser.add_argument("--seed", type=int, default=42, help="随机种子")
 
     args = parser.parse_args()

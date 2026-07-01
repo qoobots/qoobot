@@ -313,6 +313,10 @@ def sim_train(
         False, "--mpc-guide",
         help="使用 MPC 引导训练"
     ),
+    openloong: bool = typer.Option(
+        False, "--openloong",
+        help="使用 OpenLoong 风格 MPC+WBC 控制器引导训练"
+    ),
     seed: int = typer.Option(
         42, "--seed",
         help="随机种子"
@@ -329,6 +333,7 @@ def sim_train(
         qoo sim train --resume ./logs/.../checkpoint.zip   # 继续训练
         qoo sim train --eval ./logs/.../best_model.zip     # 评估模型
         qoo sim train --mpc-guide                          # MPC 引导训练
+        qoo sim train --openloong                          # OpenLoong MPC+WBC 控制器引导训练
     """
     from cli.sim_bridge.train_walking import train
 
@@ -348,6 +353,7 @@ def sim_train(
         log_dir=log_dir,
         no_render=no_render,
         use_mpc_guide=mpc_guide,
+        use_openloong=openloong,
         seed=seed,
     )
 
